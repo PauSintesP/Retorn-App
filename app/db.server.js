@@ -1,11 +1,4 @@
-import { PrismaClient } from "@prisma/client";
+// Database no longer needed for this app
+// Sessions are handled in memory or via Shopify's session storage
 
-if (process.env.NODE_ENV !== "production") {
-  if (!global.prismaGlobal) {
-    global.prismaGlobal = new PrismaClient();
-  }
-}
-
-const prisma = global.prismaGlobal ?? new PrismaClient();
-
-export default prisma;
+export default null;
