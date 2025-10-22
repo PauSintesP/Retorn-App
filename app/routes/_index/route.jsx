@@ -18,34 +18,31 @@ export default function App() {
   return (
     <div className={styles.index}>
       <div className={styles.content}>
-        <h1 className={styles.heading}>A short heading about [your app]</h1>
+        <h1 className={styles.heading}>Retorn App - Recomendador de Productos</h1>
         <p className={styles.text}>
-          A tagline about [your app] that describes your value proposition.
+          Sistema inteligente de recomendación de productos personalizados basado en tus necesidades.
         </p>
         {showForm && (
           <Form className={styles.form} method="post" action="/auth/login">
             <label className={styles.label}>
-              <span>Shop domain</span>
-              <input className={styles.input} type="text" name="shop" />
-              <span>e.g: my-shop-domain.myshopify.com</span>
+              <span>Dominio de tu tienda Shopify</span>
+              <input className={styles.input} type="text" name="shop" placeholder="mi-tienda.myshopify.com" />
+              <span>e.g: mi-tienda.myshopify.com</span>
             </label>
             <button className={styles.button} type="submit">
-              Log in
+              Acceder
             </button>
           </Form>
         )}
         <ul className={styles.list}>
           <li>
-            <strong>Product feature</strong>. Some detail about your feature and
-            its benefit to your customer.
+            <strong>Cuestionario Personalizado</strong>. Preguntas diseñadas para entender las necesidades específicas de cada usuario.
           </li>
           <li>
-            <strong>Product feature</strong>. Some detail about your feature and
-            its benefit to your customer.
+            <strong>Recomendaciones Inteligentes</strong>. Algoritmo avanzado que sugiere los productos más adecuados según las respuestas.
           </li>
           <li>
-            <strong>Product feature</strong>. Some detail about your feature and
-            its benefit to your customer.
+            <strong>Integración con Shopify</strong>. Acceso directo a los productos recomendados en tu tienda.
           </li>
         </ul>
       </div>
