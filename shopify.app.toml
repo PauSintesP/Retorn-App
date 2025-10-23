@@ -2,7 +2,7 @@
 
 client_id = "f482244be36568d0feadd8b8dd320f00"
 name = "Retorn-App"
-application_url = "https://retorn-app.vercel.app/app"
+application_url = "https://retorn-app.vercel.app"
 embedded = true
 
 [build]

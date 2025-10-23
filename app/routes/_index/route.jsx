@@ -2,19 +2,9 @@ import { redirect } from "react-router";
 
 export const loader = async ({ request }) => {
   const url = new URL(request.url);
-  
-  // Si viene el parámetro 'embedded' de Shopify, redirigir a /app directamente
-  if (url.searchParams.get("embedded") === "1") {
-    throw redirect(`/app?${url.searchParams.toString()}`);
-  }
 
-  // Si viene el parámetro 'shop', redirigir al flujo de login OAuth
-  if (url.searchParams.get("shop")) {
-    throw redirect(`/auth/login?${url.searchParams.toString()}`);
-  }
-
-  // Si viene el parámetro 'host' (típico de Shopify embedded apps), redirigir a /app
-  if (url.searchParams.get("host")) {
+  // Si viene cualquier parámetro de Shopify, redirigir a /app y dejar que maneje la auth
+  if (url.searchParams.toString()) {
     throw redirect(`/app?${url.searchParams.toString()}`);
   }
 
