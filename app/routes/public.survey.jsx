@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { json } from "react-router";
 import { getVisibleQuestions } from "../data/surveyQuestions";
 import { getSurveyStyles } from "../styles/surveyStyles";
 import ProgressBar from "../components/survey/ProgressBar";
@@ -14,7 +13,7 @@ import { calcularRecomendacionProductos } from "../utils/productRecommendation";
  * Loader: Esta ruta es PÚBLICA, no requiere autenticación
  */
 export const loader = async () => {
-  return json({ public: true });
+  return { public: true };
 };
 
 /**
@@ -31,7 +30,7 @@ export const action = async ({ request }) => {
   // TODO: Guardar en base de datos o enviar a webhook
   console.log("Public survey answers:", answers);
 
-  return json({ success: true, answers });
+  return { success: true, answers };
 };
 
 /**
