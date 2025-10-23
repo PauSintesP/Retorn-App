@@ -97,6 +97,37 @@ export default function PublicSurveyPage() {
   }, [visibleQuestions.length, currentStep]);
 
   /**
+   * Efecto: Enviar altura al iframe padre para auto-resize
+   */
+  useEffect(() => {
+    const sendHeight = () => {
+      try {
+        const h = document.documentElement.scrollHeight || document.body.scrollHeight;
+        window.parent.postMessage({ type: "retorn-survey-height", height: h }, "*");
+      } catch (e) {
+        // Silenciar errores de postMessage
+      }
+    };
+
+    // Enviar altura inicial
+    sendHeight();
+
+    // Observar cambios de tamaño del contenido
+    const ro = new ResizeObserver(sendHeight);
+    ro.observe(document.documentElement);
+    ro.observe(document.body);
+
+    // Enviar periódicamente por si hay animaciones o cambios dinámicos
+    const interval = setInterval(sendHeight, 600);
+
+    // Cleanup
+    return () => {
+      ro.disconnect();
+      clearInterval(interval);
+    };
+  }, []);
+
+  /**
    * Maneja el cambio de respuesta
    */
   const handleAnswerChange = (questionId, value) => {

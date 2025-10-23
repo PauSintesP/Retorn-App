@@ -1,21 +1,33 @@
 # Código de Embed para tu Tienda Shopify
 
-## Opción 1: Embed completo en una página (Recomendado)
+## Opción 1: Iframe con auto-resize (RECOMENDADO)
 
 Crea una nueva página en tu tienda Shopify y pega este código en el HTML:
 
 ```html
-<div id="retorn-survey-container" style="width: 100%; min-height: 800px;">
-  <iframe 
-    src="https://retorn-app.vercel.app/public/survey"
-    style="width: 100%; height: 800px; border: none; border-radius: 12px;"
-    title="Cuestionario Personalizado Retorn"
-    allowfullscreen
-  ></iframe>
-</div>
+<!-- Iframe del cuestionario -->
+<iframe 
+  id="retorn-survey"
+  src="https://retorn-app.vercel.app/public/survey"
+  style="width: 100%; min-height: 400px; border: none; border-radius: 12px;"
+  title="Cuestionario Personalizado Retorn"
+  sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
+></iframe>
+
+<!-- Script para auto-ajustar altura -->
+<script>
+  window.addEventListener('message', function(e) {
+    if (!e.data || e.data.type !== 'retorn-survey-height') return;
+    
+    var iframe = document.getElementById('retorn-survey');
+    if (iframe && e.data.height) {
+      iframe.style.height = e.data.height + 'px';
+    }
+  }, false);
+</script>
 ```
 
-## Opción 2: Botón flotante que abre el cuestionario en modal
+## Opción 2: Botón flotante con modal (Mejor UX)
 
 Añade este código al final de tu tema (Edit code → theme.liquid antes del `</body>`):
 
@@ -56,7 +68,7 @@ Añade este código al final de tu tema (Edit code → theme.liquid antes del `<
   <div style="
     position: relative;
     width: 90%;
-    max-width: 800px;
+    max-width: 900px;
     height: 90%;
     background: white;
     border-radius: 12px;
@@ -82,6 +94,7 @@ Añade este código al final de tu tema (Edit code → theme.liquid antes del `<
       src="https://retorn-app.vercel.app/public/survey"
       style="width: 100%; height: 100%; border: none;"
       title="Cuestionario Personalizado Retorn"
+      sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
     ></iframe>
   </div>
 </div>
@@ -91,23 +104,34 @@ Añade este código al final de tu tema (Edit code → theme.liquid antes del `<
     const btn = document.getElementById('retorn-survey-btn');
     const modal = document.getElementById('retorn-survey-modal');
     const closeBtn = document.getElementById('retorn-survey-close');
+    const iframe = document.getElementById('retorn-survey-iframe');
     
+    // Abrir modal
     btn.addEventListener('click', function() {
       modal.style.display = 'flex';
       document.body.style.overflow = 'hidden';
     });
     
+    // Cerrar modal
     closeBtn.addEventListener('click', function() {
       modal.style.display = 'none';
       document.body.style.overflow = '';
     });
     
+    // Cerrar al hacer click fuera
     modal.addEventListener('click', function(e) {
       if (e.target === modal) {
         modal.style.display = 'none';
         document.body.style.overflow = '';
       }
     });
+
+    // Auto-resize del iframe
+    window.addEventListener('message', function(e) {
+      if (e.data && e.data.type === 'retorn-survey-height' && e.data.height) {
+        iframe.style.height = Math.min(e.data.height, window.innerHeight * 0.9) + 'px';
+      }
+    }, false);
 
     // Efecto hover en el botón
     btn.addEventListener('mouseenter', function() {
