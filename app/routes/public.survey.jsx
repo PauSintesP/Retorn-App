@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { json } from "@react-router/node";
+import { json } from "react-router";
 import { getVisibleQuestions } from "../data/surveyQuestions";
 import { getSurveyStyles } from "../styles/surveyStyles";
 import ProgressBar from "../components/survey/ProgressBar";
