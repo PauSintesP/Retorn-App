@@ -195,74 +195,59 @@ export default function PublicSurveyPage() {
     setShowRecommendation(true);
   };
 
-  // Renderizado condicional
-  if (showPathologyContact) {
-    return (
-      <>
-        <style dangerouslySetInnerHTML={{ __html: getSurveyStyles(direction) }} />
-        <PathologyContactForm
-          onSubmit={handleContactSubmit}
-          answers={answers}
-        />
-      </>
-    );
-  }
-
-  if (showRecommendation && recommendation) {
-    return (
-      <>
-        <style dangerouslySetInnerHTML={{ __html: getSurveyStyles(direction) }} />
-        <RecommendationResult
-          recommendation={recommendation}
-          answers={answers}
-          onRestart={() => {
-            setAnswers({});
-            setCurrentStep(0);
-            setStarted(false);
-            setShowRecommendation(false);
-            setRecommendation(null);
-          }}
-        />
-      </>
-    );
-  }
-
-  if (!started) {
-    return (
-      <>
-        <style dangerouslySetInnerHTML={{ __html: getSurveyStyles(direction) }} />
-        <div className="survey-container">
-          <div className="survey-content">
-            <SurveyIntro onStart={() => setStarted(true)} />
-          </div>
-        </div>
-      </>
-    );
-  }
-
+  // Renderizado principal
   return (
     <>
-      <style dangerouslySetInnerHTML={{ __html: getSurveyStyles(direction) }} />
+      <style>{getSurveyStyles(direction)}</style>
+
       <div className="survey-container">
+        <ProgressBar progress={progress} />
+
         <div className="survey-content">
-          <ProgressBar progress={progress} />
+          {!started ? (
+            <SurveyIntro onStart={() => setStarted(true)} />
+          ) : showPathologyContact ? (
+            <div className="pathology-wrapper">
+              <PathologyContactForm 
+                answers={answers}
+                onBack={() => setShowPathologyContact(false)}
+              />
+            </div>
+          ) : showRecommendation && recommendation ? (
+            <div className="recommendation-wrapper">
+              <RecommendationResult
+                recommendation={recommendation}
+                answers={answers}
+                onRestart={() => {
+                  setAnswers({});
+                  setCurrentStep(0);
+                  setStarted(false);
+                  setShowRecommendation(false);
+                  setShowPathologyContact(false);
+                  setRecommendation(null);
+                }}
+              />
+            </div>
+          ) : (
+            <>
+              {currentQuestion && (
+                <QuestionCard
+                  question={currentQuestion}
+                  answer={answers[currentQuestion.id]}
+                  onChange={(value) => handleAnswerChange(currentQuestion.id, value)}
+                  direction={direction}
+                />
+              )}
 
-          {currentQuestion && (
-            <QuestionCard
-              question={currentQuestion}
-              answer={answers[currentQuestion.id]}
-              onChange={(value) => handleAnswerChange(currentQuestion.id, value)}
-              direction={direction}
-            />
+              <NavigationButtons
+                onBack={handleBack}
+                onNext={handleNext}
+                showBack={currentStep > 0}
+                canProceed={isAnswerValid()}
+                isLastQuestion={currentStep === totalQuestions - 1}
+              />
+            </>
           )}
-
-          <NavigationButtons
-            onBack={handleBack}
-            onNext={handleNext}
-            showBack={currentStep > 0}
-            canProceed={isAnswerValid()}
-            isLastQuestion={currentStep === totalQuestions - 1}
-          />
         </div>
       </div>
     </>
