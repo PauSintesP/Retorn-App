@@ -94,3 +94,4 @@ Asegúrate de tener un archivo `.env` local con las mismas variables para desarr
 4. ✅ Desinstalar la app de tu tienda de desarrollo (si ya estaba instalada)
 5. ✅ Reinstalar la app desde el Partner Dashboard
 6. ✅ Probar que la app carga correctamente
+7.✅ Probar que la app carga correctamente
