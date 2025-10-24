@@ -1074,23 +1074,25 @@ export const getSurveyStyles = (direction) => `
 
   .product-image-container {
     width: 100%;
-    height: 200px;
-    margin: 0 0 1rem 0;
+    height: 220px;
+    margin: 0 0 1.25rem 0;
     overflow: hidden;
-    background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
+    background: white;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1.5rem;
+    padding: 2rem;
     flex-shrink: 0;
-    border-radius: 5px;
+    border-radius: 8px;
+    border: 1px solid rgba(115, 159, 153, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
   }
 
   @media (min-width: 768px) {
     .product-image-container {
-      height: 300px;
+      height: 320px;
       margin: 0 0 1.5rem 0;
-      padding: 2rem;
+      padding: 2.5rem;
     }
   }
 
@@ -1248,7 +1250,7 @@ export const getSurveyStyles = (direction) => `
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0;
+    gap: 1rem;
   }
 
   @media (min-width: 768px) {
@@ -1256,7 +1258,7 @@ export const getSurveyStyles = (direction) => `
       margin: 5rem 0 2.5rem 0;
       flex-direction: row;
       justify-content: center;
-      gap: 0;
+      gap: 1.5rem;
     }
   }
 
@@ -1264,13 +1266,13 @@ export const getSurveyStyles = (direction) => `
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem 2rem;
+    padding: 1.1rem 2.5rem;
     background: linear-gradient(135deg, var(--jdgm-paginate-color) 0%, #5a8a84 100%);
     color: white;
     border: none;
     border-radius: 5px;
     font-family: 'Oswald', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1.5px;
@@ -1279,6 +1281,13 @@ export const getSurveyStyles = (direction) => `
     box-shadow: 
       0 10px 30px rgba(115, 159, 153, 0.3),
       0 4px 12px rgba(0, 0, 0, 0.1);
+    min-width: 280px;
+  }
+
+  @media (min-width: 768px) {
+    .add-to-cart-button {
+      min-width: 320px;
+    }
   }
 
   .add-to-cart-button:hover {
@@ -1297,27 +1306,25 @@ export const getSurveyStyles = (direction) => `
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem 2rem;
+    padding: 1.1rem 2.5rem;
     background: white;
     color: var(--jdgm-paginate-color);
     border: 2px solid var(--jdgm-paginate-color);
     border-radius: 5px;
     font-family: 'Oswald', sans-serif;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.5px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    margin-top: 1rem;
     box-shadow: 0 4px 12px rgba(115, 159, 153, 0.15);
+    min-width: 280px;
   }
 
   @media (min-width: 768px) {
     .restart-survey-button {
-      padding: 1.25rem 3rem;
-      margin-top: 0;
-      margin-left: 1rem;
+      min-width: 320px;
     }
   }
 
