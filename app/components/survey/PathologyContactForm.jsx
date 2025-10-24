@@ -147,10 +147,11 @@ export default function PathologyContactForm({ answers, onBack }) {
           Te contactaremos en las próximas <strong>24-48 horas</strong> para ofrecerte 
           la mejor recomendación adaptada a sus necesidades específicas.
         </p>
-        <div className="back">
-          <button onClick={onBack}>Volver</button>
+        <div className="success-actions">
+          <button className="btn-back-success" onClick={onBack}>
+            ← Volver al cuestionario
+          </button>
         </div>
-        
       </div>
     );
   }

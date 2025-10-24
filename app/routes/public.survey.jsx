@@ -143,20 +143,8 @@ export default function PublicSurveyPage() {
   const goNext = () => {
     setDirection("forward");
     setTimeout(() => {
-      // Verificar si es pregunta de patologías con respuestas
-      const esPatologias = currentQuestion.id === "7_gato" || currentQuestion.id === "9_perro";
-      const respuestaPatologias = answers[`q${currentQuestion.id}`];
-      const tienePatologiasActual = Array.isArray(respuestaPatologias) && 
-                              respuestaPatologias.length > 0 &&
-                              !respuestaPatologias.includes("Ninguna");
-      
-      if (esPatologias && tienePatologiasActual) {
-        // Saltar al final del formulario (última pregunta)
-        setCurrentStep(totalQuestions - 1);
-      } else {
-        // Navegación normal
-        setCurrentStep((prev) => Math.min(prev + 1, totalQuestions - 1));
-      }
+      // Navegación normal a la siguiente pregunta
+      setCurrentStep((prev) => Math.min(prev + 1, totalQuestions - 1));
     }, 50);
   };
 

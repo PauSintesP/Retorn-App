@@ -2,7 +2,7 @@
  * Componente para mostrar la recomendación de productos
  */
 
-export default function RecommendationResult({ recommendation }) {
+export default function RecommendationResult({ recommendation, onRestart }) {
   if (!recommendation) {
     return null;
   }
@@ -100,19 +100,21 @@ export default function RecommendationResult({ recommendation }) {
               </p>
             </div>
             
-            <ProductCard
-              producto={recomendacion.productoSeco}
-              tipo="Alimento Seco (75%)"
-              kcalDiarias={kcalDiarias}
-              porcentaje={75}
-            />
-            
-            <ProductCard
-              producto={recomendacion.productoHumedo}
-              tipo="Alimento Húmedo (25%)"
-              kcalDiarias={kcalDiarias}
-              porcentaje={25}
-            />
+            <div className="mixta-products-grid">
+              <ProductCard
+                producto={recomendacion.productoSeco}
+                tipo="Alimento Seco (75%)"
+                kcalDiarias={kcalDiarias}
+                porcentaje={75}
+              />
+              
+              <ProductCard
+                producto={recomendacion.productoHumedo}
+                tipo="Alimento Húmedo (25%)"
+                kcalDiarias={kcalDiarias}
+                porcentaje={25}
+              />
+            </div>
           </>
         )}
       </div>
@@ -124,6 +126,15 @@ export default function RecommendationResult({ recommendation }) {
         >
           Agregar {recomendacion.tipo === "mixta" ? "productos" : "producto"} al carrito
         </button>
+        
+        {onRestart && (
+          <button 
+            onClick={onRestart}
+            className="restart-survey-button"
+          >
+            🔄 Realizar otro cuestionario
+          </button>
+        )}
       </div>
 
       <div className="recommendation-footer">

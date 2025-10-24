@@ -1020,6 +1020,24 @@ export const getSurveyStyles = (direction) => `
     }
   }
 
+  .mixta-products-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    margin: 0;
+  }
+
+  @media (min-width: 968px) {
+    .mixta-products-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .mixta-products-grid .product-card {
+      margin-bottom: 0;
+    }
+  }
+
   .product-card {
     background: white;
     border-radius: 5px;
@@ -1214,11 +1232,18 @@ export const getSurveyStyles = (direction) => `
   .cart-action-section {
     margin: 1.5rem 0;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
   }
 
   @media (min-width: 768px) {
     .cart-action-section {
       margin: 2.5rem 0;
+      flex-direction: row;
+      justify-content: center;
+      gap: 0;
     }
   }
 
@@ -1252,6 +1277,45 @@ export const getSurveyStyles = (direction) => `
   }
 
   .add-to-cart-button:active {
+    transform: translateY(-1px);
+  }
+
+  .restart-survey-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    background: white;
+    color: var(--jdgm-paginate-color);
+    border: 2px solid var(--jdgm-paginate-color);
+    border-radius: 5px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-top: 1rem;
+    box-shadow: 0 4px 12px rgba(115, 159, 153, 0.15);
+  }
+
+  @media (min-width: 768px) {
+    .restart-survey-button {
+      padding: 1.25rem 3rem;
+      margin-top: 0;
+      margin-left: 1rem;
+    }
+  }
+
+  .restart-survey-button:hover {
+    background: var(--jdgm-paginate-color);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(115, 159, 153, 0.3);
+  }
+
+  .restart-survey-button:active {
     transform: translateY(-1px);
   }
 
@@ -1708,6 +1772,31 @@ export const getSurveyStyles = (direction) => `
     color: #666;
     line-height: 1.7;
     margin-bottom: 1.5rem;
+  }
+
+  .success-actions {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+  }
+
+  .btn-back-success {
+    padding: 1rem 2.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, var(--jdgm-paginate-color), #5a8a84);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0 4px 12px rgba(115, 159, 153, 0.3);
+  }
+
+  .btn-back-success:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(115, 159, 153, 0.4);
   }
 
   .success-footer {
