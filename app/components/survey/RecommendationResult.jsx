@@ -103,14 +103,14 @@ export default function RecommendationResult({ recommendation, onRestart }) {
             <div className="mixta-products-grid">
               <ProductCard
                 producto={recomendacion.productoSeco}
-                tipo="Alimento Seco (75%)"
+                tipo="Alimento Seco"
                 kcalDiarias={kcalDiarias}
                 porcentaje={75}
               />
               
               <ProductCard
                 producto={recomendacion.productoHumedo}
-                tipo="Alimento Húmedo (25%)"
+                tipo="Alimento Húmedo"
                 kcalDiarias={kcalDiarias}
                 porcentaje={25}
               />
@@ -132,7 +132,7 @@ export default function RecommendationResult({ recommendation, onRestart }) {
             onClick={onRestart}
             className="restart-survey-button"
           >
-            🔄 Realizar otro cuestionario
+            Realizar otro cuestionario
           </button>
         )}
       </div>
@@ -227,27 +227,28 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje }) {
         </div>
       )}
 
-      <div className="product-header">
-        <h3 className="product-type">{tipo}</h3>
-        <span className="product-badge">{producto.segmento}</span>
-      </div>
-
-      <div className="product-main">
-        <h4 className="product-name">{producto.nombre}</h4>
-        <p className="product-description">
-          {producto.tipo === "Seco" ? "Alimento seco completo" : "Alimento húmedo premium"} 
-          {" "}para {producto.animal.toLowerCase()}s
-        </p>
-      </div>
-      
-      <div className="product-nutrition">
-        <div className="nutrition-item highlight">
-          <span className="nutrition-icon">🍽️</span>
-          <div className="nutrition-content">
-            <span className="nutrition-label">Cantidad diaria</span>
-            <span className="nutrition-value">{Math.round(producto.gramosDiarios)}g/día</span>
-          </div>
+      <div className="product-content">
+        <div className="product-header">
+          <h3 className="product-type">{tipo}</h3>
+          <span className="product-badge">{producto.segmento}</span>
         </div>
+
+        <div className="product-main">
+          <h4 className="product-name">{producto.nombre}</h4>
+          <p className="product-description">
+            {producto.tipo === "Seco" ? "Alimento seco completo" : "Alimento húmedo premium"} 
+            {" "}para {producto.animal.toLowerCase()}s
+          </p>
+        </div>
+        
+        <div className="product-nutrition">
+          <div className="nutrition-item highlight">
+            <span className="nutrition-icon">🍽️</span>
+            <div className="nutrition-content">
+              <span className="nutrition-label">Cantidad diaria</span>
+              <span className="nutrition-value">{Math.round(producto.gramosDiarios)}g/día</span>
+            </div>
+          </div>
 
         <div className="nutrition-item">
           <span className="nutrition-icon">⚡</span>
@@ -271,6 +272,7 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje }) {
             <span className="nutrition-value">{calcularDuracion()}</span>
           </div>
         </div>
+      </div>
       </div>
 
       <a

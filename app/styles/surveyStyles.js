@@ -1024,13 +1024,14 @@ export const getSurveyStyles = (direction) => `
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
-    margin: 0;
+    margin: 0 0 5rem 0;
   }
 
   @media (min-width: 968px) {
     .mixta-products-grid {
       grid-template-columns: 1fr 1fr;
       gap: 2rem;
+      margin-bottom: 2.5rem;
     }
 
     .mixta-products-grid .product-card {
@@ -1049,6 +1050,9 @@ export const getSurveyStyles = (direction) => `
     border: 1px solid rgba(115, 159, 153, 0.15);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
   @media (min-width: 768px) {
@@ -1069,7 +1073,7 @@ export const getSurveyStyles = (direction) => `
   }
 
   .product-image-container {
-    width: 100%;
+    width: calc(100% + 3rem);
     height: 200px;
     margin: -1.5rem -1.5rem 1rem -1.5rem;
     overflow: hidden;
@@ -1077,14 +1081,16 @@ export const getSurveyStyles = (direction) => `
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem;
+    padding: 1.5rem;
+    flex-shrink: 0;
   }
 
   @media (min-width: 768px) {
     .product-image-container {
+      width: calc(100% + 4rem);
       height: 300px;
       margin: -2rem -2rem 1.5rem -2rem;
-      padding: 1.5rem;
+      padding: 2rem;
     }
   }
 
@@ -1099,6 +1105,12 @@ export const getSurveyStyles = (direction) => `
 
   .product-card:hover .product-image {
     transform: scale(1.08);
+  }
+
+  .product-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   .product-header {
@@ -1202,6 +1214,7 @@ export const getSurveyStyles = (direction) => `
 
   .product-link {
     display: inline-block;
+    margin-top: auto;
     padding: 0.9rem 1.75rem;
     background: var(--jdgm-paginate-color);
     color: white;
@@ -1230,7 +1243,7 @@ export const getSurveyStyles = (direction) => `
   }
 
   .cart-action-section {
-    margin: 1.5rem 0;
+    margin: 8rem 0 1.5rem 0;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -1240,7 +1253,7 @@ export const getSurveyStyles = (direction) => `
 
   @media (min-width: 768px) {
     .cart-action-section {
-      margin: 2.5rem 0;
+      margin: 4rem 0 2.5rem 0;
       flex-direction: row;
       justify-content: center;
       gap: 0;
@@ -1424,7 +1437,6 @@ export const getSurveyStyles = (direction) => `
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    margin-bottom: 1.5rem;
   }
 
   .nutrition-item {
