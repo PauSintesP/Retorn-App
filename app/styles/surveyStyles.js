@@ -117,7 +117,7 @@ export const getSurveyStyles = (direction) => `
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 3rem 1.5rem;
+    padding: 1.5rem 1rem;
     margin-top: 4px;
     position: relative;
     z-index: 1;
@@ -126,17 +126,33 @@ export const getSurveyStyles = (direction) => `
   .question-card {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
-    border-radius: 1.6rem;
+    border-radius: 1rem;
     box-shadow: 
-      0 30px 80px rgba(0, 0, 0, 0.08),
-      0 10px 30px rgba(115, 159, 153, 0.1),
+      0 15px 40px rgba(0, 0, 0, 0.08),
+      0 5px 15px rgba(115, 159, 153, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    padding: 3.5rem 3rem;
+    padding: 2rem 1.5rem;
     max-width: 650px;
     width: 100%;
     animation: ${direction === "forward" ? "fadeSlideIn" : "fadeSlideOut"} 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     border: 1px solid rgba(115, 159, 153, 0.1);
     position: relative;
+  }
+
+  /* Tablet y Desktop */
+  @media (min-width: 768px) {
+    .survey-content {
+      padding: 3rem 1.5rem;
+    }
+
+    .question-card {
+      padding: 3.5rem 3rem;
+      border-radius: 1.6rem;
+      box-shadow: 
+        0 30px 80px rgba(0, 0, 0, 0.08),
+        0 10px 30px rgba(115, 159, 153, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    }
   }
 
   /* Decorative top stripe removed to keep a cleaner card header */
@@ -145,31 +161,49 @@ export const getSurveyStyles = (direction) => `
   }
 
   .question-header {
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
   }
 
   .question-number {
     color: var(--jdgm-paginate-color);
     font-family: 'Oswald', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 2.5px;
-    margin-bottom: 1rem;
+    letter-spacing: 2px;
+    margin-bottom: 0.75rem;
     display: inline-block;
-    padding: 0.4rem 1rem;
+    padding: 0.35rem 0.85rem;
     background: rgba(115, 159, 153, 0.08);
     border-radius: 20px;
   }
 
   .question-text {
     font-family: 'Oswald', sans-serif;
-    font-size: 2.2rem;
+    font-size: 1.5rem;
     font-weight: 600;
     color: var(--jdgm-primary-color);
-    line-height: 1.25;
+    line-height: 1.3;
     margin: 0;
     letter-spacing: -0.01em;
+  }
+
+  @media (min-width: 768px) {
+    .question-header {
+      margin-bottom: 2.5rem;
+    }
+
+    .question-number {
+      font-size: 0.75rem;
+      letter-spacing: 2.5px;
+      margin-bottom: 1rem;
+      padding: 0.4rem 1rem;
+    }
+
+    .question-text {
+      font-size: 2.2rem;
+      line-height: 1.25;
+    }
   }
 
   .options-container {
@@ -183,9 +217,9 @@ export const getSurveyStyles = (direction) => `
     background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
     border: 2px solid rgba(115, 159, 153, 0.15);
     border-radius: 5px;
-    padding: 1.3rem 1.75rem;
+    padding: 1rem 1.25rem;
     font-family: 'Inter', sans-serif;
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     color: var(--jdgm-primary-color);
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -193,6 +227,13 @@ export const getSurveyStyles = (direction) => `
     font-weight: 500;
     position: relative;
     overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .option-button {
+      padding: 1.3rem 1.75rem;
+      font-size: 1.05rem;
+    }
   }
 
   .option-button::before {
@@ -232,8 +273,8 @@ export const getSurveyStyles = (direction) => `
 
   .text-input {
     width: 100%;
-    padding: 1.3rem 1.25rem;
-    font-size: 1.05rem;
+    padding: 1rem 1rem;
+    font-size: 0.95rem;
     border-radius: 5px;
     border: 2px solid rgba(115, 159, 153, 0.2);
     outline: none;
@@ -241,6 +282,13 @@ export const getSurveyStyles = (direction) => `
     font-family: 'Inter', sans-serif;
     background: rgba(255, 255, 255, 0.8);
     box-sizing: border-box;
+  }
+
+  @media (min-width: 768px) {
+    .text-input {
+      padding: 1.3rem 1.25rem;
+      font-size: 1.05rem;
+    }
   }
 
   .text-input:focus {
@@ -669,30 +717,47 @@ export const getSurveyStyles = (direction) => `
   }
 
   .nav-button {
-    flex: 0 0 auto;
-    min-width: 160px;
-    padding: 1.1rem 2.2rem;
+    flex: 1 1 auto;
+    min-width: 120px;
+    max-width: 100%;
+    padding: 0.9rem 1.5rem;
     border: none;
     border-radius: 5px;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.2px;
     position: relative;
     overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .nav-button {
+      flex: 0 0 auto;
+      min-width: 160px;
+      padding: 1.1rem 2.2rem;
+      font-size: 0.95rem;
+      letter-spacing: 1.5px;
+    }
   }
 
   /* Contenedor interno para los botones dentro de la question-card */
   .controls-inner {
     width: 100%;
-    margin-top: 2.5rem;
+    margin-top: 1.5rem;
     padding: 0;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
+  }
+
+  @media (min-width: 768px) {
+    .controls-inner {
+      margin-top: 2.5rem;
+    }
   }
 
   /* Fila de botones de navegación */
@@ -700,8 +765,15 @@ export const getSurveyStyles = (direction) => `
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     flex-wrap: wrap;
+    width: 100%;
+  }
+
+  @media (min-width: 768px) {
+    .navigation-buttons {
+      gap: 1rem;
+    }
   }
 
   .nav-button::before {
@@ -760,25 +832,38 @@ export const getSurveyStyles = (direction) => `
 
   .submit-button {
     flex: 1;
-    min-width: 160px;
-    padding: 1.1rem 2.2rem;
+    min-width: 120px;
+    max-width: 100%;
+    padding: 0.9rem 1.5rem;
     border: none;
     border-radius: 5px;
     background: linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%);
     background-size: 200% 100%;
     color: white;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.2px;
     box-shadow: 
-      0 6px 20px rgba(115, 159, 153, 0.3),
+      0 4px 16px rgba(115, 159, 153, 0.3),
       0 2px 6px rgba(115, 159, 153, 0.15);
     position: relative;
     overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .submit-button {
+      min-width: 160px;
+      padding: 1.1rem 2.2rem;
+      font-size: 0.95rem;
+      letter-spacing: 1.5px;
+      box-shadow: 
+        0 6px 20px rgba(115, 159, 153, 0.3),
+        0 2px 6px rgba(115, 159, 153, 0.15);
+    }
   }
 
   .submit-button::before {
@@ -813,54 +898,28 @@ export const getSurveyStyles = (direction) => `
     transform: none !important;
   }
 
-  @media (max-width: 768px) {
-    .survey-content {
-      padding: 2rem 1rem;
-    }
+  /* Columnas en móvil - una sola columna */
+  .two-columns-container {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
 
-    .question-card {
-      padding: 2.5rem 2rem;
-      border-radius: 5px;
-    }
-
-    .question-text {
-      font-size: 1.75rem;
-    }
-
-    .option-button {
-      padding: 1.2rem 1.25rem;
-      font-size: 1rem;
-    }
-
-    .nav-button {
-      padding: 1rem 1.8rem;
-      font-size: 0.9rem;
-      min-width: 140px;
-    }
-
-    .submit-button {
-      padding: 1rem 1.8rem;
-      font-size: 0.9rem;
-      min-width: 140px;
-    }
-
-    .controls-inner {
-      padding: 0;
-    }
-
-    .controls-inner .navigation-buttons {
-      max-width: calc(100% - 4rem);
-    }
-
-    /* Columnas en móvil - una sola columna */
+  @media (min-width: 768px) {
     .two-columns-container {
-      grid-template-columns: 1fr;
-      gap: 0.75rem;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
     }
+  }
 
+  .patologia-alert {
+    padding: 1rem;
+    gap: 0.75rem;
+  }
+
+  @media (min-width: 768px) {
     .patologia-alert {
-      padding: 1.25rem;
-      gap: 0.75rem;
+      padding: 1.5rem;
+      gap: 1rem;
     }
 
     .alert-icon {
@@ -879,59 +938,109 @@ export const getSurveyStyles = (direction) => `
   .recommendation-container {
     max-width: 800px;
     width: 100%;
-    padding: 2rem;
+    padding: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .recommendation-container {
+      padding: 2rem;
+    }
   }
 
   .recommendation-header {
     text-align: center;
-    margin-bottom: 3rem;
-    padding: 2rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem 1rem;
     background: linear-gradient(135deg, rgba(115, 159, 153, 0.1) 0%, rgba(115, 159, 153, 0.05) 100%);
     border-radius: 5px;
   }
 
+  @media (min-width: 768px) {
+    .recommendation-header {
+      margin-bottom: 3rem;
+      padding: 2rem;
+    }
+  }
+
   .recommendation-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 2.5rem;
+    font-size: 1.75rem;
     color: var(--jdgm-primary-color);
     margin: 0 0 0.5rem 0;
     font-weight: 600;
+    line-height: 1.2;
+  }
+
+  @media (min-width: 768px) {
+    .recommendation-title {
+      font-size: 2.5rem;
+    }
   }
 
   .recommendation-subtitle {
     font-family: 'Inter', sans-serif;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     color: #666;
     margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .recommendation-subtitle {
+      font-size: 1.1rem;
+    }
   }
 
   .mixta-info {
     background: rgba(115, 159, 153, 0.08);
     border-left: 4px solid var(--jdgm-paginate-color);
-    padding: 1.25rem 1.5rem;
+    padding: 1rem 1.25rem;
     border-radius: 5px;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .mixta-info {
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 2rem;
+    }
   }
 
   .mixta-description {
     margin: 0;
     font-family: 'Inter', sans-serif;
-    font-size: 1.05rem;
+    font-size: 0.9rem;
     color: var(--jdgm-primary-color);
     font-weight: 500;
+    line-height: 1.5;
+  }
+
+  @media (min-width: 768px) {
+    .mixta-description {
+      font-size: 1.05rem;
+    }
   }
 
   .product-card {
     background: white;
     border-radius: 5px;
-    padding: 2rem;
-    margin-bottom: 2rem;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
     box-shadow: 
-      0 20px 60px rgba(0, 0, 0, 0.08),
-      0 8px 20px rgba(115, 159, 153, 0.1);
+      0 10px 30px rgba(0, 0, 0, 0.08),
+      0 4px 10px rgba(115, 159, 153, 0.1);
     border: 1px solid rgba(115, 159, 153, 0.15);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
+  }
+
+  @media (min-width: 768px) {
+    .product-card {
+      padding: 2rem;
+      margin-bottom: 2rem;
+      box-shadow: 
+        0 20px 60px rgba(0, 0, 0, 0.08),
+        0 8px 20px rgba(115, 159, 153, 0.1);
+    }
   }
 
   .product-card:hover {
@@ -943,14 +1052,22 @@ export const getSurveyStyles = (direction) => `
 
   .product-image-container {
     width: 100%;
-    height: 300px;
-    margin: -2rem -2rem 1.5rem -2rem;
+    height: 200px;
+    margin: -1.5rem -1.5rem 1rem -1.5rem;
     overflow: hidden;
     background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1.5rem;
+    padding: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .product-image-container {
+      height: 300px;
+      margin: -2rem -2rem 1.5rem -2rem;
+      padding: 1.5rem;
+    }
   }
 
   .product-image {
@@ -997,26 +1114,47 @@ export const getSurveyStyles = (direction) => `
 
   .product-name {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.8rem;
+    font-size: 1.35rem;
     color: var(--jdgm-primary-color);
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 1rem 0;
     font-weight: 600;
     line-height: 1.3;
+  }
+
+  @media (min-width: 768px) {
+    .product-name {
+      font-size: 1.8rem;
+      margin: 0 0 1.5rem 0;
+    }
   }
 
   .product-info {
     background: rgba(115, 159, 153, 0.05);
     border-radius: 5px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
+    padding: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .product-info {
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
   }
 
   .info-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.75rem 0;
+    padding: 0.6rem 0;
     border-bottom: 1px solid rgba(115, 159, 153, 0.1);
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .info-item {
+      padding: 0.75rem 0;
+    }
   }
 
   .info-item:last-child {
@@ -1025,9 +1163,16 @@ export const getSurveyStyles = (direction) => `
 
   .info-label {
     font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     color: #666;
     font-weight: 500;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 768px) {
+    .info-label {
+      font-size: 0.95rem;
+    }
   }
 
   .info-value {
@@ -1039,18 +1184,25 @@ export const getSurveyStyles = (direction) => `
 
   .product-link {
     display: inline-block;
-    padding: 1rem 2rem;
+    padding: 0.9rem 1.75rem;
     background: var(--jdgm-paginate-color);
     color: white;
     text-decoration: none;
     border-radius: 5px;
     font-family: 'Oswald', sans-serif;
-    font-size: 1rem;
+    font-size: 0.85rem;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: all 0.3s ease;
     border: 2px solid var(--jdgm-paginate-color);
+  }
+
+  @media (min-width: 768px) {
+    .product-link {
+      padding: 1rem 2rem;
+      font-size: 1rem;
+    }
   }
 
   .product-link:hover {
@@ -1060,15 +1212,21 @@ export const getSurveyStyles = (direction) => `
   }
 
   .cart-action-section {
-    margin: 2.5rem 0;
+    margin: 1.5rem 0;
     text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .cart-action-section {
+      margin: 2.5rem 0;
+    }
   }
 
   .add-to-cart-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 1.25rem 3rem;
+    padding: 1rem 2rem;
     background: linear-gradient(135deg, var(--jdgm-paginate-color) 0%, #5a8a84 100%);
     color: white;
     border: none;
@@ -1284,31 +1442,6 @@ export const getSurveyStyles = (direction) => `
     width: 100%;
   }
 
-  @media (max-width: 768px) {
-    .recommendation-title {
-      font-size: 2rem;
-    }
-
-    .product-name {
-      font-size: 1.5rem;
-    }
-
-    .product-card {
-      padding: 1.5rem;
-    }
-
-    .info-item {
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 0.5rem;
-    }
-
-    .product-link {
-      width: 100%;
-      text-align: center;
-    }
-  }
-
   /* ============================================ */
   /* PATHOLOGY CONTACT FORM STYLES */
   /* ============================================ */
@@ -1316,44 +1449,86 @@ export const getSurveyStyles = (direction) => `
   .pathology-contact-container {
     max-width: 800px;
     margin: 0 auto;
-    padding: 3rem 2rem;
+    padding: 1.5rem 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .pathology-contact-container {
+      padding: 3rem 2rem;
+    }
   }
 
   .pathology-contact-header {
     text-align: center;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .pathology-contact-header {
+      margin-bottom: 3rem;
+    }
   }
 
   .pathology-icon {
-    font-size: 4rem;
-    margin-bottom: 1rem;
+    font-size: 3rem;
+    margin-bottom: 0.75rem;
     animation: pulse 2s ease-in-out infinite;
+  }
+
+  @media (min-width: 768px) {
+    .pathology-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
   }
 
   .pathology-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 2.5rem;
+    font-size: 1.75rem;
     font-weight: 600;
     color: var(--jdgm-primary-color);
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
+    line-height: 1.2;
+  }
+
+  @media (min-width: 768px) {
+    .pathology-title {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
   }
 
   .pathology-subtitle {
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     color: #666;
     line-height: 1.6;
     max-width: 600px;
     margin: 0 auto;
   }
 
+  @media (min-width: 768px) {
+    .pathology-subtitle {
+      font-size: 1.1rem;
+    }
+  }
+
   .pathology-benefits {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-    padding: 2rem;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     border-radius: 5px;
+  }
+
+  @media (min-width: 600px) {
+    .pathology-benefits {
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+      padding: 2rem;
+    }
   }
 
   .benefit-item {
@@ -1375,18 +1550,31 @@ export const getSurveyStyles = (direction) => `
 
   .pathology-contact-form {
     background: white;
-    padding: 2.5rem;
+    padding: 1.5rem;
     border-radius: 5px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   }
 
+  @media (min-width: 768px) {
+    .pathology-contact-form {
+      padding: 2.5rem;
+    }
+  }
+
   .form-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     font-weight: 600;
     color: var(--jdgm-primary-color);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .form-title {
+      font-size: 1.5rem;
+      margin-bottom: 2rem;
+    }
   }
 
   .form-group {
@@ -1424,21 +1612,38 @@ export const getSurveyStyles = (direction) => `
 
   .form-actions {
     display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+  }
+
+  @media (min-width: 600px) {
+    .form-actions {
+      flex-direction: row;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
   }
 
   .btn-primary,
   .btn-secondary {
     flex: 1;
-    padding: 1.25rem 2rem;
-    font-size: 1.1rem;
+    padding: 1rem 1.5rem;
+    font-size: 0.95rem;
     font-weight: 600;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: 'Inter', sans-serif;
+  }
+
+  @media (min-width: 768px) {
+    .btn-primary,
+    .btn-secondary {
+      padding: 1.25rem 2rem;
+      font-size: 1.1rem;
+    }
   }
 
   .btn-primary {
@@ -1518,31 +1723,9 @@ export const getSurveyStyles = (direction) => `
     font-size: 0.95rem;
   }
 
-  @media (max-width: 768px) {
-    .pathology-contact-container {
-      padding: 2rem 1rem;
-    }
-
-    .pathology-title {
-      font-size: 2rem;
-    }
-
-    .pathology-benefits {
-      grid-template-columns: 1fr;
-      gap: 1rem;
-      padding: 1.5rem;
-    }
-
-    .pathology-contact-form {
-      padding: 1.5rem;
-    }
-
-    .form-actions {
-      flex-direction: column;
-    }
-
-    .btn-primary,
-    .btn-secondary {
+  /* ============================================ */
+  /* INTRO SCREEN STYLES */
+  /* ============================================ */
       width: 100%;
     }
   }
