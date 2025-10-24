@@ -365,6 +365,31 @@ function calcularAlimentacionMixta(kcalDiarias, productoSeco, productoHumedo) {
 }
 
 /**
+ * Calcula los gramos totales de una variante, considerando packs
+ * @param {string} cantidad - String de cantidad (ej: "400 gr x 12ud", "3 kg", "185 gr")
+ * @returns {number} - Gramos totales
+ */
+function calcularGramosTotales(cantidad) {
+  // Para productos con packs (ej: "185 gr x 12ud" o "400 gr x 12ud")
+  const matchPack = cantidad.match(/(\d+(?:\.\d+)?)\s*gr\s*x\s*(\d+)\s*ud/i);
+  if (matchPack) {
+    const gramosPorUnidad = parseFloat(matchPack[1]);
+    const unidades = parseFloat(matchPack[2]);
+    return gramosPorUnidad * unidades;
+  }
+  
+  // Si es en kg (sin pack)
+  if (cantidad.toLowerCase().includes("kg") && !cantidad.includes("x")) {
+    const numeros = cantidad.match(/(\d+(?:\.\d+)?)/);
+    return numeros ? parseFloat(numeros[1]) * 1000 : 0;
+  }
+  
+  // Si es en gramos simples
+  const numeros = cantidad.match(/(\d+(?:\.\d+)?)/);
+  return numeros ? parseFloat(numeros[1]) : 0;
+}
+
+/**
  * Selecciona la variante de tamaño más adecuada
  * Algoritmo optimizado para duraciones realistas de 4-10 semanas
  * MEJORA: Cantidades ligeramente superiores para mayor duración
@@ -394,10 +419,8 @@ function seleccionarVariante(producto, gramosDiarios, tamano, esHumedo = false) 
 
   // Ordenar variantes por tamaño (de menor a mayor)
   variantes.sort((a, b) => {
-    const gramosA = parseFloat(a.cantidad.replace(/[^0-9.]/g, "")) *
-                   (a.cantidad.includes("kg") && !a.cantidad.includes("x") ? 1000 : 1);
-    const gramosB = parseFloat(b.cantidad.replace(/[^0-9.]/g, "")) *
-                   (b.cantidad.includes("kg") && !b.cantidad.includes("x") ? 1000 : 1);
+    const gramosA = calcularGramosTotales(a.cantidad);
+    const gramosB = calcularGramosTotales(b.cantidad);
     return gramosA - gramosB;
   });
 
@@ -410,23 +433,10 @@ function seleccionarVariante(producto, gramosDiarios, tamano, esHumedo = false) 
   let mejorPuntuacion = -Infinity;
 
   for (const variante of variantes) {
-    let gramos = parseFloat(variante.cantidad.replace(/[^0-9.]/g, ""));
-    
-    // Para productos húmedos con packs (ej: "185 gr x 12ud")
-    if (variante.cantidad.toLowerCase().includes("x") || 
-        variante.cantidad.toLowerCase().includes("ud")) {
-      // Extraer gramos por unidad y número de unidades
-      const match = variante.cantidad.match(/(\d+)\s*gr.*?(\d+)\s*ud/i);
-      if (match) {
-        const gramosPorUnidad = parseFloat(match[1]);
-        const unidades = parseFloat(match[2]);
-        gramos = gramosPorUnidad * unidades;
-      }
-    } else if (variante.cantidad.includes("kg")) {
-      gramos = gramos * 1000;
-    }
-
+    const gramos = calcularGramosTotales(variante.cantidad);
     const diasDuracion = gramos / gramosDiarios;
+    
+    console.log(`Variante "${variante.cantidad}": ${gramos}g total, ${diasDuracion.toFixed(1)} días de duración`);
 
     let puntuacion = 0;
 

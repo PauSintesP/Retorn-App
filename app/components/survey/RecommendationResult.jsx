@@ -147,21 +147,30 @@ export default function RecommendationResult({ recommendation }) {
 
 function ProductCard({ producto, tipo, kcalDiarias, porcentaje }) {
   const calcularDuracion = () => {
-    const cantidadOriginal = producto.varianteRecomendada.cantidad.toLowerCase();
-    const cantidadStr = cantidadOriginal.replace(/[^0-9.]/g, "");
-    const cantidad = parseFloat(cantidadStr);
-    
-    // Detectar si está en gramos o kilogramos
+    const cantidadOriginal = producto.varianteRecomendada.cantidad;
     let gramosTotales;
-    if (cantidadOriginal.includes('gr') && !cantidadOriginal.includes('kg')) {
-      // Está en gramos (ej: "80 gr", "400 gr")
-      gramosTotales = cantidad;
-    } else {
-      // Está en kilogramos (ej: "2 kg", "12kg")
-      gramosTotales = cantidad * 1000;
+    
+    // Para productos con packs (ej: "185 gr x 12ud" o "400 gr x 12ud")
+    const matchPack = cantidadOriginal.match(/(\d+(?:\.\d+)?)\s*gr\s*x\s*(\d+)\s*ud/i);
+    if (matchPack) {
+      const gramosPorUnidad = parseFloat(matchPack[1]);
+      const unidades = parseFloat(matchPack[2]);
+      gramosTotales = gramosPorUnidad * unidades;
+      console.log(`Pack: ${gramosPorUnidad}g × ${unidades}ud = ${gramosTotales}g`);
+    }
+    // Si es en kg (sin pack)
+    else if (cantidadOriginal.toLowerCase().includes("kg") && !cantidadOriginal.includes("x")) {
+      const numeros = cantidadOriginal.match(/(\d+(?:\.\d+)?)/);
+      gramosTotales = numeros ? parseFloat(numeros[1]) * 1000 : 0;
+    }
+    // Si es en gramos simples
+    else {
+      const numeros = cantidadOriginal.match(/(\d+(?:\.\d+)?)/);
+      gramosTotales = numeros ? parseFloat(numeros[1]) : 0;
     }
     
     const dias = Math.round(gramosTotales / producto.gramosDiarios);
+    console.log(`Duración: ${gramosTotales}g ÷ ${producto.gramosDiarios}g/día = ${dias} días`);
 
     // Mostrar en semanas principalmente para mayor claridad
     if (dias < 7) {
