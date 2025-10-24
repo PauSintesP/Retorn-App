@@ -1021,22 +1021,21 @@ export const getSurveyStyles = (direction) => `
   }
 
   .mixta-products-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
     margin: 0 0 2rem 0;
   }
 
-  @media (min-width: 968px) {
+  @media (min-width: 768px) {
     .mixta-products-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: 2rem;
+      gap: 2.5rem;
       margin-bottom: 3rem;
     }
+  }
 
-    .mixta-products-grid .product-card {
-      margin-bottom: 0;
-    }
+  .mixta-products-grid .product-card {
+    margin-bottom: 0;
   }
 
   .product-card {
@@ -1074,39 +1073,39 @@ export const getSurveyStyles = (direction) => `
 
   .product-image-container {
     width: 100%;
-    height: 220px;
-    margin: 0 0 1.25rem 0;
+    height: 280px;
+    margin: 0 0 1.5rem 0;
     overflow: hidden;
-    background: white;
+    background: #fafafa;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 0;
     flex-shrink: 0;
     border-radius: 8px;
-    border: 1px solid rgba(115, 159, 153, 0.1);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    position: relative;
   }
 
   @media (min-width: 768px) {
     .product-image-container {
-      height: 320px;
-      margin: 0 0 1.5rem 0;
-      padding: 2.5rem;
+      height: 350px;
+      margin: 0 0 2rem 0;
     }
   }
 
   .product-image {
-    max-width: 100%;
-    max-height: 100%;
+    max-width: 90%;
+    max-height: 90%;
     width: auto;
     height: auto;
     object-fit: contain;
     transition: transform 0.3s ease;
+    display: block;
+    margin: auto;
   }
 
   .product-card:hover .product-image {
-    transform: scale(1.08);
+    transform: scale(1.05);
   }
 
   .product-content {
