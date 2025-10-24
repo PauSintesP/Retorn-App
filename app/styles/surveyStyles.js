@@ -1024,14 +1024,14 @@ export const getSurveyStyles = (direction) => `
     display: grid;
     grid-template-columns: 1fr;
     gap: 1.5rem;
-    margin: 0 0 5rem 0;
+    margin: 0 0 2rem 0;
   }
 
   @media (min-width: 968px) {
     .mixta-products-grid {
       grid-template-columns: 1fr 1fr;
       gap: 2rem;
-      margin-bottom: 2.5rem;
+      margin-bottom: 3rem;
     }
 
     .mixta-products-grid .product-card {
@@ -1073,9 +1073,9 @@ export const getSurveyStyles = (direction) => `
   }
 
   .product-image-container {
-    width: calc(100% + 3rem);
+    width: 100%;
     height: 200px;
-    margin: -1.5rem -1.5rem 1rem -1.5rem;
+    margin: 0 0 1rem 0;
     overflow: hidden;
     background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%);
     display: flex;
@@ -1083,13 +1083,13 @@ export const getSurveyStyles = (direction) => `
     justify-content: center;
     padding: 1.5rem;
     flex-shrink: 0;
+    border-radius: 5px;
   }
 
   @media (min-width: 768px) {
     .product-image-container {
-      width: calc(100% + 4rem);
       height: 300px;
-      margin: -2rem -2rem 1.5rem -2rem;
+      margin: 0 0 1.5rem 0;
       padding: 2rem;
     }
   }
@@ -1243,7 +1243,7 @@ export const getSurveyStyles = (direction) => `
   }
 
   .cart-action-section {
-    margin: 8rem 0 1.5rem 0;
+    margin: 2rem 0 1.5rem 0;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -1253,7 +1253,7 @@ export const getSurveyStyles = (direction) => `
 
   @media (min-width: 768px) {
     .cart-action-section {
-      margin: 4rem 0 2.5rem 0;
+      margin: 5rem 0 2.5rem 0;
       flex-direction: row;
       justify-content: center;
       gap: 0;
