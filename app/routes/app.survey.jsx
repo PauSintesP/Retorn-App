@@ -80,6 +80,59 @@ export default function SurveyPage() {
   };
 
   /**
+   * Verifica si la pregunta actual está respondida y cumple las validaciones
+   */
+  const isCurrentQuestionAnswered = () => {
+    if (!currentQuestion) return false;
+    const answer = answers[`q${currentQuestion.id}`];
+    
+    // Pregunta no requerida sin respuesta
+    if (!currentQuestion.required && (answer === undefined || answer === "")) {
+      return true;
+    }
+    
+    // Pregunta tipo multiple
+    if (currentQuestion.type === "multiple") {
+      return !currentQuestion.required || (Array.isArray(answer) && answer.length > 0);
+    }
+    
+    // Respuesta vacía en pregunta requerida
+    if (answer === undefined || answer === "") {
+      return false;
+    }
+    
+    // Validaciones para tipo texto
+    if (currentQuestion.type === "text") {
+      const textValue = String(answer);
+      if (currentQuestion.minLength && textValue.length < currentQuestion.minLength) {
+        return false;
+      }
+      if (currentQuestion.maxLength && textValue.length > currentQuestion.maxLength) {
+        return false;
+      }
+    }
+    
+    // Validaciones para tipo número
+    if (currentQuestion.type === "number") {
+      const numValue = parseFloat(answer);
+      if (isNaN(numValue)) {
+        return false;
+      }
+      if (numValue < 0) {
+        return false;
+      }
+      if (currentQuestion.min !== undefined && numValue < currentQuestion.min) {
+        return false;
+      }
+      if (currentQuestion.max !== undefined && numValue > currentQuestion.max) {
+        return false;
+      }
+    }
+    
+    return true;
+  };
+
+  /**
    * Efecto: Iniciar encuesta con tecla Enter
    */
   useEffect(() => {
@@ -160,59 +213,6 @@ export default function SurveyPage() {
     setTimeout(() => {
       setCurrentStep((prev) => Math.max(prev - 1, 0));
     }, 50);
-  };
-
-  /**
-   * Verifica si la pregunta actual está respondida y cumple las validaciones
-   */
-  const isCurrentQuestionAnswered = () => {
-    if (!currentQuestion) return false;
-    const answer = answers[`q${currentQuestion.id}`];
-    
-    // Pregunta no requerida sin respuesta
-    if (!currentQuestion.required && (answer === undefined || answer === "")) {
-      return true;
-    }
-    
-    // Pregunta tipo multiple
-    if (currentQuestion.type === "multiple") {
-      return !currentQuestion.required || (Array.isArray(answer) && answer.length > 0);
-    }
-    
-    // Respuesta vacía en pregunta requerida
-    if (answer === undefined || answer === "") {
-      return false;
-    }
-    
-    // Validaciones para tipo texto
-    if (currentQuestion.type === "text") {
-      const textValue = String(answer);
-      if (currentQuestion.minLength && textValue.length < currentQuestion.minLength) {
-        return false;
-      }
-      if (currentQuestion.maxLength && textValue.length > currentQuestion.maxLength) {
-        return false;
-      }
-    }
-    
-    // Validaciones para tipo número
-    if (currentQuestion.type === "number") {
-      const numValue = parseFloat(answer);
-      if (isNaN(numValue)) {
-        return false;
-      }
-      if (numValue < 0) {
-        return false;
-      }
-      if (currentQuestion.min !== undefined && numValue < currentQuestion.min) {
-        return false;
-      }
-      if (currentQuestion.max !== undefined && numValue > currentQuestion.max) {
-        return false;
-      }
-    }
-    
-    return true;
   };
 
   const canGoNext = isCurrentQuestionAnswered();
