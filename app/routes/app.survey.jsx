@@ -322,6 +322,8 @@ export default function SurveyPage() {
                     canGoBack={canGoBack}
                     canGoNext={canGoNext}
                     isLastQuestion={isLastQuestion}
+                    currentQuestion={currentQuestion}
+                    currentAnswer={answers[`q${currentQuestion.id}`]}
                   />
                 </div>
               </QuestionCard>

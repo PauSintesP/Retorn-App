@@ -9,7 +9,9 @@ export default function NavigationButtons({
   onNext, 
   canGoBack, 
   canGoNext, 
-  isLastQuestion 
+  isLastQuestion,
+  currentQuestion,
+  currentAnswer
 }) {
   const [termsAccepted, setTermsAccepted] = useState(false);
   
@@ -28,6 +30,24 @@ export default function NavigationButtons({
   };
 
   const isNextDisabled = !canGoNext || (isLastQuestion && !termsAccepted);
+
+  // Determinar el texto del botón
+  const getButtonText = () => {
+    if (isLastQuestion) return "Finalizar ✓";
+    
+    // Si es pregunta de patologías (tipo multiple con id que incluye "gato" o "perro" y no "otros")
+    const isPathologyQuestion = currentQuestion && 
+      currentQuestion.type === "multiple" && 
+      (currentQuestion.id === "7_gato" || currentQuestion.id === "9_perro");
+    
+    if (isPathologyQuestion) {
+      // Si no hay respuesta o el array está vacío, mostrar "Ninguna"
+      const hasPathologies = Array.isArray(currentAnswer) && currentAnswer.length > 0;
+      return hasPathologies ? "Siguiente →" : "Ninguna →";
+    }
+    
+    return "Siguiente →";
+  };
 
   return (
     <div className="navigation-buttons">
@@ -81,7 +101,7 @@ export default function NavigationButtons({
           className="nav-button primary"
           disabled={isNextDisabled}
         >
-          {isLastQuestion ? "Finalizar ✓" : "Siguiente →"}
+          {getButtonText()}
         </button>
       </div>
     </div>
