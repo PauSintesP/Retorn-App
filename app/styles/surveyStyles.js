@@ -129,7 +129,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem 1rem;
+    padding: 1rem 0.5rem;
     margin-top: 4px;
     position: relative;
     z-index: 1;
@@ -143,8 +143,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
       0 10px 30px rgba(0, 0, 0, 0.08),
       0 4px 12px rgba(115, 159, 153, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    padding: 1.75rem 1.25rem;
-    max-width: 650px;
+    padding: 1.75rem 1rem;
+    max-width: 95%;
     width: 100%;
     animation: ${direction === "forward" ? "fadeSlideIn" : "fadeSlideOut"} 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     border: 1px solid rgba(115, 159, 153, 0.1);
@@ -155,12 +155,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Tablet y Desktop */
   @media (min-width: 768px) {
     .survey-content {
-      padding: 3rem 1.5rem;
+      padding: 3rem 1rem;
     }
 
     .question-card {
-      padding: 3.5rem 3rem;
+      padding: 3.5rem 2rem;
       border-radius: 1.6rem;
+      max-width: 900px;
       box-shadow: 
         0 30px 80px rgba(0, 0, 0, 0.08),
         0 10px 30px rgba(115, 159, 153, 0.1),
@@ -413,7 +414,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .custom-date-input {
     width: 100%;
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 1.5rem 2rem;
     background: white;
@@ -487,7 +488,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Panel de selección */
   .date-picker-panel {
     margin: 1.5rem auto 0;
-    max-width: 600px;
+    max-width: 100%;
     background: white;
     border-radius: 5px;
     padding: 2rem;
@@ -1110,14 +1111,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* ============================================ */
   
   .recommendation-container {
-    max-width: 800px;
+    max-width: 95%;
     width: 100%;
-    padding: 1rem;
+    padding: 0.75rem;
   }
 
   @media (min-width: 768px) {
     .recommendation-container {
-      padding: 2rem;
+      max-width: 900px;
+      padding: 1.5rem;
     }
   }
 
@@ -1711,11 +1713,17 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* ============================================ */
 
   .pathology-contact-container {
-    max-width: 800px;
+    max-width: 95%;
     margin: 0 auto;
-    padding: 1.5rem 1rem;
+    padding: 1.5rem 0.5rem;
   }
 
+  @media (min-width: 768px) {
+    .pathology-contact-container {
+      max-width: 900px;
+      padding: 1.5rem 1rem;
+    }
+  }
   @media (min-width: 768px) {
     .pathology-contact-container {
       padding: 3rem 2rem;
@@ -1766,10 +1774,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-size: 0.95rem;
     color: #666;
     line-height: 1.6;
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto;
   }
-
   @media (min-width: 768px) {
     .pathology-subtitle {
       font-size: 1.1rem;
@@ -1947,10 +1954,18 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   /* Success State */
   .pathology-contact-success {
-    max-width: 600px;
+    max-width: 95%;
     margin: 0 auto;
-    padding: 4rem 2rem;
+    padding: 4rem 1rem;
     text-align: center;
+  }
+
+  @media (min-width: 768px) {
+    .pathology-contact-success {
+      max-width: 600px;
+      padding: 4rem 2rem;
+    }
+  }
   }
 
   .success-icon {
