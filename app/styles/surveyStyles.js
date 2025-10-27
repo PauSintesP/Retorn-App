@@ -1199,19 +1199,23 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .mixta-products-grid {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 1.5rem;
     margin: 0 0 2rem 0;
   }
 
   @media (min-width: 768px) {
     .mixta-products-grid {
-      gap: 2.5rem;
+      flex-direction: row;
+      gap: 1.5rem;
       margin-bottom: 3rem;
+      align-items: stretch;
     }
   }
 
   .mixta-products-grid .product-card {
     margin-bottom: 0;
+    flex: 1;
+    min-width: 0;
   }
 
   .product-card {
@@ -1237,6 +1241,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
       box-shadow: 
         0 20px 60px rgba(0, 0, 0, 0.08),
         0 8px 20px rgba(115, 159, 153, 0.1);
+    }
+    
+    .mixta-products-grid .product-card {
+      padding: 1.5rem;
     }
   }
 
@@ -1264,8 +1272,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .product-image-container {
-      height: 350px;
-      margin: 0 0 2rem 0;
+      height: 300px;
+      margin: 0 0 1.5rem 0;
+    }
+    
+    .mixta-products-grid .product-image-container {
+      height: 250px;
     }
   }
 
@@ -1333,6 +1345,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
       font-size: 1.8rem;
       margin: 0 0 1.5rem 0;
     }
+    
+    .mixta-products-grid .product-name {
+      font-size: 1.5rem;
+      margin: 0 0 1rem 0;
+    }
   }
 
   .product-info {
@@ -1346,6 +1363,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .product-info {
       padding: 1.5rem;
       margin-bottom: 1.5rem;
+    }
+    
+    .mixta-products-grid .product-info {
+      padding: 1rem;
+      margin-bottom: 1rem;
     }
   }
 
