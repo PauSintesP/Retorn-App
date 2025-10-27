@@ -194,13 +194,6 @@ export default function SurveyPage() {
       ...prev,
       [`q${currentQuestion.id}`]: value,
     }));
-    
-    // Auto-avanzar solo en preguntas de opción única (choice)
-    if (currentQuestion.type === "choice" && currentStep < totalQuestions - 1) {
-      setTimeout(() => {
-        goNext();
-      }, 300); // Pequeño delay para que el usuario vea la selección
-    }
   };
 
   /**
@@ -319,43 +312,16 @@ export default function SurveyPage() {
                 direction={direction}
                 answers={answers}
               >
-                {/* Botones de navegación - Solo si NO es la última pregunta */}
-                {!isLastQuestion && (
-                  <div className="controls-inner">
-                    <NavigationButtons
-                      onPrevious={goPrevious}
-                      onNext={goNext}
-                      canGoBack={canGoBack}
-                      canGoNext={canGoNext}
-                      isLastQuestion={false}
-                    />
-                  </div>
-                )}
-
-                {/* Botones finales - Solo en la última pregunta */}
-                {isLastQuestion && (
-                  <div className="controls-inner">
-                    <div className="navigation-buttons">
-                      {canGoBack && (
-                        <button
-                          type="button"
-                          onClick={goPrevious}
-                          className="nav-button secondary"
-                        >
-                          ← Anterior
-                        </button>
-                      )}
-                      <button
-                        type="submit"
-                        className="submit-button"
-                        disabled={!canGoNext}
-                        style={canGoBack ? {} : { width: '100%' }}
-                      >
-                        Enviar respuestas ✓
-                      </button>
-                    </div>
-                  </div>
-                )}
+                {/* Botones de navegación */}
+                <div className="controls-inner">
+                  <NavigationButtons
+                    onPrevious={goPrevious}
+                    onNext={isLastQuestion ? handleSubmit : goNext}
+                    canGoBack={canGoBack}
+                    canGoNext={canGoNext}
+                    isLastQuestion={isLastQuestion}
+                  />
+                </div>
               </QuestionCard>
       </Form>
           )}
