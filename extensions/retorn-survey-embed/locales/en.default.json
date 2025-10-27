@@ -1,0 +1,9 @@
+{
+  "retorn_survey": {
+    "name": "Retorn Survey",
+    "title": "Find the perfect diet for your pet",
+    "description": "Answer a few simple questions and we'll recommend the best products for your furry friend.",
+    "loading": "Loading survey...",
+    "error": "Could not load the survey. Please reload the page."
+  }
+}

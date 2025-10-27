@@ -3,18 +3,30 @@
  * Se inyectan dinámicamente en el componente
  */
 
-export const getSurveyStyles = (direction) => `
+export const getSurveyStyles = (direction, theme = {}) => {
+  const {
+    primary = '#3E3E3E',
+    paginate = '#739f99',
+    borderRadius = '8px',
+    bg = '#ffffff'
+  } = theme;
+
+  return `
   @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
 
   :root {
-    --jdgm-primary-color: #3E3E3E;
+    --jdgm-primary-color: ${primary};
     --jdgm-secondary-color: rgba(62, 62, 62, 0.1);
     --jdgm-star-color: #ffcf00;
     --jdgm-write-review-text-color: white;
-    --jdgm-write-review-bg-color: #3E3E3E;
-    --jdgm-paginate-color: #739f99;
-    --jdgm-border-radius: 0;
-    --jdgm-reviewer-name-color: #3E3E3E;
+    --jdgm-write-review-bg-color: ${primary};
+    --jdgm-paginate-color: ${paginate};
+    --jdgm-border-radius: ${borderRadius};
+    --jdgm-reviewer-name-color: ${primary};
+  }
+
+  body {
+    background: ${bg} !important;
   }
 
   @keyframes fadeSlideIn {
@@ -1853,4 +1865,5 @@ export const getSurveyStyles = (direction) => `
     }
   }
 `;
+};
 

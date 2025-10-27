@@ -1,0 +1,17 @@
+# Theme App Extension Configuration
+name = "retorn-survey-embed"
+
+uid = "6ad1f926-eae9-2b7c-b873-6a60d422ce328ae0fe05"
+
+type = "theme"
+
+[build]
+command = ""
+watch = []
+
+[[extensions]]
+type = "theme"
+name = "Retorn Survey"
+handle = "retorn-survey-embed"
+
+[extensions.settings]

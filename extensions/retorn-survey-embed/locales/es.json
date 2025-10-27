@@ -1,0 +1,9 @@
+{
+  "retorn_survey": {
+    "name": "Retorn Survey",
+    "title": "Encuentra la dieta perfecta para tu mascota",
+    "description": "Responde unas simples preguntas y te recomendaremos los mejores productos para tu peludo.",
+    "loading": "Cargando cuestionario...",
+    "error": "No se pudo cargar el cuestionario. Por favor, recarga la página."
+  }
+}

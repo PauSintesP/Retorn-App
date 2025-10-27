@@ -1,0 +1,348 @@
+{% comment %}
+  Bloque de cuestionario Retorn
+  Permite incrustar el cuestionario de recomendación de productos
+{% endcomment %}
+
+<div class="retorn-survey-wrapper" id="retorn-survey-{{ block.id }}">
+  <div class="retorn-survey-container">
+    {% if block.settings.show_title %}
+      <h2 class="retorn-survey-title">{{ block.settings.title }}</h2>
+    {% endif %}
+    
+    {% if block.settings.show_description %}
+      <div class="retorn-survey-description">
+        {{ block.settings.description }}
+      </div>
+    {% endif %}
+
+    <div class="retorn-survey-iframe-wrapper">
+      <iframe 
+        id="retorn-survey-frame-{{ block.id }}"
+        class="retorn-survey-iframe"
+        src="{{ block.settings.survey_url }}?primary={{ block.settings.primary_color | url_encode }}&accent={{ block.settings.accent_color | url_encode }}&bg={{ block.settings.background_color | url_encode }}&radius={{ block.settings.border_radius }}"
+        title="Cuestionario de Recomendación Retorn"
+        loading="lazy"
+        allow="clipboard-write"
+        sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
+        style="border: 0; width: 100%; min-height: {{ block.settings.min_height }}px; display: block; border-radius: {{ block.settings.border_radius }};"
+      ></iframe>
+    </div>
+  </div>
+</div>
+
+<style>
+  .retorn-survey-wrapper {
+    width: 100%;
+    max-width: {{ block.settings.max_width }};
+    margin: {{ block.settings.margin_top }}px auto {{ block.settings.margin_bottom }}px;
+    padding: 0 20px;
+  }
+
+  .retorn-survey-container {
+    background: {{ block.settings.container_bg }};
+    border-radius: {{ block.settings.border_radius }};
+    {% if block.settings.show_shadow %}
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    {% endif %}
+    overflow: hidden;
+  }
+
+  .retorn-survey-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: {{ block.settings.title_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.title_color }};
+    text-align: {{ block.settings.text_align }};
+    margin: 0 0 {{ block.settings.title_margin }}px;
+    padding: {{ block.settings.container_padding }}px {{ block.settings.container_padding }}px 0;
+  }
+
+  .retorn-survey-description {
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.description_color }};
+    text-align: {{ block.settings.text_align }};
+    line-height: 1.6;
+    margin: 0 0 {{ block.settings.description_margin }}px;
+    padding: 0 {{ block.settings.container_padding }}px;
+  }
+
+  .retorn-survey-iframe-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .retorn-survey-iframe {
+    transition: height 0.3s ease;
+  }
+
+  @media (max-width: 768px) {
+    .retorn-survey-wrapper {
+      padding: 0 15px;
+      margin: {{ block.settings.margin_top | divided_by: 2 }}px auto {{ block.settings.margin_bottom | divided_by: 2 }}px;
+    }
+
+    .retorn-survey-title {
+      font-size: {{ block.settings.title_size | times: 0.8 }}px;
+    }
+
+    .retorn-survey-description {
+      font-size: {{ block.settings.description_size | times: 0.9 }}px;
+    }
+  }
+</style>
+
+<script>
+  (function() {
+    const iframe = document.getElementById('retorn-survey-frame-{{ block.id }}');
+    
+    // Auto-resize iframe height
+    window.addEventListener('message', function(e) {
+      if (!e.data || e.origin !== new URL('{{ block.settings.survey_url }}').origin) return;
+      
+      if (e.data.type === 'retorn-survey-height' && e.data.height) {
+        iframe.style.height = e.data.height + 'px';
+      }
+      
+      // Scroll to top of iframe when survey starts
+      if (e.data.type === 'retorn-survey-started') {
+        iframe.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      
+      // Handle product recommendations
+      if (e.data.type === 'retorn-add-to-cart' && e.data.products) {
+        handleAddToCart(e.data.products);
+      }
+    }, false);
+
+    function handleAddToCart(products) {
+      // Implementación para agregar productos al carrito de Shopify
+      const items = products.map(p => ({
+        id: p.variantId,
+        quantity: p.quantity || 1
+      }));
+      
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ items })
+      })
+      .then(response => response.json())
+      .then(data => {
+        console.log('Productos agregados al carrito:', data);
+        // Disparar evento personalizado para que el tema maneje la actualización del carrito
+        window.dispatchEvent(new CustomEvent('cart:updated', { detail: data }));
+      })
+      .catch(error => {
+        console.error('Error al agregar productos:', error);
+      });
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Retorn Survey",
+  "target": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Configuración General"
+    },
+    {
+      "type": "url",
+      "id": "survey_url",
+      "label": "URL del Cuestionario",
+      "default": "https://retorn-app.vercel.app/public/survey",
+      "info": "URL donde está alojado el cuestionario"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_title",
+      "label": "Mostrar título",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Encuentra la dieta perfecta para tu mascota"
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Tamaño del título (px)",
+      "min": 18,
+      "max": 48,
+      "step": 2,
+      "default": 32
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Color del título",
+      "default": "#3E3E3E"
+    },
+    {
+      "type": "range",
+      "id": "title_margin",
+      "label": "Margen inferior del título (px)",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 20
+    },
+    {
+      "type": "checkbox",
+      "id": "show_description",
+      "label": "Mostrar descripción",
+      "default": true
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Descripción",
+      "default": "<p>Responde unas simples preguntas y te recomendaremos los mejores productos para tu peludo.</p>"
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Tamaño de descripción (px)",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "default": 16
+    },
+    {
+      "type": "color",
+      "id": "description_color",
+      "label": "Color de descripción",
+      "default": "#666666"
+    },
+    {
+      "type": "range",
+      "id": "description_margin",
+      "label": "Margen inferior de descripción (px)",
+      "min": 0,
+      "max": 60,
+      "step": 4,
+      "default": 24
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Alineación de texto",
+      "options": [
+        {
+          "value": "left",
+          "label": "Izquierda"
+        },
+        {
+          "value": "center",
+          "label": "Centro"
+        },
+        {
+          "value": "right",
+          "label": "Derecha"
+        }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "header",
+      "content": "Diseño del Contenedor"
+    },
+    {
+      "type": "text",
+      "id": "max_width",
+      "label": "Ancho máximo",
+      "default": "1200px",
+      "info": "Ejemplo: 1200px, 100%, 90vw"
+    },
+    {
+      "type": "color",
+      "id": "container_bg",
+      "label": "Color de fondo del contenedor",
+      "default": "#ffffff"
+    },
+    {
+      "type": "range",
+      "id": "container_padding",
+      "label": "Padding del contenedor (px)",
+      "min": 0,
+      "max": 80,
+      "step": 4,
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "label": "Margen superior (px)",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "label": "Margen inferior (px)",
+      "min": 0,
+      "max": 200,
+      "step": 10,
+      "default": 60
+    },
+    {
+      "type": "text",
+      "id": "border_radius",
+      "label": "Radio de bordes",
+      "default": "12px",
+      "info": "Ejemplo: 12px, 0px, 20px"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_shadow",
+      "label": "Mostrar sombra",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Configuración del Cuestionario"
+    },
+    {
+      "type": "range",
+      "id": "min_height",
+      "label": "Altura mínima (px)",
+      "min": 400,
+      "max": 1000,
+      "step": 50,
+      "default": 600
+    },
+    {
+      "type": "color",
+      "id": "primary_color",
+      "label": "Color primario",
+      "default": "#3E3E3E"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Color de acento",
+      "default": "#739f99"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Color de fondo interno",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Retorn Survey",
+      "category": "Custom"
+    }
+  ]
+}
+{% endschema %}

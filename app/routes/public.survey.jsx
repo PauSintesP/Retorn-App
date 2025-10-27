@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router";
 import { getVisibleQuestions } from "../data/surveyQuestions";
 import { getSurveyStyles } from "../styles/surveyStyles";
 import ProgressBar from "../components/survey/ProgressBar";
@@ -37,6 +38,16 @@ export const action = async ({ request }) => {
  * Componente principal del cuestionario PÚBLICO
  */
 export default function PublicSurveyPage() {
+  const [searchParams] = useSearchParams();
+  
+  // Construir tema desde query params
+  const theme = {
+    primary: searchParams.get("primary") ? `#${searchParams.get("primary").replace('#', '')}` : undefined,
+    paginate: searchParams.get("accent") ? `#${searchParams.get("accent").replace('#', '')}` : undefined,
+    borderRadius: searchParams.get("radius") || undefined,
+    bg: searchParams.get("bg") ? `#${searchParams.get("bg").replace('#', '')}` : undefined,
+  };
+
   // Estado
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState({});
@@ -45,6 +56,36 @@ export default function PublicSurveyPage() {
   const [showRecommendation, setShowRecommendation] = useState(false);
   const [showPathologyContact, setShowPathologyContact] = useState(false);
   const [recommendation, setRecommendation] = useState(null);
+
+  // Comunicación con iframe padre (para auto-resize)
+  useEffect(() => {
+    const sendHeight = () => {
+      const height = document.body.scrollHeight;
+      window.parent.postMessage({
+        type: 'retorn-survey-height',
+        height: height
+      }, '*');
+    };
+
+    // Enviar altura inicial y en cada cambio
+    sendHeight();
+    
+    // Observer para detectar cambios en el DOM
+    const observer = new ResizeObserver(sendHeight);
+    observer.observe(document.body);
+    
+    // Cleanup
+    return () => observer.disconnect();
+  }, [currentStep, started, showRecommendation, showPathologyContact]);
+
+  // Notificar cuando el cuestionario inicia
+  useEffect(() => {
+    if (started && currentStep === 0) {
+      window.parent.postMessage({
+        type: 'retorn-survey-started'
+      }, '*');
+    }
+  }, [started, currentStep]);
 
   // Obtener preguntas visibles basadas en las respuestas actuales
   const visibleQuestions = getVisibleQuestions(answers);
@@ -263,7 +304,7 @@ export default function PublicSurveyPage() {
   // Renderizado principal
   return (
     <>
-      <style>{getSurveyStyles(direction)}</style>
+      <style>{getSurveyStyles(direction, theme)}</style>
 
       <div className="survey-container">
         <ProgressBar progress={progress} />
