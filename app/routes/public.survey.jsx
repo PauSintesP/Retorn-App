@@ -294,7 +294,9 @@ export default function PublicSurveyPage() {
    * Calcula y muestra la recomendación de productos
    */
   const handleSubmit = (e) => {
-    e.preventDefault();
+    if (e && e.preventDefault) {
+      e.preventDefault();
+    }
     
     try {
       // Verificar si tiene patologías

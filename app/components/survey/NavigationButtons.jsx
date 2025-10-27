@@ -13,11 +13,18 @@ export default function NavigationButtons({
 }) {
   const [termsAccepted, setTermsAccepted] = useState(false);
   
-  const handleNext = () => {
+  const handleNext = (e) => {
     if (isLastQuestion && !termsAccepted) {
       return; // No permitir avanzar si no ha aceptado los términos
     }
-    onNext();
+    
+    // Si onNext espera un evento (como handleSubmit), pasárselo
+    // Si no, simplemente llamar la función
+    if (e && typeof onNext === 'function') {
+      onNext(e);
+    } else if (typeof onNext === 'function') {
+      onNext();
+    }
   };
 
   const isNextDisabled = !canGoNext || (isLastQuestion && !termsAccepted);
@@ -50,6 +57,7 @@ export default function NavigationButtons({
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="terms-link"
+                  onClick={(e) => e.stopPropagation()}
                 >
                   términos del servicio
                 </a>
@@ -59,6 +67,7 @@ export default function NavigationButtons({
                   target="_blank" 
                   rel="noopener noreferrer"
                   className="terms-link"
+                  onClick={(e) => e.stopPropagation()}
                 >
                   política de privacidad
                 </a>
