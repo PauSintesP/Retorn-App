@@ -104,9 +104,6 @@ export default function SurveyPage() {
       if (e.key === "Enter" && e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA") {
         e.preventDefault();
         
-        // Si estamos en la pantalla final, no hacer nada
-        if (finished) return;
-        
         // Si la pregunta actual está respondida correctamente, avanzar
         if (isCurrentQuestionAnswered() && currentStep < totalQuestions - 1) {
           goNext();
@@ -116,7 +113,7 @@ export default function SurveyPage() {
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [started, finished, currentStep, totalQuestions, isCurrentQuestionAnswered]);
+  }, [started, currentStep, totalQuestions, isCurrentQuestionAnswered]);
 
   /**
    * Efecto: Ajustar currentStep si cambia el número de preguntas visibles
