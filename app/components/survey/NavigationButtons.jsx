@@ -2,6 +2,8 @@
  * Componente de botones de navegación para el formulario
  */
 
+import { useState } from "react";
+
 export default function NavigationButtons({ 
   onPrevious, 
   onNext, 
@@ -9,6 +11,17 @@ export default function NavigationButtons({
   canGoNext, 
   isLastQuestion 
 }) {
+  const [termsAccepted, setTermsAccepted] = useState(false);
+  
+  const handleNext = () => {
+    if (isLastQuestion && !termsAccepted) {
+      return; // No permitir avanzar si no ha aceptado los términos
+    }
+    onNext();
+  };
+
+  const isNextDisabled = !canGoNext || (isLastQuestion && !termsAccepted);
+
   return (
     <div className="navigation-buttons">
       {canGoBack && (
@@ -20,15 +33,48 @@ export default function NavigationButtons({
           ← Anterior
         </button>
       )}
-      <button
-        type="button"
-        onClick={onNext}
-        className="nav-button primary"
-        disabled={!canGoNext}
-        style={canGoBack ? {} : { width: '100%' }}
-      >
-        {isLastQuestion ? "Finalizar ✓" : "Siguiente →"}
-      </button>
+      <div className="next-button-container" style={canGoBack ? {} : { width: '100%' }}>
+        {isLastQuestion && (
+          <div className="terms-checkbox-container">
+            <label className="terms-checkbox-label">
+              <input
+                type="checkbox"
+                checked={termsAccepted}
+                onChange={(e) => setTermsAccepted(e.target.checked)}
+                className="terms-checkbox-input"
+              />
+              <span className="terms-checkbox-text">
+                Acepto los{" "}
+                <a 
+                  href="https://retorn.com/policies/terms-of-service" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="terms-link"
+                >
+                  términos del servicio
+                </a>
+                {" "}y la{" "}
+                <a 
+                  href="https://retorn.com/policies/privacy-policy" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="terms-link"
+                >
+                  política de privacidad
+                </a>
+              </span>
+            </label>
+          </div>
+        )}
+        <button
+          type="button"
+          onClick={handleNext}
+          className="nav-button primary"
+          disabled={isNextDisabled}
+        >
+          {isLastQuestion ? "Finalizar ✓" : "Siguiente →"}
+        </button>
+      </div>
     </div>
   );
 }

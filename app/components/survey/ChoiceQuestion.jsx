@@ -20,8 +20,8 @@ export default function ChoiceQuestion({ question, value, onChange }) {
           className={`option-button ${value === option.value ? "selected" : ""}`}
           onClick={() => onChange(option.value)}
         >
-          {option.icon && <span className="option-icon">{option.icon}</span>}
           <span className="option-label">{option.label}</span>
+          {option.icon && <span className="option-icon">{option.icon}</span>}
         </button>
       ))}
     </div>

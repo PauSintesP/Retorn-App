@@ -260,15 +260,6 @@ export const QUESTIONS = [
     required: true,
     condition: (answers) => answers.q1 === "Gato",
   },
-  // Q12 - Términos y condiciones (última pregunta para todos)
-  {
-    id: "12_terms",
-    question: "Al continuar, guardaremos tu proceso y aceptarás nuestros términos y condiciones y la política de privacidad para que podamos darte las recomendaciones más sabrosas.",
-    type: "terms",
-    required: true,
-    termsLink: "https://retorn.co/pages/terminos-condiciones",
-    privacyLink: "https://retorn.co/pages/politica-privacidad",
-  },
 ];
 
 /**

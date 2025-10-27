@@ -937,6 +937,70 @@ export const getSurveyStyles = (direction, theme = {}) => {
     transform: none !important;
   }
 
+  /* Contenedor del botón siguiente con checkbox */
+  .next-button-container {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .terms-checkbox-container {
+    display: flex;
+    align-items: flex-start;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    border: 1.5px solid rgba(115, 159, 153, 0.2);
+  }
+
+  .terms-checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    user-select: none;
+    width: 100%;
+  }
+
+  .terms-checkbox-input {
+    flex-shrink: 0;
+    width: 1.125rem;
+    height: 1.125rem;
+    margin-right: 0.75rem;
+    margin-top: 0.125rem;
+    cursor: pointer;
+    accent-color: var(--jdgm-paginate-color);
+  }
+
+  .terms-checkbox-text {
+    font-size: 0.85rem;
+    line-height: 1.4;
+    color: var(--jdgm-primary-color);
+  }
+
+  .terms-link {
+    color: var(--jdgm-paginate-color);
+    text-decoration: underline;
+    font-weight: 600;
+    transition: color 0.2s ease;
+  }
+
+  .terms-link:hover {
+    color: var(--jdgm-primary-color);
+  }
+
+  @media (min-width: 768px) {
+    .terms-checkbox-input {
+      width: 1.25rem;
+      height: 1.25rem;
+      margin-right: 0.875rem;
+    }
+
+    .terms-checkbox-text {
+      font-size: 0.9rem;
+    }
+  }
+
   .submit-button {
     width: 100%;
     max-width: 100%;

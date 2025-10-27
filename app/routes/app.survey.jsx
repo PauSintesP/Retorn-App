@@ -153,20 +153,29 @@ export default function SurveyPage() {
     if (!started) return;
 
     const handleKeyDown = (e) => {
-      // Solo procesar Enter y no cuando se está en un input de texto o textarea
-      if (e.key === "Enter" && e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA") {
+      // Solo procesar Enter
+      if (e.key === "Enter" || e.key === "\r") {
+        // No procesar si está escribiendo en un input o textarea
+        const target = e.target;
+        if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA")) {
+          return;
+        }
+
         e.preventDefault();
+        e.stopPropagation();
         
-        // Si la pregunta actual está respondida correctamente, avanzar
-        if (isCurrentQuestionAnswered() && currentStep < totalQuestions - 1) {
-          goNext();
+        // Obtener el botón "Siguiente" y hacer click en él si está habilitado
+        const nextButton = document.querySelector('.nav-button.primary:not(:disabled)');
+        if (nextButton) {
+          nextButton.click();
         }
       }
     };
 
-    window.addEventListener("keydown", handleKeyDown);
-    return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [started, currentStep, totalQuestions, isCurrentQuestionAnswered]);
+    // Usar capture phase para capturar el evento antes
+    window.addEventListener("keydown", handleKeyDown, true);
+    return () => window.removeEventListener("keydown", handleKeyDown, true);
+  }, [started]);
 
   /**
    * Efecto: Ajustar currentStep si cambia el número de preguntas visibles
