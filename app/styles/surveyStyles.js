@@ -244,13 +244,32 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-weight: 500;
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
   }
 
   @media (min-width: 768px) {
     .option-button {
       padding: 1.3rem 1.75rem;
       font-size: 1.05rem;
+      gap: 1rem;
     }
+  }
+
+  .option-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  @media (min-width: 768px) {
+    .option-icon {
+      font-size: 2rem;
+    }
+  }
+
+  .option-label {
+    flex: 1;
   }
 
   .option-button::before {

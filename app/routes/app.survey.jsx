@@ -110,6 +110,13 @@ export default function SurveyPage() {
       ...prev,
       [`q${currentQuestion.id}`]: value,
     }));
+    
+    // Auto-avanzar solo en preguntas de opción única (choice)
+    if (currentQuestion.type === "choice" && currentStep < totalQuestions - 1) {
+      setTimeout(() => {
+        goNext();
+      }, 300); // Pequeño delay para que el usuario vea la selección
+    }
   };
 
   /**

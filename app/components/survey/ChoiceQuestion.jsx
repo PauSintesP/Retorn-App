@@ -3,16 +3,25 @@
  */
 
 export default function ChoiceQuestion({ question, value, onChange }) {
+  // Normalizar opciones: pueden ser strings o objetos {value, icon, label}
+  const normalizedOptions = question.options.map(opt => {
+    if (typeof opt === 'string') {
+      return { value: opt, label: opt, icon: null };
+    }
+    return opt;
+  });
+
   return (
     <div className="options-container">
-      {question.options.map((option) => (
+      {normalizedOptions.map((option) => (
         <button
-          key={option}
+          key={option.value}
           type="button"
-          className={`option-button ${value === option ? "selected" : ""}`}
-          onClick={() => onChange(option)}
+          className={`option-button ${value === option.value ? "selected" : ""}`}
+          onClick={() => onChange(option.value)}
         >
-          {option}
+          {option.icon && <span className="option-icon">{option.icon}</span>}
+          <span className="option-label">{option.label}</span>
         </button>
       ))}
     </div>

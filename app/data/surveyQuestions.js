@@ -154,7 +154,10 @@ export const QUESTIONS = [
     id: "8_gato",
     question: "¿Alimentación seca o mixta?",
     type: "choice",
-    options: ["Seca", "Mixta"],
+    options: [
+      { value: "Seca", icon: "🥣", label: "Seca" },
+      { value: "Mixta", icon: "🥣🥫", label: "Mixta" }
+    ],
     required: true,
     info: "Las recetas mixtas están formuladas para obtener las kcal necesarias distribuidas en 75% seco 25% húmedo",
     condition: (answers) => answers.q1 === "Gato",
@@ -193,7 +196,10 @@ export const QUESTIONS = [
     id: "10_perro",
     question: "¿Alimentación seca o mixta?",
     type: "choice",
-    options: ["Seca", "Mixta"],
+    options: [
+      { value: "Seca", icon: "🥣", label: "Seca" },
+      { value: "Mixta", icon: "🥣🥫", label: "Mixta" }
+    ],
     required: true,
     info: "Las recetas mixtas están formuladas para obtener las kcal necesarias distribuidas en 75% seco 25% húmedo",
     condition: (answers) => answers.q1 === "Perro",
@@ -203,16 +209,56 @@ export const QUESTIONS = [
     id: "11_perro",
     question: "¿Tienes preferencia por alguna receta?",
     type: "choice",
-    options: [
-      "Salmón + Pesc zanahoria",
-      "Cordero + Cordero arroz",
-      "Pollo + Pollo zanahoria",
-      "Salmón light + Pesc zanahoria",
-      "Salmón Cachorro + Lata cachorro",
-      "¡Sorpréndeme!",
-    ],
+    options: (answers) => {
+      const esSeca = answers["q10_perro"] === "Seca";
+      if (esSeca) {
+        return [
+          "Salmón",
+          "Cordero",
+          "Pollo",
+          "Salmón Light",
+          "Salmón Cachorro",
+          "¡Sorpréndeme!",
+        ];
+      }
+      return [
+        "Salmón + Pesc zanahoria",
+        "Cordero + Cordero arroz",
+        "Pollo + Pollo zanahoria",
+        "Salmón light + Pesc zanahoria",
+        "Salmón Cachorro + Lata cachorro",
+        "¡Sorpréndeme!",
+      ];
+    },
     required: true,
     condition: (answers) => answers.q1 === "Perro",
+  },
+  // Q9 - Gato: preferencia receta
+  {
+    id: "9_gato",
+    question: "¿Tienes preferencia por alguna receta?",
+    type: "choice",
+    options: (answers) => {
+      const esSeca = answers["q8_gato"] === "Seca";
+      if (esSeca) {
+        return [
+          "Pollo",
+          "Pescado",
+          "Esterilizados",
+          "Gatito",
+          "¡Sorpréndeme!",
+        ];
+      }
+      return [
+        "Pollo + Pollo lata",
+        "Pescado + Fish lata",
+        "Esterilizados + Pollo lata",
+        "Gatito + Pollo lata",
+        "¡Sorpréndeme!",
+      ];
+    },
+    required: true,
+    condition: (answers) => answers.q1 === "Gato",
   },
 ];
 

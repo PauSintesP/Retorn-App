@@ -23,13 +23,21 @@ export default function QuestionCard({
     ? question.question(answers.q2)
     : question.question;
 
+  // Resolver las opciones si son una función (para preguntas dinámicas)
+  const resolvedQuestion = {
+    ...question,
+    options: typeof question.options === "function"
+      ? question.options(answers)
+      : question.options
+  };
+
   // Renderizar el componente apropiado según el tipo de pregunta
   const renderQuestionInput = () => {
     switch (question.type) {
       case "choice":
         return (
           <ChoiceQuestion
-            question={question}
+            question={resolvedQuestion}
             value={value}
             onChange={onChange}
           />
