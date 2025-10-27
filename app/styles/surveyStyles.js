@@ -307,6 +307,77 @@ export const getSurveyStyles = (direction, theme = {}) => {
     transform: scale(1.02);
   }
 
+  /* Terms and Conditions Styles */
+  .terms-container {
+    margin: 1.5rem 0;
+  }
+
+  .terms-label {
+    display: flex;
+    align-items: flex-start;
+    cursor: pointer;
+    user-select: none;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    border: 2px solid rgba(115, 159, 153, 0.15);
+    transition: all 0.25s ease;
+  }
+
+  .terms-label:hover {
+    background: rgba(115, 159, 153, 0.05);
+    border-color: rgba(115, 159, 153, 0.3);
+  }
+
+  .terms-checkbox {
+    flex-shrink: 0;
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-right: 0.875rem;
+    cursor: pointer;
+    accent-color: var(--jdgm-paginate-color);
+  }
+
+  .terms-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: var(--jdgm-primary-color);
+  }
+
+  .terms-links {
+    margin-top: 0.75rem;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  .terms-link {
+    color: var(--jdgm-paginate-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .terms-link:hover {
+    color: var(--jdgm-primary-color);
+    text-decoration: underline;
+  }
+
+  @media (min-width: 768px) {
+    .terms-checkbox {
+      width: 1.5rem;
+      height: 1.5rem;
+      margin-right: 1rem;
+    }
+
+    .terms-text {
+      font-size: 1rem;
+    }
+
+    .terms-links {
+      font-size: 0.95rem;
+    }
+  }
+
   .text-input {
     width: 100%;
     padding: 1rem 1rem;

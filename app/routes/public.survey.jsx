@@ -129,6 +129,31 @@ export default function PublicSurveyPage() {
   }, [started]);
 
   /**
+   * Efecto: Navegar con tecla Enter durante la encuesta
+   */
+  useEffect(() => {
+    if (!started) return;
+
+    const handleKeyDown = (e) => {
+      // Solo procesar Enter y no cuando se está en un input de texto o textarea
+      if (e.key === "Enter" && e.target.tagName !== "INPUT" && e.target.tagName !== "TEXTAREA") {
+        e.preventDefault();
+        
+        // Si estamos en la pantalla final, no hacer nada
+        if (showRecommendation || showPathologyContact) return;
+        
+        // Si la pregunta actual está respondida correctamente, avanzar
+        if (isCurrentQuestionAnswered() && currentStep < totalQuestions - 1) {
+          goNext();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [started, showRecommendation, showPathologyContact, currentStep, totalQuestions, isCurrentQuestionAnswered]);
+
+  /**
    * Efecto: Ajustar currentStep si cambia el número de preguntas visibles
    */
   useEffect(() => {

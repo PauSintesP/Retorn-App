@@ -3,6 +3,7 @@ import TextQuestion from "./TextQuestion";
 import NumberQuestion from "./NumberQuestion";
 import MultipleChoiceQuestion from "./MultipleChoiceQuestion";
 import DateQuestion from "./DateQuestion";
+import TermsQuestion from "./TermsQuestion";
 
 /**
  * Componente principal que renderiza una pregunta según su tipo
@@ -70,6 +71,14 @@ export default function QuestionCard({
       case "date":
         return (
           <DateQuestion
+            question={question}
+            value={value}
+            onChange={onChange}
+          />
+        );
+      case "terms":
+        return (
+          <TermsQuestion
             question={question}
             value={value}
             onChange={onChange}

@@ -7,6 +7,8 @@ export { default as ChoiceQuestion } from "./ChoiceQuestion";
 export { default as MultipleChoiceQuestion } from "./MultipleChoiceQuestion";
 export { default as TextQuestion } from "./TextQuestion";
 export { default as NumberQuestion } from "./NumberQuestion";
+export { default as DateQuestion } from "./DateQuestion";
+export { default as TermsQuestion } from "./TermsQuestion";
 export { default as QuestionCard } from "./QuestionCard";
 export { default as NavigationButtons } from "./NavigationButtons";
 export { default as ProgressBar } from "./ProgressBar";
