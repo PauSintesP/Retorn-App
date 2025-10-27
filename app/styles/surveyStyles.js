@@ -1307,6 +1307,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
+    min-height: 2rem;
   }
 
   .product-type {
@@ -1333,22 +1334,28 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .product-name {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.35rem;
+    font-size: 1.2rem;
     color: var(--jdgm-primary-color);
     margin: 0 0 1rem 0;
     font-weight: 600;
-    line-height: 1.3;
+    line-height: 1.25;
+    min-height: 2.5rem;
+    display: flex;
+    align-items: center;
   }
 
   @media (min-width: 768px) {
     .product-name {
-      font-size: 1.8rem;
+      font-size: 1.35rem;
       margin: 0 0 1.5rem 0;
+      min-height: 3.5rem;
+      line-height: 1.3;
     }
     
     .mixta-products-grid .product-name {
-      font-size: 1.5rem;
+      font-size: 1.25rem;
       margin: 0 0 1rem 0;
+      min-height: 3.2rem;
     }
   }
 
