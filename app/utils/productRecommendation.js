@@ -98,6 +98,41 @@ function determinarVariableActividad(edad, nivelActividad) {
 }
 
 /**
+ * Determina el tipo de croqueta recomendada según el peso del perro
+ * Tabla de referencia:
+ * - Mini/Toy (hasta 5kg): Pequeña (10mm)
+ * - Pequeño (5-10kg): Pequeña (10mm)
+ * - Mediano (10-25kg): Regular/Grande (15mm)
+ * - Grande (25-40kg): Regular/Grande (15mm)
+ * - Gigante (>40kg): Regular/Grande (15mm)
+ */
+function determinarTipoCroqueta(peso) {
+  if (!peso || isNaN(peso)) {
+    return {
+      tipo: "Regular",
+      diametro: "15 mm",
+      tamanoCroqueta: "grande"
+    };
+  }
+  
+  const pesoNum = parseFloat(peso);
+  
+  if (pesoNum <= 10) {
+    return {
+      tipo: "Pequeña",
+      diametro: "10 mm",
+      tamanoCroqueta: "pequeña"
+    };
+  } else {
+    return {
+      tipo: "Regular",
+      diametro: "15 mm",
+      tamanoCroqueta: "grande"
+    };
+  }
+}
+
+/**
  * Determina el caso específico para gatos
  * Según Excel: diferentes FACT y FACT2 según edad y condiciones
  */
@@ -542,6 +577,11 @@ export function calcularRecomendacionProductos(answers) {
       const { kcalDiarias, factores } = calcularCaloriasPerro(answers);
       resultado.kcalDiarias = kcalDiarias;
       resultado.factores = factores;
+      
+      // Determinar tipo de croqueta según el peso
+      const peso = parseFloat(answers.q5_perro);
+      const tipoCroqueta = determinarTipoCroqueta(peso);
+      resultado.tipoCroqueta = tipoCroqueta;
       
       // Seleccionar productos
       const productoSeco = seleccionarProductoSecoPerro(answers);

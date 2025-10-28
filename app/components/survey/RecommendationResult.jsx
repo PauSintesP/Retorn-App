@@ -7,7 +7,7 @@ export default function RecommendationResult({ recommendation, onRestart }) {
     return null;
   }
 
-  const { tipoAnimal, nombreMascota, kcalDiarias, recomendacion, factores } = recommendation;
+  const { tipoAnimal, nombreMascota, kcalDiarias, recomendacion, factores, tipoCroqueta } = recommendation;
 
   // Función para agregar productos al carrito de Shopify con cupón
   const agregarAlCarrito = () => {
@@ -70,6 +70,14 @@ export default function RecommendationResult({ recommendation, onRestart }) {
                   {factores.edadMeses < 12 
                     ? `${factores.edadMeses} meses` 
                     : `${Math.floor(factores.edadMeses / 12)} años`}
+                </span>
+              </div>
+            )}
+            {tipoCroqueta && tipoAnimal === "Perro" && (
+              <div className="calorie-item croqueta-highlight">
+                <span className="calorie-label">Tipo de croqueta recomendada:</span>
+                <span className="calorie-value">
+                  <strong>{tipoCroqueta.tipo}</strong> ({tipoCroqueta.diametro})
                 </span>
               </div>
             )}
