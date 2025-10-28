@@ -3,8 +3,8 @@
  * Acceder a: /app/product-diagnostics
  */
 
-import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { json } from "react-router";
+import { useLoaderData } from "react-router";
 import { 
   getProducts, 
   getCurrentDataSource,
