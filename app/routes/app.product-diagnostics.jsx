@@ -3,7 +3,6 @@
  * Acceder a: /app/product-diagnostics
  */
 
-import { json } from "react-router";
 import { useLoaderData } from "react-router";
 import { 
   getProducts, 
@@ -43,7 +42,7 @@ export async function loader() {
       variantesSmall: productos[key].variantes_small?.length || 0,
     }));
     
-    return json({
+    return {
       success: true,
       loadTime,
       source: getCurrentDataSource(),
@@ -51,14 +50,14 @@ export async function loader() {
       cacheInfo,
       stats,
       ejemplos,
-    });
+    };
     
   } catch (error) {
-    return json({
+    return {
       success: false,
       error: error.message,
       loadTime: Date.now() - startTime,
-    });
+    };
   }
 }
 
