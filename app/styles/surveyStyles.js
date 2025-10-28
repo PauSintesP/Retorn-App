@@ -1736,33 +1736,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-weight: 600;
   }
 
-  /* Destacar el item de tipo de croqueta */
-  .croqueta-highlight {
-    background: linear-gradient(135deg, rgba(255, 193, 7, 0.1) 0%, rgba(255, 152, 0, 0.05) 100%);
-    border: 2px solid rgba(255, 193, 7, 0.3);
-    padding: 1rem;
-  }
-
-  .croqueta-highlight .calorie-label {
-    color: #f57c00;
-    font-weight: 600;
-  }
-
-  .croqueta-highlight .calorie-value {
-    color: #e65100;
-    font-size: 1.5rem;
-  }
-
-  .croqueta-highlight .calorie-value strong {
-    font-size: 1.6rem;
-  }
-
-  @media (min-width: 768px) {
-    .croqueta-highlight {
-      grid-column: span 2;
-    }
-  }
-
   .products-section {
     margin: 2rem 0;
   }

@@ -73,14 +73,6 @@ export default function RecommendationResult({ recommendation, onRestart }) {
                 </span>
               </div>
             )}
-            {tipoCroqueta && tipoAnimal === "Perro" && (
-              <div className="calorie-item croqueta-highlight">
-                <span className="calorie-label">Tipo de croqueta recomendada:</span>
-                <span className="calorie-value">
-                  <strong>{tipoCroqueta.tipo}</strong> ({tipoCroqueta.diametro})
-                </span>
-              </div>
-            )}
           </div>
         </div>
       )}
@@ -93,6 +85,8 @@ export default function RecommendationResult({ recommendation, onRestart }) {
               producto={recomendacion.productoSeco}
               tipo="Alimentación Seca"
               kcalDiarias={kcalDiarias}
+              tipoCroqueta={tipoCroqueta}
+              tipoAnimal={tipoAnimal}
             />
           </>
         )}
@@ -115,6 +109,8 @@ export default function RecommendationResult({ recommendation, onRestart }) {
                 tipo="Alimento Seco"
                 kcalDiarias={kcalDiarias}
                 porcentaje={75}
+                tipoCroqueta={tipoCroqueta}
+                tipoAnimal={tipoAnimal}
               />
               
               <ProductCard
@@ -193,7 +189,14 @@ export default function RecommendationResult({ recommendation, onRestart }) {
   );
 }
 
-function ProductCard({ producto, tipo, kcalDiarias, porcentaje }) {
+function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, tipoAnimal }) {
+  // Determinar qué mostrar en product-type: tipo de croqueta para perros secos, tipo de producto para otros
+  const mostrarTipoCroqueta = tipoCroqueta && tipoAnimal === "Perro" && tipo.includes("Seco");
+  
+  const tipoMostrado = mostrarTipoCroqueta 
+    ? `${tipoCroqueta.tipo} (${tipoCroqueta.diametro})`
+    : tipo;
+  
   const calcularDuracion = () => {
     const cantidadOriginal = producto.varianteRecomendada.cantidad;
     let gramosTotales;
@@ -266,7 +269,7 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje }) {
 
       <div className="product-content">
         <div className="product-header">
-          <h3 className="product-type">{tipo}</h3>
+          <h3 className="product-type">{tipoMostrado}</h3>
           <span className="product-badge">{producto.segmento}</span>
         </div>
 
