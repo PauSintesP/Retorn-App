@@ -1474,28 +1474,52 @@ export const getSurveyStyles = (direction, theme = {}) => {
     align-items: center;
     gap: 1rem;
     margin: 0.75rem auto;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .discount-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, currentColor, transparent);
+    opacity: 0.3;
   }
 
   .discount-banner:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   }
 
   .first-order-banner {
-    background: linear-gradient(135deg, #e7f3ff 0%, #d4e9ff 100%);
-    border: 2px solid #5fb3e4;
+    background: linear-gradient(135deg, #f5f0e8 0%, #e8dfc8 100%);
+    border: 2px solid #c9b896;
+    color: #5d5342;
+  }
+
+  .first-order-banner::before {
+    color: #c9b896;
   }
 
   .subscription-banner {
-    background: linear-gradient(135deg, #fff4e6 0%, #ffe8cc 100%);
-    border: 2px solid #ffb84d;
+    background: linear-gradient(135deg, #f0ebe3 0%, #ddd5c7 100%);
+    border: 2px solid #b8ad94;
+    color: #524a3d;
+  }
+
+  .subscription-banner::before {
+    color: #b8ad94;
   }
 
   .discount-icon {
     font-size: 2.5rem;
     flex-shrink: 0;
+    filter: grayscale(20%);
   }
 
   .discount-content {
@@ -1507,43 +1531,47 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-family: 'Oswald', sans-serif;
     font-size: 1rem;
     font-weight: 600;
-    color: var(--jdgm-primary-color);
+    color: inherit;
     margin: 0 0 0.5rem 0;
     line-height: 1.3;
+    letter-spacing: 0.3px;
   }
 
   .discount-description {
     font-size: 0.9rem;
-    color: #555;
+    color: inherit;
+    opacity: 0.9;
     margin: 0 0 0.3rem 0;
     line-height: 1.5;
   }
 
   .discount-description strong {
-    color: var(--jdgm-primary-color);
-    font-weight: 600;
+    font-weight: 700;
+    color: inherit;
   }
 
   .discount-note {
     font-size: 0.75rem;
-    color: #777;
+    color: inherit;
+    opacity: 0.7;
     margin: 0;
     font-style: italic;
   }
 
   .subscription-link {
     display: inline-block;
-    color: #ff9500;
+    color: #8b7355;
     text-decoration: none;
     font-weight: 600;
     font-size: 0.9rem;
     transition: all 0.3s ease;
     margin-top: 0.25rem;
+    border-bottom: 1px solid transparent;
   }
 
   .subscription-link:hover {
-    color: #e68600;
-    text-decoration: underline;
+    color: #6d5a45;
+    border-bottom-color: currentColor;
     transform: translateX(3px);
   }
 
