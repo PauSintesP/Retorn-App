@@ -1460,9 +1460,133 @@ export const getSurveyStyles = (direction, theme = {}) => {
   @media (min-width: 768px) {
     .cart-action-section {
       margin: 5rem 0 2.5rem 0;
-      flex-direction: row;
-      justify-content: center;
       gap: 1.5rem;
+    }
+  }
+
+  /* Estilos para los banners de descuento */
+  .discount-banner {
+    width: 100%;
+    max-width: 800px;
+    padding: 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0.75rem auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .discount-banner:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .first-order-banner {
+    background: linear-gradient(135deg, #e7f3ff 0%, #d4e9ff 100%);
+    border: 2px solid #5fb3e4;
+  }
+
+  .subscription-banner {
+    background: linear-gradient(135deg, #fff4e6 0%, #ffe8cc 100%);
+    border: 2px solid #ffb84d;
+  }
+
+  .discount-icon {
+    font-size: 2.5rem;
+    flex-shrink: 0;
+  }
+
+  .discount-content {
+    flex: 1;
+    text-align: left;
+  }
+
+  .discount-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--jdgm-primary-color);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.3;
+  }
+
+  .discount-description {
+    font-size: 0.9rem;
+    color: #555;
+    margin: 0 0 0.3rem 0;
+    line-height: 1.5;
+  }
+
+  .discount-description strong {
+    color: var(--jdgm-primary-color);
+    font-weight: 600;
+  }
+
+  .discount-note {
+    font-size: 0.75rem;
+    color: #777;
+    margin: 0;
+    font-style: italic;
+  }
+
+  .subscription-link {
+    display: inline-block;
+    color: #ff9500;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+    margin-top: 0.25rem;
+  }
+
+  .subscription-link:hover {
+    color: #e68600;
+    text-decoration: underline;
+    transform: translateX(3px);
+  }
+
+  @media (min-width: 768px) {
+    .discount-banner {
+      padding: 2rem;
+      gap: 1.5rem;
+    }
+
+    .discount-icon {
+      font-size: 3rem;
+    }
+
+    .discount-title {
+      font-size: 1.2rem;
+    }
+
+    .discount-description {
+      font-size: 1rem;
+    }
+
+    .discount-note {
+      font-size: 0.85rem;
+    }
+
+    .subscription-link {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .discount-banner {
+      flex-direction: column;
+      text-align: center;
+      padding: 1.25rem;
+    }
+
+    .discount-content {
+      text-align: center;
+    }
+
+    .discount-icon {
+      font-size: 2rem;
     }
   }
 

@@ -9,7 +9,7 @@ export default function RecommendationResult({ recommendation, onRestart }) {
 
   const { tipoAnimal, nombreMascota, kcalDiarias, recomendacion, factores } = recommendation;
 
-  // Función para agregar productos al carrito de Shopify
+  // Función para agregar productos al carrito de Shopify con cupón
   const agregarAlCarrito = () => {
     const productos = [];
     
@@ -20,7 +20,7 @@ export default function RecommendationResult({ recommendation, onRestart }) {
       productos.push(recomendacion.productoHumedo);
     }
 
-    // Construir URL del carrito con múltiples productos
+    // Construir URL del carrito con múltiples productos y cupón de descuento
     const cartItems = productos
       .map(p => {
         const variantId = p.varianteRecomendada.variantId;
@@ -30,10 +30,11 @@ export default function RecommendationResult({ recommendation, onRestart }) {
       .join(',');
 
     if (cartItems) {
-      window.open(`https://retorn.com/cart/${cartItems}`, '_blank');
+      // Agregar el cupón RET15 automáticamente al carrito
+      window.open(`https://retorn.com/cart/${cartItems}?discount=RET15`, '_blank');
     } else {
-      // Fallback: ir al carrito vacío
-      window.open('https://retorn.com/cart', '_blank');
+      // Fallback: ir al carrito con el cupón
+      window.open('https://retorn.com/cart?discount=RET15', '_blank');
     }
   };
 
@@ -120,12 +121,40 @@ export default function RecommendationResult({ recommendation, onRestart }) {
       </div>
 
       <div className="cart-action-section">
+        {/* Mensaje de descuento para primer pedido */}
+        <div className="discount-banner first-order-banner">
+          <div className="discount-icon">🎉</div>
+          <div className="discount-content">
+            <h4 className="discount-title">¡Aprovecha tu primer pedido!</h4>
+            <p className="discount-description">
+              Usa el cupón <strong>RET15</strong> y obtén un <strong>15% de descuento</strong> solo para tu primer pedido.
+            </p>
+            <p className="discount-note">*El cupón se aplicará automáticamente al crear tu cesta</p>
+          </div>
+        </div>
+
         <button 
           onClick={agregarAlCarrito}
           className="add-to-cart-button"
         >
           Agregar {recomendacion.tipo === "mixta" ? "productos" : "producto"} al carrito
         </button>
+
+        {/* Mensaje de suscripción */}
+        <div className="discount-banner subscription-banner">
+          <div className="discount-icon">⭐</div>
+          <div className="discount-content">
+            <h4 className="discount-title">¡Hazte suscriptor y disfruta de un 10% de descuento en todos tus pedidos!</h4>
+            <a 
+              href="https://retorn.com/pages/suscripcion"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="subscription-link"
+            >
+              Más información sobre la suscripción →
+            </a>
+          </div>
+        </div>
         
         {onRestart && (
           <button 
