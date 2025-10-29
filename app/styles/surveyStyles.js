@@ -489,119 +489,39 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* SELECTOR DE FECHAS PERSONALIZADO */
   /* ============================================ */
 
-  /* Input nativo HTML5 para móviles */
-  .native-date-wrapper {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  .native-date-input {
-    width: 100%;
-    padding: 1.25rem 1.5rem;
-    font-size: 1.1rem;
-    font-family: inherit;
-    color: #3E3E3E;
-    background: white;
-    border: 2px solid rgba(115, 159, 153, 0.3);
-    border-radius: 12px;
-    transition: all 0.25s ease;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    cursor: pointer;
-    min-height: 60px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  }
-
-  .native-date-input:focus {
-    outline: none;
-    border-color: #5fb3a1;
-    box-shadow: 0 0 0 4px rgba(95, 179, 161, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
-  }
-
-  .native-date-input::-webkit-calendar-picker-indicator {
-    cursor: pointer;
-    border-radius: 4px;
-    margin-left: 0.5rem;
-    padding: 0.5rem;
-    background: rgba(95, 179, 161, 0.1);
-    transition: all 0.2s ease;
-  }
-
-  .native-date-input::-webkit-calendar-picker-indicator:hover {
-    background: rgba(95, 179, 161, 0.2);
-    transform: scale(1.1);
-  }
-
-  .date-age-display {
-    font-size: 1rem;
-    color: #739f99;
-    font-weight: 600;
-    padding: 0.75rem 1rem;
-    line-height: 1.5;
-    background: rgba(115, 159, 153, 0.08);
-    border-radius: 8px;
-    text-align: center;
-  }
-
-  /* Mejoras responsive para móvil */
-  @media (min-width: 600px) {
-    .native-date-input {
-      padding: 1.5rem 1.75rem;
-      font-size: 1.15rem;
-      min-height: 64px;
-    }
-
-    .date-age-display {
-      font-size: 1.05rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .native-date-input {
-      padding: 1.5rem 2rem;
-      font-size: 1.2rem;
-      min-height: 68px;
-    }
-
-    .date-age-display {
-      font-size: 1.1rem;
-      padding: 1rem 1.25rem;
-    }
-  }
-
-  /* Selector custom para desktop */
+  /* Selector custom responsive - Mobile First */
   .custom-date-input {
     width: 100%;
     max-width: 100%;
     margin: 0 auto;
-    padding: 1.25rem 1.5rem;
+    padding: 1.25rem 1.25rem;
     background: white;
     border: 2px solid rgba(115, 159, 153, 0.3);
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.3s ease;
     position: relative;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    min-height: 62px;
   }
 
   .custom-date-input:hover {
     border-color: #739f99;
-    box-shadow: 0 4px 16px rgba(115, 159, 153, 0.12);
+    box-shadow: 0 4px 16px rgba(115, 159, 153, 0.15);
+    transform: translateY(-2px);
   }
 
   .custom-date-input:focus {
     outline: none;
     border-color: #5fb3a1;
-    box-shadow: 0 0 0 3px rgba(95, 179, 161, 0.15);
+    box-shadow: 0 0 0 4px rgba(95, 179, 161, 0.15), 0 4px 16px rgba(95, 179, 161, 0.1);
   }
 
   .date-input-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1.5rem;
+    gap: 1rem;
   }
 
   .date-text-container {
@@ -613,10 +533,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .date-display-text {
-    font-size: 1.05rem;
+    font-size: 1rem;
     font-weight: 600;
     color: #3E3E3E;
-    line-height: 1.5;
+    line-height: 1.4;
     white-space: normal;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -628,88 +548,146 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .date-age-text {
-    font-size: 0.875rem;
+    font-size: 0.85rem;
     color: #739f99;
-    font-weight: 500;
-    line-height: 1.5;
+    font-weight: 600;
+    line-height: 1.4;
+    padding: 0.4rem 0.75rem;
+    background: rgba(115, 159, 153, 0.1);
+    border-radius: 6px;
+    display: inline-block;
+    width: fit-content;
   }
 
   .date-chevron {
-    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: #739f99;
-    transition: transform 0.25s ease;
+    transition: all 0.3s ease;
     flex-shrink: 0;
-    margin-left: 0.5rem;
+    width: 24px;
+    height: 24px;
   }
 
   .date-chevron.open {
     transform: rotate(180deg);
   }
 
-  /* Panel de selección */
+  .date-chevron svg {
+    display: block;
+  }
+
+  /* Panel de selección - Mobile First */
   .date-picker-panel {
-    margin: 1.5rem auto 0;
+    margin: 1.25rem auto 0;
     max-width: 100%;
     background: white;
-    border-radius: 5px;
-    padding: 2rem;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
+    padding: 1.25rem 1rem;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(115, 159, 153, 0.1);
     border: 2px solid rgba(115, 159, 153, 0.2);
-    animation: fadeSlideIn 0.3s ease;
+    animation: fadeSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+  }
+
+  @keyframes fadeSlideIn {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .date-picker-header {
-    padding-bottom: 1.25rem;
-    margin-bottom: 1.5rem;
-    border-bottom: 1px solid rgba(115, 159, 153, 0.15);
+    padding-bottom: 1rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 2px solid rgba(115, 159, 153, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
   .picker-title {
     font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
     color: #5fb3a1;
+    flex: 1;
     text-align: center;
+  }
+
+  .date-picker-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(115, 159, 153, 0.1);
+    border: none;
+    border-radius: 50%;
+    color: #739f99;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0;
+  }
+
+  .date-picker-close:hover {
+    background: rgba(115, 159, 153, 0.2);
+    transform: scale(1.1);
+    color: #5fb3a1;
+  }
+
+  .date-picker-close:active {
+    transform: scale(0.95);
   }
 
   .date-selectors-grid {
     display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    gap: 1.25rem;
-    margin-bottom: 1.5rem;
+    grid-template-columns: 1fr 1.8fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
   }
 
   .date-selector-column {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem;
   }
 
   .date-selector-label {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 700;
     color: #739f99;
     text-transform: uppercase;
     letter-spacing: 0.8px;
-    padding: 0 0.5rem;
+    padding: 0 0.25rem;
     text-align: center;
     margin-bottom: 0.25rem;
   }
 
   .date-selector-scroll {
-    max-height: 149px;
+    max-height: 180px;
     overflow-y: auto;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
     padding: 0.75rem 0.5rem;
     background: rgba(115, 159, 153, 0.04);
-    border-radius: 5px;
+    border-radius: 10px;
     scrollbar-width: thin;
-    scrollbar-color: rgba(115, 159, 153, 0.25) transparent;
+    scrollbar-color: rgba(115, 159, 153, 0.3) transparent;
   }
 
   .date-selector-scroll::-webkit-scrollbar {
-    width: 5px;
+    width: 6px;
   }
 
   .date-selector-scroll::-webkit-scrollbar-track {
@@ -717,109 +695,251 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .date-selector-scroll::-webkit-scrollbar-thumb {
-    background: rgba(115, 159, 153, 0.25);
-    border-radius: 5px;
+    background: rgba(115, 159, 153, 0.3);
+    border-radius: 10px;
   }
 
   .date-selector-scroll::-webkit-scrollbar-thumb:hover {
-    background: rgba(115, 159, 153, 0.4);
+    background: rgba(115, 159, 153, 0.5);
   }
 
   .date-option {
-    padding: 0.85rem 1rem;
+    padding: 0.9rem 1rem;
     background: white;
-    border: 1.5px solid rgba(115, 159, 153, 0.2);
-    border-radius: 5px;
-    font-size: 0.925rem;
-    font-weight: 500;
+    border: 2px solid rgba(115, 159, 153, 0.2);
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
     color: #3E3E3E;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     text-align: center;
+    min-height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .date-option:hover:not(.selected) {
     border-color: #739f99;
-    background: rgba(95, 179, 161, 0.05);
-    transform: translateY(-1px);
+    background: rgba(95, 179, 161, 0.08);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(115, 159, 153, 0.15);
+  }
+
+  .date-option:active:not(.selected) {
+    transform: translateY(0);
   }
 
   .date-option.selected {
-    background: #5fb3a1;
+    background: linear-gradient(135deg, #5fb3a1 0%, #4a9888 100%);
     border-color: #5fb3a1;
     color: white;
     font-weight: 700;
-    box-shadow: 0 3px 10px rgba(95, 179, 161, 0.25);
+    box-shadow: 0 4px 16px rgba(95, 179, 161, 0.35);
+    transform: scale(1.02);
   }
 
   .date-picker-footer {
     display: flex;
     justify-content: center;
-    padding-top: 1.5rem;
+    padding-top: 1.25rem;
     margin-top: 0.5rem;
-    border-top: 1px solid rgba(115, 159, 153, 0.15);
+    border-top: 2px solid rgba(115, 159, 153, 0.15);
   }
 
   .date-clear-btn {
-    padding: 0.85rem 2rem;
+    padding: 0.95rem 2.25rem;
     background: white;
-    border: 1.5px solid rgba(115, 159, 153, 0.3);
-    border-radius: 5px;
+    border: 2px solid rgba(115, 159, 153, 0.3);
+    border-radius: 10px;
     color: #739f99;
-    font-weight: 600;
-    font-size: 0.9rem;
+    font-weight: 700;
+    font-size: 0.95rem;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
+    min-height: 48px;
   }
 
   .date-clear-btn:hover {
-    background: rgba(115, 159, 153, 0.08);
-    border-color: #739f99;
+    background: rgba(115, 159, 153, 0.1);
+    border-color: #5fb3a1;
     color: #5fb3a1;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(115, 159, 153, 0.2);
   }
 
-  /* Responsive para móvil - Date Picker */
-  @media (max-width: 767px) {
-    .custom-date-input {
-      max-width: 100%;
-      padding: 1rem 1.25rem;
-    }
+  .date-clear-btn:active {
+    transform: translateY(0);
+  }
 
-    .date-input-content {
-      gap: 0.85rem;
+  /* Responsive Tablet */
+  @media (min-width: 600px) {
+    .custom-date-input {
+      padding: 1.35rem 1.5rem;
+      min-height: 68px;
+      border-radius: 14px;
     }
 
     .date-display-text {
+      font-size: 1.05rem;
+    }
+
+    .date-age-text {
+      font-size: 0.9rem;
+      padding: 0.5rem 0.85rem;
+    }
+
+    .date-picker-panel {
+      padding: 1.75rem 1.5rem;
+      border-radius: 18px;
+    }
+
+    .picker-title {
+      font-size: 1.1rem;
+    }
+
+    .date-picker-close {
+      width: 2.25rem;
+      height: 2.25rem;
+      font-size: 1.65rem;
+    }
+
+    .date-selectors-grid {
+      gap: 1rem;
+    }
+
+    .date-selector-scroll {
+      max-height: 200px;
+      padding: 0.85rem 0.6rem;
+      gap: 0.6rem;
+    }
+
+    .date-option {
+      padding: 1rem 1.1rem;
+      font-size: 1rem;
+      min-height: 52px;
+    }
+
+    .date-clear-btn {
+      padding: 1rem 2.5rem;
+      font-size: 1rem;
+    }
+  }
+
+  /* Responsive Desktop */
+  @media (min-width: 768px) {
+    .custom-date-input {
+      padding: 1.5rem 1.75rem;
+      min-height: 72px;
+      border-radius: 16px;
+    }
+
+    .date-display-text {
+      font-size: 1.1rem;
+    }
+
+    .date-age-text {
       font-size: 0.95rem;
+      padding: 0.55rem 0.95rem;
+    }
+
+    .date-picker-panel {
+      padding: 2rem 1.75rem;
+      border-radius: 20px;
+      max-width: 650px;
+    }
+
+    .picker-title {
+      font-size: 1.15rem;
+    }
+
+    .date-picker-close {
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 1.75rem;
+    }
+
+    .date-selectors-grid {
+      grid-template-columns: 1fr 2fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .date-selector-label {
+      font-size: 0.8rem;
+    }
+
+    .date-selector-scroll {
+      max-height: 220px;
+      padding: 1rem 0.75rem;
+      gap: 0.65rem;
+    }
+
+    .date-option {
+      padding: 1.1rem 1.25rem;
+      font-size: 1.05rem;
+      min-height: 56px;
+    }
+
+    .date-clear-btn {
+      padding: 1.1rem 2.75rem;
+      font-size: 1.05rem;
+      min-height: 52px;
+    }
+  }
+
+  /* Mejoras para pantallas muy pequeñas */
+  @media (max-width: 400px) {
+    .custom-date-input {
+      padding: 1.1rem 1rem;
+      min-height: 58px;
+    }
+
+    .date-display-text {
+      font-size: 0.9rem;
     }
 
     .date-age-text {
       font-size: 0.8rem;
+      padding: 0.35rem 0.65rem;
     }
 
     .date-picker-panel {
-      max-width: 100%;
-      padding: 1.25rem;
+      padding: 1rem 0.85rem;
       margin: 1rem auto 0;
     }
 
-    .date-selectors-grid {
-      grid-template-columns: 1fr;
-      gap: 0.85rem;
-      margin-bottom: 1rem;
+    .picker-title {
+      font-size: 0.95rem;
+    }
+
+    .date-picker-close {
+      width: 1.85rem;
+      height: 1.85rem;
+      font-size: 1.4rem;
+    }
+
+    .date-selector-label {
+      font-size: 0.7rem;
     }
 
     .date-selector-scroll {
       max-height: 160px;
-      padding: 0.5rem 0.25rem;
+      padding: 0.6rem 0.4rem;
+      gap: 0.45rem;
     }
 
     .date-option {
-      padding: 0.75rem 0.875rem;
+      padding: 0.8rem 0.85rem;
       font-size: 0.9rem;
+      min-height: 44px;
     }
 
-    .picker-title {
+    .date-clear-btn {
+      padding: 0.85rem 1.75rem;
+      font-size: 0.9rem;
+    }
+  }
       font-size: 0.95rem;
     }
 

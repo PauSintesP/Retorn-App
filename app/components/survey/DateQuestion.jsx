@@ -2,7 +2,7 @@ import { useState, useRef, useEffect } from "react";
 
 /**
  * Componente para renderizar preguntas de tipo fecha con selector personalizado
- * Optimizado para móviles con input nativo y fallback a selector custom
+ * Optimizado para móviles con diseño adaptativo
  */
 
 export default function DateQuestion({ question, value, onChange }) {
@@ -10,16 +10,7 @@ export default function DateQuestion({ question, value, onChange }) {
   const [selectedDay, setSelectedDay] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
-  const [useNativeInput, setUseNativeInput] = useState(false);
   const containerRef = useRef(null);
-  const nativeInputRef = useRef(null);
-
-  // Detectar si es dispositivo móvil/tablet
-  useEffect(() => {
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || 
-                     (window.innerWidth <= 768);
-    setUseNativeInput(isMobile);
-  }, []);
 
   // Meses en español
   const months = [
@@ -117,32 +108,8 @@ export default function DateQuestion({ question, value, onChange }) {
       ageText = "Recién nacido";
     }
     
-    return `· Aproximadamente ${ageText}`;
+    return `Aproximadamente ${ageText}`;
   };
-
-  // Si es móvil, usar input nativo de HTML5
-  if (useNativeInput) {
-    return (
-      <div className="options-container">
-        <div className="native-date-wrapper">
-          <input
-            ref={nativeInputRef}
-            type="date"
-            value={value || ""}
-            onChange={(e) => onChange(e.target.value)}
-            className="native-date-input"
-            max={new Date().toISOString().split('T')[0]}
-            placeholder="Selecciona la fecha"
-          />
-          {value && (
-            <div className="date-age-display">
-              {getAgeText()}
-            </div>
-          )}
-        </div>
-      </div>
-    );
-  }
 
   // Selector personalizado para desktop
   return (
@@ -167,7 +134,11 @@ export default function DateQuestion({ question, value, onChange }) {
               </span>
             )}
           </div>
-          <div className={`date-chevron ${isOpen ? 'open' : ''}`}>▼</div>
+          <div className={`date-chevron ${isOpen ? 'open' : ''}`}>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
+              <path d="M5 7l5 5 5-5H5z"/>
+            </svg>
+          </div>
         </div>
       </div>
 
@@ -176,6 +147,14 @@ export default function DateQuestion({ question, value, onChange }) {
         <div className="date-picker-panel">
           <div className="date-picker-header">
             <span className="picker-title">Selecciona la fecha de nacimiento</span>
+            <button
+              type="button"
+              className="date-picker-close"
+              onClick={() => setIsOpen(false)}
+              aria-label="Cerrar selector"
+            >
+              ✕
+            </button>
           </div>
 
           <div className="date-selectors-grid">
