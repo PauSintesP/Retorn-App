@@ -202,8 +202,7 @@ export default function RecommendationResult({ recommendation, onRestart }) {
       <div className="recommendation-footer">
         <div className="footer-card">
           <p className="footer-note">
-            Esta recomendación ha sido calculada específicamente para {nombreMascota} 
-            considerando su edad, peso, actividad física y condiciones particulares.
+            Esta recomendación ha sido calculada específicamente para {nombreMascota}{" "}considerando su edad, peso, actividad física y condiciones particulares.
           </p>
         </div>
         
