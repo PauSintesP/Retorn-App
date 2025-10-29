@@ -969,12 +969,49 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Checkbox de términos - aparece arriba de los botones */
   .terms-checkbox-container {
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.5rem;
     padding: 1rem;
     background: rgba(115, 159, 153, 0.05);
     border-radius: 8px;
     border: 1.5px solid rgba(115, 159, 153, 0.2);
     margin-bottom: 0.5rem;
+  }
+
+  .terms-error-message {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.625rem 0.875rem;
+    background: rgba(220, 38, 38, 0.08);
+    border-left: 3px solid #dc2626;
+    border-radius: 4px;
+    margin-top: 0.375rem;
+    animation: slideDown 0.3s ease-out;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .terms-error-icon {
+    font-size: 1rem;
+    color: #dc2626;
+    line-height: 1;
+  }
+
+  .terms-error-text {
+    font-size: 0.8125rem;
+    color: #dc2626;
+    font-weight: 500;
+    line-height: 1.3;
   }
 
   .terms-checkbox-label {

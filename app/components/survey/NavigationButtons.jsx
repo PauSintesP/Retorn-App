@@ -14,9 +14,11 @@ export default function NavigationButtons({
   currentAnswer
 }) {
   const [termsAccepted, setTermsAccepted] = useState(false);
+  const [showTermsError, setShowTermsError] = useState(false);
   
   const handleNext = (e) => {
     if (isLastQuestion && !termsAccepted) {
+      setShowTermsError(true);
       return; // No permitir avanzar si no ha aceptado los términos
     }
     
@@ -26,6 +28,13 @@ export default function NavigationButtons({
       onNext(e);
     } else if (typeof onNext === 'function') {
       onNext();
+    }
+  };
+  
+  const handleTermsChange = (e) => {
+    setTermsAccepted(e.target.checked);
+    if (e.target.checked) {
+      setShowTermsError(false); // Ocultar error cuando se acepta
     }
   };
 
@@ -57,7 +66,7 @@ export default function NavigationButtons({
             <input
               type="checkbox"
               checked={termsAccepted}
-              onChange={(e) => setTermsAccepted(e.target.checked)}
+              onChange={handleTermsChange}
               className="terms-checkbox-input"
             />
             <span className="terms-checkbox-text">
@@ -83,6 +92,12 @@ export default function NavigationButtons({
               </a>
             </span>
           </label>
+          {showTermsError && (
+            <div className="terms-error-message">
+              <span className="terms-error-icon">⚠</span>
+              <span className="terms-error-text">Es obligatorio aceptar los términos para continuar</span>
+            </div>
+          )}
         </div>
       )}
       <div className="navigation-buttons">
