@@ -129,7 +129,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.35rem 0.35rem;
+    padding: 1.5rem 0.5rem;
     margin-top: 4px;
     position: relative;
     z-index: 1;
@@ -144,7 +144,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
       0 8px 24px rgba(0, 0, 0, 0.08),
       0 4px 12px rgba(115, 159, 153, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    padding: 1rem 0.6rem;
+    padding: 1.25rem 0.85rem;
     max-width: 100%;
     width: 100%;
     animation: ${direction === "forward" ? "fadeSlideIn" : "fadeSlideOut"} 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -312,9 +312,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
     border: 2px solid rgba(115, 159, 153, 0.15);
     border-radius: 8px;
-    padding: 0.65rem 0.7rem;
+    padding: 0.75rem 0.85rem;
     font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: var(--jdgm-primary-color);
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -324,8 +324,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     overflow: hidden;
     display: flex;
     align-items: center;
-    gap: 0.45rem;
-    min-height: 48px;
+    gap: 0.5rem;
+    min-height: 52px;
   }
 
   @media (min-width: 600px) {
@@ -1196,8 +1196,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .two-columns-container {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.5rem; /* Reducido de 0.65rem para compactar */
-    margin-bottom: 0.6rem; /* Reducido de 0.85rem */
+    gap: 0.6rem;
+    margin-bottom: 0.75rem;
   }
 
   @media (min-width: 600px) {
@@ -1249,7 +1249,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .column {
     display: flex;
     flex-direction: column;
-    gap: 0.5rem; /* Reducido de 0.65rem para compactar verticalmente */
+    gap: 0.6rem;
   }
 
   @media (min-width: 600px) {
@@ -1266,12 +1266,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .patologias-info-text {
     text-align: center;
-    margin-top: 1rem;
+    margin-top: 1.15rem;
     margin-bottom: 0;
     color: #666;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-family: 'Inter', sans-serif;
     font-style: italic;
+    line-height: 1.4;
   }
 
   @media (min-width: 600px) {
@@ -1309,10 +1310,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Alerta de patología - Mobile optimizado */
   .patologia-alert {
     display: flex;
-    gap: 0.6rem;
+    gap: 0.75rem;
     align-items: flex-start;
-    margin-top: 0.85rem;
-    padding: 0.85rem 0.7rem;
+    margin-top: 1rem;
+    padding: 1rem 0.85rem;
     background: linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.05) 100%);
     border-left: 4px solid #ff9800;
     border-radius: 5px;
@@ -1346,9 +1347,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     margin: 0;
     color: #e65100;
     font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     font-weight: 600;
-    line-height: 1.4;
+    line-height: 1.5;
     flex: 1;
   }
 
