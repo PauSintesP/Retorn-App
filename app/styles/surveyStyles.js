@@ -2304,6 +2304,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex-direction: column;
     align-items: center;
     gap: 0.85rem;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
+    box-sizing: border-box;
   }
 
   @media (min-width: 600px) {
@@ -2323,9 +2327,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Contenedor de notificaciones apiladas */
   .notifications-stack {
     width: 100%;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
+    gap: 0.5rem;
     margin-bottom: 1rem;
     padding: 0;
     box-sizing: border-box;
@@ -2348,10 +2353,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Contenedor de botones de acción */
   .action-buttons-container {
     width: 100%;
+    max-width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0.85rem;
+    padding: 0;
+    box-sizing: border-box;
   }
 
   @media (min-width: 600px) {
@@ -2370,16 +2378,16 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   /* Estilos para los banners de descuento - Mobile First MEJORADO */
   .discount-banner {
-    width: calc(100% - 0.5rem);
-    max-width: 900px;
-    padding: 0.85rem 0.6rem;
-    padding-right: 2.5rem; /* Espacio para el botón de cerrar */
-    border-radius: 10px;
+    width: 100%;
+    max-width: 100%;
+    padding: 0.75rem 0.5rem;
+    padding-right: 2.25rem; /* Espacio para el botón de cerrar */
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.6rem;
-    margin: 0 0.25rem;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin: 0;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -2405,10 +2413,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Botón para cerrar notificaciones - Mejorado para móvil */
   .banner-close-button {
     position: absolute;
-    top: 0.35rem;
-    right: 0.35rem;
-    width: 1.75rem;
-    height: 1.75rem;
+    top: 0.25rem;
+    right: 0.25rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    min-width: 1.5rem;
+    min-height: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2416,13 +2426,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
     border: none;
     border-radius: 50%;
     color: inherit;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     line-height: 1;
     cursor: pointer;
     transition: all 0.2s ease;
     opacity: 0.7;
     padding: 0;
     z-index: 10;
+    flex-shrink: 0;
   }
 
   .banner-close-button:hover {
@@ -2456,49 +2467,61 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .discount-icon {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
     flex-shrink: 0;
     filter: grayscale(20%);
     margin-bottom: 0;
+    line-height: 1;
   }
 
   .discount-content {
     flex: 1;
-    text-align: center;
+    text-align: left;
     width: 100%;
-    padding-right: 0.25rem;
+    max-width: 100%;
+    padding-right: 0;
+    overflow: hidden;
+    box-sizing: border-box;
   }
 
   .discount-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: inherit;
-    margin: 0 0 0.4rem 0;
-    line-height: 1.25;
-    letter-spacing: 0.3px;
+    margin: 0 0 0.35rem 0;
+    line-height: 1.3;
+    letter-spacing: 0.2px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
   }
 
   .discount-description {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: inherit;
     opacity: 0.9;
-    margin: 0 0 0.3rem 0;
+    margin: 0 0 0.25rem 0;
     line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .discount-description strong {
     font-weight: 700;
     color: inherit;
+    white-space: nowrap;
   }
 
   .discount-note {
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     color: inherit;
     opacity: 0.7;
     margin: 0;
     font-style: italic;
-    line-height: 1.3;
+    line-height: 1.35;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   .subscription-link {
@@ -2506,12 +2529,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
     color: #8b7355;
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     transition: all 0.3s ease;
-    margin-top: 0.3rem;
+    margin-top: 0.25rem;
     border-bottom: 1px solid transparent;
-    padding: 0.15rem 0;
-    line-height: 1.3;
+    padding: 0.1rem 0;
+    line-height: 1.4;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
   }
 
   .subscription-link:hover {
@@ -2523,13 +2549,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Tablet y superior */
   @media (min-width: 600px) {
     .discount-banner {
-      width: calc(100% - 1rem);
+      width: 100%;
       flex-direction: row;
       align-items: center;
       padding: 1.25rem 1.25rem;
       padding-right: 3.25rem;
       gap: 1rem;
-      margin: 0 0.5rem;
+      margin: 0;
+      border-radius: 10px;
     }
 
     .discount-icon {
@@ -2545,6 +2572,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .discount-title {
       font-size: 1rem;
       margin-bottom: 0.55rem;
+      letter-spacing: 0.3px;
     }
 
     .discount-description {
@@ -2564,6 +2592,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
       right: 0.65rem;
       width: 2.25rem;
       height: 2.25rem;
+      min-width: 2.25rem;
+      min-height: 2.25rem;
       font-size: 1.65rem;
     }
   }
@@ -2572,6 +2602,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   @media (min-width: 768px) {
     .discount-banner {
       width: 100%;
+      max-width: 900px;
       margin: 0 auto;
       padding: 1.75rem 1.5rem;
       padding-right: 4rem;
@@ -2597,6 +2628,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
     .subscription-link {
       font-size: 1rem;
+    }
+
+    .banner-close-button {
+      width: 2.5rem;
+      height: 2.5rem;
+      min-width: 2.5rem;
+      min-height: 2.5rem;
+      font-size: 1.8rem;
     }
 
     .banner-close-button {
