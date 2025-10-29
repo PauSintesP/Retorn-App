@@ -827,6 +827,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-weight: 500;
   }
 
+  /* Contenedor principal de navegación y términos */
+  .navigation-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
   .navigation-buttons {
     display: flex;
     gap: 1rem;
@@ -856,6 +864,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
     letter-spacing: 1.2px;
     position: relative;
     overflow: hidden;
+  }
+
+  .nav-button.full-width {
+    flex: 1 1 100%;
   }
 
   @media (min-width: 768px) {
@@ -954,21 +966,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
     transform: none !important;
   }
 
-  /* Contenedor del botón siguiente con checkbox */
-  .next-button-container {
-    flex: 1 1 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-  }
-
+  /* Checkbox de términos - aparece arriba de los botones */
   .terms-checkbox-container {
     display: flex;
     align-items: flex-start;
-    padding: 0.75rem;
-    background: rgba(255, 255, 255, 0.5);
+    padding: 1rem;
+    background: rgba(115, 159, 153, 0.05);
     border-radius: 8px;
     border: 1.5px solid rgba(115, 159, 153, 0.2);
+    margin-bottom: 0.5rem;
   }
 
   .terms-checkbox-label {

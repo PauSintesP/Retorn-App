@@ -50,55 +50,55 @@ export default function NavigationButtons({
   };
 
   return (
-    <div className="navigation-buttons">
-      {canGoBack && (
-        <button
-          type="button"
-          onClick={onPrevious}
-          className="nav-button secondary"
-        >
-          ← Anterior
-        </button>
+    <div className="navigation-wrapper">
+      {isLastQuestion && (
+        <div className="terms-checkbox-container">
+          <label className="terms-checkbox-label">
+            <input
+              type="checkbox"
+              checked={termsAccepted}
+              onChange={(e) => setTermsAccepted(e.target.checked)}
+              className="terms-checkbox-input"
+            />
+            <span className="terms-checkbox-text">
+              Acepto los{" "}
+              <a 
+                href="https://retorn.com/policies/terms-of-service" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="terms-link"
+                onClick={(e) => e.stopPropagation()}
+              >
+                términos del servicio
+              </a>
+              {" "}y la{" "}
+              <a 
+                href="https://retorn.com/policies/privacy-policy" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="terms-link"
+                onClick={(e) => e.stopPropagation()}
+              >
+                política de privacidad
+              </a>
+            </span>
+          </label>
+        </div>
       )}
-      <div className="next-button-container" style={canGoBack ? {} : { width: '100%' }}>
-        {isLastQuestion && (
-          <div className="terms-checkbox-container">
-            <label className="terms-checkbox-label">
-              <input
-                type="checkbox"
-                checked={termsAccepted}
-                onChange={(e) => setTermsAccepted(e.target.checked)}
-                className="terms-checkbox-input"
-              />
-              <span className="terms-checkbox-text">
-                Acepto los{" "}
-                <a 
-                  href="https://retorn.com/policies/terms-of-service" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="terms-link"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  términos del servicio
-                </a>
-                {" "}y la{" "}
-                <a 
-                  href="https://retorn.com/policies/privacy-policy" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="terms-link"
-                  onClick={(e) => e.stopPropagation()}
-                >
-                  política de privacidad
-                </a>
-              </span>
-            </label>
-          </div>
+      <div className="navigation-buttons">
+        {canGoBack && (
+          <button
+            type="button"
+            onClick={onPrevious}
+            className="nav-button secondary"
+          >
+            ← Anterior
+          </button>
         )}
         <button
           type="button"
           onClick={handleNext}
-          className="nav-button primary"
+          className={`nav-button primary ${!canGoBack ? 'full-width' : ''}`}
           disabled={isNextDisabled}
         >
           {getButtonText()}
