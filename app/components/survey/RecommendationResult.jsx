@@ -267,7 +267,7 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
         </div>
 
         {/* Mostrar tipo de croqueta solo para productos secos de perro */}
-        {tipoCroqueta && tipoAnimal === "Perro" && tipo.includes("Seco") && (
+        {tipoCroqueta && tipoCroqueta.tipo && tipoAnimal === "Perro" && tipo && tipo.includes("Seco") && (
           <div className="product-croqueta-badge">
             <span className="croqueta-icon">🍪</span>
             <span className="croqueta-text">Croqueta {tipoCroqueta.tipo}</span>
