@@ -655,6 +655,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     white-space: normal;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    font-family: 'Inter', sans-serif;
   }
 
   @media (min-width: 600px) {
@@ -674,6 +675,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     color: #739f99;
     font-weight: 600;
     line-height: 1.3;
+    font-family: 'Inter', sans-serif;
   }
 
   @media (min-width: 600px) {
@@ -747,6 +749,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     color: #5fb3a1;
     flex: 1;
     text-align: center;
+    font-family: 'Oswald', sans-serif;
   }
 
   .date-picker-close {
@@ -801,6 +804,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     padding: 0 0.25rem;
     text-align: center;
     margin-bottom: 0.25rem;
+    font-family: 'Oswald', sans-serif;
   }
 
   .date-selector-scroll {
@@ -848,6 +852,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'Inter', sans-serif;
   }
 
   .date-option:hover:not(.selected) {
@@ -889,6 +894,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     cursor: pointer;
     transition: all 0.25s ease;
     min-height: 48px;
+    font-family: 'Inter', sans-serif;
   }
 
   .date-clear-btn:hover {
@@ -1178,8 +1184,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .two-columns-container {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.65rem;
-    margin-bottom: 0.85rem;
+    gap: 0.5rem; /* Reducido de 0.65rem para compactar */
+    margin-bottom: 0.6rem; /* Reducido de 0.85rem */
   }
 
   @media (min-width: 600px) {
@@ -1231,7 +1237,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .column {
     display: flex;
     flex-direction: column;
-    gap: 0.65rem;
+    gap: 0.5rem; /* Reducido de 0.65rem para compactar verticalmente */
   }
 
   @media (min-width: 600px) {
