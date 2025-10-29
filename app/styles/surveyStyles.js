@@ -266,11 +266,28 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
+  /* Contenedor de opciones - Márgenes mejorados */
   .options-container {
+    width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.875rem;
+    gap: 0.85rem;
     margin-bottom: 0;
+    padding: 0 0.25rem;
+  }
+
+  @media (min-width: 600px) {
+    .options-container {
+      gap: 0.95rem;
+      padding: 0 0.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .options-container {
+      gap: 1rem;
+      padding: 0;
+    }
   }
 
   .option-button {
@@ -456,11 +473,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
+  /* Inputs de texto y número - Márgenes mejorados */
   .text-input {
-    width: 100%;
+    width: calc(100% - 0.5rem);
+    margin: 0 0.25rem;
     padding: 1rem 1rem;
     font-size: 0.95rem;
-    border-radius: 5px;
+    border-radius: 8px;
     border: 2px solid rgba(115, 159, 153, 0.2);
     outline: none;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -469,8 +488,19 @@ export const getSurveyStyles = (direction, theme = {}) => {
     box-sizing: border-box;
   }
 
+  @media (min-width: 600px) {
+    .text-input {
+      width: calc(100% - 1rem);
+      margin: 0 0.5rem;
+      padding: 1.15rem 1.15rem;
+      font-size: 1rem;
+    }
+  }
+
   @media (min-width: 768px) {
     .text-input {
+      width: 100%;
+      margin: 0;
       padding: 1.3rem 1.25rem;
       font-size: 1.05rem;
     }
@@ -1973,17 +2003,17 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
-  /* Estilos para los banners de descuento - Mobile First */
+  /* Estilos para los banners de descuento - Mobile First MEJORADO */
   .discount-banner {
-    width: 100%;
+    width: calc(100% - 1rem);
     max-width: 900px;
-    padding: 1.25rem 1rem;
-    padding-right: 3rem; /* Espacio para el botón de cerrar */
+    padding: 1rem 0.75rem;
+    padding-right: 2.75rem; /* Espacio para el botón de cerrar */
     border-radius: 12px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     margin: 0 auto;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -2009,10 +2039,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Botón para cerrar notificaciones - Mejorado para móvil */
   .banner-close-button {
     position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    width: 2.25rem;
-    height: 2.25rem;
+    top: 0.4rem;
+    right: 0.4rem;
+    width: 2rem;
+    height: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2020,7 +2050,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     border: none;
     border-radius: 50%;
     color: inherit;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     line-height: 1;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -2060,34 +2090,35 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .discount-icon {
-    font-size: 2.5rem;
+    font-size: 2rem;
     flex-shrink: 0;
     filter: grayscale(20%);
-    margin-bottom: 0.25rem;
+    margin-bottom: 0;
   }
 
   .discount-content {
     flex: 1;
     text-align: center;
     width: 100%;
+    padding-right: 0.5rem;
   }
 
   .discount-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     font-weight: 600;
     color: inherit;
-    margin: 0 0 0.75rem 0;
-    line-height: 1.4;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.3;
     letter-spacing: 0.3px;
   }
 
   .discount-description {
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     color: inherit;
     opacity: 0.9;
-    margin: 0 0 0.5rem 0;
-    line-height: 1.6;
+    margin: 0 0 0.4rem 0;
+    line-height: 1.5;
   }
 
   .discount-description strong {
@@ -2096,7 +2127,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .discount-note {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: inherit;
     opacity: 0.7;
     margin: 0;
@@ -2108,11 +2139,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
     color: #8b7355;
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     transition: all 0.3s ease;
-    margin-top: 0.5rem;
+    margin-top: 0.4rem;
     border-bottom: 1px solid transparent;
-    padding: 0.25rem 0;
+    padding: 0.2rem 0;
   }
 
   .subscription-link:hover {
@@ -2124,52 +2155,54 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Tablet y superior */
   @media (min-width: 600px) {
     .discount-banner {
+      width: 100%;
       flex-direction: row;
       align-items: center;
-      padding: 1.5rem 1.25rem;
-      padding-right: 3.5rem;
-      gap: 1.25rem;
+      padding: 1.25rem 1.25rem;
+      padding-right: 3.25rem;
+      gap: 1rem;
     }
 
     .discount-icon {
-      font-size: 2.75rem;
+      font-size: 2.5rem;
       margin-bottom: 0;
     }
 
     .discount-content {
       text-align: left;
+      padding-right: 0;
     }
 
     .discount-title {
-      font-size: 1.1rem;
-      margin-bottom: 0.6rem;
+      font-size: 1rem;
+      margin-bottom: 0.55rem;
     }
 
     .discount-description {
-      font-size: 0.98rem;
+      font-size: 0.9rem;
     }
 
     .discount-note {
-      font-size: 0.82rem;
+      font-size: 0.78rem;
     }
 
     .subscription-link {
-      font-size: 0.98rem;
+      font-size: 0.9rem;
     }
 
     .banner-close-button {
-      top: 0.75rem;
-      right: 0.75rem;
-      width: 2.5rem;
-      height: 2.5rem;
-      font-size: 1.85rem;
+      top: 0.65rem;
+      right: 0.65rem;
+      width: 2.25rem;
+      height: 2.25rem;
+      font-size: 1.65rem;
     }
   }
 
   /* Desktop */
   @media (min-width: 768px) {
     .discount-banner {
-      padding: 2rem 1.75rem;
+      padding: 1.75rem 1.5rem;
       padding-right: 4rem;
       gap: 1.5rem;
     }
@@ -2179,12 +2212,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
 
     .discount-title {
-      font-size: 1.25rem;
+      font-size: 1.2rem;
       margin-bottom: 0.65rem;
     }
 
     .discount-description {
-      font-size: 1.05rem;
+      font-size: 1rem;
     }
 
     .discount-note {
@@ -2192,7 +2225,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
 
     .subscription-link {
-      font-size: 1.05rem;
+      font-size: 1rem;
     }
 
     .banner-close-button {
