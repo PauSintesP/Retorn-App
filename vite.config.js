@@ -56,6 +56,8 @@ export default defineConfig({
     include: ["@shopify/app-bridge-react"],
   },
   ssr: {
-    noExternal: ["@mjackson/node-fetch-server"],
+    // Empaquetar TODAS las dependencias en el bundle SSR para Vercel
+    // Esto evita problemas de resolución de módulos en el entorno serverless
+    noExternal: true,
   },
 });

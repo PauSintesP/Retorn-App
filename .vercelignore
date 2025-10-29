@@ -1,7 +1,0 @@
-# Vercel ignore file
-# Por defecto Vercel ignora node_modules, pero necesitamos que incluya las dependencias
-# para que @mjackson/node-fetch-server esté disponible en runtime
-
-# No ignorar nada crítico para el runtime
-!node_modules/@mjackson/node-fetch-server
-!node_modules/@react-router
