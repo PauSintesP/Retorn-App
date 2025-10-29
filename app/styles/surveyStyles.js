@@ -1592,6 +1592,39 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
+  /* Contenedor de notificaciones apiladas */
+  .notifications-stack {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .notifications-stack {
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+  }
+
+  /* Contenedor de botones de acción */
+  .action-buttons-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .action-buttons-container {
+      flex-direction: row;
+      justify-content: center;
+      gap: 1.5rem;
+    }
+  }
+
   /* Estilos para los banners de descuento */
   .discount-banner {
     width: 100%;
@@ -1601,7 +1634,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     align-items: center;
     gap: 1rem;
-    margin: 0.75rem auto;
+    margin: 0 auto;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
@@ -1620,8 +1653,39 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .discount-banner:hover {
-    transform: translateY(-2px);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  /* Botón para cerrar notificaciones */
+  .banner-close-button {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0, 0, 0, 0.05);
+    border: none;
+    border-radius: 50%;
+    color: inherit;
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    opacity: 0.6;
+    padding: 0;
+  }
+
+  .banner-close-button:hover {
+    opacity: 1;
+    background: rgba(0, 0, 0, 0.1);
+    transform: scale(1.1);
+  }
+
+  .banner-close-button:active {
+    transform: scale(0.95);
   }
 
   .first-order-banner {
@@ -1771,8 +1835,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
   @media (min-width: 768px) {
     .add-to-cart-button {
       width: auto;
-      min-width: 300px;
-      max-width: 320px;
+      min-width: 280px;
+      flex: 1;
+      max-width: 400px;
       padding: 1.2rem 2rem;
       font-size: 1rem;
     }
@@ -1813,8 +1878,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
   @media (min-width: 768px) {
     .restart-survey-button {
       width: auto;
-      min-width: 300px;
-      max-width: 320px;
+      min-width: 280px;
+      flex: 1;
+      max-width: 400px;
       padding: 1.2rem 2rem;
       font-size: 1rem;
     }

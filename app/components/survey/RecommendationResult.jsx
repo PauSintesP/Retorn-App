@@ -2,7 +2,12 @@
  * Componente para mostrar la recomendación de productos
  */
 
+import { useState } from "react";
+
 export default function RecommendationResult({ recommendation, onRestart }) {
+  const [showFirstOrderBanner, setShowFirstOrderBanner] = useState(true);
+  const [showSubscriptionBanner, setShowSubscriptionBanner] = useState(true);
+
   if (!recommendation) {
     return null;
   }
@@ -125,49 +130,73 @@ export default function RecommendationResult({ recommendation, onRestart }) {
       </div>
 
       <div className="cart-action-section">
-        {/* Mensaje de descuento para primer pedido */}
-        <div className="discount-banner first-order-banner">
-          <div className="discount-icon">🎉</div>
-          <div className="discount-content">
-            <h4 className="discount-title">¡Aprovecha tu primer pedido!</h4>
-            <p className="discount-description">
-              Usa el cupón <strong>RET15</strong> y obtén un <strong>15% de descuento</strong> solo para tu primer pedido.
-            </p>
-            <p className="discount-note">*El cupón se aplicará automáticamente al crear tu cesta</p>
-          </div>
+        {/* Notificaciones apiladas */}
+        <div className="notifications-stack">
+          {/* Mensaje de descuento para primer pedido */}
+          {showFirstOrderBanner && (
+            <div className="discount-banner first-order-banner">
+              <button 
+                className="banner-close-button"
+                onClick={() => setShowFirstOrderBanner(false)}
+                aria-label="Cerrar notificación"
+              >
+                ×
+              </button>
+              <div className="discount-icon">🎉</div>
+              <div className="discount-content">
+                <h4 className="discount-title">¡Aprovecha tu primer pedido!</h4>
+                <p className="discount-description">
+                  Usa el cupón <strong>RET15</strong> y obtén un <strong>15% de descuento</strong> solo para tu primer pedido.
+                </p>
+                <p className="discount-note">*El cupón se aplicará automáticamente al crear tu cesta</p>
+              </div>
+            </div>
+          )}
+
+          {/* Mensaje de suscripción */}
+          {showSubscriptionBanner && (
+            <div className="discount-banner subscription-banner">
+              <button 
+                className="banner-close-button"
+                onClick={() => setShowSubscriptionBanner(false)}
+                aria-label="Cerrar notificación"
+              >
+                ×
+              </button>
+              <div className="discount-icon">⭐</div>
+              <div className="discount-content">
+                <h4 className="discount-title">¡Hazte suscriptor y disfruta de un 10% de descuento en todos tus pedidos!</h4>
+                <a 
+                  href="https://retorn.com/pages/suscripcion"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="subscription-link"
+                >
+                  Más información sobre la suscripción →
+                </a>
+              </div>
+            </div>
+          )}
         </div>
 
-        <button 
-          onClick={agregarAlCarrito}
-          className="add-to-cart-button"
-        >
-          Agregar {recomendacion.tipo === "mixta" ? "productos" : "producto"} al carrito
-        </button>
-
-        {/* Mensaje de suscripción */}
-        <div className="discount-banner subscription-banner">
-          <div className="discount-icon">⭐</div>
-          <div className="discount-content">
-            <h4 className="discount-title">¡Hazte suscriptor y disfruta de un 10% de descuento en todos tus pedidos!</h4>
-            <a 
-              href="https://retorn.com/pages/suscripcion"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="subscription-link"
-            >
-              Más información sobre la suscripción →
-            </a>
-          </div>
-        </div>
-        
-        {onRestart && (
+        {/* Botones de acción juntos */}
+        <div className="action-buttons-container">
           <button 
-            onClick={onRestart}
-            className="restart-survey-button"
+            onClick={agregarAlCarrito}
+            className="add-to-cart-button"
           >
-            Realizar otro cuestionario
+            Agregar {recomendacion.tipo === "mixta" ? "productos" : "producto"} al carrito
           </button>
-        )}
+
+          {onRestart && (
+            <button 
+              onClick={onRestart}
+              className="restart-survey-button"
+            >
+              Realizar otro cuestionario
+            </button>
+          )}
+        </div>
       </div>
 
       <div className="recommendation-footer">
