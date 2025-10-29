@@ -273,13 +273,18 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
           <span className="product-badge">{producto.segmento}</span>
         </div>
 
-        {mostrarTipoCroqueta && tipoCroqueta && tipoCroqueta.tipo && (
+        {/* Reservar espacio para el badge de croqueta siempre, para mantener alineación */}
+        {mostrarTipoCroqueta && tipoCroqueta && tipoCroqueta.tipo ? (
           <div className="product-croqueta-badge" role="note" aria-label={`Tipo de croqueta ${tipoCroqueta.tipo}`}>
             <span className="croqueta-icon">●</span>
             <span className="croqueta-text">Croqueta: {tipoCroqueta.tipo}</span>
             {tipoCroqueta.diametro && (
               <span className="croqueta-size">{tipoCroqueta.diametro}</span>
             )}
+          </div>
+        ) : (
+          <div className="product-croqueta-badge product-croqueta-placeholder" aria-hidden="true">
+            {/* Espacio reservado para mantener alineación con otras tarjetas */}
           </div>
         )}
 

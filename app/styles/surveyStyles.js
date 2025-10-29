@@ -1348,6 +1348,75 @@ export const getSurveyStyles = (direction, theme = {}) => {
     letter-spacing: 0.5px;
   }
 
+  .product-croqueta-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, #8B6B47 0%, #A0826D 100%);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(139, 107, 71, 0.15);
+    min-height: 3rem;
+  }
+
+  .product-croqueta-placeholder {
+    background: transparent;
+    box-shadow: none;
+    padding: 0.75rem 1rem;
+    visibility: hidden;
+  }
+
+  .croqueta-icon {
+    font-size: 1.2rem;
+    color: #FFE4C4;
+    font-weight: bold;
+  }
+
+  .croqueta-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0.3px;
+  }
+
+  .croqueta-size {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    margin-left: auto;
+  }
+
+  @media (max-width: 767px) {
+    .product-croqueta-badge {
+      padding: 0.6rem 0.85rem;
+      gap: 0.4rem;
+      min-height: 2.75rem;
+    }
+
+    .product-croqueta-placeholder {
+      padding: 0.6rem 0.85rem;
+    }
+
+    .croqueta-icon {
+      font-size: 1rem;
+    }
+
+    .croqueta-text {
+      font-size: 0.85rem;
+    }
+
+    .croqueta-size {
+      font-size: 0.8rem;
+      padding: 0.2rem 0.5rem;
+    }
+  }
+
   .product-name {
     font-family: 'Oswald', sans-serif;
     font-size: 1.2rem;
