@@ -129,7 +129,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem 0.5rem;
+    padding: 0.35rem 0.35rem;
     margin-top: 4px;
     position: relative;
     z-index: 1;
@@ -139,12 +139,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .question-card {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
-    border-radius: 1rem;
+    border-radius: 0.8rem;
     box-shadow: 
       0 8px 24px rgba(0, 0, 0, 0.08),
       0 4px 12px rgba(115, 159, 153, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    padding: 1.25rem 0.85rem;
+    padding: 1rem 0.6rem;
     max-width: 100%;
     width: 100%;
     animation: ${direction === "forward" ? "fadeSlideIn" : "fadeSlideOut"} 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -189,7 +189,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .question-header {
-    margin-bottom: 1rem;
+    margin-bottom: 0.75rem;
     text-align: center;
   }
 
@@ -208,25 +208,25 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .question-number {
     color: var(--jdgm-paginate-color);
     font-family: 'Oswald', sans-serif;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
-    margin-bottom: 0.5rem;
+    letter-spacing: 1.2px;
+    margin-bottom: 0.4rem;
     display: inline-block;
-    padding: 0.3rem 0.75rem;
+    padding: 0.25rem 0.6rem;
     background: rgba(115, 159, 153, 0.08);
     border-radius: 20px;
   }
 
   .question-text {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     font-weight: 600;
     color: var(--jdgm-primary-color);
-    line-height: 1.35;
+    line-height: 1.3;
     margin: 0;
-    padding: 0 0.25rem;
+    padding: 0 0.15rem;
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
@@ -310,9 +310,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
     border: 2px solid rgba(115, 159, 153, 0.15);
     border-radius: 8px;
-    padding: 1rem 1rem;
+    padding: 0.75rem 0.85rem;
     font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--jdgm-primary-color);
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -322,8 +322,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     overflow: hidden;
     display: flex;
     align-items: center;
-    gap: 0.65rem;
-    min-height: 58px;
+    gap: 0.5rem;
+    min-height: 52px;
   }
 
   @media (min-width: 600px) {
@@ -345,7 +345,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .option-icon {
-    font-size: 1.35rem;
+    font-size: 1.2rem;
     flex-shrink: 0;
     line-height: 1;
   }
@@ -364,7 +364,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .option-label {
     flex: 1;
-    line-height: 1.4;
+    line-height: 1.35;
   }
 
   .option-button::before {
@@ -540,7 +540,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     width: 100%;
     max-width: 100%;
     margin: 0 auto;
-    padding: 1.25rem 1.25rem;
+    padding: 0.9rem 1rem;
     background: white;
     border: 2px solid rgba(115, 159, 153, 0.3);
     border-radius: 12px;
@@ -548,7 +548,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
     transition: all 0.3s ease;
     position: relative;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    min-height: 62px;
+    min-height: 54px;
+  }
+
+  @media (min-width: 600px) {
+    .custom-date-input {
+      padding: 1.25rem 1.25rem;
+      min-height: 62px;
+    }
   }
 
   .custom-date-input:hover {
@@ -567,25 +574,44 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 1rem;
+    gap: 0.65rem;
+  }
+
+  @media (min-width: 600px) {
+    .date-input-content {
+      gap: 1rem;
+    }
   }
 
   .date-text-container {
     flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 0.35rem;
     min-width: 0;
   }
 
+  @media (min-width: 600px) {
+    .date-text-container {
+      gap: 0.5rem;
+    }
+  }
+
   .date-display-text {
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #3E3E3E;
-    line-height: 1.4;
+    line-height: 1.3;
     white-space: normal;
     word-wrap: break-word;
     overflow-wrap: break-word;
+  }
+
+  @media (min-width: 600px) {
+    .date-display-text {
+      font-size: 1rem;
+      line-height: 1.4;
+    }
   }
 
   .date-display-text.placeholder {
@@ -594,10 +620,18 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .date-age-text {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     color: #739f99;
     font-weight: 600;
-    line-height: 1.4;
+    line-height: 1.3;
+  }
+
+  @media (min-width: 600px) {
+    .date-age-text {
+      font-size: 0.85rem;
+      line-height: 1.4;
+    }
+  }
     padding: 0.4rem 0.75rem;
     background: rgba(115, 159, 153, 0.1);
     border-radius: 6px;
@@ -1143,21 +1177,35 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Alerta de patología */
   .patologia-alert {
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
     align-items: flex-start;
-    margin-top: 1.5rem;
-    padding: 1.5rem;
+    margin-top: 1.25rem;
+    padding: 1rem 0.85rem;
     background: linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.05) 100%);
     border-left: 4px solid #ff9800;
     border-radius: 5px;
     animation: fadeSlideIn 0.4s ease-out;
   }
 
+  @media (min-width: 600px) {
+    .patologia-alert {
+      gap: 1rem;
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+    }
+  }
+
   .alert-icon {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     margin: 0;
     line-height: 1;
     flex-shrink: 0;
+  }
+
+  @media (min-width: 600px) {
+    .alert-icon {
+      font-size: 1.8rem;
+    }
   }
 
   .alert-text {
@@ -1192,18 +1240,18 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .nav-button {
     flex: 1 1 auto;
-    min-width: 110px;
+    min-width: 100px;
     max-width: 100%;
-    padding: 0.85rem 1.25rem;
+    padding: 0.75rem 1.1rem;
     border: none;
     border-radius: 8px;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.8px;
     position: relative;
     overflow: hidden;
   }
@@ -1234,7 +1282,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Contenedor interno para los botones dentro de la question-card */
   .controls-inner {
     width: 100%;
-    margin-top: 1.25rem;
+    margin-top: 1rem;
     padding: 0;
     box-sizing: border-box;
     display: flex;
@@ -1713,8 +1761,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .product-card {
     background: white;
     border-radius: 8px;
-    padding: 1rem 0.85rem;
-    margin-bottom: 1rem;
+    padding: 0.85rem 0.6rem;
+    margin-bottom: 0.85rem;
     box-shadow: 
       0 8px 20px rgba(0, 0, 0, 0.08),
       0 4px 10px rgba(115, 159, 153, 0.1);
@@ -1759,8 +1807,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .product-image-container {
     width: 100%;
-    height: 180px;
-    margin: 0 0 1rem 0;
+    height: 160px;
+    margin: 0 0 0.85rem 0;
     overflow: hidden;
     background: #fafafa;
     display: flex;
@@ -1815,7 +1863,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.85rem;
+    margin-bottom: 0.7rem;
     min-height: 2rem;
   }
 
@@ -1827,9 +1875,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .product-type {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1.8px;
     color: var(--jdgm-paginate-color);
     margin: 0;
     font-weight: 500;
@@ -1838,15 +1886,16 @@ export const getSurveyStyles = (direction, theme = {}) => {
   @media (min-width: 600px) {
     .product-type {
       font-size: 0.85rem;
+      letter-spacing: 2px;
     }
   }
 
   .product-badge {
-    padding: 0.35rem 0.85rem;
+    padding: 0.3rem 0.7rem;
     background: rgba(115, 159, 153, 0.12);
     border-radius: 5px;
     font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     font-weight: 600;
     color: var(--jdgm-paginate-color);
     text-transform: uppercase;
@@ -1940,12 +1989,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .product-name {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
     color: var(--jdgm-primary-color);
-    margin: 0 0 0.85rem 0;
+    margin: 0 0 0.7rem 0;
     font-weight: 600;
-    line-height: 1.25;
-    min-height: 2.25rem;
+    line-height: 1.2;
+    min-height: 2rem;
     display: flex;
     align-items: center;
   }
@@ -1955,6 +2004,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
       font-size: 1.2rem;
       margin: 0 0 1rem 0;
       min-height: 2.5rem;
+      line-height: 1.25;
     }
   }
 
@@ -1976,8 +2026,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .product-info {
     background: rgba(115, 159, 153, 0.05);
     border-radius: 5px;
-    padding: 0.85rem 0.75rem;
-    margin-bottom: 0.85rem;
+    padding: 0.7rem 0.6rem;
+    margin-bottom: 0.7rem;
   }
 
   @media (min-width: 600px) {
@@ -2403,16 +2453,16 @@ export const getSurveyStyles = (direction, theme = {}) => {
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 1.05rem 1.25rem;
+    padding: 0.95rem 1.1rem;
     background: linear-gradient(135deg, var(--jdgm-paginate-color) 0%, #5a8a84 100%);
     color: white;
     border: none;
     border-radius: 8px;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1.2px;
+    letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 
@@ -2456,16 +2506,16 @@ export const getSurveyStyles = (direction, theme = {}) => {
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 1.05rem 1.25rem;
+    padding: 0.95rem 1.1rem;
     background: white;
     color: var(--jdgm-paginate-color);
     border: 2px solid var(--jdgm-paginate-color);
     border-radius: 8px;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1.2px;
+    letter-spacing: 1px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 12px rgba(115, 159, 153, 0.15);
