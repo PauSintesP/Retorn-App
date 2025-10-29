@@ -129,7 +129,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.75rem 0.5rem;
+    padding: 0.5rem 0.5rem;
     margin-top: 4px;
     position: relative;
     z-index: 1;
@@ -144,7 +144,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
       0 8px 24px rgba(0, 0, 0, 0.08),
       0 4px 12px rgba(115, 159, 153, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    padding: 1.5rem 1rem;
+    padding: 1.25rem 0.85rem;
     max-width: 100%;
     width: 100%;
     animation: ${direction === "forward" ? "fadeSlideIn" : "fadeSlideOut"} 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
@@ -156,11 +156,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Tablet */
   @media (min-width: 600px) {
     .survey-content {
-      padding: 1.5rem 1rem;
+      padding: 1.25rem 1rem;
     }
 
     .question-card {
-      padding: 2rem 1.5rem;
+      padding: 1.75rem 1.35rem;
       border-radius: 1.2rem;
       max-width: 90%;
     }
@@ -169,11 +169,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Desktop */
   @media (min-width: 768px) {
     .survey-content {
-      padding: 3rem 1rem;
+      padding: 2.5rem 1rem;
     }
 
     .question-card {
-      padding: 3.5rem 2rem;
+      padding: 3rem 1.75rem;
       border-radius: 1.6rem;
       max-width: 900px;
       box-shadow: 
@@ -189,8 +189,20 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .question-header {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
     text-align: center;
+  }
+
+  @media (min-width: 600px) {
+    .question-header {
+      margin-bottom: 1.15rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .question-header {
+      margin-bottom: 1.5rem;
+    }
   }
 
   .question-number {
@@ -209,17 +221,19 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .question-text {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.05rem;
     font-weight: 600;
     color: var(--jdgm-primary-color);
-    line-height: 1.4;
+    line-height: 1.35;
     margin: 0;
-    padding: 0 0.5rem;
+    padding: 0 0.25rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
 
   @media (min-width: 600px) {
     .question-header {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.15rem;
     }
 
     .question-number {
@@ -230,7 +244,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
 
     .question-text {
-      font-size: 1.4rem;
+      font-size: 1.25rem;
+      line-height: 1.4;
+      padding: 0 0.5rem;
     }
   }
 
@@ -1176,18 +1192,18 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .nav-button {
     flex: 1 1 auto;
-    min-width: 120px;
+    min-width: 110px;
     max-width: 100%;
-    padding: 0.9rem 1.5rem;
+    padding: 0.85rem 1.25rem;
     border: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-transform: uppercase;
-    letter-spacing: 1.2px;
+    letter-spacing: 1px;
     position: relative;
     overflow: hidden;
   }
@@ -1196,12 +1212,21 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex: 1 1 100%;
   }
 
+  @media (min-width: 600px) {
+    .nav-button {
+      min-width: 130px;
+      padding: 0.95rem 1.75rem;
+      font-size: 0.88rem;
+      letter-spacing: 1.3px;
+    }
+  }
+
   @media (min-width: 768px) {
     .nav-button {
       flex: 0 0 auto;
       min-width: 160px;
-      padding: 1.1rem 2.2rem;
-      font-size: 0.95rem;
+      padding: 1.05rem 2rem;
+      font-size: 0.92rem;
       letter-spacing: 1.5px;
     }
   }
@@ -1209,16 +1234,22 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Contenedor interno para los botones dentro de la question-card */
   .controls-inner {
     width: 100%;
-    margin-top: 1.5rem;
+    margin-top: 1.25rem;
     padding: 0;
     box-sizing: border-box;
     display: flex;
     justify-content: center;
   }
 
+  @media (min-width: 600px) {
+    .controls-inner {
+      margin-top: 1.5rem;
+    }
+  }
+
   @media (min-width: 768px) {
     .controls-inner {
-      margin-top: 2.5rem;
+      margin-top: 2rem;
     }
   }
 
@@ -1227,9 +1258,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.65rem;
     flex-wrap: wrap;
     width: 100%;
+  }
+
+  @media (min-width: 600px) {
+    .navigation-buttons {
+      gap: 0.85rem;
+    }
   }
 
   @media (min-width: 768px) {
@@ -1297,23 +1334,41 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    padding: 1rem;
+    padding: 0.85rem 0.75rem;
     background: rgba(115, 159, 153, 0.05);
     border-radius: 8px;
     border: 1.5px solid rgba(115, 159, 153, 0.2);
     margin-bottom: 0.5rem;
   }
 
+  @media (min-width: 600px) {
+    .terms-checkbox-container {
+      padding: 1rem 1rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .terms-checkbox-container {
+      padding: 1.25rem 1.25rem;
+    }
+  }
+
   .terms-error-message {
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.625rem 0.875rem;
+    padding: 0.5rem 0.75rem;
     background: rgba(220, 38, 38, 0.08);
     border-left: 3px solid #dc2626;
     border-radius: 4px;
     margin-top: 0.375rem;
     animation: slideDown 0.3s ease-out;
+  }
+
+  @media (min-width: 600px) {
+    .terms-error-message {
+      padding: 0.625rem 0.875rem;
+    }
   }
 
   @keyframes slideDown {
@@ -1328,16 +1383,28 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .terms-error-icon {
-    font-size: 1rem;
+    font-size: 0.9rem;
     color: #dc2626;
     line-height: 1;
   }
 
+  @media (min-width: 600px) {
+    .terms-error-icon {
+      font-size: 1rem;
+    }
+  }
+
   .terms-error-text {
-    font-size: 0.8125rem;
+    font-size: 0.75rem;
     color: #dc2626;
     font-weight: 500;
     line-height: 1.3;
+  }
+
+  @media (min-width: 600px) {
+    .terms-error-text {
+      font-size: 0.8125rem;
+    }
   }
 
   .terms-checkbox-label {
@@ -1350,29 +1417,20 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .terms-checkbox-input {
     flex-shrink: 0;
-    width: 1.125rem;
-    height: 1.125rem;
-    margin-right: 0.75rem;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.6rem;
     margin-top: 0.125rem;
     cursor: pointer;
     accent-color: var(--jdgm-paginate-color);
   }
 
-  .terms-checkbox-text {
-    font-size: 0.85rem;
-    line-height: 1.4;
-    color: var(--jdgm-primary-color);
-  }
-
-  .terms-link {
-    color: var(--jdgm-paginate-color);
-    text-decoration: underline;
-    font-weight: 600;
-    transition: color 0.2s ease;
-  }
-
-  .terms-link:hover {
-    color: var(--jdgm-primary-color);
+  @media (min-width: 600px) {
+    .terms-checkbox-input {
+      width: 1.125rem;
+      height: 1.125rem;
+      margin-right: 0.75rem;
+    }
   }
 
   @media (min-width: 768px) {
@@ -1381,7 +1439,21 @@ export const getSurveyStyles = (direction, theme = {}) => {
       height: 1.25rem;
       margin-right: 0.875rem;
     }
+  }
 
+  .terms-checkbox-text {
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: var(--jdgm-primary-color);
+  }
+
+  @media (min-width: 600px) {
+    .terms-checkbox-text {
+      font-size: 0.85rem;
+    }
+  }
+
+  @media (min-width: 768px) {
     .terms-checkbox-text {
       font-size: 0.9rem;
     }
@@ -1641,8 +1713,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .product-card {
     background: white;
     border-radius: 8px;
-    padding: 1.25rem;
-    margin-bottom: 1.25rem;
+    padding: 1rem 0.85rem;
+    margin-bottom: 1rem;
     box-shadow: 
       0 8px 20px rgba(0, 0, 0, 0.08),
       0 4px 10px rgba(115, 159, 153, 0.1);
@@ -1656,8 +1728,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .product-card {
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
       box-shadow: 
         0 10px 30px rgba(0, 0, 0, 0.08),
         0 4px 10px rgba(115, 159, 153, 0.1);
@@ -1687,8 +1759,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .product-image-container {
     width: 100%;
-    height: 220px;
-    margin: 0 0 1.25rem 0;
+    height: 180px;
+    margin: 0 0 1rem 0;
     overflow: hidden;
     background: #fafafa;
     display: flex;
@@ -1702,8 +1774,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .product-image-container {
-      height: 260px;
-      margin: 0 0 1.5rem 0;
+      height: 220px;
+      margin: 0 0 1.25rem 0;
     }
   }
 
@@ -1743,13 +1815,19 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 1rem;
+    margin-bottom: 0.85rem;
     min-height: 2rem;
+  }
+
+  @media (min-width: 600px) {
+    .product-header {
+      margin-bottom: 1rem;
+    }
   }
 
   .product-type {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     text-transform: uppercase;
     letter-spacing: 2px;
     color: var(--jdgm-paginate-color);
@@ -1757,97 +1835,127 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-weight: 500;
   }
 
+  @media (min-width: 600px) {
+    .product-type {
+      font-size: 0.85rem;
+    }
+  }
+
   .product-badge {
-    padding: 0.4rem 1rem;
+    padding: 0.35rem 0.85rem;
     background: rgba(115, 159, 153, 0.12);
     border-radius: 5px;
     font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 600;
     color: var(--jdgm-paginate-color);
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
 
+  @media (min-width: 600px) {
+    .product-badge {
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
+    }
+  }
+
   .product-croqueta-badge {
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1rem;
+    gap: 0.4rem;
+    padding: 0.6rem 0.75rem;
     background: linear-gradient(135deg, #8B6B47 0%, #A0826D 100%);
     border-radius: 8px;
-    margin-bottom: 1rem;
+    margin-bottom: 0.85rem;
     box-shadow: 0 2px 8px rgba(139, 107, 71, 0.15);
-    min-height: 3rem;
+    min-height: 2.5rem;
+  }
+
+  @media (min-width: 600px) {
+    .product-croqueta-badge {
+      gap: 0.5rem;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1rem;
+      min-height: 3rem;
+    }
   }
 
   .product-croqueta-placeholder {
     background: transparent;
     box-shadow: none;
-    padding: 0.75rem 1rem;
+    padding: 0.6rem 0.75rem;
     visibility: hidden;
   }
 
+  @media (min-width: 600px) {
+    .product-croqueta-placeholder {
+      padding: 0.75rem 1rem;
+    }
+  }
+
   .croqueta-icon {
-    font-size: 1.2rem;
+    font-size: 1rem;
     color: #FFE4C4;
     font-weight: bold;
   }
 
+  @media (min-width: 600px) {
+    .croqueta-icon {
+      font-size: 1.2rem;
+    }
+  }
+
   .croqueta-text {
     font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: #ffffff;
     letter-spacing: 0.3px;
   }
 
+  @media (min-width: 600px) {
+    .croqueta-text {
+      font-size: 0.9rem;
+    }
+  }
+
   .croqueta-size {
     font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: 500;
     color: rgba(255, 255, 255, 0.9);
     background: rgba(255, 255, 255, 0.15);
-    padding: 0.25rem 0.6rem;
+    padding: 0.2rem 0.5rem;
     border-radius: 4px;
     margin-left: auto;
   }
 
-  @media (max-width: 767px) {
-    .product-croqueta-badge {
-      padding: 0.6rem 0.85rem;
-      gap: 0.4rem;
-      min-height: 2.75rem;
-    }
-
-    .product-croqueta-placeholder {
-      padding: 0.6rem 0.85rem;
-    }
-
-    .croqueta-icon {
-      font-size: 1rem;
-    }
-
-    .croqueta-text {
-      font-size: 0.85rem;
-    }
-
+  @media (min-width: 600px) {
     .croqueta-size {
-      font-size: 0.8rem;
-      padding: 0.2rem 0.5rem;
+      font-size: 0.85rem;
+      padding: 0.25rem 0.6rem;
     }
   }
 
   .product-name {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--jdgm-primary-color);
-    margin: 0 0 1rem 0;
+    margin: 0 0 0.85rem 0;
     font-weight: 600;
     line-height: 1.25;
-    min-height: 2.5rem;
+    min-height: 2.25rem;
     display: flex;
     align-items: center;
+  }
+
+  @media (min-width: 600px) {
+    .product-name {
+      font-size: 1.2rem;
+      margin: 0 0 1rem 0;
+      min-height: 2.5rem;
+    }
   }
 
   @media (min-width: 768px) {
@@ -1868,8 +1976,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .product-info {
     background: rgba(115, 159, 153, 0.05);
     border-radius: 5px;
-    padding: 1rem;
-    margin-bottom: 1rem;
+    padding: 0.85rem 0.75rem;
+    margin-bottom: 0.85rem;
+  }
+
+  @media (min-width: 600px) {
+    .product-info {
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
   }
 
   @media (min-width: 768px) {
@@ -1888,9 +2003,16 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0.6rem 0;
+    padding: 0.5rem 0;
     border-bottom: 1px solid rgba(115, 159, 153, 0.1);
-    gap: 1rem;
+    gap: 0.85rem;
+  }
+
+  @media (min-width: 600px) {
+    .info-item {
+      padding: 0.6rem 0;
+      gap: 1rem;
+    }
   }
 
   @media (min-width: 768px) {
@@ -1905,10 +2027,16 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .info-label {
     font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #666;
     font-weight: 500;
     flex-shrink: 0;
+  }
+
+  @media (min-width: 600px) {
+    .info-label {
+      font-size: 0.85rem;
+    }
   }
 
   @media (min-width: 768px) {
@@ -1919,26 +2047,39 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .info-value {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     color: var(--jdgm-primary-color);
     font-weight: 600;
+  }
+
+  @media (min-width: 600px) {
+    .info-value {
+      font-size: 1.2rem;
+    }
   }
 
   .product-link {
     display: inline-block;
     margin-top: auto;
-    padding: 0.9rem 1.75rem;
+    padding: 0.8rem 1.5rem;
     background: var(--jdgm-paginate-color);
     color: white;
     text-decoration: none;
     border-radius: 5px;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1px;
     transition: all 0.3s ease;
     border: 2px solid var(--jdgm-paginate-color);
+  }
+
+  @media (min-width: 600px) {
+    .product-link {
+      padding: 0.9rem 1.75rem;
+      font-size: 0.85rem;
+    }
   }
 
   @media (min-width: 768px) {
@@ -1955,12 +2096,19 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .cart-action-section {
-    margin: 2rem 0 1.5rem 0;
+    margin: 1.5rem 0 1rem 0;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.85rem;
+  }
+
+  @media (min-width: 600px) {
+    .cart-action-section {
+      margin: 2rem 0 1.5rem 0;
+      gap: 1rem;
+    }
   }
 
   @media (min-width: 768px) {
@@ -1975,8 +2123,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
+    gap: 0.85rem;
+    margin-bottom: 1.25rem;
+  }
+
+  @media (min-width: 600px) {
+    .notifications-stack {
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
   }
 
   @media (min-width: 768px) {
@@ -1992,7 +2147,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 1rem;
+    gap: 0.85rem;
+  }
+
+  @media (min-width: 600px) {
+    .action-buttons-container {
+      gap: 1rem;
+    }
   }
 
   @media (min-width: 768px) {
@@ -2242,21 +2403,29 @@ export const getSurveyStyles = (direction, theme = {}) => {
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 1.2rem 1.5rem;
+    padding: 1.05rem 1.25rem;
     background: linear-gradient(135deg, var(--jdgm-paginate-color) 0%, #5a8a84 100%);
     color: white;
     border: none;
     border-radius: 8px;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.2px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 
       0 8px 20px rgba(115, 159, 153, 0.3),
       0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  @media (min-width: 600px) {
+    .add-to-cart-button {
+      padding: 1.2rem 1.5rem;
+      font-size: 0.95rem;
+      letter-spacing: 1.5px;
+    }
   }
 
   @media (min-width: 768px) {
@@ -2287,19 +2456,27 @@ export const getSurveyStyles = (direction, theme = {}) => {
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 1.2rem 1.5rem;
+    padding: 1.05rem 1.25rem;
     background: white;
     color: var(--jdgm-paginate-color);
     border: 2px solid var(--jdgm-paginate-color);
     border-radius: 8px;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 1.2px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 0 4px 12px rgba(115, 159, 153, 0.15);
+  }
+
+  @media (min-width: 600px) {
+    .restart-survey-button {
+      padding: 1.2rem 1.5rem;
+      font-size: 0.95rem;
+      letter-spacing: 1.5px;
+    }
   }
 
   @media (min-width: 768px) {
@@ -2326,56 +2503,107 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .recommendation-footer {
     text-align: center;
-    margin-top: 3rem;
-    padding-top: 2rem;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
     border-top: 2px solid rgba(115, 159, 153, 0.1);
+  }
+
+  @media (min-width: 600px) {
+    .recommendation-footer {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .recommendation-footer {
+      margin-top: 3rem;
+    }
   }
 
   .footer-note {
     font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     color: #666;
     font-style: italic;
     margin: 0;
+  }
+
+  @media (min-width: 600px) {
+    .footer-note {
+      font-size: 0.95rem;
+    }
   }
 
   /* Estilos adicionales para recomendación mejorada */
   .calorie-info {
     background: linear-gradient(135deg, rgba(115, 159, 153, 0.08) 0%, rgba(115, 159, 153, 0.03) 100%);
     border-radius: 5px;
-    padding: 1.5rem;
-    margin-bottom: 2.5rem;
+    padding: 1.25rem 1rem;
+    margin-bottom: 2rem;
     border: 2px solid rgba(115, 159, 153, 0.15);
+  }
+
+  @media (min-width: 600px) {
+    .calorie-info {
+      padding: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
   }
 
   .calorie-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.15rem;
     color: var(--jdgm-primary-color);
-    margin: 0 0 1rem 0;
+    margin: 0 0 0.85rem 0;
     font-weight: 600;
+  }
+
+  @media (min-width: 600px) {
+    .calorie-title {
+      font-size: 1.3rem;
+      margin: 0 0 1rem 0;
+    }
   }
 
   .calorie-details {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    gap: 0.85rem;
+  }
+
+  @media (min-width: 600px) {
+    .calorie-details {
+      gap: 1rem;
+    }
   }
 
   .calorie-item {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    padding: 0.75rem;
+    padding: 0.65rem;
     background: white;
     border-radius: 5px;
   }
 
+  @media (min-width: 600px) {
+    .calorie-item {
+      padding: 0.75rem;
+    }
+  }
+
   .calorie-label {
     font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #666;
     font-weight: 500;
+  }
+
+  @media (min-width: 600px) {
+    .calorie-label {
+      font-size: 0.85rem;
+    }
   }
 
   .calorie-value {
