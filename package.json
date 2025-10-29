@@ -63,6 +63,9 @@
   "workspaces": [
     "extensions/*"
   ],
+  "overrides": {
+    "@mjackson/node-fetch-server": "^0.2.0"
+  },
   "trustedDependencies": [
     "@shopify/plugin-cloudflare"
   ],

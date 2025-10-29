@@ -1,5 +1,12 @@
 {
   "buildCommand": "npm run build",
+  "installCommand": "npm install",
+  "functions": {
+    "build/server/index.js": {
+      "memory": 1024,
+      "maxDuration": 10
+    }
+  },
   "headers": [
     {
       "source": "/public/survey",
