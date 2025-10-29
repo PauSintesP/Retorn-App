@@ -587,9 +587,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   /* Selector custom responsive - Mobile First */
   .custom-date-input {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
+    width: calc(100% - 0.5rem);
+    max-width: calc(100% - 0.5rem);
+    margin: 0 0.25rem;
     padding: 0.9rem 1rem;
     background: white;
     border: 2px solid rgba(115, 159, 153, 0.3);
@@ -599,12 +599,24 @@ export const getSurveyStyles = (direction, theme = {}) => {
     position: relative;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     min-height: 54px;
+    box-sizing: border-box;
   }
 
   @media (min-width: 600px) {
     .custom-date-input {
+      width: calc(100% - 1rem);
+      max-width: calc(100% - 1rem);
+      margin: 0 0.5rem;
       padding: 1.25rem 1.25rem;
       min-height: 62px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .custom-date-input {
+      width: 100%;
+      max-width: 100%;
+      margin: 0;
     }
   }
 
