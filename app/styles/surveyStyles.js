@@ -310,7 +310,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   /* Terms and Conditions Styles */
   .terms-container {
-    margin: 1.5rem 0;
+    margin: 0 0 2rem 0;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(115, 159, 153, 0.15);
   }
 
   .terms-label {
@@ -318,7 +320,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     align-items: flex-start;
     cursor: pointer;
     user-select: none;
-    padding: 1rem;
+    padding: 1.25rem 1rem;
     background: rgba(255, 255, 255, 0.5);
     border-radius: 8px;
     border: 2px solid rgba(115, 159, 153, 0.15);
@@ -335,20 +337,22 @@ export const getSurveyStyles = (direction, theme = {}) => {
     width: 1.25rem;
     height: 1.25rem;
     margin-right: 0.875rem;
+    margin-top: 0.1rem;
     cursor: pointer;
     accent-color: var(--jdgm-paginate-color);
   }
 
   .terms-text {
     font-size: 0.95rem;
-    line-height: 1.5;
+    line-height: 1.6;
     color: var(--jdgm-primary-color);
   }
 
   .terms-links {
-    margin-top: 0.75rem;
+    margin-top: 1rem;
     text-align: center;
     font-size: 0.9rem;
+    padding-top: 0.75rem;
   }
 
   .terms-link {
@@ -364,6 +368,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   @media (min-width: 768px) {
+    .terms-container {
+      margin: 0 0 2.5rem 0;
+      padding-bottom: 2rem;
+    }
+
+    .terms-label {
+      padding: 1.5rem 1.25rem;
+    }
+
     .terms-checkbox {
       width: 1.5rem;
       height: 1.5rem;
@@ -372,10 +385,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
     .terms-text {
       font-size: 1rem;
+      line-height: 1.65;
     }
 
     .terms-links {
       font-size: 0.95rem;
+      margin-top: 1.25rem;
+      padding-top: 1rem;
     }
   }
 

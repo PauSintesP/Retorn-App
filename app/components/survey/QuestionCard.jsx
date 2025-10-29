@@ -108,7 +108,11 @@ export default function QuestionCard({
         )}
       </div>
 
-      {renderQuestionInput()}
+      {/* Renderizar input ANTES de children solo si NO es type "terms" */}
+      {question.type !== "terms" && renderQuestionInput()}
+      
+      {/* Renderizar términos ANTES de los botones de navegación */}
+      {question.type === "terms" && renderQuestionInput()}
       
       {children}
     </div>
