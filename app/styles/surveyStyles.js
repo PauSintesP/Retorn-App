@@ -1269,19 +1269,38 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .otros-text-container {
     animation: fadeSlideIn 0.3s ease-out;
+    margin-top: 0.85rem !important;
+    width: 100%;
+    box-sizing: border-box;
   }
 
-  /* Alerta de patología */
+  @media (min-width: 600px) {
+    .otros-text-container {
+      margin-top: 1rem !important;
+    }
+  }
+
+  /* Asegurar que el input de "Otros" no se desborde */
+  .otros-text-container .text-input {
+    width: calc(100% - 0.5rem);
+    max-width: 100%;
+    margin: 0 0.25rem;
+    box-sizing: border-box;
+  }
+
+  /* Alerta de patología - Mobile optimizado */
   .patologia-alert {
     display: flex;
-    gap: 0.75rem;
+    gap: 0.6rem;
     align-items: flex-start;
-    margin-top: 1.25rem;
-    padding: 1rem 0.85rem;
+    margin-top: 0.85rem;
+    padding: 0.85rem 0.7rem;
     background: linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.05) 100%);
     border-left: 4px solid #ff9800;
     border-radius: 5px;
     animation: fadeSlideIn 0.4s ease-out;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   @media (min-width: 600px) {
@@ -1293,7 +1312,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .alert-icon {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     margin: 0;
     line-height: 1;
     flex-shrink: 0;
@@ -1309,6 +1328,24 @@ export const getSurveyStyles = (direction, theme = {}) => {
     margin: 0;
     color: #e65100;
     font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.4;
+    flex: 1;
+  }
+
+  @media (min-width: 600px) {
+    .alert-text {
+      font-size: 0.95rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .alert-text {
+      font-size: 1rem;
+      line-height: 1.5;
+    }
+  }
     font-size: 0.95rem;
     line-height: 1.6;
     font-weight: 500;

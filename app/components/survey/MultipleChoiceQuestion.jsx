@@ -93,7 +93,7 @@ export default function MultipleChoiceQuestion({ question, value = [], onChange,
 
       {/* Campo de texto para "Otros" - aparece inline */}
       {tieneOtros && (
-        <div className="otros-text-container" style={{ marginTop: "1rem" }}>
+        <div className="otros-text-container">
           <input
             type="text"
             className="text-input"
@@ -106,7 +106,7 @@ export default function MultipleChoiceQuestion({ question, value = [], onChange,
           <p style={{
             marginTop: "0.5rem",
             color: "#666",
-            fontSize: "0.85rem",
+            fontSize: "0.8rem",
             fontStyle: "italic",
           }}>
             {otrosTexto.length}/200 caracteres
