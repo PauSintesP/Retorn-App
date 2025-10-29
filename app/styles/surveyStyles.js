@@ -129,22 +129,23 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 1rem 0.5rem;
+    padding: 0.75rem 0.5rem;
     margin-top: 4px;
     position: relative;
     z-index: 1;
+    min-height: calc(100vh - 4px);
   }
 
   .question-card {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
-    border-radius: 1.2rem;
+    border-radius: 1rem;
     box-shadow: 
-      0 10px 30px rgba(0, 0, 0, 0.08),
+      0 8px 24px rgba(0, 0, 0, 0.08),
       0 4px 12px rgba(115, 159, 153, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    padding: 1.75rem 1rem;
-    max-width: 95%;
+    padding: 1.5rem 1rem;
+    max-width: 100%;
     width: 100%;
     animation: ${direction === "forward" ? "fadeSlideIn" : "fadeSlideOut"} 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     border: 1px solid rgba(115, 159, 153, 0.1);
@@ -152,7 +153,20 @@ export const getSurveyStyles = (direction, theme = {}) => {
     margin: 0 auto;
   }
 
-  /* Tablet y Desktop */
+  /* Tablet */
+  @media (min-width: 600px) {
+    .survey-content {
+      padding: 1.5rem 1rem;
+    }
+
+    .question-card {
+      padding: 2rem 1.5rem;
+      border-radius: 1.2rem;
+      max-width: 90%;
+    }
+  }
+
+  /* Desktop */
   @media (min-width: 768px) {
     .survey-content {
       padding: 3rem 1rem;
@@ -175,29 +189,57 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .question-header {
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
     text-align: center;
   }
 
   .question-number {
     color: var(--jdgm-paginate-color);
     font-family: 'Oswald', sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 2px;
-    margin-bottom: 0.75rem;
+    letter-spacing: 1.5px;
+    margin-bottom: 0.5rem;
     display: inline-block;
-    padding: 0.35rem 0.85rem;
+    padding: 0.3rem 0.75rem;
     background: rgba(115, 159, 153, 0.08);
     border-radius: 20px;
   }
 
   .question-text {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.25rem;
     font-weight: 600;
     color: var(--jdgm-primary-color);
+    line-height: 1.4;
+    margin: 0;
+    padding: 0 0.5rem;
+  }
+
+  @media (min-width: 600px) {
+    .question-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .question-number {
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      padding: 0.35rem 0.85rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .question-text {
+      font-size: 1.4rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .question-text {
+      font-size: 1.75rem;
+      line-height: 1.35;
+    }
+  }
     line-height: 1.3;
     margin: 0;
     letter-spacing: -0.01em;
@@ -234,10 +276,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .option-button {
     background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
     border: 2px solid rgba(115, 159, 153, 0.15);
-    border-radius: 5px;
-    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    padding: 1rem 1rem;
     font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: var(--jdgm-primary-color);
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -247,7 +289,17 @@ export const getSurveyStyles = (direction, theme = {}) => {
     overflow: hidden;
     display: flex;
     align-items: center;
-    gap: 0.75rem;
+    gap: 0.65rem;
+    min-height: 58px;
+  }
+
+  @media (min-width: 600px) {
+    .option-button {
+      padding: 1rem 1.25rem;
+      font-size: 0.95rem;
+      gap: 0.75rem;
+      min-height: 62px;
+    }
   }
 
   @media (min-width: 768px) {
@@ -255,12 +307,20 @@ export const getSurveyStyles = (direction, theme = {}) => {
       padding: 1.3rem 1.75rem;
       font-size: 1.05rem;
       gap: 1rem;
+      min-height: auto;
     }
   }
 
   .option-icon {
-    font-size: 1.5rem;
+    font-size: 1.35rem;
     flex-shrink: 0;
+    line-height: 1;
+  }
+
+  @media (min-width: 600px) {
+    .option-icon {
+      font-size: 1.5rem;
+    }
   }
 
   @media (min-width: 768px) {
@@ -271,6 +331,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .option-label {
     flex: 1;
+    line-height: 1.4;
   }
 
   .option-button::before {
@@ -428,14 +489,60 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* SELECTOR DE FECHAS PERSONALIZADO */
   /* ============================================ */
 
+  /* Input nativo HTML5 para móviles */
+  .native-date-wrapper {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .native-date-input {
+    width: 100%;
+    padding: 1rem 1.25rem;
+    font-size: 1rem;
+    font-family: inherit;
+    color: #3E3E3E;
+    background: white;
+    border: 2px solid rgba(115, 159, 153, 0.3);
+    border-radius: 8px;
+    transition: all 0.25s ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+  }
+
+  .native-date-input:focus {
+    outline: none;
+    border-color: #5fb3a1;
+    box-shadow: 0 0 0 3px rgba(95, 179, 161, 0.15);
+  }
+
+  .native-date-input::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    border-radius: 4px;
+    margin-left: 0.5rem;
+    padding: 0.25rem;
+  }
+
+  .date-age-display {
+    font-size: 0.9rem;
+    color: #739f99;
+    font-weight: 500;
+    padding: 0 0.5rem;
+    line-height: 1.5;
+  }
+
+  /* Selector custom para desktop */
   .custom-date-input {
     width: 100%;
     max-width: 100%;
     margin: 0 auto;
-    padding: 1.5rem 2rem;
+    padding: 1.25rem 1.5rem;
     background: white;
     border: 2px solid rgba(115, 159, 153, 0.3);
-    border-radius: 5px;
+    border-radius: 8px;
     cursor: pointer;
     transition: all 0.25s ease;
     position: relative;
@@ -633,48 +740,79 @@ export const getSurveyStyles = (direction, theme = {}) => {
     color: #5fb3a1;
   }
 
-  /* Responsive para móvil */
-  @media (max-width: 600px) {
+  /* Responsive para móvil - Date Picker */
+  @media (max-width: 767px) {
     .custom-date-input {
       max-width: 100%;
-      padding: 1.25rem 1.5rem;
+      padding: 1rem 1.25rem;
     }
 
     .date-input-content {
-      gap: 1rem;
+      gap: 0.85rem;
+    }
+
+    .date-display-text {
+      font-size: 0.95rem;
+    }
+
+    .date-age-text {
+      font-size: 0.8rem;
     }
 
     .date-picker-panel {
       max-width: 100%;
-      padding: 1.5rem;
+      padding: 1.25rem;
       margin: 1rem auto 0;
     }
 
     .date-selectors-grid {
       grid-template-columns: 1fr;
-      gap: 1rem;
-      margin-bottom: 1.25rem;
+      gap: 0.85rem;
+      margin-bottom: 1rem;
     }
 
     .date-selector-scroll {
-      max-height: 180px;
+      max-height: 160px;
       padding: 0.5rem 0.25rem;
     }
 
-    .date-display-text {
-      font-size: 0.975rem;
+    .date-option {
+      padding: 0.75rem 0.875rem;
+      font-size: 0.9rem;
     }
 
-    .date-age-text {
-      font-size: 0.825rem;
+    .picker-title {
+      font-size: 0.95rem;
+    }
+
+    .date-selector-label {
+      font-size: 0.75rem;
     }
 
     .date-picker-footer {
-      padding-top: 1.25rem;
+      padding-top: 1rem;
     }
 
     .date-clear-btn {
-      padding: 0.75rem 1.5rem;
+      padding: 0.7rem 1.25rem;
+      font-size: 0.85rem;
+      width: 100%;
+    }
+  }
+
+  /* Tablet breakpoint */
+  @media (min-width: 600px) and (max-width: 767px) {
+    .date-picker-panel {
+      padding: 1.5rem;
+    }
+
+    .date-selectors-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .date-selector-column:nth-child(3) {
+      grid-column: 1 / -1;
     }
   }
 
@@ -1170,9 +1308,16 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* ============================================ */
   
   .recommendation-container {
-    max-width: 95%;
+    max-width: 100%;
     width: 100%;
-    padding: 0.75rem;
+    padding: 0.5rem;
+  }
+
+  @media (min-width: 600px) {
+    .recommendation-container {
+      max-width: 95%;
+      padding: 0.75rem;
+    }
   }
 
   @media (min-width: 768px) {
@@ -1184,10 +1329,17 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .recommendation-header {
     text-align: center;
-    margin-bottom: 2rem;
-    padding: 1.5rem 1rem;
+    margin-bottom: 1.5rem;
+    padding: 1.25rem 0.875rem;
     background: linear-gradient(135deg, rgba(115, 159, 153, 0.1) 0%, rgba(115, 159, 153, 0.05) 100%);
-    border-radius: 5px;
+    border-radius: 8px;
+  }
+
+  @media (min-width: 600px) {
+    .recommendation-header {
+      margin-bottom: 2rem;
+      padding: 1.5rem 1rem;
+    }
   }
 
   @media (min-width: 768px) {
@@ -1199,24 +1351,38 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .recommendation-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     color: var(--jdgm-primary-color);
     margin: 0 0 0.5rem 0;
     font-weight: 600;
-    line-height: 1.2;
+    line-height: 1.3;
+  }
+
+  @media (min-width: 600px) {
+    .recommendation-title {
+      font-size: 1.75rem;
+    }
   }
 
   @media (min-width: 768px) {
     .recommendation-title {
       font-size: 2.5rem;
+      line-height: 1.2;
     }
   }
 
   .recommendation-subtitle {
     font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.875rem;
     color: #666;
     margin: 0;
+    line-height: 1.5;
+  }
+
+  @media (min-width: 600px) {
+    .recommendation-subtitle {
+      font-size: 0.95rem;
+    }
   }
 
   @media (min-width: 768px) {
@@ -1228,9 +1394,16 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .mixta-info {
     background: rgba(115, 159, 153, 0.08);
     border-left: 4px solid var(--jdgm-paginate-color);
-    padding: 1rem 1.25rem;
-    border-radius: 5px;
-    margin-bottom: 1.5rem;
+    padding: 0.875rem 1rem;
+    border-radius: 6px;
+    margin-bottom: 1.25rem;
+  }
+
+  @media (min-width: 600px) {
+    .mixta-info {
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+    }
   }
 
   @media (min-width: 768px) {
@@ -1279,11 +1452,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .product-card {
     background: white;
-    border-radius: 5px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
+    border-radius: 8px;
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
     box-shadow: 
-      0 10px 30px rgba(0, 0, 0, 0.08),
+      0 8px 20px rgba(0, 0, 0, 0.08),
       0 4px 10px rgba(115, 159, 153, 0.1);
     border: 1px solid rgba(115, 159, 153, 0.15);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1291,6 +1464,16 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     flex-direction: column;
     height: 100%;
+  }
+
+  @media (min-width: 600px) {
+    .product-card {
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 
+        0 10px 30px rgba(0, 0, 0, 0.08),
+        0 4px 10px rgba(115, 159, 153, 0.1);
+    }
   }
 
   @media (min-width: 768px) {
@@ -1316,8 +1499,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .product-image-container {
     width: 100%;
-    height: 280px;
-    margin: 0 0 1.5rem 0;
+    height: 220px;
+    margin: 0 0 1.25rem 0;
     overflow: hidden;
     background: #fafafa;
     display: flex;
@@ -1325,8 +1508,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
     justify-content: center;
     padding: 0;
     flex-shrink: 0;
-    border-radius: 8px;
+    border-radius: 6px;
     position: relative;
+  }
+
+  @media (min-width: 600px) {
+    .product-image-container {
+      height: 260px;
+      margin: 0 0 1.5rem 0;
+    }
   }
 
   @media (min-width: 768px) {

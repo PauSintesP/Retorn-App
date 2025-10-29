@@ -2,6 +2,7 @@ import { useState, useRef, useEffect } from "react";
 
 /**
  * Componente para renderizar preguntas de tipo fecha con selector personalizado
+ * Optimizado para móviles con input nativo y fallback a selector custom
  */
 
 export default function DateQuestion({ question, value, onChange }) {
@@ -9,7 +10,16 @@ export default function DateQuestion({ question, value, onChange }) {
   const [selectedDay, setSelectedDay] = useState("");
   const [selectedMonth, setSelectedMonth] = useState("");
   const [selectedYear, setSelectedYear] = useState("");
+  const [useNativeInput, setUseNativeInput] = useState(false);
   const containerRef = useRef(null);
+  const nativeInputRef = useRef(null);
+
+  // Detectar si es dispositivo móvil/tablet
+  useEffect(() => {
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent) || 
+                     (window.innerWidth <= 768);
+    setUseNativeInput(isMobile);
+  }, []);
 
   // Meses en español
   const months = [
@@ -110,6 +120,31 @@ export default function DateQuestion({ question, value, onChange }) {
     return `· Aproximadamente ${ageText}`;
   };
 
+  // Si es móvil, usar input nativo de HTML5
+  if (useNativeInput) {
+    return (
+      <div className="options-container">
+        <div className="native-date-wrapper">
+          <input
+            ref={nativeInputRef}
+            type="date"
+            value={value || ""}
+            onChange={(e) => onChange(e.target.value)}
+            className="native-date-input"
+            max={new Date().toISOString().split('T')[0]}
+            placeholder="Selecciona la fecha"
+          />
+          {value && (
+            <div className="date-age-display">
+              {getAgeText()}
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // Selector personalizado para desktop
   return (
     <div className="options-container" ref={containerRef}>
       {/* Input principal que abre el selector */}
