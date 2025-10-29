@@ -2325,8 +2325,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
-    margin-bottom: 1.25rem;
+    gap: 0.65rem;
+    margin-bottom: 1rem;
+    padding: 0;
+    box-sizing: border-box;
   }
 
   @media (min-width: 600px) {
@@ -2368,20 +2370,21 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   /* Estilos para los banners de descuento - Mobile First MEJORADO */
   .discount-banner {
-    width: calc(100% - 1rem);
+    width: calc(100% - 0.5rem);
     max-width: 900px;
-    padding: 1rem 0.75rem;
-    padding-right: 2.75rem; /* Espacio para el botón de cerrar */
-    border-radius: 12px;
+    padding: 0.85rem 0.6rem;
+    padding-right: 2.5rem; /* Espacio para el botón de cerrar */
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.75rem;
-    margin: 0 auto;
+    gap: 0.6rem;
+    margin: 0 0.25rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+    box-sizing: border-box;
   }
 
   .discount-banner::before {
@@ -2402,10 +2405,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Botón para cerrar notificaciones - Mejorado para móvil */
   .banner-close-button {
     position: absolute;
-    top: 0.4rem;
-    right: 0.4rem;
-    width: 2rem;
-    height: 2rem;
+    top: 0.35rem;
+    right: 0.35rem;
+    width: 1.75rem;
+    height: 1.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2413,7 +2416,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     border: none;
     border-radius: 50%;
     color: inherit;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     line-height: 1;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -2453,7 +2456,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .discount-icon {
-    font-size: 2rem;
+    font-size: 1.6rem;
     flex-shrink: 0;
     filter: grayscale(20%);
     margin-bottom: 0;
@@ -2463,25 +2466,25 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex: 1;
     text-align: center;
     width: 100%;
-    padding-right: 0.5rem;
+    padding-right: 0.25rem;
   }
 
   .discount-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: inherit;
-    margin: 0 0 0.5rem 0;
-    line-height: 1.3;
+    margin: 0 0 0.4rem 0;
+    line-height: 1.25;
     letter-spacing: 0.3px;
   }
 
   .discount-description {
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     color: inherit;
     opacity: 0.9;
-    margin: 0 0 0.4rem 0;
-    line-height: 1.5;
+    margin: 0 0 0.3rem 0;
+    line-height: 1.4;
   }
 
   .discount-description strong {
@@ -2490,11 +2493,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .discount-note {
-    font-size: 0.75rem;
+    font-size: 0.68rem;
     color: inherit;
     opacity: 0.7;
     margin: 0;
     font-style: italic;
+    line-height: 1.3;
   }
 
   .subscription-link {
@@ -2502,11 +2506,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
     color: #8b7355;
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     transition: all 0.3s ease;
-    margin-top: 0.4rem;
+    margin-top: 0.3rem;
     border-bottom: 1px solid transparent;
-    padding: 0.2rem 0;
+    padding: 0.15rem 0;
+    line-height: 1.3;
   }
 
   .subscription-link:hover {
@@ -2518,12 +2523,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Tablet y superior */
   @media (min-width: 600px) {
     .discount-banner {
-      width: 100%;
+      width: calc(100% - 1rem);
       flex-direction: row;
       align-items: center;
       padding: 1.25rem 1.25rem;
       padding-right: 3.25rem;
       gap: 1rem;
+      margin: 0 0.5rem;
     }
 
     .discount-icon {
@@ -2565,6 +2571,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Desktop */
   @media (min-width: 768px) {
     .discount-banner {
+      width: 100%;
+      margin: 0 auto;
       padding: 1.75rem 1.5rem;
       padding-right: 4rem;
       gap: 1.5rem;
