@@ -499,39 +499,77 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .native-date-input {
     width: 100%;
-    padding: 1rem 1.25rem;
-    font-size: 1rem;
+    padding: 1.25rem 1.5rem;
+    font-size: 1.1rem;
     font-family: inherit;
     color: #3E3E3E;
     background: white;
     border: 2px solid rgba(115, 159, 153, 0.3);
-    border-radius: 8px;
+    border-radius: 12px;
     transition: all 0.25s ease;
     -webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
     cursor: pointer;
+    min-height: 60px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   }
 
   .native-date-input:focus {
     outline: none;
     border-color: #5fb3a1;
-    box-shadow: 0 0 0 3px rgba(95, 179, 161, 0.15);
+    box-shadow: 0 0 0 4px rgba(95, 179, 161, 0.15), 0 4px 8px rgba(0, 0, 0, 0.1);
   }
 
   .native-date-input::-webkit-calendar-picker-indicator {
     cursor: pointer;
     border-radius: 4px;
     margin-left: 0.5rem;
-    padding: 0.25rem;
+    padding: 0.5rem;
+    background: rgba(95, 179, 161, 0.1);
+    transition: all 0.2s ease;
+  }
+
+  .native-date-input::-webkit-calendar-picker-indicator:hover {
+    background: rgba(95, 179, 161, 0.2);
+    transform: scale(1.1);
   }
 
   .date-age-display {
-    font-size: 0.9rem;
+    font-size: 1rem;
     color: #739f99;
-    font-weight: 500;
-    padding: 0 0.5rem;
+    font-weight: 600;
+    padding: 0.75rem 1rem;
     line-height: 1.5;
+    background: rgba(115, 159, 153, 0.08);
+    border-radius: 8px;
+    text-align: center;
+  }
+
+  /* Mejoras responsive para móvil */
+  @media (min-width: 600px) {
+    .native-date-input {
+      padding: 1.5rem 1.75rem;
+      font-size: 1.15rem;
+      min-height: 64px;
+    }
+
+    .date-age-display {
+      font-size: 1.05rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .native-date-input {
+      padding: 1.5rem 2rem;
+      font-size: 1.2rem;
+      min-height: 68px;
+    }
+
+    .date-age-display {
+      font-size: 1.1rem;
+      padding: 1rem 1.25rem;
+    }
   }
 
   /* Selector custom para desktop */
@@ -1815,13 +1853,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
-  /* Estilos para los banners de descuento */
+  /* Estilos para los banners de descuento - Mobile First */
   .discount-banner {
     width: 100%;
-    max-width: 800px;
-    padding: 1.5rem;
+    max-width: 900px;
+    padding: 1.25rem 1rem;
+    padding-right: 3rem; /* Espacio para el botón de cerrar */
     border-radius: 12px;
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 1rem;
     margin: 0 auto;
@@ -1846,31 +1886,32 @@ export const getSurveyStyles = (direction, theme = {}) => {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   }
 
-  /* Botón para cerrar notificaciones */
+  /* Botón para cerrar notificaciones - Mejorado para móvil */
   .banner-close-button {
     position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    width: 2rem;
-    height: 2rem;
+    top: 0.5rem;
+    right: 0.5rem;
+    width: 2.25rem;
+    height: 2.25rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.05);
+    background: rgba(0, 0, 0, 0.08);
     border: none;
     border-radius: 50%;
     color: inherit;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     line-height: 1;
     cursor: pointer;
     transition: all 0.2s ease;
-    opacity: 0.6;
+    opacity: 0.7;
     padding: 0;
+    z-index: 10;
   }
 
   .banner-close-button:hover {
     opacity: 1;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.15);
     transform: scale(1.1);
   }
 
@@ -1902,29 +1943,31 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-size: 2.5rem;
     flex-shrink: 0;
     filter: grayscale(20%);
+    margin-bottom: 0.25rem;
   }
 
   .discount-content {
     flex: 1;
-    text-align: left;
+    text-align: center;
+    width: 100%;
   }
 
   .discount-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 1rem;
+    font-size: 1.05rem;
     font-weight: 600;
     color: inherit;
-    margin: 0 0 0.5rem 0;
-    line-height: 1.3;
+    margin: 0 0 0.75rem 0;
+    line-height: 1.4;
     letter-spacing: 0.3px;
   }
 
   .discount-description {
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     color: inherit;
     opacity: 0.9;
-    margin: 0 0 0.3rem 0;
-    line-height: 1.5;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.6;
   }
 
   .discount-description strong {
@@ -1933,7 +1976,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .discount-note {
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     color: inherit;
     opacity: 0.7;
     margin: 0;
@@ -1945,10 +1988,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
     color: #8b7355;
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.95rem;
     transition: all 0.3s ease;
-    margin-top: 0.25rem;
+    margin-top: 0.5rem;
     border-bottom: 1px solid transparent;
+    padding: 0.25rem 0;
   }
 
   .subscription-link:hover {
@@ -1957,9 +2001,56 @@ export const getSurveyStyles = (direction, theme = {}) => {
     transform: translateX(3px);
   }
 
+  /* Tablet y superior */
+  @media (min-width: 600px) {
+    .discount-banner {
+      flex-direction: row;
+      align-items: center;
+      padding: 1.5rem 1.25rem;
+      padding-right: 3.5rem;
+      gap: 1.25rem;
+    }
+
+    .discount-icon {
+      font-size: 2.75rem;
+      margin-bottom: 0;
+    }
+
+    .discount-content {
+      text-align: left;
+    }
+
+    .discount-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .discount-description {
+      font-size: 0.98rem;
+    }
+
+    .discount-note {
+      font-size: 0.82rem;
+    }
+
+    .subscription-link {
+      font-size: 0.98rem;
+    }
+
+    .banner-close-button {
+      top: 0.75rem;
+      right: 0.75rem;
+      width: 2.5rem;
+      height: 2.5rem;
+      font-size: 1.85rem;
+    }
+  }
+
+  /* Desktop */
   @media (min-width: 768px) {
     .discount-banner {
-      padding: 2rem;
+      padding: 2rem 1.75rem;
+      padding-right: 4rem;
       gap: 1.5rem;
     }
 
@@ -1968,11 +2059,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
 
     .discount-title {
-      font-size: 1.2rem;
+      font-size: 1.25rem;
+      margin-bottom: 0.65rem;
     }
 
     .discount-description {
-      font-size: 1rem;
+      font-size: 1.05rem;
     }
 
     .discount-note {
@@ -1980,22 +2072,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
 
     .subscription-link {
-      font-size: 1rem;
-    }
-  }
-
-  @media (max-width: 480px) {
-    .discount-banner {
-      flex-direction: column;
-      text-align: center;
-      padding: 1.25rem;
+      font-size: 1.05rem;
     }
 
-    .discount-content {
-      text-align: center;
-    }
-
-    .discount-icon {
+    .banner-close-button {
+      top: 1rem;
+      right: 1rem;
+      width: 2.75rem;
+      height: 2.75rem;
       font-size: 2rem;
     }
   }
