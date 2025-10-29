@@ -221,7 +221,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .question-text {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     font-weight: 600;
     color: var(--jdgm-primary-color);
     line-height: 1.3;
@@ -229,6 +229,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     padding: 0 0.15rem;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    min-height: 2.2rem;
   }
 
   @media (min-width: 600px) {
@@ -247,6 +248,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
       font-size: 1.25rem;
       line-height: 1.4;
       padding: 0 0.5rem;
+      min-height: 2.5rem;
     }
   }
 
@@ -407,6 +409,47 @@ export const getSurveyStyles = (direction, theme = {}) => {
       0 6px 20px rgba(115, 159, 153, 0.25),
       inset 0 1px 0 rgba(255, 255, 255, 0.5);
     transform: scale(1.02);
+  }
+
+  /* Optimización para preguntas con pocos botones (2-3 opciones) - Mobile */
+  .options-container:has(.option-button:nth-child(2):last-child) .option-button,
+  .options-container:has(.option-button:nth-child(3):last-child) .option-button {
+    padding: 0.85rem 1rem;
+    font-size: 0.9rem;
+    min-height: 60px;
+  }
+
+  .options-container:has(.option-button:nth-child(2):last-child) .option-icon,
+  .options-container:has(.option-button:nth-child(3):last-child) .option-icon {
+    font-size: 1.6rem;
+  }
+
+  @media (min-width: 600px) {
+    .options-container:has(.option-button:nth-child(2):last-child) .option-button,
+    .options-container:has(.option-button:nth-child(3):last-child) .option-button {
+      padding: 1.1rem 1.5rem;
+      font-size: 1rem;
+      min-height: 70px;
+    }
+
+    .options-container:has(.option-button:nth-child(2):last-child) .option-icon,
+    .options-container:has(.option-button:nth-child(3):last-child) .option-icon {
+      font-size: 2rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .options-container:has(.option-button:nth-child(2):last-child) .option-button,
+    .options-container:has(.option-button:nth-child(3):last-child) .option-button {
+      padding: 1.3rem 1.75rem;
+      font-size: 1.05rem;
+      min-height: auto;
+    }
+
+    .options-container:has(.option-button:nth-child(2):last-child) .option-icon,
+    .options-container:has(.option-button:nth-child(3):last-child) .option-icon {
+      font-size: 2.2rem;
+    }
   }
 
   /* Terms and Conditions Styles */
