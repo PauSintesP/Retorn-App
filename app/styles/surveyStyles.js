@@ -287,9 +287,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.85rem;
+    gap: 0.6rem;
     margin-bottom: 0;
-    padding: 0 0.25rem;
+    padding: 0 0.15rem;
   }
 
   @media (min-width: 600px) {
@@ -310,9 +310,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
     border: 2px solid rgba(115, 159, 153, 0.15);
     border-radius: 8px;
-    padding: 0.75rem 0.85rem;
+    padding: 0.65rem 0.7rem;
     font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--jdgm-primary-color);
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -322,8 +322,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     overflow: hidden;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    min-height: 52px;
+    gap: 0.45rem;
+    min-height: 48px;
   }
 
   @media (min-width: 600px) {
@@ -345,7 +345,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .option-icon {
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     flex-shrink: 0;
     line-height: 1;
   }
@@ -364,7 +364,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .option-label {
     flex: 1;
-    line-height: 1.35;
+    line-height: 1.3;
+    word-break: break-word;
+  }
+
+  @media (min-width: 600px) {
+    .option-label {
+      line-height: 1.35;
+    }
   }
 
   .option-button::before {
@@ -1124,17 +1131,39 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* ESTILOS PARA PREGUNTAS MÚLTIPLES CON 2 COLUMNAS */
   /* ============================================ */
 
+  /* Mobile: UNA SOLA COLUMNA para mejor legibilidad */
   .two-columns-container {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-bottom: 1rem;
+    grid-template-columns: 1fr;
+    gap: 0.65rem;
+    margin-bottom: 0.85rem;
+  }
+
+  @media (min-width: 600px) {
+    .two-columns-container {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+      margin-bottom: 1rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .two-columns-container {
+      gap: 1rem;
+    }
   }
 
   /* Variante con 3 columnas: columna izquierda, centro (Otros), derecha */
   .two-columns-container.three-column {
-    grid-template-columns: 1fr auto 1fr;
-    align-items: start;
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  @media (min-width: 600px) {
+    .two-columns-container.three-column {
+      grid-template-columns: 1fr auto 1fr;
+      align-items: start;
+    }
   }
 
   /* Centro para el botón 'Otros' */
@@ -1146,24 +1175,49 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   /* Ajustes para el botón 'Otros' cuando está en la columna central */
   .two-columns-container.three-column .otros-button {
-    width: auto;
-    min-width: 160px;
+    width: 100%;
+  }
+
+  @media (min-width: 600px) {
+    .two-columns-container.three-column .otros-button {
+      width: auto;
+      min-width: 160px;
+    }
   }
 
   .column {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.65rem;
+  }
+
+  @media (min-width: 600px) {
+    .column {
+      gap: 0.75rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .column {
+      gap: 0.85rem;
+    }
   }
 
   .patologias-info-text {
     text-align: center;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     margin-bottom: 0;
     color: #666;
-    font-size: 0.95rem;
+    font-size: 0.8rem;
     font-family: 'Inter', sans-serif;
     font-style: italic;
+  }
+
+  @media (min-width: 600px) {
+    .patologias-info-text {
+      margin-top: 1.5rem;
+      font-size: 0.95rem;
+    }
   }
 
   .otros-button {
