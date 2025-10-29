@@ -190,13 +190,6 @@ export default function RecommendationResult({ recommendation, onRestart }) {
 }
 
 function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, tipoAnimal }) {
-  // Determinar qué mostrar en product-type: tipo de croqueta para perros secos, tipo de producto para otros
-  const mostrarTipoCroqueta = tipoCroqueta && tipoAnimal === "Perro" && tipo.includes("Seco");
-  
-  const tipoMostrado = mostrarTipoCroqueta 
-    ? `${tipoCroqueta.tipo} (${tipoCroqueta.diametro})`
-    : tipo;
-  
   const calcularDuracion = () => {
     const cantidadOriginal = producto.varianteRecomendada.cantidad;
     let gramosTotales;
@@ -269,9 +262,18 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
 
       <div className="product-content">
         <div className="product-header">
-          <h3 className="product-type">{tipoMostrado}</h3>
+          <h3 className="product-type">{tipo}</h3>
           <span className="product-badge">{producto.segmento}</span>
         </div>
+
+        {/* Mostrar tipo de croqueta solo para productos secos de perro */}
+        {tipoCroqueta && tipoAnimal === "Perro" && tipo.includes("Seco") && (
+          <div className="product-croqueta-badge">
+            <span className="croqueta-icon">🍪</span>
+            <span className="croqueta-text">Croqueta {tipoCroqueta.tipo}</span>
+            <span className="croqueta-size">{tipoCroqueta.diametro}</span>
+          </div>
+        )}
 
         <div className="product-main">
           <h4 className="product-name">{producto.nombre}</h4>

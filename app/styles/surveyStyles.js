@@ -1332,6 +1332,60 @@ export const getSurveyStyles = (direction, theme = {}) => {
     letter-spacing: 0.5px;
   }
 
+  .product-croqueta-badge {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(135deg, #8B6B47 0%, #A0826D 100%);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 8px rgba(139, 107, 71, 0.15);
+  }
+
+  .croqueta-icon {
+    font-size: 1.2rem;
+  }
+
+  .croqueta-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #ffffff;
+    letter-spacing: 0.3px;
+  }
+
+  .croqueta-size {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9);
+    background: rgba(255, 255, 255, 0.15);
+    padding: 0.25rem 0.6rem;
+    border-radius: 4px;
+    margin-left: auto;
+  }
+
+  @media (max-width: 767px) {
+    .product-croqueta-badge {
+      padding: 0.6rem 0.85rem;
+      gap: 0.4rem;
+    }
+
+    .croqueta-icon {
+      font-size: 1rem;
+    }
+
+    .croqueta-text {
+      font-size: 0.85rem;
+    }
+
+    .croqueta-size {
+      font-size: 0.8rem;
+      padding: 0.2rem 0.5rem;
+    }
+  }
+
   .product-name {
     font-family: 'Oswald', sans-serif;
     font-size: 1.2rem;
@@ -1468,11 +1522,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .discount-banner {
     width: 100%;
     max-width: 800px;
-    padding: 1.5rem;
-    border-radius: 12px;
+    padding: 1rem;
+    border-radius: 10px;
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     margin: 0.75rem auto;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -1517,7 +1571,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .discount-icon {
-    font-size: 2.5rem;
+    font-size: 1.75rem;
     flex-shrink: 0;
     filter: grayscale(20%);
   }
@@ -1525,24 +1579,25 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .discount-content {
     flex: 1;
     text-align: left;
+    min-width: 0;
   }
 
   .discount-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: inherit;
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.4rem 0;
     line-height: 1.3;
     letter-spacing: 0.3px;
   }
 
   .discount-description {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     color: inherit;
     opacity: 0.9;
-    margin: 0 0 0.3rem 0;
-    line-height: 1.5;
+    margin: 0 0 0.25rem 0;
+    line-height: 1.4;
   }
 
   .discount-description strong {
@@ -1551,7 +1606,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .discount-note {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: inherit;
     opacity: 0.7;
     margin: 0;
@@ -1563,7 +1618,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     color: #8b7355;
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     transition: all 0.3s ease;
     margin-top: 0.25rem;
     border-bottom: 1px solid transparent;
@@ -1575,6 +1630,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     transform: translateX(3px);
   }
 
+  /* Media queries para mejor responsive */
   @media (min-width: 768px) {
     .discount-banner {
       padding: 2rem;
@@ -1602,19 +1658,88 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
-  @media (max-width: 480px) {
+  @media (max-width: 767px) {
     .discount-banner {
-      flex-direction: column;
-      text-align: center;
-      padding: 1.25rem;
-    }
-
-    .discount-content {
-      text-align: center;
+      padding: 0.85rem;
+      gap: 0.65rem;
+      border-radius: 8px;
     }
 
     .discount-icon {
-      font-size: 2rem;
+      font-size: 1.5rem;
+    }
+
+    .discount-title {
+      font-size: 0.85rem;
+      margin: 0 0 0.3rem 0;
+    }
+
+    .discount-description {
+      font-size: 0.75rem;
+      line-height: 1.35;
+    }
+
+    .discount-note {
+      font-size: 0.65rem;
+    }
+
+    .subscription-link {
+      font-size: 0.75rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .discount-banner {
+      padding: 0.75rem;
+      gap: 0.6rem;
+    }
+
+    .discount-icon {
+      font-size: 1.4rem;
+    }
+
+    .discount-title {
+      font-size: 0.8rem;
+    }
+
+    .discount-description {
+      font-size: 0.7rem;
+    }
+
+    .discount-note {
+      font-size: 0.6rem;
+    }
+
+    .subscription-link {
+      font-size: 0.7rem;
+    }
+  }
+
+  @media (max-width: 360px) {
+    .discount-banner {
+      padding: 0.65rem;
+      gap: 0.5rem;
+    }
+
+    .discount-icon {
+      font-size: 1.3rem;
+    }
+
+    .discount-title {
+      font-size: 0.75rem;
+      letter-spacing: 0.2px;
+    }
+
+    .discount-description {
+      font-size: 0.68rem;
+    }
+
+    .discount-note {
+      font-size: 0.58rem;
+    }
+
+    .subscription-link {
+      font-size: 0.68rem;
     }
   }
 
