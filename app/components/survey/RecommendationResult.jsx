@@ -83,7 +83,7 @@ export default function RecommendationResult({ recommendation, onRestart }) {
             <h3 className="products-title">Tu Producto Recomendado</h3>
             <ProductCard
               producto={recomendacion.productoSeco}
-              tipo="Alimentación Seca"
+              tipo="Alimento Seco"
               kcalDiarias={kcalDiarias}
               tipoCroqueta={tipoCroqueta}
               tipoAnimal={tipoAnimal}
