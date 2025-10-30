@@ -93,13 +93,39 @@ export async function findProducts(filters = {}) {
  * @returns {Promise<Array>} Array de productos de Shopify
  */
 async function fetchShopifyProducts() {
-  // Verificar si tenemos las variables de entorno necesarias
+  // En el cliente (navegador), hacer petición al endpoint del servidor
+  if (typeof window !== 'undefined') {
+    console.log("🌐 Cliente: Solicitando productos al servidor...");
+    const response = await fetch('/api/products', {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+    
+    if (!response.ok) {
+      const errorText = await response.text();
+      throw new Error(`Server API error: ${response.status} ${response.statusText} - ${errorText}`);
+    }
+    
+    const data = await response.json();
+    
+    if (!data.success || !data.products) {
+      throw new Error(data.error || "Invalid response from server - no products field");
+    }
+    
+    return data.products;
+  }
+  
+  // En el servidor (Node.js), hacer petición directa a Shopify
   const shopifyStoreUrl = process.env.SHOPIFY_STORE_URL;
   const shopifyAccessToken = process.env.SHOPIFY_ACCESS_TOKEN;
   
   if (!shopifyStoreUrl || !shopifyAccessToken) {
     throw new Error("Missing Shopify credentials. Please set SHOPIFY_STORE_URL and SHOPIFY_ACCESS_TOKEN in your .env file");
   }
+  
+  console.log(`[Server] Fetching from Shopify: ${shopifyStoreUrl}`);
   
   // Construir la URL de la API de Shopify Admin REST
   const apiUrl = `https://${shopifyStoreUrl}/admin/api/2025-01/products.json?limit=250`;
