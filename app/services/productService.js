@@ -93,21 +93,34 @@ export async function findProducts(filters = {}) {
  * @returns {Promise<Array>} Array de productos de Shopify
  */
 async function fetchShopifyProducts() {
-  const response = await fetch(SHOPIFY_PRODUCTS_API_ENDPOINT, {
+  // Verificar si tenemos las variables de entorno necesarias
+  const shopifyStoreUrl = process.env.SHOPIFY_STORE_URL;
+  const shopifyAccessToken = process.env.SHOPIFY_ACCESS_TOKEN;
+  
+  if (!shopifyStoreUrl || !shopifyAccessToken) {
+    throw new Error("Missing Shopify credentials. Please set SHOPIFY_STORE_URL and SHOPIFY_ACCESS_TOKEN in your .env file");
+  }
+  
+  // Construir la URL de la API de Shopify Admin REST
+  const apiUrl = `https://${shopifyStoreUrl}/admin/api/2025-01/products.json?limit=250`;
+  
+  const response = await fetch(apiUrl, {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
+      'X-Shopify-Access-Token': shopifyAccessToken,
     },
   });
   
   if (!response.ok) {
-    throw new Error(`Shopify API error: ${response.status} ${response.statusText}`);
+    const errorText = await response.text();
+    throw new Error(`Shopify API error: ${response.status} ${response.statusText} - ${errorText}`);
   }
   
   const data = await response.json();
   
-  if (!data.success) {
-    throw new Error(data.error || "Unknown error from Shopify API");
+  if (!data.products) {
+    throw new Error("Invalid response from Shopify API - no products field");
   }
   
   return data.products;
