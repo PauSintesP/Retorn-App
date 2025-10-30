@@ -55,6 +55,7 @@ export async function loader() {
     }
     
     console.log(`[API Products] Successfully fetched ${data.products.length} products`);
+    console.log('[API Products] Product titles:', data.products.map(p => p.title));
     
     return Response.json({
       success: true,
