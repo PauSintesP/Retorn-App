@@ -46,16 +46,27 @@ function mapSingleProduct(shopifyProduct) {
     const vendor = shopifyProduct.vendor || "";
     const tags = shopifyProduct.tags || [];
     
-    // Obtener SKU de la primera variante para buscar en la base de datos
-    const firstVariant = shopifyProduct.variants && shopifyProduct.variants[0];
-    const sku = firstVariant ? firstVariant.sku : null;
+    // Buscar información en la base de datos
+    let productInfo = null;
+    let sku = null;
     
-    // Buscar información del producto en la base de datos por SKU
-    const productInfo = getProductInfoBySKU(sku);
+    // Intentar con SKU de todas las variantes hasta encontrar match
+    if (shopifyProduct.variants && shopifyProduct.variants.length > 0) {
+      for (const variant of shopifyProduct.variants) {
+        if (variant.sku) {
+          productInfo = getProductInfoBySKU(variant.sku);
+          if (productInfo) {
+            sku = variant.sku;
+            break;
+          }
+        }
+      }
+    }
     
-    // Si no está en la base de datos, omitir este producto
+    // Si no está en la base de datos, omitir
     if (!productInfo) {
-      console.log(`[Adapter] Producto sin SKU en DB: ${title} (SKU: ${sku})`);
+      const firstSku = shopifyProduct.variants?.[0]?.sku || 'sin-sku';
+      console.log(`[Adapter] ❌ SKU no encontrado en DB: ${title} (SKU: ${firstSku})`);
       return {
         key: generateProductKey(title, tags),
         data: {
@@ -69,6 +80,8 @@ function mapSingleProduct(shopifyProduct) {
         }
       };
     }
+    
+    console.log(`[Adapter] ✅ Match encontrado: ${title} (SKU: ${sku})`);
     
     // Usar datos de la base de datos
     const tipo = productInfo.tipo;

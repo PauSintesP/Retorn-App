@@ -21,9 +21,10 @@ export async function loader() {
     }
     
     // Construir la URL de la API de Shopify Admin REST
-    const apiUrl = `https://${shopifyStoreUrl}/admin/api/2025-01/products.json?limit=250`;
+    // Filtrar por vendor "Retorn" para obtener solo productos de la marca
+    const apiUrl = `https://${shopifyStoreUrl}/admin/api/2025-01/products.json?limit=250&vendor=Retorn`;
     
-    console.log(`[API Products] Fetching from Shopify: ${shopifyStoreUrl}`);
+    console.log(`[API Products] Fetching from Shopify: ${shopifyStoreUrl} (vendor=Retorn)`);
     
     const response = await fetch(apiUrl, {
       method: 'GET',
@@ -56,6 +57,7 @@ export async function loader() {
     
     console.log(`[API Products] Successfully fetched ${data.products.length} products`);
     console.log('[API Products] Product titles:', data.products.map(p => p.title));
+    console.log('[API Products] Sample product JSON:', JSON.stringify(data.products[0], null, 2));
     
     return Response.json({
       success: true,
