@@ -223,7 +223,7 @@ export const PRODUCTOS = {
   },
   
   PERRO_HUMEDO_ONLY_POLLO: {
-    nombre: "RETORN LATAS PERRO ONLY POLLO",
+    nombre: "DEMO",
     tipo: "Humedo",
     animal: "Perro",
     segmento: "Only Pollo",
@@ -238,7 +238,7 @@ export const PRODUCTOS = {
   },
   
   PERRO_HUMEDO_PESCADO_PATATAS: {
-    nombre: "RETORN LATAS PERRO PESCADO CON PATATAS",
+    nombre: "DEMO",
     tipo: "Humedo",
     animal: "Perro",
     segmento: "Pescado Patatas",
@@ -251,7 +251,7 @@ export const PRODUCTOS = {
   },
   
   PERRO_HUMEDO_PESCADO_ZANAHORIA: {
-    nombre: "RETORN LATAS PERRO PESCADO CON ZANAHORIA",
+    nombre: "DEMO",
     tipo: "Humedo",
     animal: "Perro",
     segmento: "Pescado Zanahoria",
@@ -267,7 +267,7 @@ export const PRODUCTOS = {
   
   // GATOS - SECO
   GATO_ADULT_FISH: {
-    nombre: "RETORN CAT ADULT FISH",
+    nombre: "DEMO",
     tipo: "Seco",
     animal: "Gato",
     segmento: "Adulto Pescado",
@@ -281,7 +281,7 @@ export const PRODUCTOS = {
   },
   
   GATO_ADULT_CHICKEN: {
-    nombre: "RETORN CAT ADULT CHICKEN",
+    nombre: "DEMO",
     tipo: "Seco",
     animal: "Gato",
     segmento: "Adulto Pollo",
@@ -295,7 +295,7 @@ export const PRODUCTOS = {
   },
   
   GATO_LIGHT_STERILIZED: {
-    nombre: "RETORN CAT ADULT LIGHT STERILIZED",
+    nombre: "DEMO",
     tipo: "Seco",
     animal: "Gato",
     segmento: "Esterilizados Light",
@@ -309,7 +309,7 @@ export const PRODUCTOS = {
   },
   
   GATO_KITTEN: {
-    nombre: "RETORN CAT KITTEN",
+    nombre: "DEMO",
     tipo: "Seco",
     animal: "Gato",
     segmento: "Cachorros",
@@ -324,7 +324,7 @@ export const PRODUCTOS = {
   
   // GATOS - HÚMEDO
   GATO_HUMEDO_KITTEN: {
-    nombre: "RETORN LATAS GATO KITTEN POLLO",
+    nombre: "DEMO",
     tipo: "Humedo",
     animal: "Gato",
     segmento: "Cachorros",
@@ -338,7 +338,7 @@ export const PRODUCTOS = {
   },
   
   GATO_HUMEDO_POLLO: {
-    nombre: "RETORN LATAS GATO POLLO",
+    nombre: "DEMO",
     tipo: "Humedo",
     animal: "Gato",
     segmento: "Pollo",
@@ -352,7 +352,7 @@ export const PRODUCTOS = {
   },
   
   GATO_HUMEDO_POLLO_CONEJO: {
-    nombre: "RETORN LATAS GATO POLLO CON CONEJO",
+    nombre: "DEMO",
     tipo: "Humedo",
     animal: "Gato",
     segmento: "Pollo Conejo",
@@ -366,7 +366,7 @@ export const PRODUCTOS = {
   },
   
   GATO_HUMEDO_ATUN_MEJILLONES: {
-    nombre: "RETORN LATAS GATO ATUN CON MEJILLONES",
+    nombre: "DEMO",
     tipo: "Humedo",
     animal: "Gato",
     segmento: "Mejillones",
@@ -380,7 +380,7 @@ export const PRODUCTOS = {
   },
   
   GATO_HUMEDO_ATUN_SARDINA: {
-    nombre: "RETORN LATAS GATO ATUN CON SARDINA",
+    nombre: "DEMO",
     tipo: "Humedo",
     animal: "Gato",
     segmento: "Sardina",
@@ -394,7 +394,7 @@ export const PRODUCTOS = {
   },
   
   GATO_HUMEDO_ATUN_SALMON: {
-    nombre: "RETORN LATAS GATO ATUN CON SALMON",
+    nombre: "DEMO",
     tipo: "Humedo",
     animal: "Gato",
     segmento: "Salmón",
@@ -407,7 +407,7 @@ export const PRODUCTOS = {
   },
   
   GATO_HUMEDO_ATUN_GAMBAS: {
-    nombre: "RETORN LATAS GATO ATUN CON GAMBAS",
+    nombre: "DEMO",
     tipo: "Humedo",
     animal: "Gato",
     segmento: "Gambas",
