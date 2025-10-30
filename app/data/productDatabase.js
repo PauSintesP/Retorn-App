@@ -84,18 +84,30 @@ export const PRODUCT_DATABASE = {
   "RET4538C": { tipo: "Humedo", animal: "Gato", segmento: "Adulto", kcalEmKg: 653 },
   "RET4538C24": { tipo: "Humedo", animal: "Gato", segmento: "Adulto", kcalEmKg: 653 },
   
-  // LATAS PERRO HÚMEDAS
+  // LATAS PERRO HÚMEDAS - Cordero con Arroz (185g y 400g, individuales y cajas)
   "RET479801E": { tipo: "Humedo", animal: "Perro", segmento: "Adulto", kcalEmKg: 896 },
   "RET4798014E": { tipo: "Humedo", animal: "Perro", segmento: "Adulto", kcalEmKg: 896 },
+  
+  // LATAS PERRO - Only Cordero (185g y 400g, individuales y cajas)
   "RET479805E": { tipo: "Humedo", animal: "Perro", segmento: "Adulto", kcalEmKg: 920 },
   "RET4798054": { tipo: "Humedo", animal: "Perro", segmento: "Adulto", kcalEmKg: 920 },
+  
+  // LATAS PERRO - Pollo con Zanahorias (185g y 400g, individuales y cajas)
   "RET479803E": { tipo: "Humedo", animal: "Perro", segmento: "Adulto", kcalEmKg: 854 },
   "RET4798034E": { tipo: "Humedo", animal: "Perro", segmento: "Adulto", kcalEmKg: 854 },
+  
+  // LATAS PERRO - Only Pollo (185g y 400g, individuales y cajas)
   "RET479806E": { tipo: "Humedo", animal: "Perro", segmento: "Adulto", kcalEmKg: 962 },
   "RET4798064E": { tipo: "Humedo", animal: "Perro", segmento: "Adulto", kcalEmKg: 962 },
+  
+  // LATAS PERRO - Pescado con Zanahoria (185g y 400g, individuales y cajas)
   "RET479807E": { tipo: "Humedo", animal: "Perro", segmento: "Adulto", kcalEmKg: 1090 },
   "RET4798074": { tipo: "Humedo", animal: "Perro", segmento: "Adulto", kcalEmKg: 1090 },
+  
+  // LATAS PERRO - Pescado con Patatas (185g individuales y cajas)
   "RET479802E": { tipo: "Humedo", animal: "Perro", segmento: "Adulto", kcalEmKg: 966 },
+  
+  // LATAS PERRO - Puppy Cordero y Pollo (185g individuales y cajas)
   "RET479808E": { tipo: "Humedo", animal: "Perro", segmento: "Cachorros", kcalEmKg: 1265 },
 };
 

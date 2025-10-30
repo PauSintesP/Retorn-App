@@ -52,14 +52,21 @@ function mapSingleProduct(shopifyProduct) {
     
     // Intentar con SKU de todas las variantes hasta encontrar match
     if (shopifyProduct.variants && shopifyProduct.variants.length > 0) {
+      const allSkus = [];
       for (const variant of shopifyProduct.variants) {
         if (variant.sku) {
+          allSkus.push(variant.sku);
           productInfo = getProductInfoBySKU(variant.sku);
           if (productInfo) {
             sku = variant.sku;
             break;
           }
         }
+      }
+      
+      // Si no se encontró ningún match, loggear todos los SKUs intentados
+      if (!productInfo && allSkus.length > 0) {
+        console.log(`[Adapter] ❌ Ningún SKU encontrado en DB para "${title}". SKUs intentados:`, allSkus.join(', '));
       }
     }
     
