@@ -9,16 +9,14 @@
 
 /**
  * Define la fuente de datos para los productos
- * - "local": Usa productConstants.js (datos estáticos)
- * - "shopify": Usa API de Shopify (requiere configuración)
+ * - "shopify": Usa API de Shopify (OBLIGATORIO)
  * 
- * IMPORTANTE: Cambiar a "shopify" cuando tengas acceso a la API configurada
+ * IMPORTANTE: Solo se usa la API de Shopify, no hay datos locales
  */
-export const PRODUCT_DATA_SOURCE = process.env.PRODUCT_DATA_SOURCE || "local";
+export const PRODUCT_DATA_SOURCE = "shopify";
 
 /**
  * URL del endpoint de productos de Shopify
- * Solo se usa cuando PRODUCT_DATA_SOURCE = "shopify"
  */
 export const SHOPIFY_PRODUCTS_API_ENDPOINT = "/api/shopify/products";
 
@@ -29,9 +27,10 @@ export const SHOPIFY_PRODUCTS_API_ENDPOINT = "/api/shopify/products";
 export const PRODUCTS_CACHE_TIME = 5 * 60 * 1000;
 
 /**
- * Habilitar fallback a datos locales si Shopify falla
+ * NO hay fallback - si Shopify falla, la app falla
+ * Esto asegura que siempre trabajemos con datos reales
  */
-export const ENABLE_FALLBACK = true;
+export const ENABLE_FALLBACK = false;
 
 // ============================================
 // CONFIGURACIÓN DE METAFIELDS
