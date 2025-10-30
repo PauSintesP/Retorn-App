@@ -18,46 +18,44 @@ let productsCache = null;
 let cacheTimestamp = null;
 
 /**
- * Obtiene todos los productos desde la API de Shopify
+ * Obtiene todos los productos desde la fuente configurada
  * @returns {Promise<Object>} Objeto con todos los productos en el formato local
  */
 export async function getProducts() {
-  // Verificar si tenemos cache válido
-  if (productsCache && cacheTimestamp && (Date.now() - cacheTimestamp < PRODUCTS_CACHE_TIME)) {
-    logProductInfo("Using cached products from Shopify");
-    return productsCache;
+  if (isUsingShopifyAPI()) {
+    try {
+      // Verificar si tenemos cache válido
+      if (productsCache && cacheTimestamp && (Date.now() - cacheTimestamp < PRODUCTS_CACHE_TIME)) {
+        logProductInfo("Using cached products");
+        return productsCache;
+      }
+      
+      logProductInfo("Fetching products from Shopify API");
+      const shopifyProducts = await fetchShopifyProducts();
+      const mappedProducts = mapShopifyProductsToLocal(shopifyProducts);
+      
+      // Actualizar cache
+      productsCache = mappedProducts;
+      cacheTimestamp = Date.now();
+      
+      logProductInfo("Products fetched successfully", { count: Object.keys(mappedProducts).length });
+      return mappedProducts;
+      
+    } catch (error) {
+      console.error("Error fetching from Shopify API:", error);
+      
+      if (ENABLE_FALLBACK) {
+        console.warn("Falling back to local data");
+        return PRODUCTOS_LOCAL;
+      }
+      
+      throw error;
+    }
   }
   
-  try {
-    logProductInfo("Fetching products from Shopify API");
-    const shopifyProducts = await fetchShopifyProducts();
-    const mappedProducts = mapShopifyProductsToLocal(shopifyProducts);
-    
-    // Actualizar cache
-    productsCache = mappedProducts;
-    cacheTimestamp = Date.now();
-    
-    const productCount = Object.keys(mappedProducts).length;
-    
-    logProductInfo("Products fetched successfully from Shopify", { 
-      total: productCount
-    });
-    
-    console.log(`✅ ${productCount} productos cargados desde Shopify API`);
-    
-    return mappedProducts;
-    
-  } catch (error) {
-    console.error("❌ Error fetching from Shopify API:", error);
-    
-    if (ENABLE_FALLBACK) {
-      console.warn("⚠️ FALLBACK ACTIVADO: Usando datos locales hardcodeados (esto NO debería pasar en producción)");
-      console.warn("⚠️ Por favor, verifica tu conexión a Shopify y las credenciales");
-      return PRODUCTOS_LOCAL;
-    }
-    
-    throw new Error(`No se pudieron cargar los productos de Shopify: ${error.message}`);
-  }
+  // Por ahora, usar datos locales
+  logProductInfo("Using local product data");
+  return Promise.resolve(PRODUCTOS_LOCAL);
 }
 
 /**

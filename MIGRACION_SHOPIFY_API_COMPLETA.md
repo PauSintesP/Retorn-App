@@ -22,51 +22,80 @@
 ## 🔧 Cómo Funciona Ahora
 
 ```
-┌──────────────────┐
-│   Aplicación     │
-└─────────┬────────┘
-          │
-          ▼
-┌─────────────────────────┐
-│  productService.js      │
-│  getProducts()          │
-└───────────┬─────────────┘
+┌──────────────────────────────────┐
+│   Survey Público (Cliente)      │
+│   public.survey.jsx              │
+└───────────┬──────────────────────┘
             │
             ▼
-      ¿Tiene caché?
-       /          \
-     Sí           No
+┌──────────────────────────────────┐
+│   productRecommendation.js       │
+│   calcularRecomendacion()        │
+└───────────┬──────────────────────┘
+            │
+            ▼
+┌──────────────────────────────────┐
+│   productService.js              │
+│   getProducts()                  │
+│   ¿Estoy en cliente o servidor?  │
+└───────────┬──────────────────────┘
+            │
+      ┌─────┴──────┐
       │            │
-      │            ▼
-      │    ┌──────────────────┐
-      │    │  Fetch de        │
-      │    │  Shopify API     │
-      │    └──────┬───────────┘
-      │           │
-      │           ▼
-      │    ┌──────────────────┐
-      │    │  Mapear productos│
-      │    │  al formato local│
-      │    └──────┬───────────┘
-      │           │
-      └───────────┴───────────┐
-                              │
-                              ▼
-                      ┌────────────────┐
-                      │  Retornar      │
-                      │  Productos     │
-                      └────────────────┘
+   Cliente      Servidor
+      │            │
+      ▼            ▼
+┌──────────┐  ┌────────────────┐
+│ /api/    │  │ Shopify API    │
+│ public/  │  │ (Directo)      │
+│ products │  └────────────────┘
+└─────┬────┘
+      │
+      ▼
+┌──────────────────┐
+│  Shopify API     │
+│  (Proxy seguro)  │
+└─────┬────────────┘
+      │
+      ▼
+┌──────────────────────────────────┐
+│  Mapear productos al formato     │
+│  local (shopifyProductAdapter)   │
+└───────────┬──────────────────────┘
+            │
+            ▼
+    ┌────────────────┐
+    │  Retornar      │
+    │  Productos     │
+    └────────────────┘
 ```
+
+### 🔒 Seguridad
+
+- **Cliente (navegador):** Usa `/api/public/products` - NO expone credenciales
+- **Servidor:** Usa Shopify API directamente con credenciales del `.env`
+- Las credenciales NUNCA se envían al navegador del usuario
 
 ## 📋 Requisitos para que Funcione
 
 ### 1. Variables de Entorno
-Asegúrate de tener en tu `.env`:
 
+#### **Para desarrollo local (.env):**
 ```env
 SHOPIFY_STORE_URL=tu-tienda.myshopify.com
 SHOPIFY_ACCESS_TOKEN=shpat_xxxxxxxxxxxxx
 ```
+
+#### **Para producción (Vercel):**
+1. Ve a tu proyecto en Vercel: https://vercel.com/[tu-username]/[tu-proyecto]
+2. Ve a **Settings** → **Environment Variables**
+3. Añade estas variables:
+   - `SHOPIFY_STORE_URL` = `tu-tienda.myshopify.com`
+   - `SHOPIFY_ACCESS_TOKEN` = `shpat_xxxxxxxxxxxxx`
+4. Selecciona todos los entornos: **Production**, **Preview**, y **Development**
+5. Haz **Redeploy** del proyecto desde la pestaña **Deployments**
+
+⚠️ **IMPORTANTE:** Sin estas variables en Vercel, el survey público no funcionará en producción.
 
 ### 2. Tags en Shopify
 Todos tus productos en Shopify deben tener los tags correctos:

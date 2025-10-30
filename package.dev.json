@@ -1,0 +1,18 @@
+{
+  "name": "retorn-app",
+  "private": true,
+  "scripts": {
+    "dev:localhost": "cross-env HOST_MODE=localhost shopify app dev",
+    "dev:vercel": "cross-env HOST_MODE=vercel shopify app dev --tunnel-url https://retorn-app.vercel.app",
+    "dev": "npm run dev:localhost",
+    "build": "shopify app build",
+    "deploy": "shopify app deploy",
+    "config:push": "shopify app config push",
+    "generate": "shopify app generate",
+    "preview": "npm run build && shopify app dev",
+    "lint": "eslint --cache --cache-location ./node_modules/.cache/eslint .",
+    "shopify": "shopify",
+    "graphql-codegen": "graphql-codegen",
+    "vite": "vite"
+  }
+}
