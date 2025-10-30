@@ -293,7 +293,7 @@ export default function PublicSurveyPage() {
   /**
    * Calcula y muestra la recomendación de productos
    */
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     if (e && e.preventDefault) {
       e.preventDefault();
     }
@@ -307,11 +307,11 @@ export default function PublicSurveyPage() {
       }
 
       // Si no tiene patologías, calcular recomendación normal
-      const result = calcularRecomendacionProductos(answers);
+      console.log("📊 Calculando recomendación desde la API de Shopify (public)...");
+      const result = await calcularRecomendacionProductos(answers);
+      console.log("✅ Recomendación calculada:", result);
       setRecommendation(result);
       setShowRecommendation(true);
-      
-      console.log("Recomendación calculada:", result);
     } catch (error) {
       console.error("Error calculando recomendación:", error);
       alert("Hubo un error al calcular la recomendación. Por favor, revisa tus respuestas.");

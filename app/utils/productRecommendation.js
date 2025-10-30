@@ -9,9 +9,10 @@ import {
   FACT_ESTERILIZADO,
   FACT_SNACKS,
   FACTOR_GATO,
-  PRODUCTOS,
   RAZAS_PERROS,
 } from "../data/productConstants";
+
+import { getProducts } from "../services/productService";
 
 // ============================================
 // FUNCIONES AUXILIARES
@@ -276,99 +277,173 @@ export function calcularCaloriasGato(answers) {
 /**
  * Selecciona el producto seco adecuado para un perro
  */
-function seleccionarProductoSecoPerro(answers) {
+function seleccionarProductoSecoPerro(answers, productos) {
   const edad = answers.q4_perro;
   const preferencia = answers.q11_perro;
   const tamano = answers.q3_perro;
   const patologias = answers.q9_perro;
   
+  console.log("🔍 Seleccionando producto seco para perro desde API...");
+  console.log("   Edad:", edad, "| Preferencia:", preferencia, "| Tamaño:", tamano);
+  
   // Cachorro
   if (edad === "Cachorro") {
-    return PRODUCTOS.PERRO_PUPPY_SALMON;
+    const producto = productos.PERRO_PUPPY_SALMON || Object.values(productos).find(p => 
+      p.animal === "Perro" && p.segmento?.includes("Cachorro") && p.tipo === "Seco"
+    );
+    console.log("   ✅ Producto seleccionado:", producto?.nombre || "No encontrado");
+    return producto;
   }
   
   // Senior o con sobrepeso
   if (edad === "Senior" || patologias?.includes("Sobrepeso")) {
-    return PRODUCTOS.PERRO_LIGHT_SENIOR;
+    const producto = productos.PERRO_LIGHT_SENIOR || Object.values(productos).find(p => 
+      p.animal === "Perro" && (p.segmento?.includes("Senior") || p.segmento?.includes("Light")) && p.tipo === "Seco"
+    );
+    console.log("   ✅ Producto seleccionado:", producto?.nombre || "No encontrado");
+    return producto;
   }
   
   // Adulto - según preferencia
   if (preferencia) {
     if (preferencia.includes("Pollo")) {
-      return PRODUCTOS.PERRO_ADULT_POLLO;
+      const producto = productos.PERRO_ADULT_POLLO || Object.values(productos).find(p => 
+        p.animal === "Perro" && p.nombre?.toLowerCase().includes("pollo") && p.tipo === "Seco" && p.segmento?.includes("Adulto")
+      );
+      console.log("   ✅ Producto seleccionado:", producto?.nombre || "No encontrado");
+      return producto;
     }
     if (preferencia.includes("Cordero")) {
-      return PRODUCTOS.PERRO_ADULT_CORDERO;
+      const producto = productos.PERRO_ADULT_CORDERO || Object.values(productos).find(p => 
+        p.animal === "Perro" && p.nombre?.toLowerCase().includes("cordero") && p.tipo === "Seco" && p.segmento?.includes("Adulto")
+      );
+      console.log("   ✅ Producto seleccionado:", producto?.nombre || "No encontrado");
+      return producto;
     }
     if (preferencia.includes("Salmón")) {
-      return PRODUCTOS.PERRO_ADULT_SALMON;
+      const producto = productos.PERRO_ADULT_SALMON || Object.values(productos).find(p => 
+        p.animal === "Perro" && p.nombre?.toLowerCase().includes("salmon") && p.tipo === "Seco" && p.segmento?.includes("Adulto")
+      );
+      console.log("   ✅ Producto seleccionado:", producto?.nombre || "No encontrado");
+      return producto;
     }
   }
   
   // Por defecto: Salmón
-  return PRODUCTOS.PERRO_ADULT_SALMON;
+  const productoDefault = productos.PERRO_ADULT_SALMON || Object.values(productos).find(p => 
+    p.animal === "Perro" && p.tipo === "Seco" && p.segmento?.includes("Adulto")
+  );
+  console.log("   ✅ Producto por defecto:", productoDefault?.nombre || "No encontrado");
+  return productoDefault;
 }
 
 /**
  * Selecciona el producto húmedo adecuado para un perro
  */
-function seleccionarProductoHumedoPerro(productoSeco) {
+function seleccionarProductoHumedoPerro(productoSeco, productos) {
   const segmento = productoSeco.segmento;
   
+  console.log("🔍 Seleccionando producto húmedo para perro, segmento:", segmento);
+  
   if (segmento === "Cachorros") {
-    return PRODUCTOS.PERRO_HUMEDO_PUPPY;
+    const producto = productos.PERRO_HUMEDO_PUPPY || Object.values(productos).find(p => 
+      p.animal === "Perro" && p.tipo === "Humedo" && p.segmento?.includes("Cachorro")
+    );
+    console.log("   ✅ Producto húmedo:", producto?.nombre || "No encontrado");
+    return producto;
   }
   
-  if (segmento.includes("Cordero")) {
-    return PRODUCTOS.PERRO_HUMEDO_CORDERO_ARROZ;
+  if (segmento?.includes("Cordero")) {
+    const producto = productos.PERRO_HUMEDO_CORDERO_ARROZ || Object.values(productos).find(p => 
+      p.animal === "Perro" && p.tipo === "Humedo" && p.nombre?.toLowerCase().includes("cordero")
+    );
+    console.log("   ✅ Producto húmedo:", producto?.nombre || "No encontrado");
+    return producto;
   }
   
-  if (segmento.includes("Pollo")) {
-    return PRODUCTOS.PERRO_HUMEDO_POLLO_ZANAHORIA;
+  if (segmento?.includes("Pollo")) {
+    const producto = productos.PERRO_HUMEDO_POLLO_ZANAHORIA || Object.values(productos).find(p => 
+      p.animal === "Perro" && p.tipo === "Humedo" && p.nombre?.toLowerCase().includes("pollo")
+    );
+    console.log("   ✅ Producto húmedo:", producto?.nombre || "No encontrado");
+    return producto;
   }
   
   // Salmón o Light/Senior
-  return PRODUCTOS.PERRO_HUMEDO_PESCADO_ZANAHORIA;
+  const productoDefault = productos.PERRO_HUMEDO_PESCADO_ZANAHORIA || Object.values(productos).find(p => 
+    p.animal === "Perro" && p.tipo === "Humedo" && (p.nombre?.toLowerCase().includes("pescado") || p.nombre?.toLowerCase().includes("salmon"))
+  );
+  console.log("   ✅ Producto húmedo por defecto:", productoDefault?.nombre || "No encontrado");
+  return productoDefault;
 }
 
 /**
  * Selecciona el producto seco adecuado para un gato
  */
-function seleccionarProductoSecoGato(answers) {
+function seleccionarProductoSecoGato(answers, productos) {
   const edad = answers.q3_gato;
   const castrado = answers.q6_gato;
   const patologias = answers.q7_gato;
   
+  console.log("🔍 Seleccionando producto seco para gato desde API...");
+  console.log("   Edad:", edad, "| Castrado:", castrado);
+  
   // Gatito
   if (edad === "Gatito") {
-    return PRODUCTOS.GATO_KITTEN;
+    const producto = productos.GATO_KITTEN || Object.values(productos).find(p => 
+      p.animal === "Gato" && (p.segmento?.includes("Gatito") || p.segmento?.includes("Kitten")) && p.tipo === "Seco"
+    );
+    console.log("   ✅ Producto seleccionado:", producto?.nombre || "No encontrado");
+    return producto;
   }
   
   // Esterilizado o con sobrepeso
   if (castrado === "Sí" || patologias?.includes("Sobrepeso")) {
-    return PRODUCTOS.GATO_LIGHT_STERILIZED;
+    const producto = productos.GATO_LIGHT_STERILIZED || Object.values(productos).find(p => 
+      p.animal === "Gato" && (p.segmento?.includes("Esterilizado") || p.segmento?.includes("Light")) && p.tipo === "Seco"
+    );
+    console.log("   ✅ Producto seleccionado:", producto?.nombre || "No encontrado");
+    return producto;
   }
   
   // Por defecto: Pollo (más popular)
-  return PRODUCTOS.GATO_ADULT_CHICKEN;
+  const productoDefault = productos.GATO_ADULT_CHICKEN || Object.values(productos).find(p => 
+    p.animal === "Gato" && p.tipo === "Seco" && p.segmento?.includes("Adulto")
+  );
+  console.log("   ✅ Producto por defecto:", productoDefault?.nombre || "No encontrado");
+  return productoDefault;
 }
 
 /**
  * Selecciona el producto húmedo adecuado para un gato
  */
-function seleccionarProductoHumedoGato(productoSeco) {
+function seleccionarProductoHumedoGato(productoSeco, productos) {
   const segmento = productoSeco.segmento;
   
-  if (segmento === "Cachorros") {
-    return PRODUCTOS.GATO_HUMEDO_KITTEN;
+  console.log("🔍 Seleccionando producto húmedo para gato, segmento:", segmento);
+  
+  if (segmento === "Cachorros" || segmento?.includes("Gatito") || segmento?.includes("Kitten")) {
+    const producto = productos.GATO_HUMEDO_KITTEN || Object.values(productos).find(p => 
+      p.animal === "Gato" && p.tipo === "Humedo" && (p.segmento?.includes("Gatito") || p.segmento?.includes("Kitten"))
+    );
+    console.log("   ✅ Producto húmedo:", producto?.nombre || "No encontrado");
+    return producto;
   }
   
-  if (segmento.includes("Pollo") || segmento.includes("Esterilizados")) {
-    return PRODUCTOS.GATO_HUMEDO_POLLO_CONEJO;
+  if (segmento?.includes("Pollo") || segmento?.includes("Esterilizado")) {
+    const producto = productos.GATO_HUMEDO_POLLO_CONEJO || Object.values(productos).find(p => 
+      p.animal === "Gato" && p.tipo === "Humedo" && p.nombre?.toLowerCase().includes("pollo")
+    );
+    console.log("   ✅ Producto húmedo:", producto?.nombre || "No encontrado");
+    return producto;
   }
   
   // Pescado
-  return PRODUCTOS.GATO_HUMEDO_ATUN_GAMBAS;
+  const productoDefault = productos.GATO_HUMEDO_ATUN_GAMBAS || Object.values(productos).find(p => 
+    p.animal === "Gato" && p.tipo === "Humedo" && (p.nombre?.toLowerCase().includes("atun") || p.nombre?.toLowerCase().includes("pescado"))
+  );
+  console.log("   ✅ Producto húmedo por defecto:", productoDefault?.nombre || "No encontrado");
+  return productoDefault;
 }
 
 // ============================================
@@ -559,11 +634,19 @@ function seleccionarVariante(producto, gramosDiarios, tamano, esHumedo = false) 
 /**
  * Calcula la recomendación completa de productos
  */
-export function calcularRecomendacionProductos(answers) {
+export async function calcularRecomendacionProductos(answers) {
   const tipoAnimal = answers.q1; // "Perro" o "Gato"
   const tipoAlimentacion = tipoAnimal === "Perro" 
     ? answers.q10_perro 
     : answers.q8_gato; // "Seca" o "Mixta"
+  
+  console.log("🎯 Calculando recomendación de productos...");
+  console.log("   Animal:", tipoAnimal, "| Alimentación:", tipoAlimentacion);
+  
+  // Obtener productos desde la API de Shopify
+  console.log("📦 Obteniendo productos desde la API...");
+  const productos = await getProducts();
+  console.log(`✅ ${Object.keys(productos).length} productos obtenidos desde la API`);
   
   let resultado = {
     tipoAnimal,
@@ -579,13 +662,13 @@ export function calcularRecomendacionProductos(answers) {
       resultado.factores = factores;
       
       // Determinar tipo de croqueta según el peso
-      const peso = parseFloat(answers.q5_perro);
+      const peso = parseFloat(answers.q6_perro);
       const tipoCroqueta = determinarTipoCroqueta(peso);
       resultado.tipoCroqueta = tipoCroqueta;
       
-      // Seleccionar productos
-      const productoSeco = seleccionarProductoSecoPerro(answers);
-      const productoHumedo = seleccionarProductoHumedoPerro(productoSeco);
+      // Seleccionar productos usando la API
+      const productoSeco = seleccionarProductoSecoPerro(answers, productos);
+      const productoHumedo = seleccionarProductoHumedoPerro(productoSeco, productos);
       
       if (tipoAlimentacion === "Seca") {
         // Solo producto seco
@@ -627,9 +710,9 @@ export function calcularRecomendacionProductos(answers) {
       resultado.kcalDiarias = kcalDiarias;
       resultado.factores = factores;
       
-      // Seleccionar productos
-      const productoSeco = seleccionarProductoSecoGato(answers);
-      const productoHumedo = seleccionarProductoHumedoGato(productoSeco);
+      // Seleccionar productos usando la API
+      const productoSeco = seleccionarProductoSecoGato(answers, productos);
+      const productoHumedo = seleccionarProductoHumedoGato(productoSeco, productos);
       
       if (tipoAlimentacion === "Seca") {
         // Solo producto seco
