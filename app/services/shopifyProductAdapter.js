@@ -176,9 +176,15 @@ function determineProductType(title, tags, productType) {
   const titleLower = title.toLowerCase();
   const tagsLower = tags.map(t => t.toLowerCase());
   
+  // Semihúmedo se considera SECO (es pienso con más humedad pero no latas)
+  if (titleLower.includes("semihúmedo") || titleLower.includes("semihumedo")) {
+    return "Seco";
+  }
+  
+  // Solo latas/comida húmeda en lata se considera Húmedo
   if (titleLower.includes("lata") || 
-      titleLower.includes("húmedo") || 
-      titleLower.includes("humedo") ||
+      (titleLower.includes("húmedo") && !titleLower.includes("semi")) || 
+      (titleLower.includes("humedo") && !titleLower.includes("semi")) ||
       tagsLower.includes("wet") ||
       tagsLower.includes("húmedo")) {
     return "Humedo";
@@ -305,9 +311,13 @@ function extractCalories(shopifyProduct) {
   
   // ✅ Detectar productos que SÍ son comida (pienso/latas)
   const foodKeywords = [
-    "pienso", "comida", "húmedo", "humedo", "lata", "retorn adult", 
-    "retorn puppy", "retorn light", "retorn senior", "retorn kitten",
-    "retorn gatito", "retorn sterilized", "esterilizado"
+    "pienso", "comida", "alimento", "alimentación", "nutrición",
+    "húmedo", "humedo", "seco", "semihúmedo", "semihumedo", "lata",
+    "retorn adult", "retorn puppy", "retorn light", "retorn senior", 
+    "retorn kitten", "retorn gatito", "retorn sterilized", "esterilizado",
+    "cachorro", "adulto", "senior", "puppy", "kitten", "adult",
+    "vacuno", "pollo", "chicken", "beef", "salmón", "salmon", "pescado",
+    "perro", "perros", "gato", "gatos", "dog", "cat"
   ];
   
   const isFood = foodKeywords.some(keyword => 
