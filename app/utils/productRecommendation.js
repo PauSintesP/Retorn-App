@@ -345,34 +345,56 @@ function seleccionarProductoHumedoPerro(productoSeco, productos) {
   
   console.log("🔍 Seleccionando producto húmedo para perro, segmento:", segmento);
   
-  if (segmento === "Cachorros") {
-    const producto = productos.PERRO_HUMEDO_PUPPY || Object.values(productos).find(p => 
-      p.animal === "Perro" && p.tipo === "Humedo" && p.segmento?.includes("Cachorro")
-    );
+  if (segmento === "Cachorros" || segmento?.includes("Cachorro")) {
+    const producto = productos.PERRO_HUMEDO_PUPPY || 
+      Object.values(productos).find(p => 
+        p.animal === "Perro" && 
+        p.tipo === "Humedo" && 
+        (p.segmento?.includes("Cachorro") || p.nombre?.toLowerCase().includes("cachorro") || p.nombre?.toLowerCase().includes("puppy"))
+      );
     console.log("   ✅ Producto húmedo:", producto?.nombre || "No encontrado");
     return producto;
   }
   
   if (segmento?.includes("Cordero")) {
-    const producto = productos.PERRO_HUMEDO_CORDERO_ARROZ || Object.values(productos).find(p => 
-      p.animal === "Perro" && p.tipo === "Humedo" && p.nombre?.toLowerCase().includes("cordero")
-    );
+    const producto = productos.PERRO_HUMEDO_CORDERO_ARROZ || 
+      Object.values(productos).find(p => 
+        p.animal === "Perro" && 
+        p.tipo === "Humedo" && 
+        (p.nombre?.toLowerCase().includes("cordero") || p.segmento?.includes("Cordero"))
+      );
     console.log("   ✅ Producto húmedo:", producto?.nombre || "No encontrado");
     return producto;
   }
   
   if (segmento?.includes("Pollo")) {
-    const producto = productos.PERRO_HUMEDO_POLLO_ZANAHORIA || Object.values(productos).find(p => 
-      p.animal === "Perro" && p.tipo === "Humedo" && p.nombre?.toLowerCase().includes("pollo")
-    );
+    const producto = productos.PERRO_HUMEDO_POLLO_ZANAHORIA || 
+      Object.values(productos).find(p => 
+        p.animal === "Perro" && 
+        p.tipo === "Humedo" && 
+        (p.nombre?.toLowerCase().includes("pollo") || p.segmento?.includes("Pollo"))
+      );
     console.log("   ✅ Producto húmedo:", producto?.nombre || "No encontrado");
     return producto;
   }
   
-  // Salmón o Light/Senior
-  const productoDefault = productos.PERRO_HUMEDO_PESCADO_ZANAHORIA || Object.values(productos).find(p => 
-    p.animal === "Perro" && p.tipo === "Humedo" && (p.nombre?.toLowerCase().includes("pescado") || p.nombre?.toLowerCase().includes("salmon"))
-  );
+  // Salmón o Light/Senior - buscar pescado
+  const productoDefault = productos.PERRO_HUMEDO_PESCADO_ZANAHORIA || 
+    productos.PERRO_HUMEDO_PESCADO_PATATAS ||
+    Object.values(productos).find(p => 
+      p.animal === "Perro" && 
+      p.tipo === "Humedo" && 
+      (p.nombre?.toLowerCase().includes("pescado") || 
+       p.nombre?.toLowerCase().includes("salmon") || 
+       p.nombre?.toLowerCase().includes("fish") ||
+       p.segmento?.includes("Pescado"))
+    ) ||
+    // Si no se encuentra ninguno específico, cualquier húmedo de perro
+    Object.values(productos).find(p => 
+      p.animal === "Perro" && 
+      p.tipo === "Humedo"
+    );
+  
   console.log("   ✅ Producto húmedo por defecto:", productoDefault?.nombre || "No encontrado");
   return productoDefault;
 }
@@ -423,25 +445,50 @@ function seleccionarProductoHumedoGato(productoSeco, productos) {
   console.log("🔍 Seleccionando producto húmedo para gato, segmento:", segmento);
   
   if (segmento === "Cachorros" || segmento?.includes("Gatito") || segmento?.includes("Kitten")) {
-    const producto = productos.GATO_HUMEDO_KITTEN || Object.values(productos).find(p => 
-      p.animal === "Gato" && p.tipo === "Humedo" && (p.segmento?.includes("Gatito") || p.segmento?.includes("Kitten"))
-    );
+    const producto = productos.GATO_HUMEDO_KITTEN || 
+      Object.values(productos).find(p => 
+        p.animal === "Gato" && 
+        p.tipo === "Humedo" && 
+        (p.segmento?.includes("Gatito") || 
+         p.segmento?.includes("Kitten") ||
+         p.nombre?.toLowerCase().includes("gatito") ||
+         p.nombre?.toLowerCase().includes("kitten"))
+      );
     console.log("   ✅ Producto húmedo:", producto?.nombre || "No encontrado");
     return producto;
   }
   
   if (segmento?.includes("Pollo") || segmento?.includes("Esterilizado")) {
-    const producto = productos.GATO_HUMEDO_POLLO_CONEJO || Object.values(productos).find(p => 
-      p.animal === "Gato" && p.tipo === "Humedo" && p.nombre?.toLowerCase().includes("pollo")
-    );
+    const producto = productos.GATO_HUMEDO_POLLO_CONEJO || 
+      Object.values(productos).find(p => 
+        p.animal === "Gato" && 
+        p.tipo === "Humedo" && 
+        (p.nombre?.toLowerCase().includes("pollo") || 
+         p.nombre?.toLowerCase().includes("chicken") ||
+         p.segmento?.includes("Pollo"))
+      );
     console.log("   ✅ Producto húmedo:", producto?.nombre || "No encontrado");
     return producto;
   }
   
-  // Pescado
-  const productoDefault = productos.GATO_HUMEDO_ATUN_GAMBAS || Object.values(productos).find(p => 
-    p.animal === "Gato" && p.tipo === "Humedo" && (p.nombre?.toLowerCase().includes("atun") || p.nombre?.toLowerCase().includes("pescado"))
-  );
+  // Pescado o default
+  const productoDefault = productos.GATO_HUMEDO_ATUN_GAMBAS || 
+    Object.values(productos).find(p => 
+      p.animal === "Gato" && 
+      p.tipo === "Humedo" && 
+      (p.nombre?.toLowerCase().includes("atun") || 
+       p.nombre?.toLowerCase().includes("pescado") ||
+       p.nombre?.toLowerCase().includes("fish") ||
+       p.nombre?.toLowerCase().includes("tuna") ||
+       p.segmento?.includes("Pescado") ||
+       p.segmento?.includes("Atun"))
+    ) ||
+    // Si no se encuentra ninguno específico, cualquier húmedo de gato
+    Object.values(productos).find(p => 
+      p.animal === "Gato" && 
+      p.tipo === "Humedo"
+    );
+  
   console.log("   ✅ Producto húmedo por defecto:", productoDefault?.nombre || "No encontrado");
   return productoDefault;
 }
@@ -647,6 +694,12 @@ export async function calcularRecomendacionProductos(answers) {
   console.log("📦 Obteniendo productos desde la API...");
   const productos = await getProducts();
   console.log(`✅ ${Object.keys(productos).length} productos obtenidos desde la API`);
+  
+  // Log para debug: mostrar todos los productos disponibles
+  console.log("📋 Lista de productos disponibles:");
+  Object.entries(productos).forEach(([key, producto]) => {
+    console.log(`   - ${key}: "${producto.nombre}" (${producto.animal} - ${producto.tipo})`);
+  });
   
   let resultado = {
     tipoAnimal,
