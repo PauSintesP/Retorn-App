@@ -3,6 +3,8 @@
  * Mapea los datos de la API de Shopify al formato usado en productConstants.js
  */
 
+import { getProductInfoBySKU } from '../data/productDatabase.js';
+
 /**
  * Mapea un array de productos de Shopify al formato local
  * @param {Array} shopifyProducts - Array de productos desde la API de Shopify
@@ -16,12 +18,17 @@ export function mapShopifyProductsToLocal(shopifyProducts) {
   shopifyProducts.forEach(shopifyProduct => {
     const localProduct = mapSingleProduct(shopifyProduct);
     if (localProduct && localProduct.key && localProduct.data) {
-      mappedProducts[localProduct.key] = localProduct.data;
-      console.log(`[Adapter] ✅ Producto agregado: ${shopifyProduct.title} (tipo: ${localProduct.data.tipo}, animal: ${localProduct.data.animal}, kcal: ${localProduct.data.kcalEmKg})`);
+      // Solo incluir productos que están en nuestra base de datos (productos RETORN reales)
+      if (localProduct.data.kcalEmKg > 0) {
+        mappedProducts[localProduct.key] = localProduct.data;
+        console.log(`[Adapter] ✅ ${shopifyProduct.title} (${localProduct.data.tipo}, ${localProduct.data.animal}, ${localProduct.data.kcalEmKg} kcal)`);
+      } else {
+        console.log(`[Adapter] ❌ Omitido (no en DB): ${shopifyProduct.title}`);
+      }
     }
   });
   
-  console.log(`[Adapter] Total productos mapeados: ${Object.keys(mappedProducts).length}`);
+  console.log(`[Adapter] Total productos válidos: ${Object.keys(mappedProducts).length}`);
   
   return mappedProducts;
 }
@@ -39,20 +46,38 @@ function mapSingleProduct(shopifyProduct) {
     const vendor = shopifyProduct.vendor || "";
     const tags = shopifyProduct.tags || [];
     
-    // Determinar clave del producto basándose en el título o SKU
+    // Obtener SKU de la primera variante para buscar en la base de datos
+    const firstVariant = shopifyProduct.variants && shopifyProduct.variants[0];
+    const sku = firstVariant ? firstVariant.sku : null;
+    
+    // Buscar información del producto en la base de datos por SKU
+    const productInfo = getProductInfoBySKU(sku);
+    
+    // Si no está en la base de datos, omitir este producto
+    if (!productInfo) {
+      console.log(`[Adapter] Producto sin SKU en DB: ${title} (SKU: ${sku})`);
+      return {
+        key: generateProductKey(title, tags),
+        data: {
+          nombre: title,
+          tipo: "Seco",
+          animal: "Perro",
+          segmento: "Adulto",
+          kcalEmKg: 0, // Marcado como no válido
+          imagen: "",
+          variantes: []
+        }
+      };
+    }
+    
+    // Usar datos de la base de datos
+    const tipo = productInfo.tipo;
+    const animal = productInfo.animal;
+    const segmento = productInfo.segmento;
+    const kcalEmKg = productInfo.kcalEmKg;
+    
+    // Determinar clave del producto
     const productKey = generateProductKey(title, tags);
-    
-    // Determinar tipo (Seco/Húmedo)
-    const tipo = determineProductType(title, tags, productType);
-    
-    // Determinar animal (Perro/Gato)
-    const animal = determineAnimal(title, tags, productType);
-    
-    // Determinar segmento
-    const segmento = determineSegment(title, tags);
-    
-    // Extraer calorías por kg desde metafields o calcular default
-    const kcalEmKg = extractCalories(shopifyProduct);
     
     // Extraer imagen principal
     const imagen = shopifyProduct.images && shopifyProduct.images[0] 
