@@ -13,8 +13,11 @@ export function mapShopifyProductsToLocal(shopifyProducts) {
   
   shopifyProducts.forEach(shopifyProduct => {
     const localProduct = mapSingleProduct(shopifyProduct);
-    if (localProduct && localProduct.key) {
+    // Solo agregar si es un producto válido de comida (tiene kcalEmKg)
+    if (localProduct && localProduct.key && localProduct.data && localProduct.data.kcalEmKg > 0) {
       mappedProducts[localProduct.key] = localProduct.data;
+    } else if (localProduct) {
+      console.log(`[Adapter] Producto omitido (no es comida): ${shopifyProduct.title}`);
     }
   });
   
@@ -265,7 +268,7 @@ function determineSegment(title, tags) {
 /**
  * Extrae las calorías del producto desde metafields o usa valores por defecto
  * @param {Object} shopifyProduct - Producto de Shopify
- * @returns {number} Kcal por kg
+ * @returns {number} Kcal por kg (0 si no es comida)
  */
 function extractCalories(shopifyProduct) {
   // Intentar obtener desde metafields
@@ -279,11 +282,45 @@ function extractCalories(shopifyProduct) {
     }
   }
   
-  // Valores por defecto basados en tipo de producto
   const title = shopifyProduct.title.toLowerCase();
+  const productType = (shopifyProduct.product_type || "").toLowerCase();
+  const tags = shopifyProduct.tags || [];
+  const tagsLower = tags.map(t => t.toLowerCase());
   
-  // Valores aproximados - ajustar según tus productos
-  if (title.includes("húmedo") || title.includes("lata")) {
+  // ❌ Detectar productos que NO son comida
+  const nonFoodKeywords = [
+    "arnés", "arnes", "collar", "correa", "camiseta", "ropa", "juguete",
+    "cepillo", "mochila", "arena", "caja", "pack regalo", "galleta",
+    "snack", "premio", "stick", "ball", "bell"
+  ];
+  
+  const isNonFood = nonFoodKeywords.some(keyword => 
+    title.includes(keyword) || productType.includes(keyword)
+  );
+  
+  if (isNonFood) {
+    console.log(`[Adapter] Producto detectado como no-comida: ${shopifyProduct.title}`);
+    return 0; // No es comida
+  }
+  
+  // ✅ Detectar productos que SÍ son comida (pienso/latas)
+  const foodKeywords = [
+    "pienso", "comida", "húmedo", "humedo", "lata", "retorn adult", 
+    "retorn puppy", "retorn light", "retorn senior", "retorn kitten",
+    "retorn gatito", "retorn sterilized", "esterilizado"
+  ];
+  
+  const isFood = foodKeywords.some(keyword => 
+    title.includes(keyword) || productType.includes(keyword)
+  );
+  
+  if (!isFood) {
+    console.log(`[Adapter] Producto no identificado como comida: ${shopifyProduct.title}`);
+    return 0; // No parece ser comida
+  }
+  
+  // Valores por defecto basados en tipo de producto
+  if (title.includes("húmedo") || title.includes("humedo") || title.includes("lata")) {
     return 1000; // Aproximado para comida húmeda
   }
   
