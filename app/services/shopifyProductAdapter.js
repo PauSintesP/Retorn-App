@@ -97,8 +97,11 @@ function mapSingleProduct(shopifyProduct) {
       ? shopifyProduct.images[0].src 
       : "";
     
+    // Obtener handle del producto para construir URLs
+    const productHandle = shopifyProduct.handle || "";
+    
     // Mapear variantes
-    const variantes = mapVariants(shopifyProduct.variants, tipo);
+    const variantes = mapVariants(shopifyProduct.variants, tipo, productHandle);
     
     // Separar variantes por tamaño de croqueta si aplica
     const { variantes_regular, variantes_small } = separateVariantsBySize(variantes, tags);
@@ -133,9 +136,10 @@ function mapSingleProduct(shopifyProduct) {
  * Mapea las variantes de Shopify al formato local
  * @param {Array} shopifyVariants - Variantes desde Shopify
  * @param {string} tipo - Tipo de producto (Seco/Humedo)
+ * @param {string} productHandle - Handle del producto para construir URL
  * @returns {Array} Array de variantes en formato local
  */
-function mapVariants(shopifyVariants, tipo) {
+function mapVariants(shopifyVariants, tipo, productHandle) {
   if (!shopifyVariants || !Array.isArray(shopifyVariants)) {
     return [];
   }
@@ -150,8 +154,8 @@ function mapVariants(shopifyVariants, tipo) {
     const cantidad = extractQuantity(title, variant);
     
     // Construir URL del producto con la variante
-    const link = variant.admin_graphql_api_id 
-      ? buildProductUrl(variant)
+    const link = productHandle 
+      ? buildProductUrl(productHandle, variant.id)
       : "";
     
     return {
@@ -356,23 +360,47 @@ function extractCalories(shopifyProduct) {
 function extractQuantity(title, variant) {
   // Intentar extraer desde el título
   if (title && title !== "Default Title") {
-    // Buscar patrones como "500gr", "3kg", "185gr x 12ud", etc.
-    const match = title.match(/(\d+(?:\.\d+)?)\s*(gr|g|kg)\s*(?:x\s*(\d+)\s*ud)?/i);
-    if (match) {
-      const amount = match[1];
-      const unit = match[2].toLowerCase();
-      const quantity = match[3];
+    // Patrón para detectar:
+    // - "185 gr", "400 g", "3 kg", "500gr"
+    // - "Caja 12 latas 185 g", "185 gr x 12ud"
+    
+    // Buscar "Caja X latas Y g/kg"
+    const boxMatch = title.match(/caja\s+(\d+)\s+latas?\s+(\d+)\s*(gr?|g|kg)/i);
+    if (boxMatch) {
+      return `Caja ${boxMatch[1]} latas ${boxMatch[2]} ${boxMatch[3]}`;
+    }
+    
+    // Buscar "X g/kg x Y ud"
+    const multiMatch = title.match(/(\d+)\s*(gr?|g|kg)\s*x\s*(\d+)\s*ud/i);
+    if (multiMatch) {
+      return `${multiMatch[1]} ${multiMatch[2]} x ${multiMatch[3]}ud`;
+    }
+    
+    // Buscar cantidad simple: "185 g", "3 kg", "500gr"
+    const simpleMatch = title.match(/(\d+(?:\.\d+)?)\s*(gr?|g|kg)/i);
+    if (simpleMatch) {
+      const amount = simpleMatch[1];
+      let unit = simpleMatch[2].toLowerCase();
       
-      if (quantity) {
-        return `${amount} ${unit} x ${quantity}ud`;
+      // Normalizar unidades
+      if (unit === 'gr' || unit === 'g') {
+        unit = 'g';
+      } else if (unit === 'kg') {
+        unit = 'kg';
       }
+      
       return `${amount} ${unit}`;
     }
   }
   
-  // Intentar desde weight
-  if (variant.weight && variant.weight_unit) {
-    return `${variant.weight} ${variant.weight_unit}`;
+  // Intentar desde weight (en gramos)
+  if (variant.weight && variant.weight > 0) {
+    const weightInGrams = variant.weight;
+    if (weightInGrams >= 1000) {
+      const weightInKg = (weightInGrams / 1000).toFixed(1);
+      return `${weightInKg} kg`;
+    }
+    return `${weightInGrams} g`;
   }
   
   return "";
@@ -380,11 +408,12 @@ function extractQuantity(title, variant) {
 
 /**
  * Construye la URL del producto con la variante
- * @param {Object} variant - Variante de Shopify
+ * @param {string} productHandle - Handle del producto (slug URL)
+ * @param {number} variantId - ID de la variante
  * @returns {string} URL del producto
  */
-function buildProductUrl(variant) {
-  // TODO: Construir URL real basándose en el handle del producto
-  // Por ahora retornar vacío, se puede completar cuando tengas la estructura real
-  return `https://retorn.com/products/${variant.product_id}?variant=${variant.id}`;
+function buildProductUrl(productHandle, variantId) {
+  if (!productHandle) return "";
+  
+  return `https://retorn.com/products/${productHandle}?variant=${variantId}`;
 }
