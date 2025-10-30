@@ -56,6 +56,7 @@ export default function PublicSurveyPage() {
   const [showRecommendation, setShowRecommendation] = useState(false);
   const [showPathologyContact, setShowPathologyContact] = useState(false);
   const [recommendation, setRecommendation] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   // Comunicación con iframe padre (para auto-resize)
   useEffect(() => {
@@ -298,11 +299,14 @@ export default function PublicSurveyPage() {
       e.preventDefault();
     }
     
+    setIsLoading(true); // Activar loading
+    
     try {
       // Verificar si tiene patologías
       if (tienePatologias()) {
         // Mostrar formulario de contacto en lugar de recomendación
         setShowPathologyContact(true);
+        setIsLoading(false);
         return;
       }
 
@@ -315,6 +319,8 @@ export default function PublicSurveyPage() {
     } catch (error) {
       console.error("Error calculando recomendación:", error);
       alert("Hubo un error al calcular la recomendación. Por favor, revisa tus respuestas.");
+    } finally {
+      setIsLoading(false); // Desactivar loading
     }
   };
 
@@ -346,7 +352,38 @@ export default function PublicSurveyPage() {
         <ProgressBar progress={progress} />
 
         <div className="survey-content">
-          {!started ? (
+          {isLoading ? (
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              padding: '3rem',
+              minHeight: '300px'
+            }}>
+              <div style={{
+                width: '50px',
+                height: '50px',
+                border: '4px solid #f3f3f3',
+                borderTop: '4px solid ' + (theme.primary || '#4A90E2'),
+                borderRadius: '50%',
+                animation: 'spin 1s linear infinite'
+              }}></div>
+              <p style={{
+                marginTop: '1.5rem',
+                fontSize: '1.1rem',
+                color: '#666'
+              }}>
+                Buscando el mejor producto para tu mascota...
+              </p>
+              <style>{`
+                @keyframes spin {
+                  0% { transform: rotate(0deg); }
+                  100% { transform: rotate(360deg); }
+                }
+              `}</style>
+            </div>
+          ) : !started ? (
             <SurveyIntro onStart={() => setStarted(true)} />
           ) : showPathologyContact ? (
             <div className="pathology-wrapper">

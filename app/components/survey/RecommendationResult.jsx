@@ -226,23 +226,33 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
     const cantidadOriginal = producto.varianteRecomendada.cantidad;
     let gramosTotales;
     
-    // Para productos con packs (ej: "185 gr x 12ud" o "400 gr x 12ud")
-    const matchPack = cantidadOriginal.match(/(\d+(?:\.\d+)?)\s*gr\s*x\s*(\d+)\s*ud/i);
-    if (matchPack) {
-      const gramosPorUnidad = parseFloat(matchPack[1]);
-      const unidades = parseFloat(matchPack[2]);
+    // Para productos con packs: "Caja 12 latas 185 g" o "185 gr x 12ud"
+    const matchCaja = cantidadOriginal.match(/caja\s+(\d+)\s+latas?\s+(\d+)\s*g/i);
+    if (matchCaja) {
+      const unidades = parseFloat(matchCaja[1]);
+      const gramosPorUnidad = parseFloat(matchCaja[2]);
       gramosTotales = gramosPorUnidad * unidades;
-      console.log(`Pack: ${gramosPorUnidad}g × ${unidades}ud = ${gramosTotales}g`);
+      console.log(`Caja: ${unidades} latas × ${gramosPorUnidad}g = ${gramosTotales}g`);
     }
-    // Si es en kg (sin pack)
-    else if (cantidadOriginal.toLowerCase().includes("kg") && !cantidadOriginal.includes("x")) {
-      const numeros = cantidadOriginal.match(/(\d+(?:\.\d+)?)/);
-      gramosTotales = numeros ? parseFloat(numeros[1]) * 1000 : 0;
-    }
-    // Si es en gramos simples
+    // Para formato "185 gr x 12ud"
     else {
-      const numeros = cantidadOriginal.match(/(\d+(?:\.\d+)?)/);
-      gramosTotales = numeros ? parseFloat(numeros[1]) : 0;
+      const matchPack = cantidadOriginal.match(/(\d+(?:\.\d+)?)\s*g(?:r)?\s*x\s*(\d+)\s*ud/i);
+      if (matchPack) {
+        const gramosPorUnidad = parseFloat(matchPack[1]);
+        const unidades = parseFloat(matchPack[2]);
+        gramosTotales = gramosPorUnidad * unidades;
+        console.log(`Pack: ${gramosPorUnidad}g × ${unidades}ud = ${gramosTotales}g`);
+      }
+      // Si es en kg (sin pack)
+      else if (cantidadOriginal.toLowerCase().includes("kg") && !cantidadOriginal.includes("x")) {
+        const numeros = cantidadOriginal.match(/(\d+(?:\.\d+)?)/);
+        gramosTotales = numeros ? parseFloat(numeros[1]) * 1000 : 0;
+      }
+      // Si es en gramos simples
+      else {
+        const numeros = cantidadOriginal.match(/(\d+(?:\.\d+)?)/);
+        gramosTotales = numeros ? parseFloat(numeros[1]) : 0;
+      }
     }
     
     const dias = Math.round(gramosTotales / producto.gramosDiarios);
