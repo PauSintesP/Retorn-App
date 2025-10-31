@@ -15,9 +15,15 @@ export function mapShopifyProductsToLocal(shopifyProducts) {
   console.log(`[Adapter] Procesando ${shopifyProducts.length} productos de Shopify...`);
   
   shopifyProducts.forEach(shopifyProduct => {
+    // FILTRO: Solo incluir productos alimenticios (Pienso y Comida Húmeda)
+    if (!isProductAlimento(shopifyProduct)) {
+      console.log(`[Adapter] ⏭️  Omitido (no es alimento): ${shopifyProduct.title}`);
+      return;
+    }
+    
     const localProduct = mapSingleProduct(shopifyProduct);
     if (localProduct && localProduct.key && localProduct.data) {
-      // Incluir todos los productos con vendor=Retorn
+      // Incluir todos los productos alimenticios con vendor=Retorn
       mappedProducts[localProduct.key] = localProduct.data;
       console.log(`[Adapter] ✅ ${shopifyProduct.title} (${localProduct.data.tipo}, ${localProduct.data.animal}, ${localProduct.data.segmento}, ${localProduct.data.kcalEmKg} kcal)`);
     }
@@ -26,6 +32,92 @@ export function mapShopifyProductsToLocal(shopifyProducts) {
   console.log(`[Adapter] Total productos mapeados: ${Object.keys(mappedProducts).length}`);
   
   return mappedProducts;
+}
+
+/**
+ * Determina si un producto es alimento (pienso o comida húmeda)
+ * Excluye juguetes, accesorios, arena, etc.
+ * @param {Object} shopifyProduct - Producto de Shopify
+ * @returns {boolean} true si es alimento, false si no
+ */
+function isProductAlimento(shopifyProduct) {
+  const title = (shopifyProduct.title || "").toLowerCase();
+  const productType = (shopifyProduct.product_type || "").toLowerCase();
+  const tags = Array.isArray(shopifyProduct.tags) 
+    ? shopifyProduct.tags 
+    : (typeof shopifyProduct.tags === 'string' ? shopifyProduct.tags.split(',').map(t => t.trim().toLowerCase()) : []);
+  
+  // LISTA NEGRA: Excluir productos que NO son alimento
+  const exclusionKeywords = [
+    'juguete', 'toy', 'rub ball', 'rub bouncy', 'rub chain', 'rub chew', 'rub flipper',
+    'rub floating', 'rub flosser', 'rub fly', 'rub free jump', 'rub gossy', 'rub heavy',
+    'rub hole', 'rub jumpty', 'rub loop', 'rub piggy', 'rub rugby', 'rub snorky',
+    'rub spike', 'rub star', 'rub strong', 'rub teether', 'rub wheel',
+    'arena', 'litter',
+    'arnés', 'arnes', 'harness',
+    'camiseta', 'shirt', 'cat lover', 'dog lover',
+    'cepillo', 'brush', 'dog brush',
+    'vaso medidor', 'measuring cup',
+    'mochila', 'backpack', 'bol ecológico',
+    'caja de regalo', 'gift box', 'cajita navideña',
+    'llavero', 'keychain',
+    'galleta de halloween', 'galletas navideñas', // Galletas decorativas (no alimento)
+  ];
+  
+  // Verificar título y product_type
+  for (const keyword of exclusionKeywords) {
+    if (title.includes(keyword) || productType.includes(keyword)) {
+      return false;
+    }
+  }
+  
+  // Verificar tags - excluir productos Rub que NO son alimento
+  const excludedTags = ['rub perros', 'rub gatos', 'juguetes', 'toys', 'accesorios', 'accessories', 'ropa ecológica'];
+  for (const excludedTag of excludedTags) {
+    if (tags.includes(excludedTag.toLowerCase())) {
+      return false;
+    }
+  }
+  
+  // LISTA BLANCA: Solo incluir productos de tipo alimenticio
+  const foodProductTypes = [
+    'pienso', 'comida húmeda', 'comida humeda',
+    'pienso seco', 'pienso semihúmedo', 'pienso semihumedo',
+    'snacks perros', 'snacks gatos', // Snacks alimenticios SÍ
+    'latas', 'wet food', 'pack', 'packs especiales'
+  ];
+  
+  // Verificar si contiene palabras clave de alimento en product_type
+  const isFoodType = foodProductTypes.some(foodType => 
+    productType.includes(foodType)
+  );
+  
+  if (isFoodType) {
+    return true;
+  }
+  
+  // Verificar si el título contiene palabras clave de alimento
+  const foodKeywordsInTitle = [
+    'pienso', 'comida', 'lata', 'pack', 
+    'natural rabbit bites', // Este es alimento
+    'tuna jerky', // Este es alimento
+  ];
+  
+  const hasFoodInTitle = foodKeywordsInTitle.some(keyword => 
+    title.includes(keyword)
+  );
+  
+  if (hasFoodInTitle) {
+    return true;
+  }
+  
+  // Verificar tags de alimento
+  const foodTags = ['pienso', 'cachorro', 'senior', 'gato', 'perro', 'salmón', 'pollo', 'cordero', 'pescado'];
+  const hasFoodTag = tags.some(tag => 
+    foodTags.some(foodTag => tag.toLowerCase().includes(foodTag))
+  );
+  
+  return hasFoodTag;
 }
 
 /**
