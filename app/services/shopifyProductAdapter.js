@@ -50,23 +50,35 @@ function mapSingleProduct(shopifyProduct) {
     let productInfo = null;
     let sku = null;
     
-    // Intentar con SKU de todas las variantes hasta encontrar match
+    // Intentar con SKU y ID de variante de todas las variantes hasta encontrar match
     if (shopifyProduct.variants && shopifyProduct.variants.length > 0) {
-      const allSkus = [];
+      const allIdentifiers = [];
       for (const variant of shopifyProduct.variants) {
+        // Intentar primero con SKU
         if (variant.sku) {
-          allSkus.push(variant.sku);
+          allIdentifiers.push(`SKU:${variant.sku}`);
           productInfo = getProductInfoBySKU(variant.sku);
           if (productInfo) {
             sku = variant.sku;
             break;
           }
         }
+        
+        // Si no tiene SKU o no se encontró, intentar con ID de variante
+        if (!productInfo && variant.id) {
+          const variantId = variant.id.toString();
+          allIdentifiers.push(`ID:${variantId}`);
+          productInfo = getProductInfoBySKU(variantId);
+          if (productInfo) {
+            sku = variantId;
+            break;
+          }
+        }
       }
       
-      // Si no se encontró ningún match, loggear todos los SKUs intentados
-      if (!productInfo && allSkus.length > 0) {
-        console.log(`[Adapter] ❌ Ningún SKU encontrado en DB para "${title}". SKUs intentados:`, allSkus.join(', '));
+      // Si no se encontró ningún match, loggear todos los identificadores intentados
+      if (!productInfo && allIdentifiers.length > 0) {
+        console.log(`[Adapter] ❌ Ningún identificador encontrado en DB para "${title}". Intentados:`, allIdentifiers.join(', '));
       }
     }
     
