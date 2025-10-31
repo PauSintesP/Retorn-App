@@ -1,12 +1,16 @@
 /**
  * API Route para obtener productos desde Shopify (para uso público)
  * Este endpoint puede ser llamado desde el cliente sin autenticación
+ * 
+ * Soporta dos modos:
+ * 1. Sin parámetros: Obtiene todos los productos (vendor=Retorn)
+ * 2. Con IDs: /api/products?ids=123&ids=456 → Obtiene solo esos productos específicos
  */
 
 /**
  * Loader: Obtiene productos desde Shopify y los devuelve en formato JSON
  */
-export async function loader() {
+export async function loader({ request }) {
   try {
     const shopifyStoreUrl = process.env.SHOPIFY_STORE_URL;
     const shopifyAccessToken = process.env.SHOPIFY_ACCESS_TOKEN;
@@ -20,11 +24,25 @@ export async function loader() {
       }, { status: 500 });
     }
     
-    // Construir la URL de la API de Shopify Admin REST
-    // Filtrar por vendor "Retorn" para obtener solo productos de la marca
-    const apiUrl = `https://${shopifyStoreUrl}/admin/api/2025-01/products.json?limit=250&vendor=Retorn`;
+    // Extraer parámetros de IDs de la URL
+    const url = new URL(request.url);
+    const productIds = url.searchParams.getAll('ids');
     
-    console.log(`[API Products] Fetching from Shopify: ${shopifyStoreUrl} (vendor=Retorn)`);
+    let apiUrl;
+    
+    if (productIds && productIds.length > 0) {
+      // Modo 1: Obtener productos específicos por IDs
+      console.log(`[API Products] Fetching specific products by IDs:`, productIds);
+      
+      // Shopify API acepta múltiples IDs con "ids" separados por coma
+      const idsParam = productIds.join(',');
+      apiUrl = `https://${shopifyStoreUrl}/admin/api/2025-01/products.json?ids=${idsParam}`;
+      
+    } else {
+      // Modo 2: Obtener todos los productos (vendor=Retorn)
+      console.log(`[API Products] Fetching all products (vendor=Retorn)`);
+      apiUrl = `https://${shopifyStoreUrl}/admin/api/2025-01/products.json?limit=250&vendor=Retorn`;
+    }
     
     const response = await fetch(apiUrl, {
       method: 'GET',
@@ -56,8 +74,6 @@ export async function loader() {
     }
     
     console.log(`[API Products] Successfully fetched ${data.products.length} products`);
-    console.log('[API Products] Product titles:', data.products.map(p => p.title));
-    console.log('[API Products] Sample product JSON:', JSON.stringify(data.products[0], null, 2));
     
     return Response.json({
       success: true,

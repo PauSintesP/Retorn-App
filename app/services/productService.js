@@ -1,183 +1,58 @@
-/**
- * Servicio de productos - Abstrae la fuente de datos (local o API Shopify)
- * Permite cambiar fácilmente entre datos estáticos y API sin modificar el código de negocio
+﻿/**
+ * Servicio de productos - Sistema híbrido ultra-ligero
  */
 
-import { PRODUCTOS as PRODUCTOS_LOCAL } from "../data/productConstants";
-import { mapShopifyProductsToLocal } from "./shopifyProductAdapter";
-import { 
-  isUsingShopifyAPI, 
-  ENABLE_FALLBACK, 
-  SHOPIFY_PRODUCTS_API_ENDPOINT,
-  PRODUCTS_CACHE_TIME,
-  logProductInfo 
-} from "../config/productConfig";
+import { getProductIds } from "../data/productIdMapping.js";
 
-// Cache simple en memoria para productos de Shopify
-let productsCache = null;
-let cacheTimestamp = null;
-
-/**
- * Obtiene todos los productos desde la fuente configurada
- * @returns {Promise<Object>} Objeto con todos los productos en el formato local
- */
-export async function getProducts() {
-  if (isUsingShopifyAPI()) {
-    try {
-      // Verificar si tenemos cache válido
-      if (productsCache && cacheTimestamp && (Date.now() - cacheTimestamp < PRODUCTS_CACHE_TIME)) {
-        logProductInfo("Using cached products");
-        return productsCache;
-      }
-      
-      logProductInfo("Fetching products from Shopify API");
-      const shopifyProducts = await fetchShopifyProducts();
-      const mappedProducts = mapShopifyProductsToLocal(shopifyProducts);
-      
-      // Actualizar cache
-      productsCache = mappedProducts;
-      cacheTimestamp = Date.now();
-      
-      logProductInfo("Products fetched successfully", { count: Object.keys(mappedProducts).length });
-      return mappedProducts;
-      
-    } catch (error) {
-      console.error("Error fetching from Shopify API:", error);
-      
-      if (ENABLE_FALLBACK) {
-        console.warn("Falling back to local data");
-        return PRODUCTOS_LOCAL;
-      }
-      
-      throw error;
-    }
+export async function getRecommendedProducts(animal, tipo, segmento) {
+  console.log('[ProductService] Buscando productos para:', animal, tipo, segmento);
+  
+  const productIds = getProductIds(animal, tipo, segmento);
+  
+  if (!productIds || productIds.length === 0) {
+    console.warn('[ProductService] No se encontraron IDs');
+    return [];
   }
   
-  // Por ahora, usar datos locales
-  logProductInfo("Using local product data");
-  return Promise.resolve(PRODUCTOS_LOCAL);
-}
-
-/**
- * Obtiene un producto específico por su clave
- * @param {string} productKey - Clave del producto (ej: "PERRO_ADULT_POLLO")
- * @returns {Promise<Object|null>} Producto o null si no existe
- */
-export async function getProductByKey(productKey) {
-  const products = await getProducts();
-  return products[productKey] || null;
-}
-
-/**
- * Busca productos por filtros
- * @param {Object} filters - Filtros a aplicar
- * @param {string} filters.animal - "Perro" o "Gato"
- * @param {string} filters.tipo - "Seco" o "Humedo"
- * @param {string} filters.segmento - Segmento del producto
- * @returns {Promise<Array>} Array de productos que cumplen los filtros
- */
-export async function findProducts(filters = {}) {
-  const products = await getProducts();
-  const productsArray = Object.values(products);
+  console.log('[ProductService] IDs encontrados:', productIds);
   
-  return productsArray.filter(product => {
-    if (filters.animal && product.animal !== filters.animal) return false;
-    if (filters.tipo && product.tipo !== filters.tipo) return false;
-    if (filters.segmento && product.segmento !== filters.segmento) return false;
-    return true;
-  });
+  const products = await fetchProductsByIds(productIds);
+  
+  console.log('[ProductService] Productos obtenidos:', products.length);
+  
+  return products;
 }
 
-/**
- * Función para obtener productos desde la API de Shopify
- * @returns {Promise<Array>} Array de productos de Shopify
- */
-async function fetchShopifyProducts() {
-  // En el cliente (navegador), hacer petición al endpoint del servidor
-  if (typeof window !== 'undefined') {
-    console.log("🌐 Cliente: Solicitando productos al servidor...");
-    const response = await fetch('/api/products', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
+async function fetchProductsByIds(productIds) {
+  if (!productIds || productIds.length === 0) {
+    return [];
+  }
+  
+  try {
+    const idsQuery = productIds.map(id => 'ids=' + id).join('&');
+    const response = await fetch('/api/products?' + idsQuery);
     
     if (!response.ok) {
-      const errorText = await response.text();
-      throw new Error(`Server API error: ${response.status} ${response.statusText} - ${errorText}`);
+      console.error('[ProductService] Error:', response.status);
+      return [];
     }
     
     const data = await response.json();
     
     if (!data.success || !data.products) {
-      throw new Error(data.error || "Invalid response from server - no products field");
+      console.error('[ProductService] Respuesta inválida');
+      return [];
     }
     
     return data.products;
+    
+  } catch (error) {
+    console.error('[ProductService] Error:', error);
+    return [];
   }
-  
-  // En el servidor (Node.js), hacer petición directa a Shopify
-  const shopifyStoreUrl = process.env.SHOPIFY_STORE_URL;
-  const shopifyAccessToken = process.env.SHOPIFY_ACCESS_TOKEN;
-  
-  if (!shopifyStoreUrl || !shopifyAccessToken) {
-    throw new Error("Missing Shopify credentials. Please set SHOPIFY_STORE_URL and SHOPIFY_ACCESS_TOKEN in your .env file");
-  }
-  
-  console.log(`[Server] Fetching from Shopify: ${shopifyStoreUrl}`);
-  
-  // Construir la URL de la API de Shopify Admin REST
-  const apiUrl = `https://${shopifyStoreUrl}/admin/api/2025-01/products.json?limit=250`;
-  
-  const response = await fetch(apiUrl, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Shopify-Access-Token': shopifyAccessToken,
-    },
-  });
-  
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`Shopify API error: ${response.status} ${response.statusText} - ${errorText}`);
-  }
-  
-  const data = await response.json();
-  
-  if (!data.products) {
-    throw new Error("Invalid response from Shopify API - no products field");
-  }
-  
-  return data.products;
 }
 
-/**
- * Limpia el cache de productos
- * Útil cuando se actualizan productos en Shopify
- */
-export function clearProductsCache() {
-  productsCache = null;
-  cacheTimestamp = null;
-  logProductInfo("Products cache cleared");
-}
-
-/**
- * Obtiene información del cache actual
- * @returns {Object} Información del cache
- */
-export function getCacheInfo() {
-  return {
-    hasCache: productsCache !== null,
-    cacheAge: cacheTimestamp ? Date.now() - cacheTimestamp : null,
-    isValid: productsCache && cacheTimestamp && (Date.now() - cacheTimestamp < PRODUCTS_CACHE_TIME),
-  };
-}
-
-/**
- * Obtiene la fuente de datos actual
- * @returns {string} "shopify" o "local"
- */
-export function getCurrentDataSource() {
-  return isUsingShopifyAPI() ? "shopify" : "local";
+export async function fetchProductById(productId) {
+  const products = await fetchProductsByIds([productId]);
+  return products.length > 0 ? products[0] : null;
 }
