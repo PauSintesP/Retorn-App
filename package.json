@@ -16,7 +16,8 @@
     "graphql-codegen": "graphql-codegen",
     "vite": "vite",
     "typecheck": "react-router typegen && tsc --noEmit",
-    "test:shopify": "node app/scripts/testShopifyConnection.js"
+    "test:shopify": "node app/scripts/testShopifyConnection.js",
+    "tags:add": "node scripts/addTagsToProducts.js"
   },
   "type": "module",
   "engines": {
