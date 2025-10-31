@@ -1,9 +1,8 @@
 /**
  * Adaptador para convertir productos de Shopify al formato local
- * Mapea los datos de la API de Shopify al formato usado en productConstants.js
+ * Sistema 100% dinámico que extrae información desde Shopify (tags, metafields, título)
+ * NO usa base de datos hardcodeada - todo se actualiza automáticamente desde Shopify
  */
-
-import { getProductInfoBySKU } from '../data/productDatabase.js';
 
 /**
  * Mapea un array de productos de Shopify al formato local
@@ -18,23 +17,20 @@ export function mapShopifyProductsToLocal(shopifyProducts) {
   shopifyProducts.forEach(shopifyProduct => {
     const localProduct = mapSingleProduct(shopifyProduct);
     if (localProduct && localProduct.key && localProduct.data) {
-      // Solo incluir productos que están en nuestra base de datos (productos RETORN reales)
-      if (localProduct.data.kcalEmKg > 0) {
-        mappedProducts[localProduct.key] = localProduct.data;
-        console.log(`[Adapter] ✅ ${shopifyProduct.title} (${localProduct.data.tipo}, ${localProduct.data.animal}, ${localProduct.data.kcalEmKg} kcal)`);
-      } else {
-        console.log(`[Adapter] ❌ Omitido (no en DB): ${shopifyProduct.title}`);
-      }
+      // Incluir todos los productos con vendor=Retorn
+      mappedProducts[localProduct.key] = localProduct.data;
+      console.log(`[Adapter] ✅ ${shopifyProduct.title} (${localProduct.data.tipo}, ${localProduct.data.animal}, ${localProduct.data.segmento}, ${localProduct.data.kcalEmKg} kcal)`);
     }
   });
   
-  console.log(`[Adapter] Total productos válidos: ${Object.keys(mappedProducts).length}`);
+  console.log(`[Adapter] Total productos mapeados: ${Object.keys(mappedProducts).length}`);
   
   return mappedProducts;
 }
 
 /**
  * Mapea un único producto de Shopify al formato local
+ * Extrae información desde tags, metafields y título del producto
  * @param {Object} shopifyProduct - Producto desde Shopify API
  * @returns {Object} Producto en formato local
  */
@@ -44,69 +40,20 @@ function mapSingleProduct(shopifyProduct) {
     const title = shopifyProduct.title || "";
     const productType = shopifyProduct.product_type || "";
     const vendor = shopifyProduct.vendor || "";
-    const tags = shopifyProduct.tags || [];
+    const tags = Array.isArray(shopifyProduct.tags) 
+      ? shopifyProduct.tags 
+      : (typeof shopifyProduct.tags === 'string' ? shopifyProduct.tags.split(',').map(t => t.trim()) : []);
     
-    // Buscar información en la base de datos
-    let productInfo = null;
-    let sku = null;
+    console.log(`[Adapter] Analizando: "${title}"`);
+    console.log(`[Adapter] Tags disponibles:`, tags);
     
-    // Intentar con SKU y ID de variante de todas las variantes hasta encontrar match
-    if (shopifyProduct.variants && shopifyProduct.variants.length > 0) {
-      const allIdentifiers = [];
-      for (const variant of shopifyProduct.variants) {
-        // Intentar primero con SKU
-        if (variant.sku) {
-          allIdentifiers.push(`SKU:${variant.sku}`);
-          productInfo = getProductInfoBySKU(variant.sku);
-          if (productInfo) {
-            sku = variant.sku;
-            break;
-          }
-        }
-        
-        // Si no tiene SKU o no se encontró, intentar con ID de variante
-        if (!productInfo && variant.id) {
-          const variantId = variant.id.toString();
-          allIdentifiers.push(`ID:${variantId}`);
-          productInfo = getProductInfoBySKU(variantId);
-          if (productInfo) {
-            sku = variantId;
-            break;
-          }
-        }
-      }
-      
-      // Si no se encontró ningún match, loggear todos los identificadores intentados
-      if (!productInfo && allIdentifiers.length > 0) {
-        console.log(`[Adapter] ❌ Ningún identificador encontrado en DB para "${title}". Intentados:`, allIdentifiers.join(', '));
-      }
-    }
+    // EXTRAER INFORMACIÓN DESDE SHOPIFY (tags, metafields, título)
+    const tipo = extractProductType(title, tags, productType);
+    const animal = extractAnimal(title, tags);
+    const segmento = extractSegment(title, tags);
+    const kcalEmKg = extractCalories(shopifyProduct, title, tags);
     
-    // Si no está en la base de datos, omitir
-    if (!productInfo) {
-      const firstSku = shopifyProduct.variants?.[0]?.sku || 'sin-sku';
-      console.log(`[Adapter] ❌ SKU no encontrado en DB: ${title} (SKU: ${firstSku})`);
-      return {
-        key: generateProductKey(title, tags),
-        data: {
-          nombre: title,
-          tipo: "Seco",
-          animal: "Perro",
-          segmento: "Adulto",
-          kcalEmKg: 0, // Marcado como no válido
-          imagen: "",
-          variantes: []
-        }
-      };
-    }
-    
-    console.log(`[Adapter] ✅ Match encontrado: ${title} (SKU: ${sku})`);
-    
-    // Usar datos de la base de datos
-    const tipo = productInfo.tipo;
-    const animal = productInfo.animal;
-    const segmento = productInfo.segmento;
-    const kcalEmKg = productInfo.kcalEmKg;
+    console.log(`[Adapter] Clasificación extraída: tipo=${tipo}, animal=${animal}, segmento=${segmento}, kcal=${kcalEmKg}`);
     
     // Determinar clave del producto
     const productKey = generateProductKey(title, tags);
@@ -146,9 +93,27 @@ function mapSingleProduct(shopifyProduct) {
     };
     
   } catch (error) {
-    console.error("Error mapping Shopify product:", error, shopifyProduct);
+    console.error("[Adapter] Error mapping Shopify product:", error, shopifyProduct?.title);
     return null;
   }
+}
+
+/**
+ * Genera una clave única para el producto basándose en su título
+ * @param {string} title - Título del producto
+ * @param {Array} tags - Tags del producto (no usado actualmente)
+ * @returns {string} Clave del producto (ej: "PUPPY_SALMON_500_GR")
+ */
+function generateProductKey(title, tags) {
+  // Normalizar título: remover "RETORN", convertir a mayúsculas, reemplazar espacios
+  const normalized = title.toUpperCase()
+    .replace(/RETORN\s*/gi, "")
+    .replace(/\s+-\s+/g, "_") // Reemplazar " - " por "_"
+    .replace(/\s+/g, "_") // Reemplazar espacios por "_"
+    .replace(/[()]/g, "") // Remover paréntesis
+    .trim();
+  
+  return normalized;
 }
 
 /**
@@ -213,32 +178,31 @@ function separateVariantsBySize(variantes, tags) {
 }
 
 /**
- * Genera una clave única para el producto basándose en su título y tags
- * @param {string} title - Título del producto
- * @param {Array} tags - Tags del producto
- * @returns {string} Clave del producto (ej: "PERRO_ADULT_POLLO")
+ * FUNCIONES DE EXTRACCIÓN DE INFORMACIÓN DESDE SHOPIFY
+ * Estas funciones extraen información directamente desde tags, metafields y título
+ * Sistema 100% dinámico - no requiere base de datos hardcodeada
  */
-function generateProductKey(title, tags) {
-  // Normalizar título
-  const normalized = title.toUpperCase()
-    .replace(/RETORN\s*/i, "")
-    .trim();
-  
-  // Convertir espacios a guiones bajos
-  return normalized.replace(/\s+/g, "_");
-}
 
 /**
- * Determina el tipo de producto (Seco/Húmedo)
+ * Extrae el tipo de producto (Seco/Húmedo) desde tags o título
  * @param {string} title - Título del producto
  * @param {Array} tags - Tags del producto
  * @param {string} productType - Tipo de producto Shopify
  * @returns {string} "Seco" o "Humedo"
  */
-function determineProductType(title, tags, productType) {
+function extractProductType(title, tags, productType) {
   const titleLower = title.toLowerCase();
   const tagsLower = tags.map(t => t.toLowerCase());
   
+  // Buscar en tags primero (más confiable)
+  if (tagsLower.includes('humedo') || tagsLower.includes('húmedo') || tagsLower.includes('wet')) {
+    return "Humedo";
+  }
+  if (tagsLower.includes('seco') || tagsLower.includes('dry')) {
+    return "Seco";
+  }
+  
+  // Buscar en título
   // Semihúmedo se considera SECO (es pienso con más humedad pero no latas)
   if (titleLower.includes("semihúmedo") || titleLower.includes("semihumedo")) {
     return "Seco";
@@ -247,45 +211,66 @@ function determineProductType(title, tags, productType) {
   // Solo latas/comida húmeda en lata se considera Húmedo
   if (titleLower.includes("lata") || 
       (titleLower.includes("húmedo") && !titleLower.includes("semi")) || 
-      (titleLower.includes("humedo") && !titleLower.includes("semi")) ||
-      tagsLower.includes("wet") ||
-      tagsLower.includes("húmedo")) {
+      (titleLower.includes("humedo") && !titleLower.includes("semi"))) {
     return "Humedo";
   }
   
+  // Por defecto: Seco (la mayoría de productos son pienso seco)
   return "Seco";
 }
 
 /**
- * Determina el animal (Perro/Gato)
+ * Extrae el tipo de animal (Perro/Gato) desde tags o título
  * @param {string} title - Título del producto
  * @param {Array} tags - Tags del producto
- * @param {string} productType - Tipo de producto Shopify
  * @returns {string} "Perro" o "Gato"
  */
-function determineAnimal(title, tags, productType) {
+function extractAnimal(title, tags) {
   const titleLower = title.toLowerCase();
   const tagsLower = tags.map(t => t.toLowerCase());
   
+  // Buscar en tags primero
+  if (tagsLower.includes('gato') || tagsLower.includes('cat')) {
+    return "Gato";
+  }
+  if (tagsLower.includes('perro') || tagsLower.includes('dog')) {
+    return "Perro";
+  }
+  
+  // Buscar en título
   if (titleLower.includes("cat") || 
       titleLower.includes("gato") ||
-      tagsLower.includes("cat") ||
-      tagsLower.includes("gato")) {
+      titleLower.includes("kitten")) {
     return "Gato";
   }
   
+  // Por defecto: Perro
   return "Perro";
 }
 
 /**
- * Determina el segmento del producto
+ * Extrae el segmento del producto desde tags o título
+ * Analiza palabras clave para determinar: Cachorros, Senior, Esterilizados, Adulto + proteína
  * @param {string} title - Título del producto
  * @param {Array} tags - Tags del producto
  * @returns {string} Segmento del producto
  */
-function determineSegment(title, tags) {
+function extractSegment(title, tags) {
   const titleLower = title.toLowerCase();
+  const tagsLower = tags.map(t => t.toLowerCase());
   
+  // Buscar en tags primero
+  if (tagsLower.includes('cachorros') || tagsLower.includes('puppy') || tagsLower.includes('kitten')) {
+    return "Cachorros";
+  }
+  if (tagsLower.includes('senior') || tagsLower.includes('light')) {
+    return "Senior Light";
+  }
+  if (tagsLower.includes('esterilizado') || tagsLower.includes('sterilized')) {
+    return "Esterilizados Light";
+  }
+  
+  // Buscar en título
   // Cachorros
   if (titleLower.includes("puppy") || titleLower.includes("cachorro") || titleLower.includes("kitten")) {
     return "Cachorros";
@@ -301,29 +286,46 @@ function determineSegment(title, tags) {
     return "Esterilizados Light";
   }
   
-  // Adultos por tipo de proteína
+  // Adultos por tipo de proteína (para GATOS)
+  // Gatos tienen segmentos específicos por proteína
+  if (titleLower.includes("cat") || titleLower.includes("gato")) {
+    if (titleLower.includes("pollo") || titleLower.includes("chicken")) {
+      return "Adulto Pollo";
+    }
+    if (titleLower.includes("pescado") || titleLower.includes("fish")) {
+      return "Adulto Pescado";
+    }
+    if (titleLower.includes("salmon") || titleLower.includes("salmón")) {
+      return "Salmón";
+    }
+    if (titleLower.includes("atun") || titleLower.includes("tuna")) {
+      if (titleLower.includes("mejillon")) return "Mejillones";
+      if (titleLower.includes("sardina")) return "Sardina";
+      if (titleLower.includes("gamba")) return "Gambas";
+    }
+  }
+  
+  // Adultos por tipo de proteína (para PERROS)
   if (titleLower.includes("pollo") || titleLower.includes("chicken")) {
-    return titleLower.includes("conejo") ? "Pollo Conejo" : 
-           titleLower.includes("zanahoria") ? "Pollo Zanahoria" : "Adulto Pollo";
+    if (titleLower.includes("conejo")) return "Pollo Conejo";
+    if (titleLower.includes("zanahoria")) return "Pollo Zanahoria";
+    return "Adulto Pollo";
   }
   
   if (titleLower.includes("cordero") || titleLower.includes("lamb")) {
-    return titleLower.includes("arroz") ? "Cordero Arroz" : "Adulto Cordero";
+    if (titleLower.includes("arroz")) return "Cordero Arroz";
+    return "Adulto Cordero";
   }
   
   if (titleLower.includes("salmon") || titleLower.includes("salmón")) {
-    return titleLower.includes("atun") ? "Salmón" : "Adulto Salmón";
+    if (titleLower.includes("atun")) return "Salmón";
+    return "Adulto Salmón";
   }
   
   if (titleLower.includes("pescado") || titleLower.includes("fish")) {
-    return titleLower.includes("patata") ? "Pescado Patatas" : 
-           titleLower.includes("zanahoria") ? "Pescado Zanahoria" : "Adulto Pescado";
-  }
-  
-  if (titleLower.includes("atun") || titleLower.includes("tuna")) {
-    if (titleLower.includes("mejillon")) return "Mejillones";
-    if (titleLower.includes("sardina")) return "Sardina";
-    if (titleLower.includes("gamba")) return "Gambas";
+    if (titleLower.includes("patata")) return "Pescado Patatas";
+    if (titleLower.includes("zanahoria")) return "Pescado Zanahoria";
+    return "Adulto Pescado";
   }
   
   if (titleLower.includes("only")) {
@@ -331,42 +333,97 @@ function determineSegment(title, tags) {
     if (titleLower.includes("pollo")) return "Only Pollo";
   }
   
+  // Por defecto: Adulto
   return "Adulto";
 }
 
 /**
- * Extrae las calorías del producto desde metafields o usa valores por defecto
+ * Extrae las calorías del producto desde metafields o calcula desde el título
+ * Prioridad: metafields > CSV data en descripción > valores por defecto basados en tipo
  * @param {Object} shopifyProduct - Producto de Shopify
+ * @param {string} title - Título del producto
+ * @param {Array} tags - Tags del producto
  * @returns {number} Kcal por kg
  */
-function extractCalories(shopifyProduct) {
-  // Intentar obtener desde metafields
-  if (shopifyProduct.metafields) {
+function extractCalories(shopifyProduct, title, tags) {
+  // 1. PRIORIDAD: Intentar obtener desde metafields
+  if (shopifyProduct.metafields && Array.isArray(shopifyProduct.metafields)) {
     const caloriesField = shopifyProduct.metafields.find(
-      mf => mf.key === "kcal_per_kg" || mf.key === "calories"
+      mf => mf.key === "kcal_per_kg" || mf.key === "kcal_em_kg" || mf.key === "calories" || mf.key === "calorias"
     );
     
     if (caloriesField && caloriesField.value) {
-      return parseFloat(caloriesField.value);
+      const calories = parseFloat(caloriesField.value);
+      if (!isNaN(calories) && calories > 0) {
+        console.log(`[Adapter] ✅ Calorías desde metafield: ${calories} kcal/kg`);
+        return calories;
+      }
     }
   }
   
-  const title = shopifyProduct.title.toLowerCase();
-  
-  // Valores por defecto basados en tipo de producto
-  if (title.includes("húmedo") || title.includes("humedo") || title.includes("lata")) {
-    return 1000; // Comida húmeda
+  // 2. Intentar extraer desde body_html o descripción
+  if (shopifyProduct.body_html) {
+    const kcalMatch = shopifyProduct.body_html.match(/(\d{3,4})\s*kcal[\s\/]*kg/i);
+    if (kcalMatch) {
+      const calories = parseInt(kcalMatch[1]);
+      console.log(`[Adapter] ✅ Calorías desde descripción: ${calories} kcal/kg`);
+      return calories;
+    }
   }
   
-  if (title.includes("puppy") || title.includes("cachorro")) {
-    return 3600; // Cachorros
+  // 3. FALLBACK: Valores por defecto basados en tipo y segmento
+  const titleLower = title.toLowerCase();
+  const tipo = extractProductType(title, tags, "");
+  
+  console.log(`[Adapter] ⚠️  Usando calorías por defecto basadas en tipo/segmento`);
+  
+  // Comida húmeda (latas)
+  if (tipo === "Humedo") {
+    if (titleLower.includes("kitten") || titleLower.includes("cachorro")) {
+      return 871; // Latas para cachorros
+    }
+    return 900; // Latas para adultos (promedio)
   }
   
-  if (title.includes("light") || title.includes("senior")) {
-    return 3300; // Light/Senior
+  // Comida seca (pienso)
+  if (titleLower.includes("puppy") || titleLower.includes("cachorro") || titleLower.includes("kitten")) {
+    if (titleLower.includes("cat") || titleLower.includes("gato")) {
+      return 4173; // Gatitos
+    }
+    return 3451; // Cachorros de perro
   }
   
-  // Por defecto para cualquier producto
+  if (titleLower.includes("light") || titleLower.includes("senior")) {
+    return 3453; // Light/Senior
+  }
+  
+  if (titleLower.includes("sterilized") || titleLower.includes("esterilizado")) {
+    return 3940; // Esterilizados
+  }
+  
+  // Adultos por proteína
+  if (titleLower.includes("cat") || titleLower.includes("gato")) {
+    if (titleLower.includes("pollo") || titleLower.includes("chicken")) {
+      return 4070; // Gato adulto pollo
+    }
+    if (titleLower.includes("pescado") || titleLower.includes("fish")) {
+      return 3686; // Gato adulto pescado
+    }
+    return 3800; // Gato adulto genérico
+  }
+  
+  // Perros adultos
+  if (titleLower.includes("pollo") || titleLower.includes("chicken")) {
+    return 3674; // Adulto pollo
+  }
+  if (titleLower.includes("cordero") || titleLower.includes("lamb")) {
+    return 3440; // Adulto cordero
+  }
+  if (titleLower.includes("salmon") || titleLower.includes("salmón")) {
+    return 3327; // Adulto salmón
+  }
+  
+  // Por defecto
   return 3500;
 }
 
