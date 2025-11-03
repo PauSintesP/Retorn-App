@@ -1307,7 +1307,257 @@ export const getSurveyStyles = (direction, theme = {}) => {
     box-sizing: border-box;
   }
 
-  /* Alerta de patología - Mobile optimizado */
+  /* ============================================ */
+  /* NUEVO BANNER DE ALERTA - ESTILO PROMOCIONAL */
+  /* ============================================ */
+  
+  .patologia-alert-banner {
+    position: relative;
+    margin-top: 1.25rem;
+    padding: 1rem 2.5rem 1rem 1rem;
+    background: linear-gradient(135deg, #FFF9E6 0%, #FFFBF0 100%);
+    border: 2px solid #FFD700;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(255, 215, 0, 0.2);
+    animation: fadeSlideIn 0.4s ease-out;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  @media (min-width: 600px) {
+    .patologia-alert-banner {
+      margin-top: 1.5rem;
+      padding: 1.25rem 3rem 1.25rem 1.5rem;
+      border-radius: 16px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .patologia-alert-banner {
+      margin-top: 2rem;
+      padding: 1.5rem 3.5rem 1.5rem 2rem;
+    }
+  }
+
+  .alert-banner-content {
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+
+  @media (min-width: 600px) {
+    .alert-banner-content {
+      gap: 1rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .alert-banner-content {
+      gap: 1.25rem;
+    }
+  }
+
+  .alert-banner-icon {
+    font-size: 1.75rem;
+    line-height: 1;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+
+  @media (min-width: 600px) {
+    .alert-banner-icon {
+      font-size: 2rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .alert-banner-icon {
+      font-size: 2.5rem;
+    }
+  }
+
+  .alert-banner-text {
+    flex: 1;
+    font-family: 'Inter', sans-serif;
+    color: #3E3E3E;
+  }
+
+  .alert-banner-text strong {
+    color: #1a1a1a;
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  @media (min-width: 600px) {
+    .alert-banner-text strong {
+      font-size: 1rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .alert-banner-text strong {
+      font-size: 1.1rem;
+    }
+  }
+
+  .alert-banner-text p {
+    margin: 0.375rem 0;
+    font-size: 0.8rem;
+    line-height: 1.5;
+    color: #4a4a4a;
+  }
+
+  @media (min-width: 600px) {
+    .alert-banner-text p {
+      font-size: 0.875rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .alert-banner-text p {
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+  }
+
+  .coupon-code {
+    display: inline-block;
+    background: #FFD700;
+    color: #1a1a1a;
+    padding: 0.125rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 700;
+    font-family: 'Oswald', sans-serif;
+    letter-spacing: 0.5px;
+    font-size: 0.875rem;
+    margin: 0 0.25rem;
+  }
+
+  @media (min-width: 600px) {
+    .coupon-code {
+      padding: 0.25rem 0.625rem;
+      font-size: 0.95rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .coupon-code {
+      padding: 0.25rem 0.75rem;
+      font-size: 1rem;
+    }
+  }
+
+  .alert-banner-note {
+    font-size: 0.7rem !important;
+    font-style: italic;
+    color: #666 !important;
+    margin-top: 0.5rem !important;
+  }
+
+  @media (min-width: 600px) {
+    .alert-banner-note {
+      font-size: 0.75rem !important;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .alert-banner-note {
+      font-size: 0.8rem !important;
+    }
+  }
+
+  .alert-banner-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    background: transparent;
+    border: none;
+    color: #666;
+    font-size: 1.25rem;
+    line-height: 1;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    padding: 0.25rem;
+    width: 1.75rem;
+    height: 1.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+  }
+
+  @media (min-width: 600px) {
+    .alert-banner-close {
+      top: 0.875rem;
+      right: 0.875rem;
+      font-size: 1.4rem;
+      width: 2rem;
+      height: 2rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .alert-banner-close {
+      top: 1rem;
+      right: 1rem;
+      font-size: 1.5rem;
+      width: 2.25rem;
+      height: 2.25rem;
+    }
+  }
+
+  .alert-banner-close:hover {
+    background: rgba(0, 0, 0, 0.08);
+    color: #333;
+    transform: scale(1.1);
+  }
+
+  .alert-banner-close:active {
+    transform: scale(0.95);
+  }
+
+  /* ============================================ */
+  /* MEJORA RESPONSIVIDAD PREGUNTA PATOLOGÍAS */
+  /* ============================================ */
+  
+  /* Contenedor específico para pregunta de patologías */
+  .patologias-question {
+    min-height: 400px; /* Altura mínima para evitar saltos al seleccionar */
+  }
+
+  @media (min-width: 600px) {
+    .patologias-question {
+      min-height: 450px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .patologias-question {
+      min-height: auto; /* En desktop no necesitamos altura mínima */
+    }
+  }
+
+  /* Asegurar que los botones mantengan tamaño consistente */
+  .patologias-question .option-button {
+    min-height: 56px;
+    height: auto;
+  }
+
+  @media (min-width: 600px) {
+    .patologias-question .option-button {
+      min-height: 64px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .patologias-question .option-button {
+      min-height: 58px;
+    }
+  }
+
+  /* DEPRECATED - Mantener para compatibilidad pero no se usa */
   .patologia-alert {
     display: flex;
     gap: 0.75rem;
@@ -1729,39 +1979,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     opacity: 0.5;
     cursor: not-allowed;
     transform: none !important;
-  }
-
-  /* Columnas en móvil - una sola columna */
-  .two-columns-container {
-    grid-template-columns: 1fr;
-    gap: 0.75rem;
-  }
-
-  @media (min-width: 768px) {
-    .two-columns-container {
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
-  }
-
-  .patologia-alert {
-    padding: 1rem;
-    gap: 0.75rem;
-  }
-
-  @media (min-width: 768px) {
-    .patologia-alert {
-      padding: 1.5rem;
-      gap: 1rem;
-    }
-
-    .alert-icon {
-      font-size: 1.5rem;
-    }
-
-    .alert-text {
-      font-size: 0.9rem;
-    }
   }
 
   /* ============================================ */

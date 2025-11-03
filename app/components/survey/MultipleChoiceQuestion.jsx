@@ -7,6 +7,7 @@ import { useState } from "react";
 
 export default function MultipleChoiceQuestion({ question, value = [], onChange, answers }) {
   const [otrosTexto, setOtrosTexto] = useState("");
+  const [showAlert, setShowAlert] = useState(true);
   
   const handleToggle = (option) => {
     const currentValues = Array.isArray(value) ? value : [];
@@ -14,6 +15,8 @@ export default function MultipleChoiceQuestion({ question, value = [], onChange,
       onChange(currentValues.filter((v) => v !== option));
     } else {
       onChange([...currentValues, option]);
+      // Mostrar alerta cuando se selecciona una patología
+      setShowAlert(true);
     }
   };
 
@@ -39,7 +42,7 @@ export default function MultipleChoiceQuestion({ question, value = [], onChange,
   const columna2 = [...opcionesSinOtros.slice(4), "Otros"]; // Últimos 3 + Otros: Problemas articulares, Problemas dentales, Diabetes, Otros
 
   return (
-    <div className="options-container">
+    <div className="options-container patologias-question">
       {/* Contenedor de dos columnas */}
       <div className="two-columns-container">
         <div className="column">
@@ -119,15 +122,25 @@ export default function MultipleChoiceQuestion({ question, value = [], onChange,
         Selecciona todas las que apliquen para personalizar la recomendación
       </p>
 
-      {/* Alerta naranja si se seleccionó alguna patología */}
-      {tienePatologias && (
-        <div className="patologia-alert">
-          <p className="alert-icon">⚠️</p>
-          <p className="alert-text">
-            
-            Evaluaremos una dieta personalizada para entender mejor qué necesita y ofrecerle 
-            la mejor alimentación adaptada a su condición.
-          </p>
+      {/* Alerta naranja si se seleccionó alguna patología - NUEVO DISEÑO */}
+      {tienePatologias && showAlert && (
+        <div className="patologia-alert-banner">
+          <div className="alert-banner-content">
+            <div className="alert-banner-icon">🎉</div>
+            <div className="alert-banner-text">
+              <strong>¡Aprovecha tu primer pedido!</strong>
+              <p>Usa el cupón <span className="coupon-code">RET15</span> y obtén un <strong>15% de descuento</strong> solo para tu primer pedido.</p>
+              <p className="alert-banner-note">*El cupón se aplicará automáticamente al crear tu cesta</p>
+            </div>
+          </div>
+          <button 
+            className="alert-banner-close"
+            onClick={() => setShowAlert(false)}
+            aria-label="Cerrar"
+            type="button"
+          >
+            ✕
+          </button>
         </div>
       )}
     </div>
