@@ -515,7 +515,17 @@ function calcularGramosTotales(cantidad) {
  * MEJORA: Cantidades ligeramente superiores para mayor duración
  */
 function seleccionarVariante(producto, gramosDiarios, tamano, esHumedo = false) {
+  console.log(`\n🔍 seleccionarVariante: ${producto.nombre}`);
+  console.log(`   Gramos diarios: ${gramosDiarios}g | Tamaño: ${tamano} | Húmedo: ${esHumedo}`);
+  
   let variantes = producto.variantes;
+  console.log(`   Variantes disponibles: ${variantes?.length || 0}`);
+  if (variantes && variantes.length > 0) {
+    console.log(`   Cantidades: ${variantes.map(v => v.cantidad).join(', ')}`);
+  } else {
+    console.warn(`   ⚠️ No hay variantes disponibles para ${producto.nombre}`);
+    return null;
+  }
 
   // Para productos húmedos, priorizar SIEMPRE los paquetes/cajas
   if (esHumedo) {
@@ -667,6 +677,7 @@ function seleccionarVariante(producto, gramosDiarios, tamano, esHumedo = false) 
     }
   }
 
+  console.log(`   ✅ Variante seleccionada: ${mejorVariante?.cantidad || 'NINGUNA'} (puntuación: ${mejorPuntuacion.toFixed(1)})`);
   return mejorVariante;
 }
 
@@ -741,6 +752,10 @@ export async function calcularRecomendacionProductos(answers) {
   const gramosDiarios = productoSeco ? calcularGramosProducto(kcalDiarias, productoSeco.kcalEmKg) : 0;
   let variante = productoSeco ? seleccionarVariante(productoSeco, gramosDiarios, answers.q3_perro, false) : null;
   if (productoSeco && variante) variante = aplicarOverrideVariante(productoSeco, variante);
+        
+        console.log(`📦 Producto seco: ${productoSeco?.nombre || 'N/A'}`);
+        console.log(`   Variante recomendada: ${variante?.cantidad || 'NINGUNA'}`);
+        console.log(`   Gramos diarios: ${gramosDiarios}g`);
         
         resultado.recomendacion = {
           tipo: "seca",

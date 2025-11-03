@@ -218,14 +218,19 @@ function generateProductKey(title, tags) {
  */
 function mapVariants(shopifyVariants, tipo, productHandle) {
   if (!shopifyVariants || !Array.isArray(shopifyVariants)) {
+    console.warn(`   ⚠️ No hay variantes o no es un array`);
     return [];
   }
+  
+  console.log(`\n📦 Mapeando ${shopifyVariants.length} variantes para producto ${productHandle}`);
   
   return shopifyVariants.map(variant => {
     // Extraer información de la variante
     const sku = variant.sku || "";
     const title = variant.title || "";
     const barcode = variant.barcode || "";
+    
+    console.log(`   Variante: title="${title}", sku="${sku}", id=${variant.id}`);
     
     // Determinar cantidad desde el título de la variante o weight
     const cantidad = extractQuantity(title, variant);
@@ -235,13 +240,16 @@ function mapVariants(shopifyVariants, tipo, productHandle) {
       ? buildProductUrl(productHandle, variant.id)
       : "";
     
-    return {
+    const result = {
       ean: barcode,
       cantidad: cantidad,
       sku: sku,
       link: link,
       variantId: variant.id ? variant.id.toString() : "",
     };
+    
+    console.log(`   → cantidad: "${cantidad}", variantId: ${result.variantId}`);
+    return result;
   }).filter(v => v.cantidad); // Filtrar variantes sin cantidad
 }
 
@@ -530,22 +538,28 @@ function extractQuantity(title, variant) {
   // Intentar extraer desde el título
   if (title && title !== "Default Title") {
     // Patrón para detectar:
-    // - "185 gr", "400 g", "3 kg", "500gr"
+    // - "185 gr", "400 g", "3 kg", "500gr", "500g", "3kg", "12kg"
     // - "Caja 12 latas 185 g", "185 gr x 12ud"
+    
+    console.log(`   🔍 Extrayendo cantidad de título: "${title}"`);
     
     // Buscar "Caja X latas Y g/kg"
     const boxMatch = title.match(/caja\s+(\d+)\s+latas?\s+(\d+)\s*(gr?|g|kg)/i);
     if (boxMatch) {
-      return `Caja ${boxMatch[1]} latas ${boxMatch[2]} ${boxMatch[3]}`;
+      const result = `Caja ${boxMatch[1]} latas ${boxMatch[2]} ${boxMatch[3]}`;
+      console.log(`      ✅ Caja detectada: ${result}`);
+      return result;
     }
     
     // Buscar "X g/kg x Y ud"
     const multiMatch = title.match(/(\d+)\s*(gr?|g|kg)\s*x\s*(\d+)\s*ud/i);
     if (multiMatch) {
-      return `${multiMatch[1]} ${multiMatch[2]} x ${multiMatch[3]}ud`;
+      const result = `${multiMatch[1]} ${multiMatch[2]} x ${multiMatch[3]}ud`;
+      console.log(`      ✅ Pack detectado: ${result}`);
+      return result;
     }
     
-    // Buscar cantidad simple: "185 g", "3 kg", "500gr"
+    // Buscar cantidad simple: "185 g", "3 kg", "500gr", "500g", "3kg" (CON o SIN espacio)
     const simpleMatch = title.match(/(\d+(?:\.\d+)?)\s*(gr?|g|kg)/i);
     if (simpleMatch) {
       const amount = simpleMatch[1];
@@ -558,20 +572,27 @@ function extractQuantity(title, variant) {
         unit = 'kg';
       }
       
-      return `${amount} ${unit}`;
+      const result = `${amount} ${unit}`;
+      console.log(`      ✅ Cantidad simple: ${result}`);
+      return result;
     }
   }
   
   // Intentar desde weight (en gramos)
   if (variant.weight && variant.weight > 0) {
     const weightInGrams = variant.weight;
+    let result;
     if (weightInGrams >= 1000) {
       const weightInKg = (weightInGrams / 1000).toFixed(1);
-      return `${weightInKg} kg`;
+      result = `${weightInKg} kg`;
+    } else {
+      result = `${weightInGrams} g`;
     }
-    return `${weightInGrams} g`;
+    console.log(`      ⚠️ Usando weight como fallback: ${result} (${weightInGrams}g)`);
+    return result;
   }
   
+  console.warn(`      ❌ No se pudo extraer cantidad de "${title}"`);
   return "";
 }
 

@@ -233,25 +233,37 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
       </div>
     );
   }
+  
+  // Log de depuración para ver qué datos llegan
+  console.log(`\n🎴 ProductCard para ${producto.nombre}:`);
+  console.log(`   varianteRecomendada:`, producto.varianteRecomendada);
+  console.log(`   gramosDiarios: ${producto.gramosDiarios}g`);
+  console.log(`   variantes disponibles: ${producto.variantes?.length || 0}`);
+  
   // El product-type siempre muestra el tipo de alimentación (Seco/Húmedo)
   // La información de croqueta va en el badge dedicado
   const mostrarTipoCroqueta = tipoCroqueta && tipoAnimal === "Perro" && tipo.includes("Seco");
   
   const calcularDuracion = () => {
-  const cantidadOriginal = producto.varianteRecomendada?.cantidad || "";
-    let gramosTotales;
+    const cantidadOriginal = producto.varianteRecomendada?.cantidad || "";
+    if (!cantidadOriginal) {
+      return "No disponible";
+    }
     
-    // Para productos con packs: "Caja 12 latas 185 g" o "185 gr x 12ud"
-    const matchCaja = cantidadOriginal.match(/caja\s+(\d+)\s+latas?\s+(\d+)\s*g/i);
+    let gramosTotales = 0;
+    const cantidadLower = cantidadOriginal.toLowerCase();
+    
+    // Para productos con packs: "Caja 12 latas 185 g" o "Caja 18x80gr"
+    const matchCaja = cantidadLower.match(/caja\s*(\d+)(?:\s*latas)?\s*(?:x\s*)?(\d+(?:\.\d+)?)\s*g/i);
     if (matchCaja) {
       const unidades = parseFloat(matchCaja[1]);
       const gramosPorUnidad = parseFloat(matchCaja[2]);
       gramosTotales = gramosPorUnidad * unidades;
       console.log(`Caja: ${unidades} latas × ${gramosPorUnidad}g = ${gramosTotales}g`);
     }
-    // Para formato "185 gr x 12ud"
+    // Para formato "185 gr x 12ud" o "400 gr x 12ud"
     else {
-      const matchPack = cantidadOriginal.match(/(\d+(?:\.\d+)?)\s*g(?:r)?\s*x\s*(\d+)\s*ud/i);
+      const matchPack = cantidadLower.match(/(\d+(?:\.\d+)?)\s*gr?\s*x\s*(\d+)\s*ud/i);
       if (matchPack) {
         const gramosPorUnidad = parseFloat(matchPack[1]);
         const unidades = parseFloat(matchPack[2]);
@@ -259,19 +271,37 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
         console.log(`Pack: ${gramosPorUnidad}g × ${unidades}ud = ${gramosTotales}g`);
       }
       // Si es en kg (sin pack)
-      else if (cantidadOriginal.toLowerCase().includes("kg") && !cantidadOriginal.includes("x")) {
-        const numeros = cantidadOriginal.match(/(\d+(?:\.\d+)?)/);
+      else if (cantidadLower.includes("kg") && !cantidadLower.includes("x")) {
+        const numeros = cantidadLower.match(/(\d+(?:\.\d+)?)/);
         gramosTotales = numeros ? parseFloat(numeros[1]) * 1000 : 0;
+        console.log(`Kg: ${cantidadLower} = ${gramosTotales}g`);
       }
-      // Si es en gramos simples
+      // Si es en gramos simples (lata individual)
       else {
-        const numeros = cantidadOriginal.match(/(\d+(?:\.\d+)?)/);
+        const numeros = cantidadLower.match(/(\d+(?:\.\d+)?)/);
         gramosTotales = numeros ? parseFloat(numeros[1]) : 0;
+        console.log(`Gramos simples: ${cantidadLower} = ${gramosTotales}g`);
       }
     }
     
-  const dias = producto.gramosDiarios ? Math.round(gramosTotales / producto.gramosDiarios) : 0;
+    if (!gramosTotales || gramosTotales <= 0) {
+      console.warn(`⚠️ No se pudo calcular gramos totales de "${cantidadOriginal}"`);
+      return "Consultar envase";
+    }
+    
+    if (!producto.gramosDiarios || producto.gramosDiarios <= 0) {
+      console.warn(`⚠️ Gramos diarios no válidos: ${producto.gramosDiarios}`);
+      return "Consultar envase";
+    }
+    
+    const dias = Math.round(gramosTotales / producto.gramosDiarios);
     console.log(`Duración: ${gramosTotales}g ÷ ${producto.gramosDiarios}g/día = ${dias} días`);
+
+    // Validación adicional
+    if (dias <= 0) {
+      console.warn(`⚠️ Duración calculada inválida: ${dias} días`);
+      return "Menos de 1 día";
+    }
 
     // Mostrar en semanas principalmente para mayor claridad
     if (dias < 7) {
