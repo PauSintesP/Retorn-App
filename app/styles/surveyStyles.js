@@ -77,7 +77,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: var(--jdgm-primary-color);
     position: relative;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 100%;
+    max-width: 100vw;
+    box-sizing: border-box;
   }
 
   .survey-container::before {
@@ -134,6 +138,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     position: relative;
     z-index: 1;
     min-height: calc(100vh - 4px);
+    overflow-x: hidden;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .question-card {
@@ -151,6 +158,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     border: 1px solid rgba(115, 159, 153, 0.1);
     position: relative;
     margin: 0 auto;
+    box-sizing: border-box;
+    overflow: visible;
   }
 
   /* Tablet */
@@ -292,6 +301,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     gap: 0.6rem;
     margin-bottom: 0;
     padding: 0 0.15rem;
+    box-sizing: border-box;
+    overflow: visible;
   }
 
   @media (min-width: 600px) {
@@ -1318,6 +1329,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     align-items: flex-start;
     transition: min-height 0.3s ease;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow: visible;
   }
 
   @media (min-width: 600px) {
@@ -1337,13 +1352,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .patologia-alert-banner {
     position: relative;
     width: 100%;
-    padding: 1rem 2.5rem 1rem 1rem;
+    max-width: 100%;
+    padding: 0.85rem 2.25rem 0.85rem 0.85rem;
     background: linear-gradient(135deg, #FFF9E6 0%, #FFFBF0 100%);
     border: 2px solid #FFD700;
-    border-radius: 12px;
+    border-radius: 10px;
     box-shadow: 0 4px 16px rgba(255, 215, 0, 0.2);
     animation: fadeIn 0.3s ease-out;
     box-sizing: border-box;
+    overflow: hidden;
   }
 
   @keyframes fadeIn {
@@ -1372,8 +1389,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .alert-banner-content {
     display: flex;
-    gap: 0.75rem;
+    gap: 0.65rem;
     align-items: flex-start;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   @media (min-width: 600px) {
@@ -1389,7 +1408,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .alert-banner-icon {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     line-height: 1;
     flex-shrink: 0;
     margin-top: 0.125rem;
@@ -1411,14 +1430,18 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex: 1;
     font-family: 'Inter', sans-serif;
     color: #3E3E3E;
+    min-width: 0;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
   }
 
   .alert-banner-text p {
     margin: 0;
-    font-size: 0.85rem;
-    line-height: 1.5;
+    font-size: 0.8rem;
+    line-height: 1.4;
     color: #4a4a4a;
     font-weight: 500;
+    word-break: break-word;
   }
 
   @media (min-width: 600px) {
@@ -1437,22 +1460,23 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .alert-banner-close {
     position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
+    top: 0.65rem;
+    right: 0.65rem;
     background: transparent;
     border: none;
     color: #666;
-    font-size: 1.25rem;
+    font-size: 1.15rem;
     line-height: 1;
     cursor: pointer;
     transition: all 0.2s ease;
-    padding: 0.25rem;
-    width: 1.75rem;
-    height: 1.75rem;
+    padding: 0.2rem;
+    width: 1.5rem;
+    height: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
+    flex-shrink: 0;
   }
 
   @media (min-width: 600px) {
