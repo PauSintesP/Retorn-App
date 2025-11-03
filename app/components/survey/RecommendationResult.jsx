@@ -260,10 +260,6 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
   console.log(`   gramosDiarios: ${producto.gramosDiarios}g`);
   console.log(`   variantes disponibles: ${producto.variantes?.length || 0}`);
   
-  // El product-type siempre muestra el tipo de alimentación (Seco/Húmedo)
-  // La información de croqueta va en el badge dedicado
-  const mostrarTipoCroqueta = tipoCroqueta && tipoAnimal === "Perro" && tipo.includes("Seco");
-  
   const calcularDuracion = () => {
     const cantidadOriginal = producto.varianteRecomendada?.cantidad || "";
     if (!cantidadOriginal) {
@@ -373,13 +369,18 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
           <span className="product-badge">{producto.segmento}</span>
         </div>
 
-        {/* Reservar espacio para el badge de croqueta siempre, para mantener alineación */}
-        {mostrarTipoCroqueta && tipoCroqueta && tipoCroqueta.tipo ? (
-          <div className="product-croqueta-badge" role="note" aria-label={`Tipo de croqueta ${tipoCroqueta.tipo}`}>
+        {/* Badge de tipo de croqueta para alimentos secos de perro */}
+        {tipoCroqueta && tipoAnimal === "Perro" && tipo.includes("Seco") ? (
+          <div className="product-croqueta-badge" role="note" aria-label={`Tipo de croqueta: ${tipoCroqueta.tipo}`}>
             <span className="croqueta-icon">●</span>
-            <span className="croqueta-text">Croqueta: {tipoCroqueta.tipo}</span>
-            {tipoCroqueta.diametro && (
-              <span className="croqueta-size">{tipoCroqueta.diametro}</span>
+            <span className="croqueta-text">
+              <strong>Croqueta {tipoCroqueta.tipo}</strong>
+              {tipoCroqueta.diametro && ` (${tipoCroqueta.diametro})`}
+            </span>
+            {tipoCroqueta.disponibilidad && (
+              <span className="croqueta-disponibilidad" style={{ fontSize: '0.85em', color: '#666', marginLeft: '8px' }}>
+                {tipoCroqueta.disponibilidad}
+              </span>
             )}
           </div>
         ) : (
@@ -431,7 +432,7 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
       </div>
 
       <a
-        href={(producto.varianteRecomendada && (producto.varianteRecomendada.link || producto.link)) || "#"}
+        href={producto.varianteRecomendada?.link || "#"}
         target="_blank"
         rel="noopener noreferrer"
         className="product-link"

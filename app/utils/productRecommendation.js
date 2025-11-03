@@ -312,6 +312,50 @@ function determinarTipoCroqueta(peso) {
 }
 
 /**
+ * Detecta el tipo de croqueta real del producto seleccionado
+ * Analiza el nombre y variantes del producto para determinar si tiene croqueta pequeña o regular
+ */
+function detectarTipoCroquetaProducto(producto) {
+  if (!producto || producto.tipo !== "Seco" || producto.animal !== "Perro") {
+    return null; // Solo aplica a alimentos secos para perros
+  }
+  
+  const nombreLower = producto.nombre?.toLowerCase() || "";
+  
+  // Verificar si tiene variantes de ambos tipos
+  const tieneVariantesSmall = producto.variantes?.some(v => 
+    v.sku?.toLowerCase().includes('s') || 
+    v.cantidad?.toLowerCase().includes('small') ||
+    v.cantidad?.toLowerCase().includes('pequeña')
+  );
+  
+  const tieneVariantesRegular = producto.variantes?.some(v => 
+    !v.sku?.toLowerCase().includes('s') && 
+    !v.cantidad?.toLowerCase().includes('small') &&
+    !v.cantidad?.toLowerCase().includes('pequeña')
+  );
+  
+  // Detectar si el producto específico es small bite
+  const esSmallBite = nombreLower.includes('small') || 
+                      nombreLower.includes('pequeña') ||
+                      producto.segmento?.toLowerCase().includes('razas s');
+  
+  if (esSmallBite) {
+    return {
+      tipo: "Pequeña",
+      diametro: "10 mm",
+      disponibilidad: tieneVariantesRegular ? "También disponible en croqueta regular" : "Tamaño único"
+    };
+  } else {
+    return {
+      tipo: "Regular",
+      diametro: "15 mm",
+      disponibilidad: tieneVariantesSmall ? "También disponible en croqueta pequeña" : "Tamaño único"
+    };
+  }
+}
+
+/**
  * Determina el caso específico para gatos
  * Según Excel: diferentes FACT y FACT2 según edad y condiciones
  */
@@ -802,11 +846,14 @@ export async function calcularRecomendacionProductos(answers) {
       // Determinar tipo de croqueta según el peso
       const peso = parseFloat(answers.q6_perro);
       const tipoCroqueta = determinarTipoCroqueta(peso);
-      resultado.tipoCroqueta = tipoCroqueta;
       
       // Seleccionar productos usando el sistema de IDs
       const productoSeco = await seleccionarProductoSecoPerro(answers);
       const productoHumedo = await seleccionarProductoHumedoPerro(productoSeco, answers);
+      
+      // Actualizar tipo de croqueta con información real del producto seleccionado
+      const tipoCroquetaReal = detectarTipoCroquetaProducto(productoSeco);
+      resultado.tipoCroqueta = tipoCroquetaReal || tipoCroqueta;
       
       if (tipoAlimentacion === "Seca") {
         // Solo producto seco
