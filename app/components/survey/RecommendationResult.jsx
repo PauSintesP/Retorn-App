@@ -4,7 +4,7 @@
 
 import { useState } from "react";
 
-export default function RecommendationResult({ recommendation, onBack }) {
+export default function RecommendationResult({ recommendation, onRestart = () => {} }) {
   const [showFirstOrderBanner, setShowFirstOrderBanner] = useState(true);
   const [showSubscriptionBanner, setShowSubscriptionBanner] = useState(true);
 
@@ -47,8 +47,8 @@ export default function RecommendationResult({ recommendation, onBack }) {
     <div className="recommendation-container">
       <button 
         className="back-button"
-        onClick={onBack}
-        aria-label="Atrás"
+        onClick={onRestart}
+        aria-label="Volver al inicio"
       >
         <svg 
           width="24" 
@@ -62,7 +62,7 @@ export default function RecommendationResult({ recommendation, onBack }) {
         >
           <path d="M19 12H5M12 19l-7-7 7-7"/>
         </svg>
-        <span>Atrás</span>
+        <span>Volver</span>
       </button>
       
       <div className="recommendation-header">
