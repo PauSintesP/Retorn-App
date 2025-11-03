@@ -359,27 +359,161 @@ export default function PublicSurveyPage() {
               alignItems: 'center',
               justifyContent: 'center',
               padding: '3rem',
-              minHeight: '300px'
+              minHeight: '400px',
+              background: 'linear-gradient(135deg, #f8fffe 0%, #f0f9f7 100%)'
             }}>
+              {/* Contenedor de los círculos animados */}
               <div style={{
-                width: '50px',
-                height: '50px',
-                border: '4px solid #f3f3f3',
-                borderTop: '4px solid ' + (theme.primary || '#4A90E2'),
-                borderRadius: '50%',
-                animation: 'spin 1s linear infinite'
-              }}></div>
-              <p style={{
-                marginTop: '1.5rem',
-                fontSize: '1.1rem',
-                color: '#666'
+                position: 'relative',
+                width: '120px',
+                height: '120px',
+                marginBottom: '2rem'
               }}>
-                Buscando el mejor producto para tu mascota...
-              </p>
+                {/* Círculo exterior pulsante */}
+                <div style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '100px',
+                  height: '100px',
+                  borderRadius: '50%',
+                  border: '4px solid rgba(115, 159, 153, 0.2)',
+                  animation: 'pulse 2s ease-in-out infinite'
+                }}></div>
+                
+                {/* Círculo medio rotatorio */}
+                <div style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '80px',
+                  height: '80px',
+                  borderRadius: '50%',
+                  border: '4px solid transparent',
+                  borderTopColor: '#739f99',
+                  borderRightColor: '#739f99',
+                  animation: 'spin 1.5s linear infinite'
+                }}></div>
+                
+                {/* Círculo interior con icono */}
+                <div style={{
+                  position: 'absolute',
+                  top: '50%',
+                  left: '50%',
+                  transform: 'translate(-50%, -50%)',
+                  width: '60px',
+                  height: '60px',
+                  borderRadius: '50%',
+                  background: 'linear-gradient(135deg, #739f99 0%, #5fb3a1 100%)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '28px',
+                  animation: 'fadeInOut 2s ease-in-out infinite',
+                  boxShadow: '0 4px 20px rgba(115, 159, 153, 0.3)'
+                }}>
+                  🐾
+                </div>
+              </div>
+
+              {/* Texto animado */}
+              <div style={{
+                textAlign: 'center',
+                maxWidth: '400px'
+              }}>
+                <h3 style={{
+                  margin: '0 0 0.5rem 0',
+                  fontSize: '1.5rem',
+                  fontFamily: 'Oswald, sans-serif',
+                  fontWeight: '600',
+                  color: '#3E3E3E',
+                  animation: 'slideUp 0.6s ease-out'
+                }}>
+                  Analizando las necesidades de tu mascota
+                </h3>
+                <p style={{
+                  margin: '0',
+                  fontSize: '1rem',
+                  color: '#739f99',
+                  fontFamily: 'Inter, sans-serif',
+                  animation: 'slideUp 0.6s ease-out 0.2s both'
+                }}>
+                  Buscando el mejor producto personalizado...
+                </p>
+                
+                {/* Puntos animados */}
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  gap: '8px',
+                  marginTop: '1.5rem'
+                }}>
+                  <div style={{
+                    width: '10px',
+                    height: '10px',
+                    borderRadius: '50%',
+                    background: '#739f99',
+                    animation: 'bounce 1.4s ease-in-out infinite'
+                  }}></div>
+                  <div style={{
+                    width: '10px',
+                    height: '10px',
+                    borderRadius: '50%',
+                    background: '#739f99',
+                    animation: 'bounce 1.4s ease-in-out 0.2s infinite'
+                  }}></div>
+                  <div style={{
+                    width: '10px',
+                    height: '10px',
+                    borderRadius: '50%',
+                    background: '#739f99',
+                    animation: 'bounce 1.4s ease-in-out 0.4s infinite'
+                  }}></div>
+                </div>
+              </div>
+
               <style>{`
                 @keyframes spin {
-                  0% { transform: rotate(0deg); }
-                  100% { transform: rotate(360deg); }
+                  0% { transform: translate(-50%, -50%) rotate(0deg); }
+                  100% { transform: translate(-50%, -50%) rotate(360deg); }
+                }
+                
+                @keyframes pulse {
+                  0%, 100% { 
+                    transform: translate(-50%, -50%) scale(1);
+                    opacity: 1;
+                  }
+                  50% { 
+                    transform: translate(-50%, -50%) scale(1.1);
+                    opacity: 0.5;
+                  }
+                }
+                
+                @keyframes fadeInOut {
+                  0%, 100% { opacity: 0.8; }
+                  50% { opacity: 1; }
+                }
+                
+                @keyframes slideUp {
+                  from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                  }
+                  to {
+                    opacity: 1;
+                    transform: translateY(0);
+                  }
+                }
+                
+                @keyframes bounce {
+                  0%, 80%, 100% { 
+                    transform: translateY(0);
+                  }
+                  40% { 
+                    transform: translateY(-12px);
+                  }
                 }
               `}</style>
             </div>

@@ -154,6 +154,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     padding: 1.25rem 0.85rem;
     max-width: 100%;
     width: 100%;
+    min-width: 280px;
     animation: ${direction === "forward" ? "fadeSlideIn" : "fadeSlideOut"} 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
     border: 1px solid rgba(115, 159, 153, 0.1);
     position: relative;
@@ -172,6 +173,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
       padding: 1.75rem 1.35rem;
       border-radius: 1.2rem;
       max-width: 90%;
+      min-width: 450px;
     }
   }
 
@@ -185,6 +187,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
       padding: 3rem 1.75rem;
       border-radius: 1.6rem;
       max-width: 900px;
+      min-width: 550px;
       box-shadow: 
         0 30px 80px rgba(0, 0, 0, 0.08),
         0 10px 30px rgba(115, 159, 153, 0.1),
