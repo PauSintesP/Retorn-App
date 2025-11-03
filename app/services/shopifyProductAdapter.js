@@ -14,23 +14,16 @@ import { filterAllowedVariants } from "../data/allowedProducts.js";
 export function mapShopifyProductsToLocal(shopifyProducts) {
   const mappedProducts = {};
   
-  console.log(`[Adapter] Procesando ${shopifyProducts.length} productos de Shopify...`);
-  
   shopifyProducts.forEach(shopifyProduct => {
-    // FILTRO: Solo incluir productos alimenticios (Pienso y Comida Húmeda)
     if (!isProductAlimento(shopifyProduct)) {
-      console.log(`[Adapter] ⏭️  Omitido (no es alimento): ${shopifyProduct.title}`);
       return;
     }
     
-    // FILTRO CRÍTICO: Solo variantes que están en la calculadora CSV
     const allowedVariants = filterAllowedVariants(shopifyProduct.variants);
     if (allowedVariants.length === 0) {
-      console.log(`[Adapter] ❌ RECHAZADO (ninguna variante en calculadora): ${shopifyProduct.title}`);
       return;
     }
     
-    // Crear copia del producto con solo las variantes permitidas
     const filteredProduct = {
       ...shopifyProduct,
       variants: allowedVariants
@@ -38,13 +31,9 @@ export function mapShopifyProductsToLocal(shopifyProducts) {
     
     const localProduct = mapSingleProduct(filteredProduct);
     if (localProduct && localProduct.key && localProduct.data) {
-      // Incluir solo productos con variantes permitidas
       mappedProducts[localProduct.key] = localProduct.data;
-      console.log(`[Adapter] ✅ ${shopifyProduct.title} (${localProduct.data.variantes.length} variantes permitidas)`);
     }
   });
-  
-  console.log(`[Adapter] Total productos mapeados: ${Object.keys(mappedProducts).length}`);
   
   return mappedProducts;
 }
@@ -143,7 +132,6 @@ function isProductAlimento(shopifyProduct) {
  */
 function mapSingleProduct(shopifyProduct) {
   try {
-    // Extraer información básica del producto
     const title = shopifyProduct.title || "";
     const productType = shopifyProduct.product_type || "";
     const vendor = shopifyProduct.vendor || "";
@@ -151,32 +139,21 @@ function mapSingleProduct(shopifyProduct) {
       ? shopifyProduct.tags 
       : (typeof shopifyProduct.tags === 'string' ? shopifyProduct.tags.split(',').map(t => t.trim()) : []);
     
-    console.log(`[Adapter] Analizando: "${title}"`);
-    console.log(`[Adapter] Tags disponibles:`, tags);
-    
-    // EXTRAER INFORMACIÓN DESDE SHOPIFY (tags, metafields, título)
     const tipo = extractProductType(title, tags, productType);
     const animal = extractAnimal(title, tags);
     const segmento = extractSegment(title, tags);
     const kcalEmKg = extractCalories(shopifyProduct, title, tags);
     
-    console.log(`[Adapter] Clasificación extraída: tipo=${tipo}, animal=${animal}, segmento=${segmento}, kcal=${kcalEmKg}`);
-    
-    // Determinar clave del producto
     const productKey = generateProductKey(title, tags);
     
-    // Extraer imagen principal
     const imagen = shopifyProduct.images && shopifyProduct.images[0] 
       ? shopifyProduct.images[0].src 
       : "";
     
-    // Obtener handle del producto para construir URLs
     const productHandle = shopifyProduct.handle || "";
     
-    // Mapear variantes
     const variantes = mapVariants(shopifyProduct.variants, tipo, productHandle);
     
-    // Separar variantes por tamaño de croqueta SOLO si el producto no especifica ya un tamaño
     const productoEspecificaTamano = title.toLowerCase().includes('croqueta pequeña') || 
                                       title.toLowerCase().includes('croqueta grande') ||
                                       title.toLowerCase().includes('small bite');
@@ -184,14 +161,10 @@ function mapSingleProduct(shopifyProduct) {
     let variantes_regular = variantes;
     let variantes_small = [];
     
-    // Solo separar si el producto NO especifica ya un tamaño de croqueta
     if (!productoEspecificaTamano && tipo === "Seco" && animal === "Perro") {
       const separated = separateVariantsBySize(variantes, tags);
       variantes_regular = separated.variantes_regular;
       variantes_small = separated.variantes_small;
-      console.log(`   Separando variantes: ${variantes_regular.length} regulares, ${variantes_small.length} pequeñas`);
-    } else if (productoEspecificaTamano) {
-      console.log(`   Producto ya especifica tamaño de croqueta, usando todas las variantes sin separar`);
     }
     
     const localProduct = {
@@ -205,7 +178,6 @@ function mapSingleProduct(shopifyProduct) {
       variantes: variantes_regular,
     };
     
-    // Agregar variantes_small solo si existen
     if (variantes_small.length > 0) {
       localProduct.variantes_small = variantes_small;
     }
@@ -216,7 +188,7 @@ function mapSingleProduct(shopifyProduct) {
     };
     
   } catch (error) {
-    console.error("[Adapter] Error mapping Shopify product:", error, shopifyProduct?.title);
+    console.error("[Adapter] Error mapping product:", shopifyProduct?.title);
     return null;
   }
 }
@@ -248,39 +220,28 @@ function generateProductKey(title, tags) {
  */
 function mapVariants(shopifyVariants, tipo, productHandle) {
   if (!shopifyVariants || !Array.isArray(shopifyVariants)) {
-    console.warn(`   ⚠️ No hay variantes o no es un array`);
     return [];
   }
   
-  console.log(`\n📦 Mapeando ${shopifyVariants.length} variantes para producto ${productHandle}`);
-  
   return shopifyVariants.map(variant => {
-    // Extraer información de la variante
     const sku = variant.sku || "";
     const title = variant.title || "";
     const barcode = variant.barcode || "";
     
-    console.log(`   Variante: title="${title}", sku="${sku}", id=${variant.id}`);
-    
-    // Determinar cantidad desde el título de la variante o weight
     const cantidad = extractQuantity(title, variant);
     
-    // Construir URL del producto con la variante
     const link = productHandle 
       ? buildProductUrl(productHandle, variant.id)
       : "";
     
-    const result = {
+    return {
       ean: barcode,
       cantidad: cantidad,
       sku: sku,
       link: link,
       variantId: variant.id ? variant.id.toString() : "",
     };
-    
-    console.log(`   → cantidad: "${cantidad}", variantId: ${result.variantId}`);
-    return result;
-  }).filter(v => v.cantidad); // Filtrar variantes sin cantidad
+  }).filter(v => v.cantidad);
 }
 
 /**
@@ -477,7 +438,6 @@ function extractSegment(title, tags) {
  * @returns {number} Kcal por kg
  */
 function extractCalories(shopifyProduct, title, tags) {
-  // 1. PRIORIDAD: Intentar obtener desde metafields
   if (shopifyProduct.metafields && Array.isArray(shopifyProduct.metafields)) {
     const caloriesField = shopifyProduct.metafields.find(
       mf => mf.key === "kcal_per_kg" || mf.key === "kcal_em_kg" || mf.key === "calories" || mf.key === "calorias"
@@ -486,75 +446,63 @@ function extractCalories(shopifyProduct, title, tags) {
     if (caloriesField && caloriesField.value) {
       const calories = parseFloat(caloriesField.value);
       if (!isNaN(calories) && calories > 0) {
-        console.log(`[Adapter] ✅ Calorías desde metafield: ${calories} kcal/kg`);
         return calories;
       }
     }
   }
   
-  // 2. Intentar extraer desde body_html o descripción
   if (shopifyProduct.body_html) {
     const kcalMatch = shopifyProduct.body_html.match(/(\d{3,4})\s*kcal[\s\/]*kg/i);
     if (kcalMatch) {
-      const calories = parseInt(kcalMatch[1]);
-      console.log(`[Adapter] ✅ Calorías desde descripción: ${calories} kcal/kg`);
-      return calories;
+      return parseInt(kcalMatch[1]);
     }
   }
   
-  // 3. FALLBACK: Valores por defecto basados en tipo y segmento
   const titleLower = title.toLowerCase();
   const tipo = extractProductType(title, tags, "");
   
-  console.log(`[Adapter] ⚠️  Usando calorías por defecto basadas en tipo/segmento`);
-  
-  // Comida húmeda (latas)
   if (tipo === "Humedo") {
     if (titleLower.includes("kitten") || titleLower.includes("cachorro")) {
-      return 871; // Latas para cachorros
+      return 871;
     }
-    return 900; // Latas para adultos (promedio)
+    return 900;
   }
   
-  // Comida seca (pienso)
   if (titleLower.includes("puppy") || titleLower.includes("cachorro") || titleLower.includes("kitten")) {
     if (titleLower.includes("cat") || titleLower.includes("gato")) {
-      return 4173; // Gatitos
+      return 4173;
     }
-    return 3451; // Cachorros de perro
+    return 3451;
   }
   
   if (titleLower.includes("light") || titleLower.includes("senior")) {
-    return 3453; // Light/Senior
+    return 3453;
   }
   
   if (titleLower.includes("sterilized") || titleLower.includes("esterilizado")) {
-    return 3940; // Esterilizados
+    return 3940;
   }
   
-  // Adultos por proteína
   if (titleLower.includes("cat") || titleLower.includes("gato")) {
     if (titleLower.includes("pollo") || titleLower.includes("chicken")) {
-      return 4070; // Gato adulto pollo
+      return 4070;
     }
     if (titleLower.includes("pescado") || titleLower.includes("fish")) {
-      return 3686; // Gato adulto pescado
+      return 3686;
     }
-    return 3800; // Gato adulto genérico
+    return 3800;
   }
   
-  // Perros adultos
   if (titleLower.includes("pollo") || titleLower.includes("chicken")) {
-    return 3674; // Adulto pollo
+    return 3674;
   }
   if (titleLower.includes("cordero") || titleLower.includes("lamb")) {
-    return 3440; // Adulto cordero
+    return 3440;
   }
   if (titleLower.includes("salmon") || titleLower.includes("salmón")) {
-    return 3327; // Adulto salmón
+    return 3327;
   }
   
-  // Por defecto
   return 3500;
 }
 
@@ -565,29 +513,15 @@ function extractCalories(shopifyProduct, title, tags) {
  * @returns {string} Cantidad formateada
  */
 function extractQuantity(title, variant) {
-  // Intentar extraer desde el título
   if (title && title !== "Default Title") {
-    // Patrón para detectar:
-    // - "185 gr", "400 g", "3 kg", "500gr", "500g", "3kg", "12kg"
-    // - "Caja 12 latas 185 g", "185 gr x 12ud"
-    // - "Caja 18x80g", "Caja 24x80g"
-    
-    console.log(`   🔍 Extrayendo cantidad de título: "${title}"`);
-    
-    // Buscar "Caja X latas Y g/kg"
     const boxMatch = title.match(/caja\s+(\d+)\s+latas?\s+(\d+)\s*(gr?|g|kg)/i);
     if (boxMatch) {
-      const result = `Caja ${boxMatch[1]} latas ${boxMatch[2]} ${boxMatch[3]}`;
-      console.log(`      ✅ Caja detectada: ${result}`);
-      return result;
+      return `Caja ${boxMatch[1]} latas ${boxMatch[2]} ${boxMatch[3]}`;
     }
     
-    // Buscar "Caja Xx Yg" o "Caja XxYg" (formato compacto como "18x80g", "24x80g")
     const compactBoxMatch = title.match(/caja\s*(\d+)\s*x\s*(\d+)\s*(gr?|g|kg)/i);
     if (compactBoxMatch) {
-      const result = `Caja ${compactBoxMatch[1]} latas ${compactBoxMatch[2]} ${compactBoxMatch[3]}`;
-      console.log(`      ✅ Caja compacta detectada: ${result}`);
-      return result;
+      return `Caja ${compactBoxMatch[1]} latas ${compactBoxMatch[2]} ${compactBoxMatch[3]}`;
     }
     
     // Buscar "X g/kg x Y ud"

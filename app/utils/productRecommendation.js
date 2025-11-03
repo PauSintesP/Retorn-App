@@ -1,8 +1,3 @@
-/**
- * Algoritmo para calcular las recomendaciones de productos
- * basándose en las respuestas del formulario
- */
-
 import {
   FACTOR_EDAD_PERRO,
   VAR_ACTIVIDAD_PERRO,
@@ -16,13 +11,6 @@ import { getRecommendedProducts } from "../services/productService";
 import { mapShopifyProductsToLocal } from "../services/shopifyProductAdapter";
 import { getVariantIdOverride } from "../data/productVariantMapping";
 
-// ============================================
-// FUNCIONES AUXILIARES
-// ============================================
-
-/**
- * Calcula la edad en meses desde la fecha de nacimiento
- */
 function calcularEdadEnMeses(fechaNacimiento) {
   if (!fechaNacimiento) return null;
   
@@ -31,14 +19,11 @@ function calcularEdadEnMeses(fechaNacimiento) {
   
   const diffTime = Math.abs(hoy - nacimiento);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-  const meses = Math.floor(diffDays / 30.44); // Promedio de días por mes
+  const meses = Math.floor(diffDays / 30.44);
   
   return meses;
 }
 
-/**
- * Determina el tamaño de raza del perro
- */
 function determinarTamanoRaza(tamano) {
   switch (tamano) {
     case "Pequeño":
@@ -52,9 +37,6 @@ function determinarTamanoRaza(tamano) {
   }
 }
 
-/**
- * Determina el factor de edad para perros basándose en tamaño, edad y fecha de nacimiento
- */
 function determinarFactorEdadPerro(tamano, edad, fechaNacimiento) {
   const meses = calcularEdadEnMeses(fechaNacimiento);
   
@@ -84,9 +66,6 @@ function determinarFactorEdadPerro(tamano, edad, fechaNacimiento) {
   return FACTOR_EDAD_PERRO["Adulto"];
 }
 
-/**
- * Determina la variable de actividad para perros
- */
 function determinarVariableActividad(edad, nivelActividad) {
   if (edad === "Cachorro") {
     return VAR_ACTIVIDAD_PERRO["Cachorro"];
@@ -96,104 +75,76 @@ function determinarVariableActividad(edad, nivelActividad) {
     return VAR_ACTIVIDAD_PERRO["Senior"];
   }
   
-  // Adulto
   return VAR_ACTIVIDAD_PERRO[nivelActividad] || VAR_ACTIVIDAD_PERRO["Media"];
 }
 
-// ============================================
-// NUEVAS AYUDAS: SEGMENTOS Y MAPEOS
-// ============================================
-
 function resolverSegmentoPerroSeco(answers) {
   const edad = answers.q4_perro;
-  const preferencia = answers.q11_perro || ""; // Preferencias de q11
+  const preferencia = answers.q11_perro || "";
   const patologias = answers.q9_perro;
 
-  // Cachorros
   if (edad === "Cachorro") return "Cachorros";
   
-  // Senior o con sobrepeso → Senior Light
   if (edad === "Senior" || patologias?.includes("Sobrepeso")) return "Senior Light";
 
-  // Para adultos, revisar preferencias de la pregunta 11
   if (preferencia.includes("Pollo")) return "Adulto Pollo";
   if (preferencia.includes("Cordero")) return "Adulto Cordero";
   if (preferencia.includes("Salmón")) return "Adulto Salmón";
 
-  // Por defecto Salmón
   return "Adulto Salmón";
 }
 
 function resolverSegmentoPerroHumedo(segmentoSeco, preferencia) {
-  // Si es cachorro, siempre devolver comida de cachorro
   if (segmentoSeco && segmentoSeco.includes("Cachorro")) return "Cachorros";
   
-  // Revisar la preferencia del usuario primero (de q11_perro)
-  // Mapear según las opciones de la pregunta 11 (Mixta):
-  // - "Salmón + Lata Pescado con Zanahorias" → Pescado Zanahoria
-  // - "Cordero + Lata Cordero con Arroz" → Cordero Arroz (Adulto Cordero)
-  // - "Pollo + Lata Pollo con Zanahorias" → Pollo Zanahoria (Adulto Pollo)
-  // - "Salmón Light + Lata Pescado con Zanahorias" → Pescado Zanahoria
-  // - "Salmón Cachorro + Lata Cachorro" → Cachorros
-  
   if (preferencia) {
-    // Si menciona específicamente "Lata Pollo con Zanahorias" o "Pollo"
     if (preferencia.includes("Lata Pollo con Zanahorias") || preferencia.includes("Pollo zanahoria") || 
         (preferencia.includes("Pollo") && !preferencia.includes("Cordero") && !preferencia.includes("Pescado"))) {
       return "Adulto Pollo";
     }
     
-    // Si menciona "Lata Cordero con Arroz" o "Cordero"
     if (preferencia.includes("Lata Cordero con Arroz") || preferencia.includes("Cordero arroz") || 
         (preferencia.includes("Cordero") && !preferencia.includes("Pollo"))) {
       return "Adulto Cordero";
     }
     
-    // Si menciona "Lata Pescado con Zanahorias", "Pesc zanahoria", o cualquier variante de Salmón (que va con pescado)
     if (preferencia.includes("Lata Pescado con Zanahorias") || preferencia.includes("Pesc zanahoria") || 
         preferencia.includes("Pesc") || preferencia.includes("Pescado") || preferencia.includes("Salmón")) {
       return "Adulto Pescado";
     }
     
-    // Si menciona "Lata Cachorro" o "cachorro"
     if (preferencia.includes("Lata Cachorro") || preferencia.includes("Lata cachorro") || preferencia.includes("Cachorro")) {
       return "Cachorros";
     }
   }
   
-  // Si no hay preferencia clara, revisar el segmento seco
   if (segmentoSeco) {
     if (segmentoSeco.includes("Cordero")) return "Adulto Cordero";
     if (segmentoSeco.includes("Pollo")) return "Adulto Pollo";
-    // Senior Light o Salmón → Pescado por defecto
   }
   
-  return "Adulto Pescado"; // default a pescado
+  return "Adulto Pescado";
 }
 
 function resolverSegmentoGatoSeco(answers) {
   const edad = answers.q3_gato;
   const castrado = answers.q6_gato;
   const patologias = answers.q7_gato;
-  const preferencia = answers.q9_gato || ""; // Preferencias de q9
+  const preferencia = answers.q9_gato || "";
 
-  // Gatitos
   if (edad === "Gatito") return "Cachorros";
   
-  // Castrado o con sobrepeso → Esterilizados Light
   if (castrado === "Sí" || patologias?.includes("Sobrepeso")) return "Esterilizados Light";
   
-  // Para adultos, revisar preferencias de la pregunta 9
   if (preferencia.includes("Pollo")) return "Adulto Pollo";
   if (preferencia.includes("Pescado")) return "Adulto Pescado";
   if (preferencia.includes("Esterilizados")) return "Esterilizados Light";
   if (preferencia.includes("Gatito")) return "Cachorros";
   
-  return "Adulto Pollo"; // por defecto
+  return "Adulto Pollo";
 }
 
 function resolverSegmentoGatoHumedo(segmentoSeco, preferencia) {
-  // Si es gatito/cachorro, siempre devolver comida de gatito
   if (segmentoSeco && (segmentoSeco.includes("Cachorro") || segmentoSeco.includes("Gatito"))) {
     return "Cachorros";
   }

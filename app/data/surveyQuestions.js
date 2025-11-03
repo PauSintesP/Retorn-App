@@ -1,8 +1,3 @@
-/**
- * Definición de todas las preguntas del formulario de encuesta
- * Incluye lógica condicional para mostrar preguntas específicas según las respuestas
- */
-
 export const QUESTIONS = [
   {
     id: 1,
@@ -26,7 +21,6 @@ export const QUESTIONS = [
     type: "date",
     required: true,
   },
-  // Q3 - Perro: tamaño
   {
     id: "3_perro",
     question: (name) => `¿De qué tamaño es o será ${name || "tu pelud@"} de mayor?`,
@@ -35,7 +29,6 @@ export const QUESTIONS = [
     required: true,
     condition: (answers) => answers.q1 === "Perro",
   },
-  // Q3 - Gato: edad
   {
     id: "3_gato",
     question: "¿Qué edad tiene?",
@@ -44,7 +37,6 @@ export const QUESTIONS = [
     required: true,
     condition: (answers) => answers.q1 === "Gato",
   },
-  // Q4 - Perro: edad
   {
     id: "4_perro",
     question: "¿Qué edad tiene?",

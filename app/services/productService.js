@@ -7,20 +7,13 @@ import { mapShopifyProductsToLocal } from "./shopifyProductAdapter.js";
 import { getProductSourceInfo } from "../config/productConfig.js";
 
 export async function getRecommendedProducts(animal, tipo, segmento) {
-  console.log('[ProductService] Buscando productos para:', animal, tipo, segmento);
-  
   const productIds = getProductIds(animal, tipo, segmento);
   
   if (!productIds || productIds.length === 0) {
-    console.warn('[ProductService] No se encontraron IDs');
     return [];
   }
   
-  console.log('[ProductService] IDs encontrados:', productIds);
-  
   const products = await fetchProductsByIds(productIds);
-  
-  console.log('[ProductService] Productos obtenidos:', products.length);
   
   return products;
 }
@@ -35,21 +28,18 @@ async function fetchProductsByIds(productIds) {
     const response = await fetch('/api/products?' + idsQuery);
     
     if (!response.ok) {
-      console.error('[ProductService] Error:', response.status);
       return [];
     }
     
     const data = await response.json();
     
     if (!data.success || !data.products) {
-      console.error('[ProductService] Respuesta inválida');
       return [];
     }
     
     return data.products;
     
   } catch (error) {
-    console.error('[ProductService] Error:', error);
     return [];
   }
 }
@@ -71,7 +61,6 @@ export async function getProducts() {
   try {
     const response = await fetch('/api/products');
     if (!response.ok) {
-      console.error('[ProductService] getProducts error status:', response.status);
       return {};
     }
     const data = await response.json();
@@ -79,7 +68,6 @@ export async function getProducts() {
     const mapped = mapShopifyProductsToLocal(products);
     return mapped;
   } catch (e) {
-    console.error('[ProductService] getProducts error:', e);
     return {};
   }
 }

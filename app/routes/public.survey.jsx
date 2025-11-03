@@ -10,16 +10,10 @@ import RecommendationResult from "../components/survey/RecommendationResult";
 import PathologyContactForm from "../components/survey/PathologyContactForm";
 import { calcularRecomendacionProductos } from "../utils/productRecommendation";
 
-/**
- * Loader: Esta ruta es PÚBLICA, no requiere autenticación
- */
 export const loader = async () => {
   return { public: true };
 };
 
-/**
- * Action: Procesa las respuestas del cuestionario (público)
- */
 export const action = async ({ request }) => {
   const form = await request.formData();
   const answers = {};
@@ -28,19 +22,12 @@ export const action = async ({ request }) => {
     answers[`q${i}`] = form.get(`q${i}`) || "";
   }
 
-  // TODO: Guardar en base de datos o enviar a webhook
-  console.log("Public survey answers:", answers);
-
   return { success: true, answers };
 };
 
-/**
- * Componente principal del cuestionario PÚBLICO
- */
 export default function PublicSurveyPage() {
   const [searchParams] = useSearchParams();
   
-  // Construir tema desde query params
   const theme = {
     primary: searchParams.get("primary") ? `#${searchParams.get("primary").replace('#', '')}` : undefined,
     paginate: searchParams.get("accent") ? `#${searchParams.get("accent").replace('#', '')}` : undefined,
@@ -48,7 +35,6 @@ export default function PublicSurveyPage() {
     bg: searchParams.get("bg") ? `#${searchParams.get("bg").replace('#', '')}` : undefined,
   };
 
-  // Estado
   const [currentStep, setCurrentStep] = useState(0);
   const [answers, setAnswers] = useState({});
   const [direction, setDirection] = useState("forward");
@@ -58,7 +44,6 @@ export default function PublicSurveyPage() {
   const [recommendation, setRecommendation] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-  // Comunicación con iframe padre (para auto-resize)
   useEffect(() => {
     const sendHeight = () => {
       const height = document.body.scrollHeight;
@@ -68,18 +53,14 @@ export default function PublicSurveyPage() {
       }, '*');
     };
 
-    // Enviar altura inicial y en cada cambio
     sendHeight();
     
-    // Observer para detectar cambios en el DOM
     const observer = new ResizeObserver(sendHeight);
     observer.observe(document.body);
     
-    // Cleanup
     return () => observer.disconnect();
   }, [currentStep, started, showRecommendation, showPathologyContact]);
 
-  // Notificar cuando el cuestionario inicia
   useEffect(() => {
     if (started && currentStep === 0) {
       window.parent.postMessage({
@@ -88,15 +69,11 @@ export default function PublicSurveyPage() {
     }
   }, [started, currentStep]);
 
-  // Obtener preguntas visibles basadas en las respuestas actuales
   const visibleQuestions = getVisibleQuestions(answers);
   const currentQuestion = visibleQuestions[currentStep];
   const totalQuestions = visibleQuestions.length;
   const progress = ((currentStep + 1) / totalQuestions) * 100;
 
-  /**
-   * Verifica si el usuario tiene alguna patología
-   */
   const tienePatologias = () => {
     const patologiasGato = answers["q7_gato"];
     if (Array.isArray(patologiasGato) && 
@@ -115,29 +92,22 @@ export default function PublicSurveyPage() {
     return false;
   };
 
-  /**
-   * Verifica si la pregunta actual está respondida y cumple las validaciones
-   */
   const isCurrentQuestionAnswered = () => {
     if (!currentQuestion) return false;
     const answer = answers[`q${currentQuestion.id}`];
     
-    // Pregunta no requerida sin respuesta
     if (!currentQuestion.required && (answer === undefined || answer === "")) {
       return true;
     }
     
-    // Pregunta tipo multiple
     if (currentQuestion.type === "multiple") {
       return !currentQuestion.required || (Array.isArray(answer) && answer.length > 0);
     }
     
-    // Respuesta vacía en pregunta requerida
     if (answer === undefined || answer === "") {
       return false;
     }
     
-    // Validaciones para tipo texto
     if (currentQuestion.type === "text") {
       const textValue = String(answer);
       if (currentQuestion.minLength && textValue.length < currentQuestion.minLength) {
@@ -148,7 +118,6 @@ export default function PublicSurveyPage() {
       }
     }
     
-    // Validaciones para tipo número
     if (currentQuestion.type === "number") {
       const numValue = parseFloat(answer);
       if (isNaN(numValue)) {
@@ -182,16 +151,11 @@ export default function PublicSurveyPage() {
     return () => window.removeEventListener("keydown", handleKeyDown);
   }, [started]);
 
-  /**
-   * Efecto: Navegar con tecla Enter durante la encuesta
-   */
   useEffect(() => {
     if (!started) return;
 
     const handleKeyDown = (e) => {
-      // Solo procesar Enter
       if (e.key === "Enter" || e.key === "\r") {
-        // No procesar si está escribiendo en un input o textarea
         const target = e.target;
         if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA")) {
           return;
@@ -200,10 +164,8 @@ export default function PublicSurveyPage() {
         e.preventDefault();
         e.stopPropagation();
         
-        // Si estamos en la pantalla final, no hacer nada
         if (showRecommendation || showPathologyContact) return;
         
-        // Obtener el botón "Siguiente" y hacer click en él si está habilitado
         const nextButton = document.querySelector('.nav-button.primary:not(:disabled)');
         if (nextButton) {
           nextButton.click();
@@ -211,54 +173,40 @@ export default function PublicSurveyPage() {
       }
     };
 
-    // Usar capture phase para capturar el evento antes
     window.addEventListener("keydown", handleKeyDown, true);
     return () => window.removeEventListener("keydown", handleKeyDown, true);
   }, [started, showRecommendation, showPathologyContact]);
 
-  /**
-   * Efecto: Ajustar currentStep si cambia el número de preguntas visibles
-   */
   useEffect(() => {
     if (currentStep >= visibleQuestions.length && visibleQuestions.length > 0) {
       setCurrentStep(visibleQuestions.length - 1);
     }
   }, [visibleQuestions.length, currentStep]);
 
-  /**
-   * Efecto: Enviar altura al iframe padre para auto-resize
-   */
   useEffect(() => {
     const sendHeight = () => {
       try {
         const h = document.documentElement.scrollHeight || document.body.scrollHeight;
         window.parent.postMessage({ type: "retorn-survey-height", height: h }, "*");
       } catch (e) {
-        // Silenciar errores de postMessage
+        // Silent
       }
     };
 
-    // Enviar altura inicial
     sendHeight();
 
-    // Observar cambios de tamaño del contenido
     const ro = new ResizeObserver(sendHeight);
     ro.observe(document.documentElement);
     ro.observe(document.body);
 
-    // Enviar periódicamente por si hay animaciones o cambios dinámicos
     const interval = setInterval(sendHeight, 600);
 
-    // Cleanup
     return () => {
       ro.disconnect();
       clearInterval(interval);
     };
   }, []);
 
-  /**
-   * Maneja el cambio de respuesta para la pregunta actual
-   */
   const handleAnswer = (value) => {
     setAnswers((prev) => ({
       ...prev,
@@ -266,20 +214,13 @@ export default function PublicSurveyPage() {
     }));
   };
 
-  /**
-   * Navega a la siguiente pregunta
-   */
   const goNext = () => {
     setDirection("forward");
     setTimeout(() => {
-      // Navegación normal a la siguiente pregunta
       setCurrentStep((prev) => Math.min(prev + 1, totalQuestions - 1));
     }, 50);
   };
 
-  /**
-   * Navega a la pregunta anterior
-   */
   const goPrevious = () => {
     setDirection("backward");
     setTimeout(() => {
@@ -291,49 +232,35 @@ export default function PublicSurveyPage() {
   const canGoBack = currentStep > 0;
   const isLastQuestion = currentStep === totalQuestions - 1;
 
-  /**
-   * Calcula y muestra la recomendación de productos
-   */
   const handleSubmit = async (e) => {
     if (e && e.preventDefault) {
       e.preventDefault();
     }
     
-    setIsLoading(true); // Activar loading
+    setIsLoading(true);
     
     try {
-      // Verificar si tiene patologías
       if (tienePatologias()) {
-        // Mostrar formulario de contacto en lugar de recomendación
         setShowPathologyContact(true);
         setIsLoading(false);
         return;
       }
 
-      // Si no tiene patologías, calcular recomendación normal
-      console.log("📊 Calculando recomendación desde la API de Shopify (public)...");
       const result = await calcularRecomendacionProductos(answers);
-      console.log("✅ Recomendación calculada:", result);
       setRecommendation(result);
       setShowRecommendation(true);
     } catch (error) {
       console.error("Error calculando recomendación:", error);
       alert("Hubo un error al calcular la recomendación. Por favor, revisa tus respuestas.");
     } finally {
-      setIsLoading(false); // Desactivar loading
+      setIsLoading(false);
     }
   };
 
-  /**
-   * Volver del formulario de contacto al cuestionario
-   */
   const handleBackFromContact = () => {
     setShowPathologyContact(false);
   };
 
-  /**
-   * Reinicia el formulario para hacer otra encuesta
-   */
   const handleRestart = () => {
     setCurrentStep(0);
     setAnswers({});
@@ -343,7 +270,6 @@ export default function PublicSurveyPage() {
     setStarted(false);
   };
 
-  // Renderizado principal
   return (
     <>
       <style>{getSurveyStyles(direction, theme)}</style>
@@ -362,7 +288,6 @@ export default function PublicSurveyPage() {
               minHeight: '400px',
               background: 'linear-gradient(135deg, #f8fffe 0%, #f0f9f7 100%)'
             }}>
-              {/* Contenedor de los círculos animados */}
               <div style={{
                 position: 'relative',
                 width: '120px',
