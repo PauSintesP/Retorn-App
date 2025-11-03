@@ -431,22 +431,45 @@ function calcularAlimentacionMixta(kcalDiarias, productoSeco, productoHumedo) {
  * @returns {number} - Gramos totales
  */
 function calcularGramosTotales(cantidad) {
-  // Para productos con packs (ej: "185 gr x 12ud" o "400 gr x 12ud")
-  const matchPack = cantidad.match(/(\d+(?:\.\d+)?)\s*gr\s*x\s*(\d+)\s*ud/i);
+  const cantidadLower = cantidad.toLowerCase();
+  
+  // Patrón 1: "Caja 12 latas 185 g" o "Caja 18x80gr"
+  const matchCaja = cantidadLower.match(/caja\s*(\d+)(?:\s*latas)?\s*(?:x\s*)?(\d+(?:\.\d+)?)\s*g/i);
+  if (matchCaja) {
+    const unidades = parseFloat(matchCaja[1]);
+    const gramosPorUnidad = parseFloat(matchCaja[2]);
+    return gramosPorUnidad * unidades;
+  }
+  
+  // Patrón 2: "185 g x 12ud" o "400 gr x 12ud"
+  const matchPack = cantidadLower.match(/(\d+(?:\.\d+)?)\s*gr?\s*x\s*(\d+)\s*ud/i);
   if (matchPack) {
     const gramosPorUnidad = parseFloat(matchPack[1]);
     const unidades = parseFloat(matchPack[2]);
     return gramosPorUnidad * unidades;
   }
   
-  // Si es en kg (sin pack)
-  if (cantidad.toLowerCase().includes("kg") && !cantidad.includes("x")) {
-    const numeros = cantidad.match(/(\d+(?:\.\d+)?)/);
+  // Patrón 3: "Pack 12 ud" o "Pack 18 ud" (buscar en el título si no hay gramaje explícito)
+  // En este caso, intentar extraer el gramaje base de otras variantes
+  const matchPackSolo = cantidadLower.match(/(?:pack|caja)\s*(\d+)\s*(?:latas|ud)/i);
+  if (matchPackSolo) {
+    const unidades = parseFloat(matchPackSolo[1]);
+    // Intentar encontrar un gramaje en el string
+    const matchGramos = cantidadLower.match(/(\d+(?:\.\d+)?)\s*g/i);
+    if (matchGramos) {
+      const gramosPorUnidad = parseFloat(matchGramos[1]);
+      return gramosPorUnidad * unidades;
+    }
+  }
+  
+  // Patrón 4: Si es en kg (sin pack)
+  if (cantidadLower.includes("kg") && !cantidadLower.includes("x")) {
+    const numeros = cantidadLower.match(/(\d+(?:\.\d+)?)/);
     return numeros ? parseFloat(numeros[1]) * 1000 : 0;
   }
   
-  // Si es en gramos simples
-  const numeros = cantidad.match(/(\d+(?:\.\d+)?)/);
+  // Patrón 5: Gramos simples (lata individual)
+  const numeros = cantidadLower.match(/(\d+(?:\.\d+)?)/);
   return numeros ? parseFloat(numeros[1]) : 0;
 }
 
@@ -458,18 +481,35 @@ function calcularGramosTotales(cantidad) {
 function seleccionarVariante(producto, gramosDiarios, tamano, esHumedo = false) {
   let variantes = producto.variantes;
 
-  // Para productos húmedos, priorizar SIEMPRE los paquetes de 12 unidades
+  // Para productos húmedos, priorizar SIEMPRE los paquetes/cajas
   if (esHumedo) {
-    // Filtrar variantes que contengan "12 ud" o "12ud" en la cantidad
-    const variantesPack12 = variantes.filter(v => 
-      v.cantidad.toLowerCase().includes("12 ud") || 
-      v.cantidad.toLowerCase().includes("12ud") ||
-      v.cantidad.toLowerCase().includes("x 12")
-    );
+    // Filtrar variantes que sean packs o cajas (12, 18, 24, 25 unidades)
+    const variantesPack = variantes.filter(v => {
+      const cantidadLower = v.cantidad.toLowerCase();
+      return (
+        cantidadLower.includes("caja") ||
+        cantidadLower.includes("pack") ||
+        cantidadLower.includes("12 ud") || 
+        cantidadLower.includes("12ud") ||
+        cantidadLower.includes("18 ud") ||
+        cantidadLower.includes("18ud") ||
+        cantidadLower.includes("24 ud") ||
+        cantidadLower.includes("24ud") ||
+        cantidadLower.includes("25 ud") ||
+        cantidadLower.includes("25ud") ||
+        cantidadLower.includes("x 12") ||
+        cantidadLower.includes("x 18") ||
+        cantidadLower.includes("x 24") ||
+        cantidadLower.includes("x 25")
+      );
+    });
     
-    // Si hay packs de 12, usar solo esos
-    if (variantesPack12.length > 0) {
-      variantes = variantesPack12;
+    // Si hay packs, usar SOLO esos (ignorar latas individuales completamente)
+    if (variantesPack.length > 0) {
+      variantes = variantesPack;
+      console.log(`✅ Comida húmeda: ${variantesPack.length} pack(s) disponible(s), ignorando latas individuales`);
+    } else {
+      console.log(`⚠️ Comida húmeda: No hay packs disponibles, usando latas individuales`);
     }
   }
 
@@ -485,10 +525,12 @@ function seleccionarVariante(producto, gramosDiarios, tamano, esHumedo = false) 
     return gramosA - gramosB;
   });
 
-  // MEJORA: Duraciones más largas - 4-10 semanas (28-70 días)
-  const diasOptimosMin = 28; // 4 semanas (antes 21)
-  const diasOptimosMax = 70; // 10 semanas (antes 56)
-  const diasIdeal = 49; // 7 semanas (antes 35)
+  // Duraciones óptimas
+  // - Para comida húmeda: 30-60 días (1-2 meses) - más tiempo para los packs
+  // - Para comida seca: 28-70 días (4-10 semanas)
+  const diasOptimosMin = esHumedo ? 30 : 28;
+  const diasOptimosMax = esHumedo ? 60 : 70;
+  const diasIdeal = esHumedo ? 45 : 49; // 1.5 meses para húmedo, 7 semanas para seco
 
   let mejorVariante = variantes[variantes.length - 1]; // Default: la más grande
   let mejorPuntuacion = -Infinity;
@@ -501,6 +543,18 @@ function seleccionarVariante(producto, gramosDiarios, tamano, esHumedo = false) 
 
     let puntuacion = 0;
 
+    // BONUS ESPECIAL para productos húmedos en pack/caja (20 puntos extra)
+    if (esHumedo) {
+      const cantidadLower = variante.cantidad.toLowerCase();
+      const esPack = cantidadLower.includes("caja") || 
+                     cantidadLower.includes("pack") ||
+                     /\d+\s*ud/.test(cantidadLower);
+      if (esPack) {
+        puntuacion += 20;
+        console.log(`  ✅ Bonus pack/caja: +20 puntos`);
+      }
+    }
+
     // Factor 1: Proximidad a la duración ideal (50% del peso)
     if (diasDuracion >= diasOptimosMin && diasDuracion <= diasOptimosMax) {
       // Máxima puntuación en el rango óptimo, favoreciendo el punto medio
@@ -509,7 +563,9 @@ function seleccionarVariante(producto, gramosDiarios, tamano, esHumedo = false) 
     } else if (diasDuracion < diasOptimosMin) {
       // Penalizar fuertemente duraciones muy cortas
       const deficit = diasOptimosMin - diasDuracion;
-      puntuacion += 50 - (deficit * 3); // Penalización reducida
+      // Para comida húmeda, penalizar AÚN MÁS las duraciones cortas
+      const factorPenalizacion = esHumedo ? 5 : 3;
+      puntuacion += 50 - (deficit * factorPenalizacion);
     } else {
       // Penalizar levemente duraciones muy largas (preferimos más cantidad)
       const exceso = diasDuracion - diasOptimosMax;
