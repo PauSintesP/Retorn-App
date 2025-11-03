@@ -122,15 +122,13 @@ export default function MultipleChoiceQuestion({ question, value = [], onChange,
         Selecciona todas las que apliquen para personalizar la recomendación
       </p>
 
-      {/* Alerta naranja si se seleccionó alguna patología - NUEVO DISEÑO */}
+      {/* Alerta si se seleccionó alguna patología - Con estilo de la imagen */}
       {tienePatologias && showAlert && (
         <div className="patologia-alert-banner">
           <div className="alert-banner-content">
-            <div className="alert-banner-icon">🎉</div>
+            <div className="alert-banner-icon">⚠️</div>
             <div className="alert-banner-text">
-              <strong>¡Aprovecha tu primer pedido!</strong>
-              <p>Usa el cupón <span className="coupon-code">RET15</span> y obtén un <strong>15% de descuento</strong> solo para tu primer pedido.</p>
-              <p className="alert-banner-note">*El cupón se aplicará automáticamente al crear tu cesta</p>
+              <p>Evaluaremos una dieta personalizada para entender mejor qué necesita y ofrecerle la mejor alimentación adaptada a su condición.</p>
             </div>
           </div>
           <button 

@@ -1358,7 +1358,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .alert-banner-icon {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     line-height: 1;
     flex-shrink: 0;
     margin-top: 0.125rem;
@@ -1366,13 +1366,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .alert-banner-icon {
-      font-size: 2rem;
+      font-size: 1.75rem;
     }
   }
 
   @media (min-width: 768px) {
     .alert-banner-icon {
-      font-size: 2.5rem;
+      font-size: 2rem;
     }
   }
 
@@ -1382,36 +1382,18 @@ export const getSurveyStyles = (direction, theme = {}) => {
     color: #3E3E3E;
   }
 
-  .alert-banner-text strong {
-    color: #1a1a1a;
-    font-weight: 700;
-    font-size: 0.95rem;
-    display: block;
-    margin-bottom: 0.5rem;
-  }
-
-  @media (min-width: 600px) {
-    .alert-banner-text strong {
-      font-size: 1rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .alert-banner-text strong {
-      font-size: 1.1rem;
-    }
-  }
-
   .alert-banner-text p {
-    margin: 0.375rem 0;
-    font-size: 0.8rem;
+    margin: 0;
+    font-size: 0.85rem;
     line-height: 1.5;
     color: #4a4a4a;
+    font-weight: 500;
   }
 
   @media (min-width: 600px) {
     .alert-banner-text p {
-      font-size: 0.875rem;
+      font-size: 0.9rem;
+      line-height: 1.55;
     }
   }
 
@@ -1419,52 +1401,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .alert-banner-text p {
       font-size: 0.95rem;
       line-height: 1.6;
-    }
-  }
-
-  .coupon-code {
-    display: inline-block;
-    background: #FFD700;
-    color: #1a1a1a;
-    padding: 0.125rem 0.5rem;
-    border-radius: 4px;
-    font-weight: 700;
-    font-family: 'Oswald', sans-serif;
-    letter-spacing: 0.5px;
-    font-size: 0.875rem;
-    margin: 0 0.25rem;
-  }
-
-  @media (min-width: 600px) {
-    .coupon-code {
-      padding: 0.25rem 0.625rem;
-      font-size: 0.95rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .coupon-code {
-      padding: 0.25rem 0.75rem;
-      font-size: 1rem;
-    }
-  }
-
-  .alert-banner-note {
-    font-size: 0.7rem !important;
-    font-style: italic;
-    color: #666 !important;
-    margin-top: 0.5rem !important;
-  }
-
-  @media (min-width: 600px) {
-    .alert-banner-note {
-      font-size: 0.75rem !important;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .alert-banner-note {
-      font-size: 0.8rem !important;
     }
   }
 
