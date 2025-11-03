@@ -1,5 +1,4 @@
-import { json } from "@remix-run/node";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData } from "react-router";
 import { authenticate } from "../shopify.server";
 
 /**
@@ -35,19 +34,19 @@ export const loader = async ({ request }) => {
       })),
     }));
     
-    return json({
+    return {
       success: true,
       count: productList.length,
       products: productList,
-    });
+    };
     
   } catch (error) {
     console.error("[List Products] Error:", error);
-    return json({
+    return {
       success: false,
       error: error.message,
       products: [],
-    }, { status: 500 });
+    };
   }
 };
 

@@ -1,4 +1,3 @@
-import { json } from "@remix-run/node";
 import { authenticate } from "../shopify.server";
 
 /**
@@ -90,7 +89,7 @@ export const loader = async ({ request }) => {
       });
     });
     
-    return json({
+    return new Response(JSON.stringify({
       success: true,
       totalProducts: products.length,
       bySegment: productsBySegment,
@@ -106,7 +105,7 @@ export const loader = async ({ request }) => {
           sku: v.sku,
         })),
       })),
-    }, {
+    }, null, 2), {
       headers: {
         "Content-Type": "application/json; charset=utf-8",
       },
@@ -114,10 +113,15 @@ export const loader = async ({ request }) => {
     
   } catch (error) {
     console.error("[List Products JSON] Error:", error);
-    return json({
+    return new Response(JSON.stringify({
       success: false,
       error: error.message,
       products: [],
-    }, { status: 500 });
+    }, null, 2), {
+      status: 500,
+      headers: {
+        "Content-Type": "application/json; charset=utf-8",
+      },
+    });
   }
 };
