@@ -70,7 +70,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .survey-container {
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     background: #ffffffff;
@@ -136,7 +136,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     margin-top: 4px;
     position: relative;
     z-index: 1;
-    min-height: calc(100vh - 4px);
+    overflow-y: auto;
     overflow-x: hidden;
     width: 100%;
     box-sizing: border-box;

@@ -167,39 +167,24 @@ export default function PublicSurveyPage() {
   }, [visibleQuestions.length, currentStep]);
 
   useEffect(() => {
-    let lastHeight = 0;
-    let timeoutId = null;
-
     const sendHeight = () => {
       try {
-        const h = Math.max(
-          document.documentElement.scrollHeight,
-          document.body.scrollHeight,
-          document.documentElement.clientHeight
-        );
-        
-        if (Math.abs(h - lastHeight) > 10) {
-          lastHeight = h;
-          window.parent.postMessage({ type: "retorn-survey-height", height: h }, "*");
-        }
+        const viewportHeight = window.innerHeight || 800;
+        window.parent.postMessage({ 
+          type: "retorn-survey-height", 
+          height: viewportHeight 
+        }, "*");
       } catch (e) {}
-    };
-
-    const debouncedSendHeight = () => {
-      if (timeoutId) clearTimeout(timeoutId);
-      timeoutId = setTimeout(sendHeight, 100);
     };
 
     sendHeight();
 
-    const ro = new ResizeObserver(debouncedSendHeight);
-    ro.observe(document.documentElement);
+    window.addEventListener('resize', sendHeight);
 
     return () => {
-      ro.disconnect();
-      if (timeoutId) clearTimeout(timeoutId);
+      window.removeEventListener('resize', sendHeight);
     };
-  }, [currentStep, showRecommendation, showPathologyContact, started]);
+  }, []);
 
   const handleAnswer = (value) => {
     setAnswers((prev) => ({
