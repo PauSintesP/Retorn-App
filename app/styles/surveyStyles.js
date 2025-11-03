@@ -287,11 +287,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Contenedor de opciones - Márgenes mejorados */
   .options-container {
     width: 100%;
+    max-width: 100%; /* Prevenir overflow horizontal */
     display: flex;
     flex-direction: column;
     gap: 0.6rem;
     margin-bottom: 0;
     padding: 0 0.15rem;
+    box-sizing: border-box;
+    overflow-x: hidden; /* Evitar scroll horizontal */
   }
 
   @media (min-width: 600px) {
@@ -1318,6 +1321,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     align-items: flex-start;
     transition: min-height 0.3s ease;
+    width: 100%;
+    overflow: hidden; /* Evitar overflow horizontal */
+    box-sizing: border-box;
   }
 
   @media (min-width: 600px) {
@@ -1337,6 +1343,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .patologia-alert-banner {
     position: relative;
     width: 100%;
+    max-width: 100%; /* Asegurar que no exceda el contenedor */
     padding: 1rem 2.5rem 1rem 1rem;
     background: linear-gradient(135deg, #FFF9E6 0%, #FFFBF0 100%);
     border: 2px solid #FFD700;
@@ -1344,16 +1351,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
     box-shadow: 0 4px 16px rgba(255, 215, 0, 0.2);
     animation: fadeIn 0.3s ease-out;
     box-sizing: border-box;
+    overflow: hidden; /* Evitar que el contenido interno cause overflow */
   }
 
   @keyframes fadeIn {
     from {
       opacity: 0;
-      transform: scale(0.95);
     }
     to {
       opacity: 1;
-      transform: scale(1);
     }
   }
 
