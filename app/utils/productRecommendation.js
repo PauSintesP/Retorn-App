@@ -14,6 +14,7 @@ import {
 
 import { getRecommendedProducts } from "../services/productService";
 import { mapShopifyProductsToLocal } from "../services/shopifyProductAdapter";
+import { getVariantIdOverride } from "../data/productVariantMapping";
 
 // ============================================
 // FUNCIONES AUXILIARES
@@ -550,6 +551,33 @@ function seleccionarVariante(producto, gramosDiarios, tamano, esHumedo = false) 
   return mejorVariante;
 }
 
+/**
+ * Aplica override de variantId (si existe) para el producto/cantidad seleccionados.
+ * Mantiene la misma cantidad elegida, pero fuerza el variantId y ajusta el link.
+ */
+function aplicarOverrideVariante(producto, variante) {
+  try {
+    if (!producto || !variante) return variante;
+    const overrideId = getVariantIdOverride(producto.productId, variante.cantidad);
+    if (!overrideId) return variante;
+
+    const nuevaVariante = { ...variante, variantId: String(overrideId) };
+    // Ajustar link para usar el nuevo variantId
+    if (nuevaVariante.link) {
+      const [base, q] = nuevaVariante.link.split("?");
+      if (q && q.includes("variant=")) {
+        nuevaVariante.link = `${base}?variant=${overrideId}`;
+      } else {
+        nuevaVariante.link = `${base}?variant=${overrideId}`;
+      }
+    }
+    return nuevaVariante;
+  } catch (e) {
+    console.error("[Recomendación] Error aplicando override de variante:", e);
+    return variante;
+  }
+}
+
 // ============================================
 // FUNCIÓN PRINCIPAL DE RECOMENDACIÓN
 // ============================================
@@ -591,8 +619,9 @@ export async function calcularRecomendacionProductos(answers) {
       
       if (tipoAlimentacion === "Seca") {
         // Solo producto seco
-        const gramosDiarios = productoSeco ? calcularGramosProducto(kcalDiarias, productoSeco.kcalEmKg) : 0;
-        const variante = productoSeco ? seleccionarVariante(productoSeco, gramosDiarios, answers.q3_perro, false) : null;
+  const gramosDiarios = productoSeco ? calcularGramosProducto(kcalDiarias, productoSeco.kcalEmKg) : 0;
+  let variante = productoSeco ? seleccionarVariante(productoSeco, gramosDiarios, answers.q3_perro, false) : null;
+  if (productoSeco && variante) variante = aplicarOverrideVariante(productoSeco, variante);
         
         resultado.recomendacion = {
           tipo: "seca",
@@ -604,9 +633,11 @@ export async function calcularRecomendacionProductos(answers) {
         };
       } else {
         // Alimentación mixta
-        const cantidades = calcularAlimentacionMixta(kcalDiarias, productoSeco, productoHumedo);
-        const varianteSeco = productoSeco ? seleccionarVariante(productoSeco, cantidades.seco, answers.q3_perro, false) : null;
-        const varianteHumedo = productoHumedo ? seleccionarVariante(productoHumedo, cantidades.humedo, answers.q3_perro, true) : null;
+  const cantidades = calcularAlimentacionMixta(kcalDiarias, productoSeco, productoHumedo);
+  let varianteSeco = productoSeco ? seleccionarVariante(productoSeco, cantidades.seco, answers.q3_perro, false) : null;
+  let varianteHumedo = productoHumedo ? seleccionarVariante(productoHumedo, cantidades.humedo, answers.q3_perro, true) : null;
+  if (productoSeco && varianteSeco) varianteSeco = aplicarOverrideVariante(productoSeco, varianteSeco);
+  if (productoHumedo && varianteHumedo) varianteHumedo = aplicarOverrideVariante(productoHumedo, varianteHumedo);
         
         resultado.recomendacion = {
           tipo: "mixta",
@@ -635,8 +666,9 @@ export async function calcularRecomendacionProductos(answers) {
       
       if (tipoAlimentacion === "Seca") {
         // Solo producto seco
-        const gramosDiarios = productoSeco ? calcularGramosProducto(kcalDiarias, productoSeco.kcalEmKg) : 0;
-        const variante = productoSeco ? seleccionarVariante(productoSeco, gramosDiarios, "Gato", false) : null;
+  const gramosDiarios = productoSeco ? calcularGramosProducto(kcalDiarias, productoSeco.kcalEmKg) : 0;
+  let variante = productoSeco ? seleccionarVariante(productoSeco, gramosDiarios, "Gato", false) : null;
+  if (productoSeco && variante) variante = aplicarOverrideVariante(productoSeco, variante);
         
         resultado.recomendacion = {
           tipo: "seca",
@@ -648,9 +680,11 @@ export async function calcularRecomendacionProductos(answers) {
         };
       } else {
         // Alimentación mixta
-        const cantidades = calcularAlimentacionMixta(kcalDiarias, productoSeco, productoHumedo);
-        const varianteSeco = productoSeco ? seleccionarVariante(productoSeco, cantidades.seco, "Gato", false) : null;
-        const varianteHumedo = productoHumedo ? seleccionarVariante(productoHumedo, cantidades.humedo, "Gato", true) : null;
+  const cantidades = calcularAlimentacionMixta(kcalDiarias, productoSeco, productoHumedo);
+  let varianteSeco = productoSeco ? seleccionarVariante(productoSeco, cantidades.seco, "Gato", false) : null;
+  let varianteHumedo = productoHumedo ? seleccionarVariante(productoHumedo, cantidades.humedo, "Gato", true) : null;
+  if (productoSeco && varianteSeco) varianteSeco = aplicarOverrideVariante(productoSeco, varianteSeco);
+  if (productoHumedo && varianteHumedo) varianteHumedo = aplicarOverrideVariante(productoHumedo, varianteHumedo);
         
         resultado.recomendacion = {
           tipo: "mixta",

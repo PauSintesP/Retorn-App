@@ -169,6 +169,7 @@ function mapSingleProduct(shopifyProduct) {
       tipo: tipo,
       animal: animal,
       segmento: segmento,
+      productId: shopifyProduct.id ? shopifyProduct.id.toString() : "",
       kcalEmKg: kcalEmKg,
       imagen: imagen,
       variantes: variantes_regular,

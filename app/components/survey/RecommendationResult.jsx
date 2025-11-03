@@ -19,16 +19,16 @@ export default function RecommendationResult({ recommendation, onRestart }) {
     const productos = [];
     
     if (recomendacion.tipo === "seca") {
-      productos.push(recomendacion.productoSeco);
+      if (recomendacion.productoSeco) productos.push(recomendacion.productoSeco);
     } else if (recomendacion.tipo === "mixta") {
-      productos.push(recomendacion.productoSeco);
-      productos.push(recomendacion.productoHumedo);
+      if (recomendacion.productoSeco) productos.push(recomendacion.productoSeco);
+      if (recomendacion.productoHumedo) productos.push(recomendacion.productoHumedo);
     }
 
     // Construir URL del carrito con múltiples productos y cupón de descuento
     const cartItems = productos
       .map(p => {
-        const variantId = p.varianteRecomendada.variantId;
+        const variantId = p?.varianteRecomendada?.variantId;
         return variantId ? `${variantId}:1` : null;
       })
       .filter(Boolean)
@@ -83,7 +83,7 @@ export default function RecommendationResult({ recommendation, onRestart }) {
       )}
 
       <div className="products-section">
-        {recomendacion.tipo === "seca" && (
+        {recomendacion.tipo === "seca" && recomendacion.productoSeco && (
           <>
             <h3 className="products-title">Tu Producto Recomendado</h3>
             <ProductCard
@@ -96,7 +96,7 @@ export default function RecommendationResult({ recommendation, onRestart }) {
           </>
         )}
 
-        {recomendacion.tipo === "mixta" && (
+        {recomendacion.tipo === "mixta" && (recomendacion.productoSeco || recomendacion.productoHumedo) && (
           <>
             <div className="mixta-info">
               <h3 className="mixta-title">Alimentación Mixta</h3>
@@ -118,12 +118,14 @@ export default function RecommendationResult({ recommendation, onRestart }) {
                 tipoAnimal={tipoAnimal}
               />
               
-              <ProductCard
-                producto={recomendacion.productoHumedo}
-                tipo="Alimento Húmedo"
-                kcalDiarias={kcalDiarias}
-                porcentaje={25}
-              />
+              {recomendacion.productoHumedo && (
+                <ProductCard
+                  producto={recomendacion.productoHumedo}
+                  tipo="Alimento Húmedo"
+                  kcalDiarias={kcalDiarias}
+                  porcentaje={25}
+                />
+              )}
             </div>
           </>
         )}
@@ -218,12 +220,27 @@ export default function RecommendationResult({ recommendation, onRestart }) {
 }
 
 function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, tipoAnimal }) {
+  if (!producto) {
+    return (
+      <div className="product-card">
+        <div className="product-content">
+          <div className="product-header">
+            <h3 className="product-type">{tipo}</h3>
+          </div>
+          <div className="product-main">
+            <h4 className="product-name">Producto no encontrado</h4>
+            <p className="product-description">No hemos podido localizar un producto para este caso.</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
   // El product-type siempre muestra el tipo de alimentación (Seco/Húmedo)
   // La información de croqueta va en el badge dedicado
   const mostrarTipoCroqueta = tipoCroqueta && tipoAnimal === "Perro" && tipo.includes("Seco");
   
   const calcularDuracion = () => {
-    const cantidadOriginal = producto.varianteRecomendada.cantidad;
+  const cantidadOriginal = producto.varianteRecomendada?.cantidad || "";
     let gramosTotales;
     
     // Para productos con packs: "Caja 12 latas 185 g" o "185 gr x 12ud"
@@ -255,7 +272,7 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
       }
     }
     
-    const dias = Math.round(gramosTotales / producto.gramosDiarios);
+  const dias = producto.gramosDiarios ? Math.round(gramosTotales / producto.gramosDiarios) : 0;
     console.log(`Duración: ${gramosTotales}g ÷ ${producto.gramosDiarios}g/día = ${dias} días`);
 
     // Mostrar en semanas principalmente para mayor claridad
@@ -286,7 +303,7 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
     if (porcentaje) {
       return Math.round((kcalDiarias * porcentaje) / 100);
     }
-    return Math.round((producto.gramosDiarios * producto.kcalEmKg) / 1000);
+  return producto.kcalEmKg ? Math.round((producto.gramosDiarios * producto.kcalEmKg) / 1000) : 0;
   };
 
   return (
@@ -352,7 +369,7 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
           <span className="nutrition-icon">📦</span>
           <div className="nutrition-content">
             <span className="nutrition-label">Formato recomendado</span>
-            <span className="nutrition-value">{producto.varianteRecomendada.cantidad}</span>
+            <span className="nutrition-value">{producto.varianteRecomendada?.cantidad || ""}</span>
           </div>
         </div>
 
@@ -366,7 +383,7 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
       </div>
 
       <a
-        href={producto.varianteRecomendada.link || producto.link}
+        href={(producto.varianteRecomendada && (producto.varianteRecomendada.link || producto.link)) || "#"}
         target="_blank"
         rel="noopener noreferrer"
         className="product-link"
