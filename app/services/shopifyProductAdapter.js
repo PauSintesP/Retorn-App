@@ -570,6 +570,7 @@ function extractQuantity(title, variant) {
     // Patrón para detectar:
     // - "185 gr", "400 g", "3 kg", "500gr", "500g", "3kg", "12kg"
     // - "Caja 12 latas 185 g", "185 gr x 12ud"
+    // - "Caja 18x80g", "Caja 24x80g"
     
     console.log(`   🔍 Extrayendo cantidad de título: "${title}"`);
     
@@ -578,6 +579,14 @@ function extractQuantity(title, variant) {
     if (boxMatch) {
       const result = `Caja ${boxMatch[1]} latas ${boxMatch[2]} ${boxMatch[3]}`;
       console.log(`      ✅ Caja detectada: ${result}`);
+      return result;
+    }
+    
+    // Buscar "Caja Xx Yg" o "Caja XxYg" (formato compacto como "18x80g", "24x80g")
+    const compactBoxMatch = title.match(/caja\s*(\d+)\s*x\s*(\d+)\s*(gr?|g|kg)/i);
+    if (compactBoxMatch) {
+      const result = `Caja ${compactBoxMatch[1]} latas ${compactBoxMatch[2]} ${compactBoxMatch[3]}`;
+      console.log(`      ✅ Caja compacta detectada: ${result}`);
       return result;
     }
     
