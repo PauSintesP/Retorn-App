@@ -2028,6 +2028,76 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* ESTILOS PARA RECOMENDACIÓN DE PRODUCTOS */
   /* ============================================ */
   
+  .back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    border: none;
+    color: var(--jdgm-paginate-color);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .back-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(115, 159, 153, 0.1);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+    z-index: 0;
+  }
+
+  .back-button:hover::before {
+    transform: scaleX(1);
+  }
+
+  .back-button:hover {
+    color: var(--jdgm-primary-color);
+    transform: translateX(-3px);
+  }
+
+  .back-button:active {
+    transform: translateX(-5px) scale(0.98);
+  }
+
+  .back-button svg {
+    position: relative;
+    z-index: 1;
+    width: 20px;
+    height: 20px;
+  }
+
+  .back-button span {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (min-width: 768px) {
+    .back-button {
+      font-size: 1rem;
+      padding: 0.875rem 1.25rem;
+    }
+
+    .back-button svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+
   .recommendation-container {
     max-width: 100%;
     width: 100%;

@@ -45,6 +45,26 @@ export default function RecommendationResult({ recommendation, onRestart }) {
 
   return (
     <div className="recommendation-container">
+      <button 
+        className="back-button"
+        onClick={onRestart}
+        aria-label="Volver al inicio"
+      >
+        <svg 
+          width="24" 
+          height="24" 
+          viewBox="0 0 24 24" 
+          fill="none" 
+          stroke="currentColor" 
+          strokeWidth="2" 
+          strokeLinecap="round" 
+          strokeLinejoin="round"
+        >
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+        <span>Volver</span>
+      </button>
+      
       <div className="recommendation-header">
         <h2 className="recommendation-title">
           Recomendación Personalizada para {nombreMascota}
