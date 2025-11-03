@@ -79,8 +79,7 @@ export const PRODUCT_ID_MAPPING = [
     tipo: "Humedo",
     segmento: "Cachorros",
     productIds: [
-      31708495183938, // Comida Húmeda para Cachorros (Puppy) Cordero y Pollo 185gr
-      31708495216706, // Pack 12ud - Comida Húmeda para Cachorros
+      4478516494402, // Comida Húmeda para Cachorros de Cordero y Pollo
     ]
   },
   
@@ -89,7 +88,8 @@ export const PRODUCT_ID_MAPPING = [
     tipo: "Humedo",
     segmento: "Adulto Cordero",
     productIds: [
-      6751012257975, // Comida Húmeda para Perros de Cordero con Arroz
+      1445571788866, // Comida Húmeda para Perros de Cordero con Arroz
+      1665418526786, // Comida Húmeda para Perros Only Cordero
     ]
   },
   
@@ -98,8 +98,8 @@ export const PRODUCT_ID_MAPPING = [
     tipo: "Humedo",
     segmento: "Adulto Pollo",
     productIds: [
-      6751009210551, // Comida Húmeda para Perros de Pollo con Zanahoria y Conejo
-      6750994235559, // Comida Húmeda para Perros de Pollo con Zanahoria
+      1445558648898, // Comida Húmeda para Perros de Pollo con Zanahorias
+      1664867696706, // Comida Húmeda para Perros Only Pollo
     ]
   },
   
@@ -108,7 +108,13 @@ export const PRODUCT_ID_MAPPING = [
     tipo: "Humedo",
     segmento: "Adulto Pescado",
     productIds: [
-      6751006752955, // Comida Húmeda para Perros de Pescado con Patata y Zanahoria
+      1445560811586, // Comida Húmeda para Perros de Pescado con Patatas
+      1697823129666, // Comida Húmeda para Perros de Pescado con Zanahorias
+      4503345004610, // Comida Húmeda de Filetes de Atún natural con Boniato para Perros
+      4503343530050, // Comida Húmeda de Filetes de Atún natural con Calabaza para Perros
+      4503344283714, // Comida Húmeda de Filetes de Atún natural con Manzana para Perros
+      4445138092098, // Comida Húmeda de Filetes de Atún natural con Zanahorias para Perros
+      6084983193783, // Comida Húmeda de Filetes de Atún Natural para Perros
     ]
   },
   
@@ -165,7 +171,7 @@ export const PRODUCT_ID_MAPPING = [
     tipo: "Humedo",
     segmento: "Cachorros",
     productIds: [
-      6750823940267, // Comida Húmeda para Gatitos de Pollo
+      7440749658329, // Comida Húmeda para Gatitos de Pollo
     ]
   },
   
@@ -174,7 +180,9 @@ export const PRODUCT_ID_MAPPING = [
     tipo: "Humedo",
     segmento: "Adulto Pollo",
     productIds: [
-      6750811062439, // Comida Húmeda para Gatos de Pollo con Zanahoria
+      1445586436162, // Comida Húmeda para Gatos de Pollo
+      1445611077698, // Comida Húmeda para Gatos de Pollo con Conejo
+      1445639815234, // Comida Húmeda para Gatos de Vacuno con Pollo
     ]
   },
   
@@ -183,11 +191,15 @@ export const PRODUCT_ID_MAPPING = [
     tipo: "Humedo",
     segmento: "Adulto Pescado",
     productIds: [
-      6750819942583, // Comida Húmeda para Gatos de Pescado con Zanahoria
-      6750817124519, // Comida Húmeda para Gatos de Atún con Mejillones
-      6750814830759, // Comida Húmeda para Gatos de Atún con Sardina
-      6750812471463, // Comida Húmeda para Gatos de Atún con Gambas
-      6751014387911, // Comida Húmeda para Gatos de Salmón con Atún
+      1445627297858, // Comida Húmeda para Gatos de Atún con Gambas
+      1445615730754, // Comida Húmeda para Gatos de Atún con Mejillones
+      1445633556546, // Comida Húmeda para Gatos de Atún con Salmón
+      1445635555394, // Comida Húmeda para Gatos de Atún con Sardina
+      4503341695042, // Comida Húmeda de Filetes de Atún natural con Calamar para Gatos
+      4503340908610, // Comida Húmeda de Filetes de Atún natural con Gambas para Gatos
+      6123769004215, // Comida Húmeda de Filetes de Atún natural con Mejillones para Gatos
+      4445143072834, // Comida Húmeda de Filetes de Atún natural con Salmón para Gatos
+      4503334420546, // Comida Húmeda de Filetes de Atún natural para Gatos
     ]
   },
   
@@ -199,12 +211,22 @@ export const PRODUCT_ID_MAPPING = [
   {
     animal: "Perro",
     tipo: "Mixta",
+    segmento: "Cachorros",
+    productIds: [
+      1303206658114, // Pienso seco Cachorros Salmón
+      4478516494402, // Latas Cachorros Cordero y Pollo
+    ]
+  },
+  
+  {
+    animal: "Perro",
+    tipo: "Mixta",
     segmento: "Adulto Pollo",
     productIds: [
       1303216783426, // Pienso seco Pollo
       4500505952322, // Pienso seco Pollo - Croqueta Pequeña
-      6751009210551, // Latas Pollo con Zanahoria y Conejo
-      6750994235559, // Latas Pollo con Zanahoria
+      1445558648898, // Latas Pollo con Zanahorias
+      1664867696706, // Latas Only Pollo
     ]
   },
   
@@ -215,7 +237,8 @@ export const PRODUCT_ID_MAPPING = [
     productIds: [
       1303265804354, // Pienso seco Cordero
       4500503134274, // Pienso seco Cordero - Croqueta Pequeña
-      6751012257975, // Latas Cordero con Arroz
+      1445571788866, // Latas Cordero con Arroz
+      1665418526786, // Latas Only Cordero
     ]
   },
   
@@ -226,7 +249,10 @@ export const PRODUCT_ID_MAPPING = [
     productIds: [
       1303212752962, // Pienso seco Salmón
       649056944194,  // Pienso seco Salmón - Croqueta pequeña
-      6751006752955, // Latas Pescado con Patata y Zanahoria (para salmón)
+      1445560811586, // Latas Pescado con Patatas
+      1697823129666, // Latas Pescado con Zanahorias
+      4503345004610, // Latas Atún con Boniato
+      4503343530050, // Latas Atún con Calabaza
     ]
   },
   
@@ -237,18 +263,8 @@ export const PRODUCT_ID_MAPPING = [
     productIds: [
       1303212752962, // Pienso seco Salmón (default para pescado)
       649056944194,  // Pienso seco Salmón - Croqueta pequeña
-      6751006752955, // Latas Pescado con Patata y Zanahoria
-    ]
-  },
-  
-  {
-    animal: "Perro",
-    tipo: "Mixta",
-    segmento: "Cachorros",
-    productIds: [
-      1303206658114, // Pienso seco Cachorros de Salmón
-      31708495183938, // Latas Puppy Cordero y Pollo 185gr
-      31708495216706, // Pack 12ud Latas Puppy
+      1445560811586, // Latas Pescado con Patatas
+      1697823129666, // Latas Pescado con Zanahorias
     ]
   },
   
@@ -258,7 +274,8 @@ export const PRODUCT_ID_MAPPING = [
     segmento: "Senior Light",
     productIds: [
       1303298474050, // Pienso seco Light & Senior
-      6751006752955, // Latas Pescado (compatible con light/senior)
+      1445560811586, // Latas Pescado con Patatas
+      1697823129666, // Latas Pescado con Zanahorias
     ]
   },
   
@@ -268,8 +285,8 @@ export const PRODUCT_ID_MAPPING = [
     tipo: "Mixta",
     segmento: "Cachorros",
     productIds: [
-      7530696016089, // Pienso seco
-      6750823940267, // Latas
+      7530696016089, // Pienso seco Gatitos
+      7440749658329, // Latas Gatitos Pollo
     ]
   },
   
@@ -278,8 +295,9 @@ export const PRODUCT_ID_MAPPING = [
     tipo: "Mixta",
     segmento: "Adulto Pollo",
     productIds: [
-      7530661085401, // Pienso seco
-      6750811062439, // Latas
+      7530661085401, // Pienso seco Gatos Pollo
+      1445586436162, // Latas Pollo
+      1445611077698, // Latas Pollo con Conejo
     ]
   },
   
@@ -288,12 +306,11 @@ export const PRODUCT_ID_MAPPING = [
     tipo: "Mixta",
     segmento: "Adulto Pescado",
     productIds: [
-      7530636017881, // Pienso seco
-      6750819942583, // Latas atún
-      6750817124519, // Latas mejillones
-      6750814830759, // Latas sardina
-      6750812471463, // Latas gambas
-      6751014387911, // Latas salmón
+      7530636017881, // Pienso seco Gatos Pescado
+      1445627297858, // Latas Atún con Gambas
+      1445615730754, // Latas Atún con Mejillones
+      1445633556546, // Latas Atún con Salmón
+      1445635555394, // Latas Atún con Sardina
     ]
   },
   
@@ -302,8 +319,8 @@ export const PRODUCT_ID_MAPPING = [
     tipo: "Mixta",
     segmento: "Esterilizados Light",
     productIds: [
-      7530676453593, // Pienso seco Esterilizados
-      6750811062439, // Latas Pollo con Zanahoria (compatible con esterilizados)
+      7530676453593, // Pienso seco Gatos Esterilizados
+      1445586436162, // Latas Pollo
     ]
   },
 ];
