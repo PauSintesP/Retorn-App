@@ -162,7 +162,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     overflow: visible;
   }
 
-  /* Tablet */
   @media (min-width: 600px) {
     .survey-content {
       padding: 1.25rem 1rem;
@@ -171,12 +170,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .question-card {
       padding: 1.75rem 1.35rem;
       border-radius: 1.2rem;
-      max-width: 90%;
+      max-width: 100%;
       min-width: 450px;
     }
   }
 
-  /* Desktop */
   @media (min-width: 768px) {
     .survey-content {
       padding: 2.5rem 1rem;
@@ -185,7 +183,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .question-card {
       padding: 3rem 1.75rem;
       border-radius: 1.6rem;
-      max-width: 900px;
+      max-width: 100%;
       min-width: 550px;
       box-shadow: 
         0 30px 80px rgba(0, 0, 0, 0.08),
@@ -2112,7 +2110,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .recommendation-container {
-      max-width: 900px;
+      max-width: 100%;
       padding: 1.5rem;
     }
   }
@@ -2932,7 +2930,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   @media (min-width: 768px) {
     .discount-banner {
       width: 100%;
-      max-width: 900px;
+      max-width: 100%;
       margin: 0 auto;
       padding: 1.75rem 1.5rem;
       padding-right: 4rem;
@@ -3305,7 +3303,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .restart-section {
-    max-width: 800px;
+    max-width: 100%;
     width: 100%;
     padding: 0 2rem;
   }
@@ -3317,10 +3315,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     width: 100%;
   }
 
-  /* ============================================ */
-  /* PATHOLOGY CONTACT FORM STYLES */
-  /* ============================================ */
-
   .pathology-contact-container {
     max-width: 95%;
     margin: 0 auto;
@@ -3329,12 +3323,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .pathology-contact-container {
-      max-width: 900px;
+      max-width: 100%;
       padding: 1.5rem 1rem;
     }
   }
-  @media (min-width: 768px) {
-    .pathology-contact-container {
       padding: 3rem 2rem;
     }
   }
@@ -3571,10 +3563,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .pathology-contact-success {
-      max-width: 600px;
+      max-width: 100%;
       padding: 4rem 2rem;
     }
-  }
   }
 
   .success-icon {
