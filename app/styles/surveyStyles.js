@@ -77,8 +77,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: var(--jdgm-primary-color);
     position: relative;
-    overflow-x: hidden;
-    overflow-y: auto;
+    overflow: hidden;
     width: 100%;
     max-width: 100vw;
     box-sizing: border-box;
