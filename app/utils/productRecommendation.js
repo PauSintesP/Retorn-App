@@ -106,24 +106,59 @@ function determinarVariableActividad(edad, nivelActividad) {
 
 function resolverSegmentoPerroSeco(answers) {
   const edad = answers.q4_perro;
-  const preferencia = answers.q11_perro || ""; // Puede contener Pollo/Cordero/Salmón
+  const preferencia = answers.q11_perro || ""; // Preferencias de q11
   const patologias = answers.q9_perro;
 
+  // Cachorros
   if (edad === "Cachorro") return "Cachorros";
+  
+  // Senior o con sobrepeso → Senior Light
   if (edad === "Senior" || patologias?.includes("Sobrepeso")) return "Senior Light";
 
+  // Para adultos, revisar preferencias de la pregunta 11
   if (preferencia.includes("Pollo")) return "Adulto Pollo";
   if (preferencia.includes("Cordero")) return "Adulto Cordero";
   if (preferencia.includes("Salmón")) return "Adulto Salmón";
 
-  return "Adulto Salmón"; // por defecto
+  // Por defecto Salmón
+  return "Adulto Salmón";
 }
 
-function resolverSegmentoPerroHumedo(segmentoSeco) {
-  if (!segmentoSeco) return "Adulto Pescado";
-  if (segmentoSeco.includes("Cachorro")) return "Cachorros";
-  if (segmentoSeco.includes("Cordero")) return "Adulto Cordero";
-  if (segmentoSeco.includes("Pollo")) return "Adulto Pollo";
+function resolverSegmentoPerroHumedo(segmentoSeco, preferencia) {
+  // Si es cachorro, siempre devolver comida de cachorro
+  if (segmentoSeco && segmentoSeco.includes("Cachorro")) return "Cachorros";
+  
+  // Revisar la preferencia del usuario primero (de q11_perro)
+  // Mapear según las opciones de la pregunta 11:
+  // - "Salmón + Pesc zanahoria" → Pescado Zanahoria
+  // - "Cordero + Cordero arroz" → Cordero Arroz (Adulto Cordero)
+  // - "Pollo + Pollo zanahoria" → Pollo Zanahoria (Adulto Pollo)
+  // - "Salmón light + Pesc zanahoria" → Pescado Zanahoria
+  // - "Salmón Cachorro + Lata cachorro" → Cachorros
+  
+  if (preferencia) {
+    // Si menciona específicamente "Pollo zanahoria" o solo "Pollo"
+    if (preferencia.includes("Pollo")) return "Adulto Pollo";
+    
+    // Si menciona "Cordero arroz" o solo "Cordero"
+    if (preferencia.includes("Cordero")) return "Adulto Cordero";
+    
+    // Si menciona "Pesc zanahoria", "Pescado", o cualquier variante de Salmón (que va con pescado)
+    if (preferencia.includes("Pesc") || preferencia.includes("Pescado") || preferencia.includes("Salmón")) {
+      return "Adulto Pescado";
+    }
+    
+    // Si menciona cachorro
+    if (preferencia.includes("Cachorro")) return "Cachorros";
+  }
+  
+  // Si no hay preferencia clara, revisar el segmento seco
+  if (segmentoSeco) {
+    if (segmentoSeco.includes("Cordero")) return "Adulto Cordero";
+    if (segmentoSeco.includes("Pollo")) return "Adulto Pollo";
+    // Senior Light o Salmón → Pescado por defecto
+  }
+  
   return "Adulto Pescado"; // default a pescado
 }
 
@@ -372,8 +407,9 @@ async function seleccionarProductoSecoPerro(answers) {
 /**
  * Selecciona el producto húmedo adecuado para un perro
  */
-async function seleccionarProductoHumedoPerro(productoSeco) {
-  const segmentoHumedo = resolverSegmentoPerroHumedo(productoSeco?.segmento);
+async function seleccionarProductoHumedoPerro(productoSeco, answers) {
+  const preferencia = answers?.q11_perro || "";
+  const segmentoHumedo = resolverSegmentoPerroHumedo(productoSeco?.segmento, preferencia);
   console.log("🔍 Seleccionando producto húmedo para perro → segmento:", segmentoHumedo);
   return await fetchYMapearPrimero("Perro", "Humedo", segmentoHumedo);
 }
@@ -698,7 +734,7 @@ export async function calcularRecomendacionProductos(answers) {
       
       // Seleccionar productos usando el sistema de IDs
       const productoSeco = await seleccionarProductoSecoPerro(answers);
-      const productoHumedo = await seleccionarProductoHumedoPerro(productoSeco);
+      const productoHumedo = await seleccionarProductoHumedoPerro(productoSeco, answers);
       
       if (tipoAlimentacion === "Seca") {
         // Solo producto seco
