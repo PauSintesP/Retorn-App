@@ -161,8 +161,23 @@ function mapSingleProduct(shopifyProduct) {
     // Mapear variantes
     const variantes = mapVariants(shopifyProduct.variants, tipo, productHandle);
     
-    // Separar variantes por tamaño de croqueta si aplica
-    const { variantes_regular, variantes_small } = separateVariantsBySize(variantes, tags);
+    // Separar variantes por tamaño de croqueta SOLO si el producto no especifica ya un tamaño
+    const productoEspecificaTamano = title.toLowerCase().includes('croqueta pequeña') || 
+                                      title.toLowerCase().includes('croqueta grande') ||
+                                      title.toLowerCase().includes('small bite');
+    
+    let variantes_regular = variantes;
+    let variantes_small = [];
+    
+    // Solo separar si el producto NO especifica ya un tamaño de croqueta
+    if (!productoEspecificaTamano && tipo === "Seco" && animal === "Perro") {
+      const separated = separateVariantsBySize(variantes, tags);
+      variantes_regular = separated.variantes_regular;
+      variantes_small = separated.variantes_small;
+      console.log(`   Separando variantes: ${variantes_regular.length} regulares, ${variantes_small.length} pequeñas`);
+    } else if (productoEspecificaTamano) {
+      console.log(`   Producto ya especifica tamaño de croqueta, usando todas las variantes sin separar`);
+    }
     
     const localProduct = {
       nombre: title,
