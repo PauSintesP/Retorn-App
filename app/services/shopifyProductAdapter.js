@@ -4,6 +4,8 @@
  * NO usa base de datos hardcodeada - todo se actualiza automáticamente desde Shopify
  */
 
+import { filterAllowedVariants } from "../data/allowedProducts.js";
+
 /**
  * Mapea un array de productos de Shopify al formato local
  * @param {Array} shopifyProducts - Array de productos desde la API de Shopify
@@ -21,11 +23,24 @@ export function mapShopifyProductsToLocal(shopifyProducts) {
       return;
     }
     
-    const localProduct = mapSingleProduct(shopifyProduct);
+    // FILTRO CRÍTICO: Solo variantes que están en la calculadora CSV
+    const allowedVariants = filterAllowedVariants(shopifyProduct.variants);
+    if (allowedVariants.length === 0) {
+      console.log(`[Adapter] ❌ RECHAZADO (ninguna variante en calculadora): ${shopifyProduct.title}`);
+      return;
+    }
+    
+    // Crear copia del producto con solo las variantes permitidas
+    const filteredProduct = {
+      ...shopifyProduct,
+      variants: allowedVariants
+    };
+    
+    const localProduct = mapSingleProduct(filteredProduct);
     if (localProduct && localProduct.key && localProduct.data) {
-      // Incluir todos los productos alimenticios con vendor=Retorn
+      // Incluir solo productos con variantes permitidas
       mappedProducts[localProduct.key] = localProduct.data;
-      console.log(`[Adapter] ✅ ${shopifyProduct.title} (${localProduct.data.tipo}, ${localProduct.data.animal}, ${localProduct.data.segmento}, ${localProduct.data.kcalEmKg} kcal)`);
+      console.log(`[Adapter] ✅ ${shopifyProduct.title} (${localProduct.data.variantes.length} variantes permitidas)`);
     }
   });
   

@@ -331,23 +331,6 @@ export default function PublicSurveyPage() {
     setShowPathologyContact(false);
   };
 
-  // Volver a la última pregunta respondida desde la recomendación
-  const handleBackToLastQuestion = () => {
-    setShowRecommendation(false);
-    // Buscar el último paso respondido
-    const visibleQuestions = getVisibleQuestions(answers);
-    let lastStep = 0;
-    for (let i = visibleQuestions.length - 1; i >= 0; i--) {
-      const q = visibleQuestions[i];
-      const val = answers[`q${q.id}`];
-      if (val !== undefined && val !== null && val !== "") {
-        lastStep = i;
-        break;
-      }
-    }
-    setCurrentStep(lastStep);
-  };
-
   /**
    * Reinicia el formulario para hacer otra encuesta
    */
@@ -548,7 +531,7 @@ export default function PublicSurveyPage() {
               <RecommendationResult
                 recommendation={recommendation}
                 answers={answers}
-                onBack={handleBackToLastQuestion}
+                onRestart={handleRestart}
               />
             </div>
           ) : (
