@@ -144,11 +144,35 @@ function resolverSegmentoGatoHumedo(segmentoSeco) {
   return "Adulto Pescado";
 }
 
-async function fetchYMapearPrimero(animal, tipo, segmento) {
+async function fetchYMapearPrimero(animal, tipo, segmento, tamanoCroqueta = null) {
   try {
     const productosShopify = await getRecommendedProducts(animal, tipo, segmento);
     if (!productosShopify || productosShopify.length === 0) return null;
     const mapeados = mapShopifyProductsToLocal(productosShopify);
+    
+    // Si es alimento seco para perros y hay especificación de tamaño de croqueta
+    if (animal === "Perro" && tipo === "Seco" && tamanoCroqueta && Object.keys(mapeados).length > 1) {
+      // Buscar producto con croqueta del tamaño correcto
+      const productosCroquetaPequeña = Object.values(mapeados).filter(p => 
+        p.nombre?.toLowerCase().includes("pequeña") || 
+        p.nombre?.toLowerCase().includes("small")
+      );
+      
+      const productosCroquetaRegular = Object.values(mapeados).filter(p => 
+        !p.nombre?.toLowerCase().includes("pequeña") && 
+        !p.nombre?.toLowerCase().includes("small")
+      );
+      
+      if (tamanoCroqueta === "pequeña" && productosCroquetaPequeña.length > 0) {
+        console.log(`[Recomendación] Seleccionado producto con croqueta pequeña`);
+        return productosCroquetaPequeña[0];
+      } else if (tamanoCroqueta === "grande" && productosCroquetaRegular.length > 0) {
+        console.log(`[Recomendación] Seleccionado producto con croqueta regular`);
+        return productosCroquetaRegular[0];
+      }
+    }
+    
+    // Por defecto, devolver el primero
     const primero = Object.values(mapeados)[0];
     return primero || null;
   } catch (e) {
@@ -338,8 +362,11 @@ export function calcularCaloriasGato(answers) {
  */
 async function seleccionarProductoSecoPerro(answers) {
   const segmentoSeco = resolverSegmentoPerroSeco(answers);
-  console.log("🔍 Seleccionando producto seco para perro → segmento:", segmentoSeco);
-  return await fetchYMapearPrimero("Perro", "Seco", segmentoSeco);
+  const peso = parseFloat(answers.q6_perro);
+  const tipoCroqueta = determinarTipoCroqueta(peso);
+  
+  console.log("🔍 Seleccionando producto seco para perro → segmento:", segmentoSeco, "| croqueta:", tipoCroqueta.tamanoCroqueta);
+  return await fetchYMapearPrimero("Perro", "Seco", segmentoSeco, tipoCroqueta.tamanoCroqueta);
 }
 
 /**

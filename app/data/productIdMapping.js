@@ -73,6 +73,17 @@ export const PRODUCT_ID_MAPPING = [
   // PERROS - COMIDA HÚMEDA
   // ========================================
   
+  // Cachorros
+  {
+    animal: "Perro",
+    tipo: "Humedo",
+    segmento: "Cachorros",
+    productIds: [
+      31708495183938, // Comida Húmeda para Cachorros (Puppy) Cordero y Pollo 185gr
+      31708495216706, // Pack 12ud - Comida Húmeda para Cachorros
+    ]
+  },
+  
   {
     animal: "Perro",
     tipo: "Humedo",
@@ -184,15 +195,16 @@ export const PRODUCT_ID_MAPPING = [
   // MIXTA (SECO + HÚMEDO)
   // ========================================
   
-  // Perros - Mixta (devuelve ambos tipos)
+  // Perros - Mixta (devuelve ambos tipos: seco Y húmedo)
   {
     animal: "Perro",
     tipo: "Mixta",
     segmento: "Adulto Pollo",
     productIds: [
-      1303216783426, // Pienso seco
-      6751009210551, // Latas
-      6750994235559, // Latas
+      1303216783426, // Pienso seco Pollo
+      4500505952322, // Pienso seco Pollo - Croqueta Pequeña
+      6751009210551, // Latas Pollo con Zanahoria y Conejo
+      6750994235559, // Latas Pollo con Zanahoria
     ]
   },
   
@@ -201,8 +213,9 @@ export const PRODUCT_ID_MAPPING = [
     tipo: "Mixta",
     segmento: "Adulto Cordero",
     productIds: [
-      1303265804354, // Pienso seco
-      6751012257975, // Latas
+      1303265804354, // Pienso seco Cordero
+      4500503134274, // Pienso seco Cordero - Croqueta Pequeña
+      6751012257975, // Latas Cordero con Arroz
     ]
   },
   
@@ -211,7 +224,9 @@ export const PRODUCT_ID_MAPPING = [
     tipo: "Mixta",
     segmento: "Adulto Salmón",
     productIds: [
-      1303212752962, // Pienso seco
+      1303212752962, // Pienso seco Salmón
+      649056944194,  // Pienso seco Salmón - Croqueta pequeña
+      6751006752955, // Latas Pescado con Patata y Zanahoria (para salmón)
     ]
   },
   
@@ -220,7 +235,9 @@ export const PRODUCT_ID_MAPPING = [
     tipo: "Mixta",
     segmento: "Adulto Pescado",
     productIds: [
-      6751006752955, // Latas
+      1303212752962, // Pienso seco Salmón (default para pescado)
+      649056944194,  // Pienso seco Salmón - Croqueta pequeña
+      6751006752955, // Latas Pescado con Patata y Zanahoria
     ]
   },
   
@@ -229,7 +246,9 @@ export const PRODUCT_ID_MAPPING = [
     tipo: "Mixta",
     segmento: "Cachorros",
     productIds: [
-      1303206658114, // Pienso seco
+      1303206658114, // Pienso seco Cachorros de Salmón
+      31708495183938, // Latas Puppy Cordero y Pollo 185gr
+      31708495216706, // Pack 12ud Latas Puppy
     ]
   },
   
@@ -238,7 +257,8 @@ export const PRODUCT_ID_MAPPING = [
     tipo: "Mixta",
     segmento: "Senior Light",
     productIds: [
-      1303298474050, // Pienso seco
+      1303298474050, // Pienso seco Light & Senior
+      6751006752955, // Latas Pescado (compatible con light/senior)
     ]
   },
   
@@ -282,7 +302,8 @@ export const PRODUCT_ID_MAPPING = [
     tipo: "Mixta",
     segmento: "Esterilizados Light",
     productIds: [
-      7530676453593, // Pienso seco
+      7530676453593, // Pienso seco Esterilizados
+      6750811062439, // Latas Pollo con Zanahoria (compatible con esterilizados)
     ]
   },
 ];

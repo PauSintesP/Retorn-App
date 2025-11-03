@@ -96,7 +96,7 @@ export default function RecommendationResult({ recommendation, onRestart }) {
           </>
         )}
 
-        {recomendacion.tipo === "mixta" && (recomendacion.productoSeco || recomendacion.productoHumedo) && (
+        {recomendacion.tipo === "mixta" && (
           <>
             <div className="mixta-info">
               <h3 className="mixta-title">Alimentación Mixta</h3>
@@ -118,14 +118,12 @@ export default function RecommendationResult({ recommendation, onRestart }) {
                 tipoAnimal={tipoAnimal}
               />
               
-              {recomendacion.productoHumedo && (
-                <ProductCard
-                  producto={recomendacion.productoHumedo}
-                  tipo="Alimento Húmedo"
-                  kcalDiarias={kcalDiarias}
-                  porcentaje={25}
-                />
-              )}
+              <ProductCard
+                producto={recomendacion.productoHumedo}
+                tipo="Alimento Húmedo"
+                kcalDiarias={kcalDiarias}
+                porcentaje={25}
+              />
             </div>
           </>
         )}
