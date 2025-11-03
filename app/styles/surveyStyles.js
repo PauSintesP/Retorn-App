@@ -1311,36 +1311,49 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* NUEVO BANNER DE ALERTA - ESTILO PROMOCIONAL */
   /* ============================================ */
   
+  /* Wrapper que reserva el espacio para la alerta - SIEMPRE OCUPA ESPACIO */
+  .patologia-alert-wrapper {
+    min-height: 100px;
+    margin-top: 1.25rem;
+    display: flex;
+    align-items: flex-start;
+    transition: min-height 0.3s ease;
+  }
+
+  @media (min-width: 600px) {
+    .patologia-alert-wrapper {
+      min-height: 110px;
+      margin-top: 1.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .patologia-alert-wrapper {
+      min-height: 100px;
+      margin-top: 2rem;
+    }
+  }
+  
   .patologia-alert-banner {
     position: relative;
-    margin-top: 1.25rem;
+    width: 100%;
     padding: 1rem 2.5rem 1rem 1rem;
     background: linear-gradient(135deg, #FFF9E6 0%, #FFFBF0 100%);
     border: 2px solid #FFD700;
     border-radius: 12px;
     box-shadow: 0 4px 16px rgba(255, 215, 0, 0.2);
-    animation: slideDown 0.4s ease-out;
-    width: 100%;
+    animation: fadeIn 0.3s ease-out;
     box-sizing: border-box;
-    /* Evitar que empuje los botones hacia arriba */
-    min-height: 0;
-    overflow: hidden;
   }
 
-  @keyframes slideDown {
+  @keyframes fadeIn {
     from {
       opacity: 0;
-      max-height: 0;
-      margin-top: 0;
-      padding-top: 0;
-      padding-bottom: 0;
+      transform: scale(0.95);
     }
     to {
       opacity: 1;
-      max-height: 300px;
-      margin-top: 1.25rem;
-      padding-top: 1rem;
-      padding-bottom: 1rem;
+      transform: scale(1);
     }
   }
 
@@ -1349,45 +1362,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
       padding: 1.25rem 3rem 1.25rem 1.5rem;
       border-radius: 16px;
     }
-    
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        max-height: 0;
-        margin-top: 0;
-        padding-top: 0;
-        padding-bottom: 0;
-      }
-      to {
-        opacity: 1;
-        max-height: 300px;
-        margin-top: 1.5rem;
-        padding-top: 1.25rem;
-        padding-bottom: 1.25rem;
-      }
-    }
   }
 
   @media (min-width: 768px) {
     .patologia-alert-banner {
       padding: 1.5rem 3.5rem 1.5rem 2rem;
-    }
-    
-    @keyframes slideDown {
-      from {
-        opacity: 0;
-        max-height: 0;
-        margin-top: 0;
-        padding-top: 0;
-        padding-bottom: 0;
-      }
-      to {
-        opacity: 1;
-        max-height: 300px;
-        margin-top: 2rem;
-        padding-top: 1.5rem;
-        padding-bottom: 1.5rem;
-      }
     }
   }
 

@@ -112,25 +112,28 @@ export default function MultipleChoiceQuestion({ question, value = [], onChange,
         Selecciona todas las que apliquen para personalizar la recomendación
       </p>
 
-      {/* Alerta si se seleccionó alguna patología - Con estilo de la imagen */}
-      {tienePatologias && showAlert && (
-        <div className="patologia-alert-banner">
-          <div className="alert-banner-content">
-            <div className="alert-banner-icon">⚠️</div>
-            <div className="alert-banner-text">
-              <p>Evaluaremos una dieta personalizada para entender mejor qué necesita y ofrecerle la mejor alimentación adaptada a su condición.</p>
+      {/* Contenedor con altura reservada para la alerta - SIEMPRE PRESENTE */}
+      <div className="patologia-alert-wrapper">
+        {/* Alerta si se seleccionó alguna patología - Con estilo de la imagen */}
+        {tienePatologias && showAlert && (
+          <div className="patologia-alert-banner">
+            <div className="alert-banner-content">
+              <div className="alert-banner-icon">⚠️</div>
+              <div className="alert-banner-text">
+                <p>Evaluaremos una dieta personalizada para entender mejor qué necesita y ofrecerle la mejor alimentación adaptada a su condición.</p>
+              </div>
             </div>
+            <button 
+              className="alert-banner-close"
+              onClick={() => setShowAlert(false)}
+              aria-label="Cerrar"
+              type="button"
+            >
+              ✕
+            </button>
           </div>
-          <button 
-            className="alert-banner-close"
-            onClick={() => setShowAlert(false)}
-            aria-label="Cerrar"
-            type="button"
-          >
-            ✕
-          </button>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }
