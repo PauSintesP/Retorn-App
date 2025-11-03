@@ -110,11 +110,6 @@ export const PRODUCT_ID_MAPPING = [
     productIds: [
       1445560811586, // Comida Húmeda para Perros de Pescado con Patatas
       1697823129666, // Comida Húmeda para Perros de Pescado con Zanahorias
-      4503345004610, // Comida Húmeda de Filetes de Atún natural con Boniato para Perros
-      4503343530050, // Comida Húmeda de Filetes de Atún natural con Calabaza para Perros
-      4503344283714, // Comida Húmeda de Filetes de Atún natural con Manzana para Perros
-      4445138092098, // Comida Húmeda de Filetes de Atún natural con Zanahorias para Perros
-      6084983193783, // Comida Húmeda de Filetes de Atún Natural para Perros
     ]
   },
   
