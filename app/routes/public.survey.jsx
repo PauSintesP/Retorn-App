@@ -45,23 +45,6 @@ export default function PublicSurveyPage() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const sendHeight = () => {
-      const height = document.body.scrollHeight;
-      window.parent.postMessage({
-        type: 'retorn-survey-height',
-        height: height
-      }, '*');
-    };
-
-    sendHeight();
-    
-    const observer = new ResizeObserver(sendHeight);
-    observer.observe(document.body);
-    
-    return () => observer.disconnect();
-  }, [currentStep, started, showRecommendation, showPathologyContact]);
-
-  useEffect(() => {
     if (started && currentStep === 0) {
       window.parent.postMessage({
         type: 'retorn-survey-started'
@@ -188,24 +171,21 @@ export default function PublicSurveyPage() {
       try {
         const h = document.documentElement.scrollHeight || document.body.scrollHeight;
         window.parent.postMessage({ type: "retorn-survey-height", height: h }, "*");
-      } catch (e) {
-        // Silent
-      }
+      } catch (e) {}
     };
 
     sendHeight();
 
     const ro = new ResizeObserver(sendHeight);
     ro.observe(document.documentElement);
-    ro.observe(document.body);
 
-    const interval = setInterval(sendHeight, 600);
+    const interval = setInterval(sendHeight, 500);
 
     return () => {
       ro.disconnect();
       clearInterval(interval);
     };
-  }, []);
+  }, [currentStep, showRecommendation, showPathologyContact, started]);
 
   const handleAnswer = (value) => {
     setAnswers((prev) => ({
