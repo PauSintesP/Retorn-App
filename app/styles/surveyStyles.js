@@ -394,7 +394,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .option-button:hover {
     background: linear-gradient(135deg, #e8f5e9 0%, #d4ede8 100%);
     border-color: var(--jdgm-paginate-color);
-    transform: translateY(-3px) scale(1.01);
+    transform: translateY(-2px);
     box-shadow: 
       0 8px 24px rgba(115, 159, 153, 0.2),
       0 4px 8px rgba(115, 159, 153, 0.1);
@@ -408,7 +408,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     box-shadow: 
       0 6px 20px rgba(115, 159, 153, 0.25),
       inset 0 1px 0 rgba(255, 255, 255, 0.5);
-    transform: scale(1.02);
+    transform: none;
   }
 
   /* Optimización para preguntas con pocos botones (2-3 opciones) - Mobile */
@@ -1319,23 +1319,75 @@ export const getSurveyStyles = (direction, theme = {}) => {
     border: 2px solid #FFD700;
     border-radius: 12px;
     box-shadow: 0 4px 16px rgba(255, 215, 0, 0.2);
-    animation: fadeSlideIn 0.4s ease-out;
+    animation: slideDown 0.4s ease-out;
     width: 100%;
     box-sizing: border-box;
+    /* Evitar que empuje los botones hacia arriba */
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  @keyframes slideDown {
+    from {
+      opacity: 0;
+      max-height: 0;
+      margin-top: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+    }
+    to {
+      opacity: 1;
+      max-height: 300px;
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
   }
 
   @media (min-width: 600px) {
     .patologia-alert-banner {
-      margin-top: 1.5rem;
       padding: 1.25rem 3rem 1.25rem 1.5rem;
       border-radius: 16px;
+    }
+    
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        max-height: 0;
+        margin-top: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+      to {
+        opacity: 1;
+        max-height: 300px;
+        margin-top: 1.5rem;
+        padding-top: 1.25rem;
+        padding-bottom: 1.25rem;
+      }
     }
   }
 
   @media (min-width: 768px) {
     .patologia-alert-banner {
-      margin-top: 2rem;
       padding: 1.5rem 3.5rem 1.5rem 2rem;
+    }
+    
+    @keyframes slideDown {
+      from {
+        opacity: 0;
+        max-height: 0;
+        margin-top: 0;
+        padding-top: 0;
+        padding-bottom: 0;
+      }
+      to {
+        opacity: 1;
+        max-height: 300px;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1.5rem;
+      }
     }
   }
 
@@ -1458,21 +1510,70 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* MEJORA RESPONSIVIDAD PREGUNTA PATOLOGÍAS */
   /* ============================================ */
   
-  /* Contenedor específico para pregunta de patologías */
+  /* Contenedor específico para pregunta de patologías - ALTURA FIJA PARA EVITAR DESPLAZAMIENTOS */
   .patologias-question {
-    min-height: 400px; /* Altura mínima para evitar saltos al seleccionar */
+    position: relative;
+  }
+
+  /* Reservar espacio para la alerta desde el inicio */
+  .patologias-question::after {
+    content: '';
+    display: block;
+    height: 0;
+    transition: height 0.3s ease;
+  }
+
+  /* Los botones de patologías tienen un estilo mejorado */
+  .patologia-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+
+  .option-text {
+    flex: 1;
+    text-align: left;
+  }
+
+  .option-check {
+    width: 24px;
+    height: 24px;
+    border: 2px solid var(--jdgm-paginate-color);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    background: transparent;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    flex-shrink: 0;
+    margin-left: 0.75rem;
   }
 
   @media (min-width: 600px) {
-    .patologias-question {
-      min-height: 450px;
+    .option-check {
+      width: 26px;
+      height: 26px;
+      font-size: 1.1rem;
+      margin-left: 1rem;
     }
   }
 
   @media (min-width: 768px) {
-    .patologias-question {
-      min-height: auto; /* En desktop no necesitamos altura mínima */
+    .option-check {
+      width: 28px;
+      height: 28px;
+      font-size: 1.2rem;
     }
+  }
+
+  .option-check.checked {
+    background: var(--jdgm-paginate-color);
+    border-color: var(--jdgm-paginate-color);
+    box-shadow: 0 2px 8px rgba(115, 159, 153, 0.4);
   }
 
   /* Asegurar que los botones mantengan tamaño consistente */

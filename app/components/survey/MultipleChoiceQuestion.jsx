@@ -52,17 +52,12 @@ export default function MultipleChoiceQuestion({ question, value = [], onChange,
               <button
                 key={option}
                 type="button"
-                className={`option-button ${isSelected ? "selected" : ""}`}
+                className={`option-button patologia-option ${isSelected ? "selected" : ""}`}
                 onClick={() => handleToggle(option)}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
               >
-                <span>{option}</span>
-                <span style={{ fontSize: "1.5rem", marginLeft: "0.5rem" }}>
-                  {isSelected ? "✓" : "○"}
+                <span className="option-text">{option}</span>
+                <span className={`option-check ${isSelected ? "checked" : ""}`}>
+                  {isSelected && "✓"}
                 </span>
               </button>
             );
@@ -76,17 +71,12 @@ export default function MultipleChoiceQuestion({ question, value = [], onChange,
               <button
                 key={option}
                 type="button"
-                className={`option-button ${isSelected ? "selected" : ""}`}
+                className={`option-button patologia-option ${isSelected ? "selected" : ""}`}
                 onClick={() => handleToggle(option)}
-                style={{
-                  display: "flex",
-                  justifyContent: "space-between",
-                  alignItems: "center",
-                }}
               >
-                <span>{option}</span>
-                <span style={{ fontSize: "1.5rem", marginLeft: "0.5rem" }}>
-                  {isSelected ? "✓" : "○"}
+                <span className="option-text">{option}</span>
+                <span className={`option-check ${isSelected ? "checked" : ""}`}>
+                  {isSelected && "✓"}
                 </span>
               </button>
             );
