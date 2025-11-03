@@ -222,11 +222,11 @@ export const QUESTIONS = [
         ];
       }
       return [
-        "Salmón + Pesc zanahoria",
-        "Cordero + Cordero arroz",
-        "Pollo + Pollo zanahoria",
-        "Salmón light + Pesc zanahoria",
-        "Salmón Cachorro + Lata cachorro",
+        "Salmón + Lata Pescado con Zanahorias",
+        "Cordero + Lata Cordero con Arroz",
+        "Pollo + Lata Pollo con Zanahorias",
+        "Salmón Light + Lata Pescado con Zanahorias",
+        "Salmón Cachorro + Lata Cachorro",
         "¡Sorpréndeme!",
       ];
     },
@@ -250,10 +250,10 @@ export const QUESTIONS = [
         ];
       }
       return [
-        "Pollo + Pollo lata",
-        "Pescado + Fish lata",
-        "Esterilizados + Pollo lata",
-        "Gatito + Pollo lata",
+        "Pollo + Lata Pollo con Conejo",
+        "Pescado + Lata Atún con Gambas",
+        "Esterilizados + Lata Pollo",
+        "Gatito + Lata Gatitos",
         "¡Sorpréndeme!",
       ];
     },

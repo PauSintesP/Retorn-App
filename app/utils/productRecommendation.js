@@ -129,27 +129,36 @@ function resolverSegmentoPerroHumedo(segmentoSeco, preferencia) {
   if (segmentoSeco && segmentoSeco.includes("Cachorro")) return "Cachorros";
   
   // Revisar la preferencia del usuario primero (de q11_perro)
-  // Mapear según las opciones de la pregunta 11:
-  // - "Salmón + Pesc zanahoria" → Pescado Zanahoria
-  // - "Cordero + Cordero arroz" → Cordero Arroz (Adulto Cordero)
-  // - "Pollo + Pollo zanahoria" → Pollo Zanahoria (Adulto Pollo)
-  // - "Salmón light + Pesc zanahoria" → Pescado Zanahoria
-  // - "Salmón Cachorro + Lata cachorro" → Cachorros
+  // Mapear según las opciones de la pregunta 11 (Mixta):
+  // - "Salmón + Lata Pescado con Zanahorias" → Pescado Zanahoria
+  // - "Cordero + Lata Cordero con Arroz" → Cordero Arroz (Adulto Cordero)
+  // - "Pollo + Lata Pollo con Zanahorias" → Pollo Zanahoria (Adulto Pollo)
+  // - "Salmón Light + Lata Pescado con Zanahorias" → Pescado Zanahoria
+  // - "Salmón Cachorro + Lata Cachorro" → Cachorros
   
   if (preferencia) {
-    // Si menciona específicamente "Pollo zanahoria" o solo "Pollo"
-    if (preferencia.includes("Pollo")) return "Adulto Pollo";
+    // Si menciona específicamente "Lata Pollo con Zanahorias" o "Pollo"
+    if (preferencia.includes("Lata Pollo con Zanahorias") || preferencia.includes("Pollo zanahoria") || 
+        (preferencia.includes("Pollo") && !preferencia.includes("Cordero") && !preferencia.includes("Pescado"))) {
+      return "Adulto Pollo";
+    }
     
-    // Si menciona "Cordero arroz" o solo "Cordero"
-    if (preferencia.includes("Cordero")) return "Adulto Cordero";
+    // Si menciona "Lata Cordero con Arroz" o "Cordero"
+    if (preferencia.includes("Lata Cordero con Arroz") || preferencia.includes("Cordero arroz") || 
+        (preferencia.includes("Cordero") && !preferencia.includes("Pollo"))) {
+      return "Adulto Cordero";
+    }
     
-    // Si menciona "Pesc zanahoria", "Pescado", o cualquier variante de Salmón (que va con pescado)
-    if (preferencia.includes("Pesc") || preferencia.includes("Pescado") || preferencia.includes("Salmón")) {
+    // Si menciona "Lata Pescado con Zanahorias", "Pesc zanahoria", o cualquier variante de Salmón (que va con pescado)
+    if (preferencia.includes("Lata Pescado con Zanahorias") || preferencia.includes("Pesc zanahoria") || 
+        preferencia.includes("Pesc") || preferencia.includes("Pescado") || preferencia.includes("Salmón")) {
       return "Adulto Pescado";
     }
     
-    // Si menciona cachorro
-    if (preferencia.includes("Cachorro")) return "Cachorros";
+    // Si menciona "Lata Cachorro" o "cachorro"
+    if (preferencia.includes("Lata Cachorro") || preferencia.includes("Lata cachorro") || preferencia.includes("Cachorro")) {
+      return "Cachorros";
+    }
   }
   
   // Si no hay preferencia clara, revisar el segmento seco
@@ -166,17 +175,68 @@ function resolverSegmentoGatoSeco(answers) {
   const edad = answers.q3_gato;
   const castrado = answers.q6_gato;
   const patologias = answers.q7_gato;
+  const preferencia = answers.q9_gato || ""; // Preferencias de q9
 
+  // Gatitos
   if (edad === "Gatito") return "Cachorros";
+  
+  // Castrado o con sobrepeso → Esterilizados Light
   if (castrado === "Sí" || patologias?.includes("Sobrepeso")) return "Esterilizados Light";
+  
+  // Para adultos, revisar preferencias de la pregunta 9
+  if (preferencia.includes("Pollo")) return "Adulto Pollo";
+  if (preferencia.includes("Pescado")) return "Adulto Pescado";
+  if (preferencia.includes("Esterilizados")) return "Esterilizados Light";
+  if (preferencia.includes("Gatito")) return "Cachorros";
+  
   return "Adulto Pollo"; // por defecto
 }
 
-function resolverSegmentoGatoHumedo(segmentoSeco) {
-  if (!segmentoSeco) return "Adulto Pescado";
-  if (segmentoSeco.includes("Cachorro") || segmentoSeco.includes("Gatito")) return "Cachorros";
-  if (segmentoSeco.includes("Pollo") || segmentoSeco.includes("Esterilizado")) return "Adulto Pollo";
-  return "Adulto Pescado";
+function resolverSegmentoGatoHumedo(segmentoSeco, preferencia) {
+  // Si es gatito/cachorro, siempre devolver comida de gatito
+  if (segmentoSeco && (segmentoSeco.includes("Cachorro") || segmentoSeco.includes("Gatito"))) {
+    return "Cachorros";
+  }
+  
+  // Revisar la preferencia del usuario primero (de q9_gato)
+  // Mapear según las opciones de la pregunta 9 para gatos (Mixta):
+  // - "Pollo + Lata Pollo con Conejo" → Adulto Pollo
+  // - "Pescado + Lata Atún con Gambas" → Adulto Pescado
+  // - "Esterilizados + Lata Pollo" → Adulto Pollo
+  // - "Gatito + Lata Gatitos" → Cachorros
+  
+  if (preferencia) {
+    // Si menciona "Lata Pollo con Conejo", "Lata Pollo", o "Pollo"
+    if (preferencia.includes("Lata Pollo con Conejo") || preferencia.includes("Lata Pollo") || 
+        (preferencia.includes("Pollo") && !preferencia.includes("Pescado") && !preferencia.includes("Atún"))) {
+      return "Adulto Pollo";
+    }
+    
+    // Si menciona "Lata Atún con Gambas", "Pescado", o "Atún"
+    if (preferencia.includes("Lata Atún con Gambas") || preferencia.includes("Pescado") || 
+        preferencia.includes("Atún") || preferencia.includes("Fish")) {
+      return "Adulto Pescado";
+    }
+    
+    // Si menciona "Lata Gatitos" o "Gatito"
+    if (preferencia.includes("Lata Gatitos") || preferencia.includes("Gatito")) {
+      return "Cachorros";
+    }
+    
+    // "Esterilizados" va con Pollo por defecto
+    if (preferencia.includes("Esterilizados")) {
+      return "Adulto Pollo";
+    }
+  }
+  
+  // Si no hay preferencia clara, revisar el segmento seco
+  if (segmentoSeco) {
+    if (segmentoSeco.includes("Pollo") || segmentoSeco.includes("Esterilizado")) {
+      return "Adulto Pollo";
+    }
+  }
+  
+  return "Adulto Pescado"; // default a pescado
 }
 
 async function fetchYMapearPrimero(animal, tipo, segmento, tamanoCroqueta = null) {
@@ -424,10 +484,11 @@ async function seleccionarProductoSecoGato(answers) {
 }
 
 /**
- * Selecciona el producto húmedo adecuado para un gato
+ * Selecciona producto húmedo para gato
  */
-async function seleccionarProductoHumedoGato(productoSeco) {
-  const segmentoHumedo = resolverSegmentoGatoHumedo(productoSeco?.segmento);
+async function seleccionarProductoHumedoGato(productoSeco, answers) {
+  const preferencia = answers?.q9_gato || "";
+  const segmentoHumedo = resolverSegmentoGatoHumedo(productoSeco?.segmento, preferencia);
   console.log("🔍 Seleccionando producto húmedo para gato → segmento:", segmentoHumedo);
   return await fetchYMapearPrimero("Gato", "Humedo", segmentoHumedo);
 }
@@ -796,7 +857,7 @@ export async function calcularRecomendacionProductos(answers) {
       
       // Seleccionar productos usando el sistema de IDs
       const productoSeco = await seleccionarProductoSecoGato(answers);
-      const productoHumedo = await seleccionarProductoHumedoGato(productoSeco);
+      const productoHumedo = await seleccionarProductoHumedoGato(productoSeco, answers);
       
       if (tipoAlimentacion === "Seca") {
         // Solo producto seco
