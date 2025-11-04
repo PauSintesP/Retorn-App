@@ -130,9 +130,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .survey-content {
     flex: 1;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1.5rem 0.5rem;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding: 0.75rem 0.5rem;
     margin-top: 4px;
     position: relative;
     z-index: 1;
@@ -140,6 +140,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     overflow-x: hidden;
     width: 100%;
     box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
   }
 
   .question-card {
@@ -150,7 +151,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
       0 8px 24px rgba(0, 0, 0, 0.08),
       0 4px 12px rgba(115, 159, 153, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    padding: 1.25rem 0.85rem;
+    padding: 1rem 0.85rem;
     max-width: 100%;
     width: 100%;
     min-width: 280px;
@@ -2035,11 +2036,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
     border: none;
     color: var(--jdgm-paginate-color);
     font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 500;
     cursor: pointer;
-    padding: 0.75rem 1rem;
-    margin-bottom: 1rem;
+    padding: 0.5rem 0.75rem;
+    margin-bottom: 0.5rem;
     border-radius: 8px;
     transition: all 0.3s ease;
     position: relative;
@@ -2100,7 +2101,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .recommendation-container {
     max-width: 100%;
     width: 100%;
-    padding: 0.5rem;
+    padding: 0.25rem 0.5rem 0.5rem 0.5rem;
   }
 
   @media (min-width: 600px) {
@@ -2119,8 +2120,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .recommendation-header {
     text-align: center;
-    margin-bottom: 1.5rem;
-    padding: 1.25rem 0.875rem;
+    margin-bottom: 1rem;
+    padding: 0.875rem 0.75rem;
     background: linear-gradient(135deg, rgba(115, 159, 153, 0.1) 0%, rgba(115, 159, 153, 0.05) 100%);
     border-radius: 8px;
   }
@@ -2141,9 +2142,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .recommendation-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: var(--jdgm-primary-color);
-    margin: 0 0 0.5rem 0;
+    margin: 0 0 0.4rem 0;
     font-weight: 600;
     line-height: 1.3;
   }
@@ -3384,7 +3385,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .pathology-contact-container {
     max-width: 95%;
     margin: 0 auto;
-    padding: 1.5rem 0.5rem;
+    padding: 0.75rem 0.5rem;
   }
 
   @media (min-width: 768px) {
@@ -3401,7 +3402,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .pathology-contact-header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
   }
 
   @media (min-width: 768px) {
