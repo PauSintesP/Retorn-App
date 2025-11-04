@@ -7,6 +7,7 @@ import { useState } from "react";
 export default function RecommendationResult({ recommendation, onRestart = () => {} }) {
   const [showFirstOrderBanner, setShowFirstOrderBanner] = useState(true);
   const [showSubscriptionBanner, setShowSubscriptionBanner] = useState(true);
+  const [cuponAplicado, setCuponAplicado] = useState(false);
 
   if (!recommendation) {
     return null;
@@ -14,7 +15,10 @@ export default function RecommendationResult({ recommendation, onRestart = () =>
 
   const { tipoAnimal, nombreMascota, kcalDiarias, recomendacion, factores, tipoCroqueta } = recommendation;
 
-  // Función para agregar productos al carrito de Shopify con cupón
+  const aplicarCupon = () => {
+    setCuponAplicado(true);
+  };
+
   const agregarAlCarrito = () => {
     const productos = [];
     
@@ -25,7 +29,6 @@ export default function RecommendationResult({ recommendation, onRestart = () =>
       if (recomendacion.productoHumedo) productos.push(recomendacion.productoHumedo);
     }
 
-    // Construir URL del carrito con múltiples productos y cupón de descuento
     const cartItems = productos
       .map(p => {
         const variantId = p?.varianteRecomendada?.variantId;
@@ -35,11 +38,15 @@ export default function RecommendationResult({ recommendation, onRestart = () =>
       .join(',');
 
     if (cartItems) {
-      // Agregar el cupón RET15 automáticamente al carrito
-      window.open(`https://retorn.com/cart/${cartItems}?discount=RET15`, '_blank');
+      const cartUrl = cuponAplicado 
+        ? `https://retorn.com/cart/${cartItems}?discount=RET15`
+        : `https://retorn.com/cart/${cartItems}`;
+      window.open(cartUrl, '_blank');
     } else {
-      // Fallback: ir al carrito con el cupón
-      window.open('https://retorn.com/cart?discount=RET15', '_blank');
+      const cartUrl = cuponAplicado 
+        ? 'https://retorn.com/cart?discount=RET15'
+        : 'https://retorn.com/cart';
+      window.open(cartUrl, '_blank');
     }
   };
 
@@ -166,9 +173,20 @@ export default function RecommendationResult({ recommendation, onRestart = () =>
               <div className="discount-content">
                 <h4 className="discount-title">¡Aprovecha tu primer pedido!</h4>
                 <p className="discount-description">
-                  Usa el cupón <strong>RET15</strong> y obtén un <strong>15% de descuento</strong> solo para tu primer pedido.
+                  {cuponAplicado ? (
+                    <>✓ Cupón <strong>RET15</strong> activado - <strong>15% de descuento</strong> aplicado</>
+                  ) : (
+                    <>Usa el cupón <strong>RET15</strong> y obtén un <strong>15% de descuento</strong> solo para tu primer pedido.</>
+                  )}
                 </p>
-                <p className="discount-note">*El cupón se aplicará automáticamente al crear tu cesta</p>
+                {!cuponAplicado && (
+                  <button 
+                    onClick={aplicarCupon}
+                    className="apply-coupon-button"
+                  >
+                    Aplicar cupón
+                  </button>
+                )}
               </div>
             </div>
           )}

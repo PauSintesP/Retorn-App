@@ -2899,6 +2899,33 @@ export const getSurveyStyles = (direction, theme = {}) => {
     transform: translateX(3px);
   }
 
+  .apply-coupon-button {
+    display: inline-block;
+    background-color: #8b7355;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 0.5rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .apply-coupon-button:hover {
+    background-color: #6d5a45;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  .apply-coupon-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
   /* Tablet y superior */
   @media (min-width: 600px) {
     .discount-banner {
@@ -2938,6 +2965,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
     .subscription-link {
       font-size: 0.9rem;
+    }
+
+    .apply-coupon-button {
+      font-size: 0.85rem;
+      padding: 0.6rem 1.2rem;
     }
 
     .banner-close-button {
@@ -2981,6 +3013,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
     .subscription-link {
       font-size: 1rem;
+    }
+
+    .apply-coupon-button {
+      font-size: 0.9rem;
+      padding: 0.7rem 1.4rem;
     }
 
     .banner-close-button {
