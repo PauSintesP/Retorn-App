@@ -2429,6 +2429,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-size: 1rem;
     color: #FFE4C4;
     font-weight: bold;
+    flex-shrink: 0;
   }
 
   @media (min-width: 600px) {
@@ -2437,17 +2438,39 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
+  .croqueta-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    flex: 1;
+  }
+
   .croqueta-text {
     font-family: 'Inter', sans-serif;
     font-size: 0.8rem;
     font-weight: 600;
     color: #ffffff;
     letter-spacing: 0.3px;
+    line-height: 1.3;
   }
 
   @media (min-width: 600px) {
     .croqueta-text {
       font-size: 0.9rem;
+    }
+  }
+
+  .croqueta-disponibilidad {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: rgba(255, 255, 255, 0.85);
+    font-style: italic;
+  }
+
+  @media (min-width: 600px) {
+    .croqueta-disponibilidad {
+      font-size: 0.75rem;
     }
   }
 

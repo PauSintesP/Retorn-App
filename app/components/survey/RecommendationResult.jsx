@@ -373,15 +373,17 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
         {tipoCroqueta && tipoAnimal === "Perro" && tipo.includes("Seco") ? (
           <div className="product-croqueta-badge" role="note" aria-label={`Tipo de croqueta: ${tipoCroqueta.tipo}`}>
             <span className="croqueta-icon">●</span>
-            <span className="croqueta-text">
-              <strong>Croqueta {tipoCroqueta.tipo}</strong>
-              {tipoCroqueta.diametro && ` (${tipoCroqueta.diametro})`}
-            </span>
-            {tipoCroqueta.disponibilidad && (
-              <span className="croqueta-disponibilidad" style={{ fontSize: '0.85em', color: '#666', marginLeft: '8px' }}>
-                {tipoCroqueta.disponibilidad}
+            <div className="croqueta-info">
+              <span className="croqueta-text">
+                <strong>{tipoCroqueta.tipo === "Regular" ? "Croqueta Regular" : "Croqueta Pequeña"}</strong>
+                {tipoCroqueta.diametro && ` - ${tipoCroqueta.diametro}`}
               </span>
-            )}
+              {tipoCroqueta.disponibilidad && (
+                <span className="croqueta-disponibilidad">
+                  {tipoCroqueta.disponibilidad}
+                </span>
+              )}
+            </div>
           </div>
         ) : (
           <div className="product-croqueta-badge product-croqueta-placeholder" aria-hidden="true">
