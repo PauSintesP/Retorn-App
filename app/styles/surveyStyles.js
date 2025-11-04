@@ -130,9 +130,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .survey-content {
     flex: 1;
     display: flex;
-    align-items: flex-start;
+    flex-direction: column;
+    align-items: center;
     justify-content: flex-start;
-    padding: 0.75rem 0.5rem;
+    padding: 0.75rem;
     margin-top: 4px;
     position: relative;
     z-index: 1;
