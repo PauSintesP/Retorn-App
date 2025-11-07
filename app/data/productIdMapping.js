@@ -108,8 +108,8 @@ export const PRODUCT_ID_MAPPING = [
     tipo: "Humedo",
     segmento: "Adulto Pescado",
     productIds: [
+      1697823129666, // Comida Húmeda para Perros de Pescado con Zanahorias (PRIORIDAD)
       1445560811586, // Comida Húmeda para Perros de Pescado con Patatas
-      1697823129666, // Comida Húmeda para Perros de Pescado con Zanahorias
     ]
   },
   

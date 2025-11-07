@@ -85,8 +85,13 @@ function resolverSegmentoPerroSeco(answers) {
 
   if (edad === "Cachorro") return "Cachorros";
   
+  // Prioridad 1: Si el cliente pide explícitamente Light en la preferencia
+  if (preferencia.includes("Light")) return "Senior Light";
+  
+  // Prioridad 2: Si es Senior o tiene sobrepeso
   if (edad === "Senior" || patologias?.includes("Sobrepeso")) return "Senior Light";
 
+  // Prioridad 3: Preferencias de sabor para adultos
   if (preferencia.includes("Pollo")) return "Adulto Pollo";
   if (preferencia.includes("Cordero")) return "Adulto Cordero";
   if (preferencia.includes("Salmón")) return "Adulto Salmón";

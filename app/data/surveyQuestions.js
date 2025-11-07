@@ -23,7 +23,7 @@ export const QUESTIONS = [
   },
   {
     id: "3_perro",
-    question: (name) => `¿De qué tamaño es o será ${name || "tu pelud@"} de mayor?`,
+    question: (name) => `¿Tamaño de ${name || "tu pelud@"}?`,
     type: "choice",
     options: ["Pequeño", "Mediano", "Grande"],
     required: true,
@@ -31,7 +31,7 @@ export const QUESTIONS = [
   },
   {
     id: "3_gato",
-    question: "¿Qué edad tiene?",
+    question: "¿En qué etapa se encuentra?",
     type: "choice",
     options: ["Gatito", "Adulto", "Senior"],
     required: true,
@@ -39,7 +39,7 @@ export const QUESTIONS = [
   },
   {
     id: "4_perro",
-    question: "¿Qué edad tiene?",
+    question: "¿En qué etapa se encuentra?",
     type: "choice",
     options: ["Cachorro", "Adulto", "Senior"],
     required: true,

@@ -16,10 +16,12 @@ export default function RecommendationResult({ recommendation, onRestart = () =>
   const { tipoAnimal, nombreMascota, kcalDiarias, recomendacion, factores, tipoCroqueta } = recommendation;
 
   const aplicarCupon = () => {
+    console.log('🎟️ Cupón aplicado - cuponAplicado cambia a true');
     setCuponAplicado(true);
   };
 
   const agregarAlCarrito = () => {
+    console.log('🛒 Agregando al carrito - cuponAplicado:', cuponAplicado);
     const productos = [];
     
     if (recomendacion.tipo === "seca") {
@@ -41,11 +43,15 @@ export default function RecommendationResult({ recommendation, onRestart = () =>
       const cartUrl = cuponAplicado 
         ? `https://retorn.com/cart/${cartItems}?discount=RET15`
         : `https://retorn.com/cart/${cartItems}`;
+      console.log('🔗 URL del carrito:', cartUrl);
+      console.log('💳 Cupón aplicado:', cuponAplicado ? 'SÍ' : 'NO');
       window.open(cartUrl, '_blank');
     } else {
       const cartUrl = cuponAplicado 
         ? 'https://retorn.com/cart?discount=RET15'
         : 'https://retorn.com/cart';
+      console.log('🔗 URL del carrito (sin items):', cartUrl);
+      console.log('💳 Cupón aplicado:', cuponAplicado ? 'SÍ' : 'NO');
       window.open(cartUrl, '_blank');
     }
   };
