@@ -108,8 +108,7 @@ export const PRODUCT_ID_MAPPING = [
     tipo: "Humedo",
     segmento: "Adulto Pescado",
     productIds: [
-      1697823129666, // Comida Húmeda para Perros de Pescado con Zanahorias (PRIORIDAD)
-      1445560811586, // Comida Húmeda para Perros de Pescado con Patatas
+      1697823129666, // Comida Húmeda para Perros de Pescado con Zanahorias
     ]
   },
   
@@ -244,8 +243,8 @@ export const PRODUCT_ID_MAPPING = [
     productIds: [
       1303212752962, // Pienso seco Salmón
       649056944194,  // Pienso seco Salmón - Croqueta pequeña
+      1697823129666, // Latas Pescado con Zanahorias (PRIORIDAD)
       1445560811586, // Latas Pescado con Patatas
-      1697823129666, // Latas Pescado con Zanahorias
       4503345004610, // Latas Atún con Boniato
       4503343530050, // Latas Atún con Calabaza
     ]
@@ -258,8 +257,8 @@ export const PRODUCT_ID_MAPPING = [
     productIds: [
       1303212752962, // Pienso seco Salmón (default para pescado)
       649056944194,  // Pienso seco Salmón - Croqueta pequeña
+      1697823129666, // Latas Pescado con Zanahorias (PRIORIDAD)
       1445560811586, // Latas Pescado con Patatas
-      1697823129666, // Latas Pescado con Zanahorias
     ]
   },
   
@@ -269,8 +268,8 @@ export const PRODUCT_ID_MAPPING = [
     segmento: "Senior Light",
     productIds: [
       1303298474050, // Pienso seco Light & Senior
+      1697823129666, // Latas Pescado con Zanahorias (PRIORIDAD)
       1445560811586, // Latas Pescado con Patatas
-      1697823129666, // Latas Pescado con Zanahorias
     ]
   },
   
