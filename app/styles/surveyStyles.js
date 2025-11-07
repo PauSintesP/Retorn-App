@@ -1211,21 +1211,30 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .two-columns-container {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.6rem;
+    gap: 0.7rem;
     margin-bottom: 0.75rem;
   }
 
-  @media (min-width: 600px) {
+  /* Tablet pequeña: sigue en una columna */
+  @media (min-width: 500px) {
+    .two-columns-container {
+      gap: 0.8rem;
+    }
+  }
+
+  /* Tablet: dos columnas */
+  @media (min-width: 650px) {
     .two-columns-container {
       grid-template-columns: 1fr 1fr;
-      gap: 0.85rem;
+      gap: 0.9rem;
       margin-bottom: 1rem;
     }
   }
 
-  @media (min-width: 768px) {
+  /* Desktop: mayor separación */
+  @media (min-width: 900px) {
     .two-columns-container {
-      gap: 1rem;
+      gap: 1.1rem;
     }
   }
 
@@ -1235,7 +1244,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     align-items: stretch;
   }
 
-  @media (min-width: 600px) {
+  @media (min-width: 650px) {
     .two-columns-container.three-column {
       grid-template-columns: 1fr auto 1fr;
       align-items: start;
@@ -1254,28 +1263,40 @@ export const getSurveyStyles = (direction, theme = {}) => {
     width: 100%;
   }
 
-  @media (min-width: 600px) {
+  @media (min-width: 650px) {
     .two-columns-container.three-column .otros-button {
       width: auto;
-      min-width: 160px;
+      min-width: 170px;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .two-columns-container.three-column .otros-button {
+      min-width: 180px;
     }
   }
 
   .column {
     display: flex;
     flex-direction: column;
-    gap: 0.6rem;
+    gap: 0.7rem;
   }
 
-  @media (min-width: 600px) {
+  @media (min-width: 500px) {
     .column {
-      gap: 0.75rem;
+      gap: 0.8rem;
     }
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 650px) {
     .column {
       gap: 0.85rem;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .column {
+      gap: 0.95rem;
     }
   }
 
@@ -1303,23 +1324,53 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .otros-text-container {
     animation: fadeSlideIn 0.3s ease-out;
-    margin-top: 0.85rem !important;
+    margin-top: 0.9rem !important;
     width: 100%;
     box-sizing: border-box;
   }
 
-  @media (min-width: 600px) {
+  @media (min-width: 500px) {
     .otros-text-container {
       margin-top: 1rem !important;
     }
   }
 
-  /* Asegurar que el input de "Otros" no se desborde */
+  @media (min-width: 650px) {
+    .otros-text-container {
+      margin-top: 1.1rem !important;
+    }
+  }
+
+  /* Asegurar que el input de "Otros" no se desborde y tenga buen tamaño */
   .otros-text-container .text-input {
-    width: calc(100% - 0.5rem);
+    width: 100%;
     max-width: 100%;
-    margin: 0 0.25rem;
+    margin: 0;
+    padding: 0.9rem 1rem;
+    font-size: 0.9rem;
     box-sizing: border-box;
+    border: 2px solid rgba(115, 159, 153, 0.2);
+    border-radius: 8px;
+    transition: border-color 0.2s ease;
+  }
+
+  .otros-text-container .text-input:focus {
+    border-color: var(--jdgm-paginate-color);
+    outline: none;
+  }
+
+  @media (min-width: 500px) {
+    .otros-text-container .text-input {
+      padding: 1rem 1.15rem;
+      font-size: 0.95rem;
+    }
+  }
+
+  @media (min-width: 650px) {
+    .otros-text-container .text-input {
+      padding: 1.1rem 1.25rem;
+      font-size: 1rem;
+    }
   }
 
   /* ============================================ */
@@ -1544,36 +1595,46 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .option-check {
-    width: 24px;
-    height: 24px;
+    width: 22px;
+    height: 22px;
     border: 2px solid var(--jdgm-paginate-color);
     border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: bold;
     color: white;
     background: transparent;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     flex-shrink: 0;
-    margin-left: 0.75rem;
+    margin-left: 0.65rem;
   }
 
-  @media (min-width: 600px) {
+  @media (min-width: 500px) {
+    .option-check {
+      width: 24px;
+      height: 24px;
+      font-size: 1rem;
+      margin-left: 0.75rem;
+    }
+  }
+
+  @media (min-width: 650px) {
     .option-check {
       width: 26px;
       height: 26px;
       font-size: 1.1rem;
-      margin-left: 1rem;
+      margin-left: 0.85rem;
     }
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 900px) {
     .option-check {
       width: 28px;
       height: 28px;
       font-size: 1.2rem;
+      margin-left: 1rem;
     }
   }
 
@@ -1585,19 +1646,31 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   /* Asegurar que los botones mantengan tamaño consistente */
   .patologias-question .option-button {
-    min-height: 56px;
+    min-height: 54px;
     height: auto;
+    padding: 0.85rem 1rem;
   }
 
-  @media (min-width: 600px) {
+  @media (min-width: 500px) {
     .patologias-question .option-button {
-      min-height: 64px;
+      min-height: 58px;
+      padding: 0.95rem 1.15rem;
     }
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 650px) {
+    .patologias-question .option-button {
+      min-height: 62px;
+      padding: 1.05rem 1.3rem;
+    }
+  }
+
+  @media (min-width: 900px) {
     .patologias-question .option-button {
       min-height: 58px;
+      padding: 1.15rem 1.5rem;
+    }
+  }
     }
   }
 
@@ -2679,28 +2752,36 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
-  /* Contenedor de notificaciones apiladas */
+  /* Contenedor de notificaciones apiladas - Sin overflow propio */
   .notifications-stack {
     width: 100%;
     max-width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    margin-bottom: 1rem;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
     padding: 0;
     box-sizing: border-box;
+    overflow: visible; /* Evitar scroll múltiple */
   }
 
-  @media (min-width: 600px) {
+  @media (min-width: 500px) {
     .notifications-stack {
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+      gap: 0.9rem;
+      margin-bottom: 1.4rem;
     }
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 650px) {
     .notifications-stack {
-      gap: 1.25rem;
+      gap: 1.1rem;
+      margin-bottom: 1.6rem;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .notifications-stack {
+      gap: 1.3rem;
       margin-bottom: 2rem;
     }
   }
@@ -2735,18 +2816,18 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .discount-banner {
     width: 100%;
     max-width: 100%;
-    padding: 0.75rem 0.5rem;
-    padding-right: 2.25rem; /* Espacio para el botón de cerrar */
-    border-radius: 8px;
+    padding: 1rem 0.85rem;
+    padding-right: 2.5rem; /* Espacio para el botón de cerrar */
+    border-radius: 10px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: 0.65rem;
     margin: 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    overflow: hidden;
+    overflow: visible; /* Evitar scroll interno */
     box-sizing: border-box;
   }
 
@@ -2762,43 +2843,46 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .discount-banner:hover {
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
   }
 
-  /* Botón para cerrar notificaciones - Mejorado para móvil */
+  /* Botón para cerrar notificaciones - Mejorado para móvil y táctil */
   .banner-close-button {
     position: absolute;
-    top: 0.25rem;
-    right: 0.25rem;
-    width: 1.5rem;
-    height: 1.5rem;
-    min-width: 1.5rem;
-    min-height: 1.5rem;
+    top: 0.4rem;
+    right: 0.4rem;
+    width: 1.85rem;
+    height: 1.85rem;
+    min-width: 1.85rem;
+    min-height: 1.85rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.08);
+    background: rgba(0, 0, 0, 0.1);
     border: none;
     border-radius: 50%;
     color: inherit;
-    font-size: 1.2rem;
+    font-size: 1.35rem;
     line-height: 1;
     cursor: pointer;
-    transition: all 0.2s ease;
-    opacity: 0.7;
+    transition: all 0.25s ease;
+    opacity: 0.75;
     padding: 0;
     z-index: 10;
     flex-shrink: 0;
+    -webkit-tap-highlight-color: transparent; /* Mejor para táctil */
   }
 
   .banner-close-button:hover {
     opacity: 1;
-    background: rgba(0, 0, 0, 0.15);
-    transform: scale(1.1);
+    background: rgba(0, 0, 0, 0.18);
+    transform: scale(1.08);
   }
 
   .banner-close-button:active {
-    transform: scale(0.95);
+    transform: scale(0.92);
+    background: rgba(0, 0, 0, 0.22);
   }
 
   .first-order-banner {
@@ -2822,7 +2906,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .discount-icon {
-    font-size: 1.4rem;
+    font-size: 1.75rem;
     flex-shrink: 0;
     filter: grayscale(20%);
     margin-bottom: 0;
@@ -2835,17 +2919,17 @@ export const getSurveyStyles = (direction, theme = {}) => {
     width: 100%;
     max-width: 100%;
     padding-right: 0;
-    overflow: hidden;
+    overflow: visible; /* Evitar scroll */
     box-sizing: border-box;
   }
 
   .discount-title {
-    font-family: 'Oswald', sans-serif;
-    font-size: 0.8rem;
+    font-family: 'Inter', sans-serif; /* Consistencia tipográfica */
+    font-size: 1rem; /* Más grande en móvil */
     font-weight: 600;
     color: inherit;
-    margin: 0 0 0.35rem 0;
-    line-height: 1.3;
+    margin: 0 0 0.5rem 0;
+    line-height: 1.4;
     letter-spacing: 0.2px;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -2853,11 +2937,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .discount-description {
-    font-size: 0.7rem;
+    font-family: 'Inter', sans-serif; /* Consistencia tipográfica */
+    font-size: 0.9rem; /* Más grande en móvil */
     color: inherit;
-    opacity: 0.9;
-    margin: 0 0 0.25rem 0;
-    line-height: 1.4;
+    opacity: 0.92;
+    margin: 0 0 0.35rem 0;
+    line-height: 1.5;
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
@@ -2883,16 +2968,18 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: inline-block;
     color: #8b7355;
     text-decoration: none;
+    font-family: 'Inter', sans-serif; /* Consistencia tipográfica */
     font-weight: 600;
-    font-size: 0.7rem;
+    font-size: 0.88rem; /* Más grande en móvil */
     transition: all 0.3s ease;
-    margin-top: 0.25rem;
-    border-bottom: 1px solid transparent;
-    padding: 0.1rem 0;
-    line-height: 1.4;
+    margin-top: 0.35rem;
+    border-bottom: 1.5px solid transparent;
+    padding: 0.15rem 0;
+    line-height: 1.5;
     word-wrap: break-word;
     overflow-wrap: break-word;
     max-width: 100%;
+    -webkit-tap-highlight-color: transparent;
   }
 
   .subscription-link:hover {
@@ -2906,39 +2993,72 @@ export const getSurveyStyles = (direction, theme = {}) => {
     background-color: #8b7355;
     color: white;
     border: none;
-    border-radius: 6px;
-    padding: 0.5rem 1rem;
-    font-family: 'Oswald', sans-serif;
-    font-size: 0.75rem;
+    border-radius: 8px;
+    padding: 0.7rem 1.25rem;
+    font-family: 'Inter', sans-serif; /* Consistencia tipográfica */
+    font-size: 0.92rem; /* Más grande en móvil */
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 0.5rem;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-top: 0.65rem;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    -webkit-tap-highlight-color: transparent;
   }
 
   .apply-coupon-button:hover {
     background-color: #6d5a45;
     transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
   }
 
   .apply-coupon-button:active {
     transform: translateY(0);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   }
 
-  /* Tablet y superior */
-  @media (min-width: 600px) {
+  /* Tablet pequeña */
+  @media (min-width: 500px) {
+    .discount-banner {
+      padding: 1.15rem 1rem;
+      padding-right: 2.75rem;
+      gap: 0.75rem;
+    }
+
+    .discount-icon {
+      font-size: 2rem;
+    }
+
+    .discount-title {
+      font-size: 1.05rem;
+      margin-bottom: 0.55rem;
+    }
+
+    .discount-description {
+      font-size: 0.95rem;
+    }
+
+    .banner-close-button {
+      top: 0.5rem;
+      right: 0.5rem;
+      width: 1.75rem;
+      height: 1.75rem;
+      min-width: 1.75rem;
+      min-height: 1.75rem;
+      font-size: 1.4rem;
+    }
+  }
+
+  /* Tablet */
+  @media (min-width: 650px) {
     .discount-banner {
       width: 100%;
       flex-direction: row;
       align-items: center;
-      padding: 1.25rem 1.25rem;
-      padding-right: 3.25rem;
-      gap: 1rem;
+      padding: 1.35rem 1.3rem;
+      padding-right: 3.5rem;
+      gap: 1.15rem;
       margin: 0;
-      border-radius: 10px;
+      border-radius: 12px;
     }
 
     .discount-icon {
@@ -2952,31 +3072,32 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
 
     .discount-title {
-      font-size: 1rem;
-      margin-bottom: 0.55rem;
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
       letter-spacing: 0.3px;
     }
 
     .discount-description {
-      font-size: 0.9rem;
+      font-size: 0.98rem;
+      line-height: 1.5;
     }
 
     .discount-note {
-      font-size: 0.78rem;
+      font-size: 0.82rem;
     }
 
     .subscription-link {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
 
     .apply-coupon-button {
-      font-size: 0.85rem;
-      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      padding: 0.65rem 1.3rem;
     }
 
     .banner-close-button {
-      top: 0.65rem;
-      right: 0.65rem;
+      top: 0.7rem;
+      right: 0.7rem;
       width: 2.25rem;
       height: 2.25rem;
       min-width: 2.25rem;
@@ -2986,13 +3107,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   /* Desktop */
-  @media (min-width: 768px) {
+  @media (min-width: 900px) {
     .discount-banner {
       width: 100%;
-      max-width: 900px;
+      max-width: 920px;
       margin: 0 auto;
-      padding: 1.75rem 1.5rem;
-      padding-right: 4rem;
+      padding: 1.8rem 1.6rem;
+      padding-right: 4.25rem;
       gap: 1.5rem;
     }
 
@@ -3001,30 +3122,38 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
 
     .discount-title {
-      font-size: 1.2rem;
-      margin-bottom: 0.65rem;
+      font-size: 1.25rem;
+      margin-bottom: 0.7rem;
     }
 
     .discount-description {
-      font-size: 1rem;
+      font-size: 1.05rem;
+      line-height: 1.6;
     }
 
     .discount-note {
-      font-size: 0.85rem;
+      font-size: 0.9rem;
     }
 
     .subscription-link {
-      font-size: 1rem;
+      font-size: 1.05rem;
     }
 
     .apply-coupon-button {
-      font-size: 0.9rem;
-      padding: 0.7rem 1.4rem;
+      font-size: 0.95rem;
+      padding: 0.75rem 1.5rem;
     }
 
     .banner-close-button {
+      top: 0.85rem;
+      right: 0.85rem;
       width: 2.5rem;
       height: 2.5rem;
+      min-width: 2.5rem;
+      min-height: 2.5rem;
+      font-size: 1.8rem;
+    }
+  }
       min-width: 2.5rem;
       min-height: 2.5rem;
       font-size: 1.8rem;
