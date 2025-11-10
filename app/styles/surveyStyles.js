@@ -134,16 +134,22 @@ export const getSurveyStyles = (direction, theme = {}) => {
     justify-content: center;
     padding: 0.75rem;
     margin-top: 0;
-    position: fixed;     
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
+    position: relative;
+    min-height: 100vh;
     box-sizing: border-box;
     overflow-y: auto;
     overflow-x: hidden;
     -webkit-overflow-scrolling: touch;
+    width: 100%;
     z-index: 1;
+}
+
+@supports (-webkit-touch-callout: none) {
+  .survey-content {
+    min-height: -webkit-fill-available;
+  }
+}
+
 }
 
 
