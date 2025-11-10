@@ -89,8 +89,12 @@ export default function QuestionCard({
     }
   };
 
+  // Verificar si es la pregunta de patologías
+  const isPathologyQuestion = question.id === "7_gato" || question.id === "9_perro";
+  const questionCardClass = isPathologyQuestion ? "question-card pathology-question" : "question-card";
+
   return (
-    <div className="question-card">
+    <div className={questionCardClass}>
       <div className="question-header">
         <div className="question-number">
           Pregunta {questionNumber} de {totalQuestions}

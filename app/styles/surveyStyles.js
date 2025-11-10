@@ -144,6 +144,18 @@ export const getSurveyStyles = (direction, theme = {}) => {
     -webkit-overflow-scrolling: touch;
   }
 
+  /* Alineación especial para la pregunta de patologías en móvil */
+  .survey-content:has(.pathology-question) {
+    justify-content: flex-start;
+  }
+
+  /* Tablet y Desktop: volver al centrado para todas las preguntas */
+  @media (min-width: 600px) {
+    .survey-content:has(.pathology-question) {
+      justify-content: center;
+    }
+  }
+
   .question-card {
     background: rgba(255, 255, 255, 0.95);
     backdrop-filter: blur(20px);
