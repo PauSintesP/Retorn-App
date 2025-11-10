@@ -1747,9 +1747,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .navigation-buttons {
     display: flex;
-    gap: 1rem;
+    gap: 0.75rem;
     justify-content: space-between;
-    align-items: center;
+    align-items: stretch;
     width: 100%;
   }
   
@@ -1759,32 +1759,42 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .nav-button {
-    flex: 1 1 0;
+    flex: 1;
     min-width: 0;
-    max-width: 100%;
-    padding: 0.75rem 1.1rem;
+    max-width: none;
+    padding: 0.9rem 0.75rem;
     border: none;
     border-radius: 8px;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 500;
+    font-size: 0.8rem;
+    font-weight: 600;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-transform: uppercase;
-    letter-spacing: 0.8px;
+    letter-spacing: 0.5px;
     position: relative;
     overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .nav-button.full-width {
-    flex: 1 1 100%;
+    flex: 1;
   }
 
   @media (min-width: 600px) {
+    .navigation-buttons {
+      gap: 1rem;
+    }
+
     .nav-button {
-      padding: 0.95rem 1.75rem;
+      padding: 1rem 1.5rem;
       font-size: 0.88rem;
-      letter-spacing: 1.3px;
+      letter-spacing: 1px;
+      white-space: normal;
     }
   }
 
