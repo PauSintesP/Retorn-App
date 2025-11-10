@@ -127,22 +127,25 @@ export const getSurveyStyles = (direction, theme = {}) => {
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
   }
 
-  .survey-content {
-    flex: 1;
+.survey-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
     padding: 0.75rem;
-    margin-top: 4px;
-    position: relative;
-    z-index: 1;
+    margin-top: 0;
+    position: fixed;     
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    box-sizing: border-box;
     overflow-y: auto;
     overflow-x: hidden;
-    width: 100%;
-    box-sizing: border-box;
     -webkit-overflow-scrolling: touch;
-  }
+    z-index: 1;
+}
+
 
   .question-card {
     background: rgba(255, 255, 255, 0.95);
