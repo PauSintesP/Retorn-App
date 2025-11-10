@@ -1759,8 +1759,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .nav-button {
-    flex: 1 1 auto;
-    min-width: 100px;
+    flex: 1 1 0;
+    min-width: 0;
     max-width: 100%;
     padding: 0.75rem 1.1rem;
     border: none;
@@ -1782,7 +1782,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .nav-button {
-      min-width: 130px;
       padding: 0.95rem 1.75rem;
       font-size: 0.88rem;
       letter-spacing: 1.3px;
@@ -2816,13 +2815,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .discount-banner {
     width: 100%;
     max-width: 100%;
-    padding: 1rem 0.85rem;
-    padding-right: 2.5rem; /* Espacio para el botón de cerrar */
-    border-radius: 10px;
+    padding: 1.15rem 1rem;
+    padding-right: 2.75rem; /* Espacio para el botón de cerrar */
+    border-radius: 12px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.65rem;
+    gap: 0.75rem;
     margin: 0;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -2906,7 +2905,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .discount-icon {
-    font-size: 1.75rem;
+    font-size: 2.25rem;
     flex-shrink: 0;
     filter: grayscale(20%);
     margin-bottom: 0;
@@ -2924,13 +2923,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .discount-title {
-    font-family: 'Inter', sans-serif; /* Consistencia tipográfica */
-    font-size: 1rem; /* Más grande en móvil */
+    font-family: 'Oswald', sans-serif; /* Tipografía consistente con títulos */
+    font-size: 1.15rem; /* Más grande y visible en móvil */
     font-weight: 600;
     color: inherit;
     margin: 0 0 0.5rem 0;
-    line-height: 1.4;
-    letter-spacing: 0.2px;
+    line-height: 1.35;
+    letter-spacing: 0.3px;
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
@@ -2938,7 +2937,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .discount-description {
     font-family: 'Inter', sans-serif; /* Consistencia tipográfica */
-    font-size: 0.9rem; /* Más grande en móvil */
+    font-size: 0.98rem; /* Más grande y legible en móvil */
     color: inherit;
     opacity: 0.92;
     margin: 0 0 0.35rem 0;
@@ -2954,12 +2953,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .discount-note {
-    font-size: 0.65rem;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.78rem;
     color: inherit;
-    opacity: 0.7;
+    opacity: 0.75;
     margin: 0;
     font-style: italic;
-    line-height: 1.35;
+    line-height: 1.4;
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
@@ -2970,7 +2970,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     text-decoration: none;
     font-family: 'Inter', sans-serif; /* Consistencia tipográfica */
     font-weight: 600;
-    font-size: 0.88rem; /* Más grande en móvil */
+    font-size: 0.95rem; /* Más grande y visible en móvil */
     transition: all 0.3s ease;
     margin-top: 0.35rem;
     border-bottom: 1.5px solid transparent;
@@ -2993,48 +2993,59 @@ export const getSurveyStyles = (direction, theme = {}) => {
     background-color: #8b7355;
     color: white;
     border: none;
-    border-radius: 8px;
-    padding: 0.7rem 1.25rem;
-    font-family: 'Inter', sans-serif; /* Consistencia tipográfica */
-    font-size: 0.92rem; /* Más grande en móvil */
+    border-radius: 10px;
+    padding: 0.85rem 1.5rem;
+    font-family: 'Oswald', sans-serif; /* Consistencia con botones principales */
+    font-size: 1rem; /* Más grande y visible en móvil */
     font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
     cursor: pointer;
     transition: all 0.3s ease;
     margin-top: 0.65rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
     -webkit-tap-highlight-color: transparent;
   }
 
   .apply-coupon-button:hover {
     background-color: #6d5a45;
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.18);
+    box-shadow: 0 5px 12px rgba(0, 0, 0, 0.22);
   }
 
   .apply-coupon-button:active {
     transform: translateY(0);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
   }
 
   /* Tablet pequeña */
   @media (min-width: 500px) {
     .discount-banner {
-      padding: 1.15rem 1rem;
-      padding-right: 2.75rem;
-      gap: 0.75rem;
+      padding: 1.3rem 1.15rem;
+      padding-right: 3rem;
+      gap: 0.85rem;
     }
 
     .discount-icon {
-      font-size: 2rem;
+      font-size: 2.5rem;
     }
 
     .discount-title {
-      font-size: 1.05rem;
-      margin-bottom: 0.55rem;
+      font-size: 1.25rem;
+      margin-bottom: 0.6rem;
     }
 
     .discount-description {
-      font-size: 0.95rem;
+      font-size: 1.05rem;
+    }
+
+    .subscription-link {
+      font-size: 1rem;
+    }
+
+    .apply-coupon-button {
+      font-size: 1.05rem;
+      padding: 0.9rem 1.6rem;
     }
 
     .banner-close-button {
@@ -3054,15 +3065,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
       width: 100%;
       flex-direction: row;
       align-items: center;
-      padding: 1.35rem 1.3rem;
-      padding-right: 3.5rem;
-      gap: 1.15rem;
+      padding: 1.5rem 1.4rem;
+      padding-right: 3.75rem;
+      gap: 1.25rem;
       margin: 0;
-      border-radius: 12px;
+      border-radius: 14px;
     }
 
     .discount-icon {
-      font-size: 2.5rem;
+      font-size: 2.75rem;
       margin-bottom: 0;
     }
 
@@ -3072,27 +3083,27 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
 
     .discount-title {
-      font-size: 1.1rem;
-      margin-bottom: 0.6rem;
-      letter-spacing: 0.3px;
+      font-size: 1.3rem;
+      margin-bottom: 0.65rem;
+      letter-spacing: 0.4px;
     }
 
     .discount-description {
-      font-size: 0.98rem;
-      line-height: 1.5;
+      font-size: 1.08rem;
+      line-height: 1.55;
     }
 
     .discount-note {
-      font-size: 0.82rem;
+      font-size: 0.88rem;
     }
 
     .subscription-link {
-      font-size: 0.95rem;
+      font-size: 1.05rem;
     }
 
     .apply-coupon-button {
-      font-size: 0.9rem;
-      padding: 0.65rem 1.3rem;
+      font-size: 1.05rem;
+      padding: 0.8rem 1.5rem;
     }
 
     .banner-close-button {
@@ -3112,36 +3123,36 @@ export const getSurveyStyles = (direction, theme = {}) => {
       width: 100%;
       max-width: 920px;
       margin: 0 auto;
-      padding: 1.8rem 1.6rem;
-      padding-right: 4.25rem;
-      gap: 1.5rem;
+      padding: 2rem 1.75rem;
+      padding-right: 4.5rem;
+      gap: 1.6rem;
     }
 
     .discount-icon {
-      font-size: 3rem;
+      font-size: 3.25rem;
     }
 
     .discount-title {
-      font-size: 1.25rem;
-      margin-bottom: 0.7rem;
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
     }
 
     .discount-description {
-      font-size: 1.05rem;
+      font-size: 1.15rem;
       line-height: 1.6;
     }
 
     .discount-note {
-      font-size: 0.9rem;
+      font-size: 0.95rem;
     }
 
     .subscription-link {
-      font-size: 1.05rem;
+      font-size: 1.1rem;
     }
 
     .apply-coupon-button {
-      font-size: 0.95rem;
-      padding: 0.75rem 1.5rem;
+      font-size: 1.1rem;
+      padding: 0.9rem 1.75rem;
     }
 
     .banner-close-button {
@@ -3513,9 +3524,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* ============================================ */
 
   .pathology-contact-container {
-    max-width: 95%;
+    max-width: 100%;
+    width: 100%;
     margin: 0 auto;
     padding: 0.75rem 0.5rem;
+    box-sizing: border-box;
+    overflow-x: hidden;
   }
 
   @media (min-width: 768px) {
@@ -3533,11 +3547,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .pathology-contact-header {
     text-align: center;
     margin-bottom: 1.25rem;
+    padding: 0 0.25rem;
+    box-sizing: border-box;
   }
 
   @media (min-width: 768px) {
     .pathology-contact-header {
       margin-bottom: 3rem;
+      padding: 0;
     }
   }
 
@@ -3571,15 +3588,19 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .pathology-subtitle {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     color: #666;
     line-height: 1.6;
     max-width: 100%;
     margin: 0 auto;
+    padding: 0 0.25rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
   }
   @media (min-width: 768px) {
     .pathology-subtitle {
       font-size: 1.1rem;
+      padding: 0;
     }
   }
 
@@ -3588,9 +3609,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
     grid-template-columns: 1fr;
     gap: 1rem;
     margin-bottom: 2rem;
-    padding: 1.5rem;
+    padding: 1rem;
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
     border-radius: 5px;
+    box-sizing: border-box;
+    width: 100%;
   }
 
   @media (min-width: 600px) {
@@ -3621,9 +3644,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .pathology-contact-form {
     background: white;
-    padding: 1.5rem;
+    padding: 1rem;
     border-radius: 5px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
+    width: 100%;
+    overflow-x: hidden;
   }
 
   @media (min-width: 768px) {
@@ -3699,14 +3725,19 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .btn-primary,
   .btn-secondary {
     flex: 1;
-    padding: 1rem 1.5rem;
-    font-size: 0.95rem;
+    min-width: 0;
+    padding: 1rem 1rem;
+    font-size: 0.9rem;
     font-weight: 600;
     border: none;
     border-radius: 5px;
     cursor: pointer;
     transition: all 0.3s ease;
     font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   @media (min-width: 768px) {
@@ -3714,6 +3745,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .btn-secondary {
       padding: 1.25rem 2rem;
       font-size: 1.1rem;
+      white-space: normal;
     }
   }
 
@@ -3754,10 +3786,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   /* Success State */
   .pathology-contact-success {
-    max-width: 95%;
+    max-width: 100%;
+    width: 100%;
     margin: 0 auto;
-    padding: 4rem 1rem;
+    padding: 3rem 1rem;
     text-align: center;
+    box-sizing: border-box;
+    overflow-x: hidden;
   }
 
   @media (min-width: 768px) {
