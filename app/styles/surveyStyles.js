@@ -2801,15 +2801,17 @@ export const getSurveyStyles = (direction, theme = {}) => {
     max-width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 0.85rem;
+    align-items: stretch;
+    gap: 1rem;
     padding: 0;
+    margin-top: 1.5rem;
     box-sizing: border-box;
   }
 
   @media (min-width: 600px) {
     .action-buttons-container {
-      gap: 1rem;
+      gap: 1.25rem;
+      margin-top: 2rem;
     }
   }
 
@@ -2817,7 +2819,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .action-buttons-container {
       flex-direction: row;
       justify-content: center;
-      gap: 1.5rem;
+      gap: 1.75rem;
+      align-items: center;
     }
   }
 
@@ -3194,52 +3197,77 @@ export const getSurveyStyles = (direction, theme = {}) => {
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 0.95rem 1.1rem;
-    background: linear-gradient(135deg, var(--jdgm-paginate-color) 0%, #5a8a84 100%);
+    padding: 1.1rem 1.5rem;
+    background: linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%);
+    background-size: 200% 100%;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-size: 0.95rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 
-      0 8px 20px rgba(115, 159, 153, 0.3),
-      0 4px 12px rgba(0, 0, 0, 0.1);
+      0 6px 20px rgba(115, 159, 153, 0.35),
+      0 3px 10px rgba(0, 0, 0, 0.12);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .add-to-cart-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  .add-to-cart-button:hover::before {
+    width: 400px;
+    height: 400px;
   }
 
   @media (min-width: 600px) {
     .add-to-cart-button {
-      padding: 1.2rem 1.5rem;
-      font-size: 0.95rem;
+      padding: 1.25rem 2rem;
+      font-size: 1.05rem;
       letter-spacing: 1.5px;
+      border-radius: 12px;
     }
   }
 
   @media (min-width: 768px) {
     .add-to-cart-button {
       width: auto;
-      min-width: 280px;
+      min-width: 300px;
       flex: 1;
-      max-width: 400px;
-      padding: 1.2rem 2rem;
-      font-size: 1rem;
+      max-width: 450px;
+      padding: 1.35rem 2.5rem;
+      font-size: 1.1rem;
     }
   }
 
   .add-to-cart-button:hover {
-    transform: translateY(-3px);
+    transform: translateY(-4px) scale(1.02);
     box-shadow: 
-      0 15px 40px rgba(115, 159, 153, 0.4),
-      0 6px 16px rgba(0, 0, 0, 0.15);
-    background: linear-gradient(135deg, #5a8a84 0%, var(--jdgm-paginate-color) 100%);
+      0 12px 35px rgba(115, 159, 153, 0.45),
+      0 6px 18px rgba(0, 0, 0, 0.18);
+    background-position: 100% 0;
   }
 
   .add-to-cart-button:active {
-    transform: translateY(-1px);
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 
+      0 8px 25px rgba(115, 159, 153, 0.4),
+      0 4px 14px rgba(0, 0, 0, 0.15);
   }
 
   .restart-survey-button {
@@ -3247,49 +3275,72 @@ export const getSurveyStyles = (direction, theme = {}) => {
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 0.95rem 1.1rem;
+    padding: 1.1rem 1.5rem;
     background: white;
     color: var(--jdgm-paginate-color);
-    border: 2px solid var(--jdgm-paginate-color);
-    border-radius: 8px;
+    border: 2.5px solid var(--jdgm-paginate-color);
+    border-radius: 10px;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 600;
+    font-size: 0.95rem;
+    font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 1.2px;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 12px rgba(115, 159, 153, 0.15);
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(115, 159, 153, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .restart-survey-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(115, 159, 153, 0.1);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  .restart-survey-button:hover::before {
+    width: 400px;
+    height: 400px;
   }
 
   @media (min-width: 600px) {
     .restart-survey-button {
-      padding: 1.2rem 1.5rem;
-      font-size: 0.95rem;
+      padding: 1.25rem 2rem;
+      font-size: 1.05rem;
       letter-spacing: 1.5px;
+      border-radius: 12px;
     }
   }
 
   @media (min-width: 768px) {
     .restart-survey-button {
       width: auto;
-      min-width: 280px;
+      min-width: 300px;
       flex: 1;
-      max-width: 400px;
-      padding: 1.2rem 2rem;
-      font-size: 1rem;
+      max-width: 450px;
+      padding: 1.35rem 2.5rem;
+      font-size: 1.1rem;
     }
   }
 
   .restart-survey-button:hover {
     background: var(--jdgm-paginate-color);
     color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(115, 159, 153, 0.3);
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 0 10px 28px rgba(115, 159, 153, 0.35);
+    border-color: var(--jdgm-paginate-color);
   }
 
   .restart-survey-button:active {
-    transform: translateY(-1px);
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 6px 18px rgba(115, 159, 153, 0.3);
   }
 
   .recommendation-footer {

@@ -359,14 +359,21 @@ function determinarCasoGato(edad, mesesSeleccionados, castrado, patologias) {
 
 /**
  * Calcula las calorías diarias necesarias para un perro
- * Fórmula Excel: FACT × (PESO ^ 0.75)
- * FACT depende de: edad, actividad, esterilización, patologías
+ * Fórmula: Kcal_dia = FACTOR_ESTERILIZADO * FACTOR_SNACKS * FACTOR_EDAD * (VAR * PESO^0.75)
+ * 
+ * Donde:
+ * - FACTOR_ESTERILIZADO = 0.8 si está esterilizado, 1 si no
+ * - FACTOR_SNACKS = 0.9 si consume snacks habitualmente, 1 si no
+ * - FACTOR_EDAD depende de edad y tamaño (ver tabla en productConstants.js)
+ * - VAR = factor de actividad (95 baja, 130 media, 180 alta)
+ * - PESO = peso del perro en kg
  */
 export function calcularCaloriasPerro(answers) {
   const tamano = answers.q3_perro; // "Pequeño", "Mediano", "Grande"
   const edad = answers.q4_perro; // "Cachorro", "Adulto", "Senior"
   const nivelActividad = answers.q5_perro; // "Baja", "Media", "Muy Alta (Deportiva)"
   const peso = parseFloat(answers.q6_perro); // Peso en kg
+  const snacks = answers.q7_perro; // "1 o menos", "2-3", "Muchos (Más de 3)"
   const castrado = answers.q8_perro; // "Sí", "No"
   const patologias = answers.q9_perro; // Patologías
   const fechaNacimiento = answers.q2b;
@@ -375,42 +382,38 @@ export function calcularCaloriasPerro(answers) {
     throw new Error("Peso no válido");
   }
   
-  let FACT = 130; // Valor por defecto (adulto activo / cachorro)
-  const FACT2 = 0.75; // Exponente fijo para perros
+  // 1. FACTOR_ESTERILIZADO: 0.8 si está esterilizado o tiene sobrepeso, 1 si no
+  const FACTOR_ESTERILIZADO = (castrado === "Sí" || patologias?.includes("Sobrepeso")) ? 0.8 : 1;
   
-  // Determinar FACT según edad, actividad y condiciones
-  if (edad === "Cachorro") {
-    // Cachorros: siempre 130 (media actividad)
-    FACT = 130;
-  } else if (edad === "Senior") {
-    // Senior: 95 (baja actividad)
-    FACT = 95;
-  } else {
-    // Adultos: según actividad
-    if (nivelActividad === "Baja") {
-      FACT = 95;
-    } else if (nivelActividad === "Media") {
-      FACT = 130;
-    } else if (nivelActividad === "Muy Alta (Deportiva)") {
-      FACT = 180;
-    }
-    
-    // Adulto esterilizado o con sobrepeso: usar 95 (como baja actividad)
-    if (castrado === "Sí" || patologias?.includes("Sobrepeso")) {
-      FACT = 95;
-    }
+  // 2. FACTOR_SNACKS: 0.9 si consume snacks, 1 si no
+  let FACTOR_SNACKS = 1;
+  if (snacks === "2-3" || snacks === "Muchos (Más de 3)") {
+    FACTOR_SNACKS = 0.9;
   }
   
-  // Fórmula Excel: FACT × (PESO ^ 0.75)
-  const kcalDiarias = FACT * Math.pow(peso, FACT2);
+  // 3. FACTOR_EDAD: según edad, tamaño y meses (ver tabla en productConstants.js)
+  const FACTOR_EDAD = determinarFactorEdadPerro(tamano, edad, fechaNacimiento);
+  
+  // 4. VAR: Variable de actividad base según edad y nivel
+  const VAR = determinarVariableActividad(edad, nivelActividad);
+  
+  // 5. Cálculo de la tasa metabólica basal: VAR * PESO^0.75
+  const tasaMetabolica = VAR * Math.pow(peso, 0.75);
+  
+  // 6. Fórmula completa: FACTOR_ESTERILIZADO * FACTOR_SNACKS * FACTOR_EDAD * tasaMetabolica
+  const kcalDiarias = FACTOR_ESTERILIZADO * FACTOR_SNACKS * FACTOR_EDAD * tasaMetabolica;
   
   return {
     kcalDiarias: Math.round(kcalDiarias * 10) / 10, // Redondear a 1 decimal
     factores: {
-      FACT,
-      FACT2,
+      FACTOR_ESTERILIZADO,
+      FACTOR_SNACKS,
+      FACTOR_EDAD,
+      VAR,
+      tasaMetabolica: Math.round(tasaMetabolica * 10) / 10,
       peso,
       edad,
+      tamano,
       nivelActividad,
       castrado,
     }
