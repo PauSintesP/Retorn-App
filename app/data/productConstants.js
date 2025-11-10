@@ -39,7 +39,7 @@ export const VAR_ACTIVIDAD_PERRO = {
 };
 
 export const FACT_ESTERILIZADO = {
-  "Sí": 0.9,
+  "Sí": 0.9,  // Según Excel: esterilizado reduce calorías en 20%
   "No": 1,
 };
 

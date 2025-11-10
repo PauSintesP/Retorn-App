@@ -384,33 +384,40 @@ export function calcularCaloriasPerro(answers) {
   }
   
   // 1. FACTOR_ESTERILIZADO: 0.8 si está esterilizado o tiene sobrepeso, 1 si no
-  const FACTOR_ESTERILIZADO = (castrado === "Sí" || patologias?.includes("Sobrepeso")) ? 0.8 : 1;
+  const factorEsterilizado = (castrado === "Sí" || patologias?.includes("Sobrepeso")) ? 0.8 : 1;
   
-  // 2. FACTOR_SNACKS: 0.9 si consume snacks, 1 si no
-  let FACTOR_SNACKS = 1;
-  if (snacks === "2-3" || snacks === "Muchos (Más de 3)") {
-    FACTOR_SNACKS = 0.9;
-  }
+  // 2. FACTOR_SNACKS: según cantidad de snacks
+  const factorSnacks = FACT_SNACKS[snacks] || 1;
   
   // 3. FACTOR_EDAD: según edad, tamaño y meses (ver tabla en productConstants.js)
-  const FACTOR_EDAD = determinarFactorEdadPerro(tamano, edad, fechaNacimiento);
+  const factorEdad = determinarFactorEdadPerro(tamano, edad, fechaNacimiento);
   
   // 4. VAR: Variable de actividad base según edad y nivel
-  const VAR = determinarVariableActividad(edad, nivelActividad);
+  const varActividad = determinarVariableActividad(edad, nivelActividad);
   
   // 5. Cálculo de la tasa metabólica basal: VAR * PESO^0.75
-  const tasaMetabolica = VAR * Math.pow(peso, 0.75);
+  const tasaMetabolica = varActividad * Math.pow(peso, 0.75);
   
   // 6. Fórmula completa: FACTOR_ESTERILIZADO * FACTOR_SNACKS * FACTOR_EDAD * tasaMetabolica
-  const kcalDiarias = FACTOR_ESTERILIZADO * FACTOR_SNACKS * FACTOR_EDAD * tasaMetabolica;
+  const kcalDiarias = factorEsterilizado * factorSnacks * factorEdad * tasaMetabolica;
+  
+  console.log(`\n🔢 Cálculo de Calorías para ${answers.q2}:`);
+  console.log(`   Peso: ${peso}kg | Edad: ${edad} | Tamaño: ${tamano} | Actividad: ${nivelActividad}`);
+  console.log(`   FACTOR_ESTERILIZADO: ${factorEsterilizado} (${castrado})`);
+  console.log(`   FACTOR_SNACKS: ${factorSnacks} (${snacks})`);
+  console.log(`   FACTOR_EDAD: ${factorEdad}`);
+  console.log(`   VAR_ACTIVIDAD: ${varActividad}`);
+  console.log(`   Tasa Metabólica: ${varActividad} × ${peso}^0.75 = ${tasaMetabolica.toFixed(2)}`);
+  console.log(`   Fórmula: ${factorEsterilizado} × ${factorSnacks} × ${factorEdad} × ${tasaMetabolica.toFixed(2)}`);
+  console.log(`   ➡️ TOTAL: ${kcalDiarias.toFixed(2)} kcal/día`);
   
   return {
     kcalDiarias: Math.round(kcalDiarias * 10) / 10, // Redondear a 1 decimal
     factores: {
-      FACTOR_ESTERILIZADO,
-      FACTOR_SNACKS,
-      FACTOR_EDAD,
-      VAR,
+      FACTOR_ESTERILIZADO: factorEsterilizado,
+      FACTOR_SNACKS: factorSnacks,
+      FACTOR_EDAD: factorEdad,
+      VAR: varActividad,
       tasaMetabolica: Math.round(tasaMetabolica * 10) / 10,
       peso,
       edad,
