@@ -245,12 +245,26 @@ export default function RecommendationResult({ recommendation, onRestart = () =>
 
       <div className="recommendation-footer">
         <div className="footer-card">
+          <h4 className="footer-card-title">📊 Cálculo de cantidades</h4>
           <p className="footer-note">
-            Esta recomendación ha sido calculada específicamente para {nombreMascota}{" "}considerando su edad, peso, actividad física y condiciones particulares.
+            Las cantidades se calculan según las calorías que necesita {nombreMascota}{" "}
+            ({Math.round(kcalDiarias)} kcal/día) y la densidad energética de cada producto.
+            {recomendacion.tipo === "mixta" && (
+              <> En alimentación mixta, el 75% de las calorías provienen del alimento seco y el 25% del alimento húmedo.</>
+            )}
+          </p>
+        </div>
+
+        <div className="footer-card">
+          <h4 className="footer-card-title">🎯 Personalización</h4>
+          <p className="footer-note">
+            Esta recomendación ha sido calculada específicamente para {nombreMascota}{" "}
+            considerando su edad, peso, actividad física y condiciones particulares.
           </p>
         </div>
         
         <div className="footer-card">
+          <h4 className="footer-card-title">⚠️ Ajustes</h4>
           <p className="footer-note">
             Las cantidades indicadas son aproximadas. Ajusta según la condición corporal 
             y consulta con tu veterinario ante cualquier duda.
@@ -432,29 +446,37 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
             </div>
           </div>
 
-        <div className="nutrition-item">
-          <span className="nutrition-icon">⚡</span>
-          <div className="nutrition-content">
-            <span className="nutrition-label">Energía por porción</span>
-            <span className="nutrition-value">{calcularKcalPorcion()} kcal</span>
+          <div className="nutrition-item">
+            <span className="nutrition-icon">⚡</span>
+            <div className="nutrition-content">
+              <span className="nutrition-label">Energía por porción</span>
+              <span className="nutrition-value">{calcularKcalPorcion()} kcal</span>
+            </div>
           </div>
-        </div>
 
-        <div className="nutrition-item">
-          <span className="nutrition-icon">📦</span>
-          <div className="nutrition-content">
-            <span className="nutrition-label">Formato recomendado</span>
-            <span className="nutrition-value">{producto.varianteRecomendada?.cantidad || ""}</span>
+          <div className="nutrition-item">
+            <span className="nutrition-icon">🔥</span>
+            <div className="nutrition-content">
+              <span className="nutrition-label">Densidad energética</span>
+              <span className="nutrition-value">{producto.kcalEmKg || 'N/A'} kcal/kg</span>
+            </div>
           </div>
-        </div>
 
-        <div className="nutrition-item">
-          <div className="nutrition-content">
-            <span className="nutrition-label">Duración aproximada</span>
-            <span className="nutrition-value">{calcularDuracion()}</span>
+          <div className="nutrition-item">
+            <span className="nutrition-icon">📦</span>
+            <div className="nutrition-content">
+              <span className="nutrition-label">Formato recomendado</span>
+              <span className="nutrition-value">{producto.varianteRecomendada?.cantidad || ""}</span>
+            </div>
+          </div>
+
+          <div className="nutrition-item">
+            <div className="nutrition-content">
+              <span className="nutrition-label">Duración aproximada</span>
+              <span className="nutrition-value">{calcularDuracion()}</span>
+            </div>
           </div>
         </div>
-      </div>
       </div>
 
       <a

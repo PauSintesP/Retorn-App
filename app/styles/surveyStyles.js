@@ -3548,12 +3548,21 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .footer-card {
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
-    gap: 1rem;
+    gap: 0.5rem;
     margin-bottom: 1.5rem;
     padding: 1.25rem;
     background: rgba(115, 159, 153, 0.05);
     border-radius: 5px;
+  }
+
+  .footer-card-title {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.1rem;
+    color: var(--jdgm-primary-color);
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
   }
 
   .footer-icon {
@@ -3565,6 +3574,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .footer-card .footer-note {
     text-align: left;
     font-style: normal;
+    margin: 0;
   }
 
   .restart-section {

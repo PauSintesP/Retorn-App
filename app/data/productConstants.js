@@ -50,6 +50,19 @@ export const FACT_SNACKS = {
 };
 
 // ============================================
+// PORCENTAJES PARA ALIMENTACIÓN MIXTA
+// ============================================
+
+/**
+ * Distribución de calorías en alimentación mixta
+ * Por defecto: 75% del alimento seco, 25% del alimento húmedo
+ */
+export const PORCENTAJE_ALIMENTACION_MIXTA = {
+  SECO: 0.75,    // 75% de las calorías diarias provienen del alimento seco
+  HUMEDO: 0.25,  // 25% de las calorías diarias provienen del alimento húmedo
+};
+
+// ============================================
 // FACTORES DE CÁLCULO PARA GATOS
 // ============================================
 

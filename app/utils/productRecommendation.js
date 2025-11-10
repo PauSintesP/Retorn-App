@@ -3,6 +3,7 @@ import {
   VAR_ACTIVIDAD_PERRO,
   FACT_ESTERILIZADO,
   FACT_SNACKS,
+  PORCENTAJE_ALIMENTACION_MIXTA,
   FACTOR_GATO,
   RAZAS_PERROS,
 } from "../data/productConstants";
@@ -501,23 +502,77 @@ async function seleccionarProductoHumedoGato(productoSeco, answers) {
 // ============================================
 
 /**
- * Calcula los gramos de producto diarios
+ * Calcula los gramos de producto diarios necesarios
+ * 
+ * @param {number} kcalDiarias - Calorías diarias que necesita el animal
+ * @param {number} kcalEmKg - Calorías por kilogramo del producto (kcal EM/kg)
+ * @returns {number} - Gramos diarios del producto
+ * 
+ * Fórmula: gramos_diarios = (kcal_diarias / kcal_por_kg) * 1000
+ * 
+ * Ejemplo:
+ * - Perro necesita 800 kcal/día
+ * - Producto tiene 3500 kcal/kg
+ * - Gramos = (800 / 3500) * 1000 = 228.57g ≈ 229g/día
  */
 function calcularGramosProducto(kcalDiarias, kcalEmKg) {
-  // Fórmula: (Kcal/dia) / (kcal Em/kg de pienso) * 1000
-  if (!kcalEmKg || kcalEmKg <= 0) return 0;
-  return Math.round((kcalDiarias / kcalEmKg) * 1000);
+  if (!kcalEmKg || kcalEmKg <= 0) {
+    console.warn("⚠️ kcalEmKg no válido:", kcalEmKg);
+    return 0;
+  }
+  
+  if (!kcalDiarias || kcalDiarias <= 0) {
+    console.warn("⚠️ kcalDiarias no válido:", kcalDiarias);
+    return 0;
+  }
+  
+  const gramos = (kcalDiarias / kcalEmKg) * 1000;
+  return Math.round(gramos);
 }
 
 /**
- * Calcula las cantidades para alimentación mixta (75% seco, 25% húmedo)
+ * Calcula las cantidades para alimentación mixta
+ * 
+ * Distribuye las calorías diarias entre alimento seco y húmedo según porcentajes configurados
+ * Por defecto: 75% seco, 25% húmedo
+ * 
+ * @param {number} kcalDiarias - Calorías totales diarias que necesita el animal
+ * @param {object} productoSeco - Producto seco con su kcalEmKg
+ * @param {object} productoHumedo - Producto húmedo con su kcalEmKg
+ * @returns {object} - { seco: gramos, humedo: gramos }
+ * 
+ * Ejemplo:
+ * - Perro necesita 800 kcal/día
+ * - 75% seco = 600 kcal → Si producto tiene 3500 kcal/kg → 171g/día
+ * - 25% húmedo = 200 kcal → Si producto tiene 1000 kcal/kg → 200g/día
  */
 function calcularAlimentacionMixta(kcalDiarias, productoSeco, productoHumedo) {
-  const kcalSeco = kcalDiarias * 0.75;
-  const kcalHumedo = kcalDiarias * 0.25;
+  // Distribuir calorías según porcentajes configurados
+  const kcalSeco = kcalDiarias * PORCENTAJE_ALIMENTACION_MIXTA.SECO;
+  const kcalHumedo = kcalDiarias * PORCENTAJE_ALIMENTACION_MIXTA.HUMEDO;
   
-  const gramosSeco = productoSeco?.kcalEmKg ? Math.round((kcalSeco / productoSeco.kcalEmKg) * 1000) : 0;
-  const gramosHumedo = productoHumedo?.kcalEmKg ? Math.round((kcalHumedo / productoHumedo.kcalEmKg) * 1000) : 0;
+  console.log(`\n📊 Cálculo Alimentación Mixta:`);
+  console.log(`   Calorías totales/día: ${kcalDiarias.toFixed(1)} kcal`);
+  console.log(`   Distribución: ${PORCENTAJE_ALIMENTACION_MIXTA.SECO * 100}% seco + ${PORCENTAJE_ALIMENTACION_MIXTA.HUMEDO * 100}% húmedo`);
+  console.log(`   → Seco: ${kcalSeco.toFixed(1)} kcal/día`);
+  console.log(`   → Húmedo: ${kcalHumedo.toFixed(1)} kcal/día`);
+  
+  // Calcular gramos para cada tipo
+  const gramosSeco = productoSeco?.kcalEmKg 
+    ? calcularGramosProducto(kcalSeco, productoSeco.kcalEmKg)
+    : 0;
+    
+  const gramosHumedo = productoHumedo?.kcalEmKg 
+    ? calcularGramosProducto(kcalHumedo, productoHumedo.kcalEmKg)
+    : 0;
+  
+  if (productoSeco?.kcalEmKg) {
+    console.log(`   Producto Seco: ${productoSeco.kcalEmKg} kcal/kg → ${gramosSeco}g/día`);
+  }
+  
+  if (productoHumedo?.kcalEmKg) {
+    console.log(`   Producto Húmedo: ${productoHumedo.kcalEmKg} kcal/kg → ${gramosHumedo}g/día`);
+  }
   
   return {
     seco: gramosSeco,
@@ -816,13 +871,16 @@ export async function calcularRecomendacionProductos(answers) {
       
       if (tipoAlimentacion === "Seca") {
         // Solo producto seco
-  const gramosDiarios = productoSeco ? calcularGramosProducto(kcalDiarias, productoSeco.kcalEmKg) : 0;
-  let variante = productoSeco ? seleccionarVariante(productoSeco, gramosDiarios, answers.q3_perro, false) : null;
-  if (productoSeco && variante) variante = aplicarOverrideVariante(productoSeco, variante);
+        const gramosDiarios = productoSeco ? calcularGramosProducto(kcalDiarias, productoSeco.kcalEmKg) : 0;
+        let variante = productoSeco ? seleccionarVariante(productoSeco, gramosDiarios, answers.q3_perro, false) : null;
+        if (productoSeco && variante) variante = aplicarOverrideVariante(productoSeco, variante);
         
-        console.log(`📦 Producto seco: ${productoSeco?.nombre || 'N/A'}`);
+        console.log(`\n📦 Alimentación SECA para ${answers.q2}:`);
+        console.log(`   Producto: ${productoSeco?.nombre || 'N/A'}`);
+        console.log(`   Calorías del producto: ${productoSeco?.kcalEmKg || 'N/A'} kcal/kg`);
+        console.log(`   Calorías necesarias: ${kcalDiarias} kcal/día`);
+        console.log(`   ➡️ Cantidad diaria: ${gramosDiarios}g/día`);
         console.log(`   Variante recomendada: ${variante?.cantidad || 'NINGUNA'}`);
-        console.log(`   Gramos diarios: ${gramosDiarios}g`);
         
         resultado.recomendacion = {
           tipo: "seca",
@@ -834,11 +892,16 @@ export async function calcularRecomendacionProductos(answers) {
         };
       } else {
         // Alimentación mixta
-  const cantidades = calcularAlimentacionMixta(kcalDiarias, productoSeco, productoHumedo);
-  let varianteSeco = productoSeco ? seleccionarVariante(productoSeco, cantidades.seco, answers.q3_perro, false) : null;
-  let varianteHumedo = productoHumedo ? seleccionarVariante(productoHumedo, cantidades.humedo, answers.q3_perro, true) : null;
-  if (productoSeco && varianteSeco) varianteSeco = aplicarOverrideVariante(productoSeco, varianteSeco);
-  if (productoHumedo && varianteHumedo) varianteHumedo = aplicarOverrideVariante(productoHumedo, varianteHumedo);
+        const cantidades = calcularAlimentacionMixta(kcalDiarias, productoSeco, productoHumedo);
+        let varianteSeco = productoSeco ? seleccionarVariante(productoSeco, cantidades.seco, answers.q3_perro, false) : null;
+        let varianteHumedo = productoHumedo ? seleccionarVariante(productoHumedo, cantidades.humedo, answers.q3_perro, true) : null;
+        if (productoSeco && varianteSeco) varianteSeco = aplicarOverrideVariante(productoSeco, varianteSeco);
+        if (productoHumedo && varianteHumedo) varianteHumedo = aplicarOverrideVariante(productoHumedo, varianteHumedo);
+        
+        console.log(`\n📦 Alimentación MIXTA para ${answers.q2}:`);
+        console.log(`   Total calorías: ${kcalDiarias} kcal/día`);
+        console.log(`   Seco (${PORCENTAJE_ALIMENTACION_MIXTA.SECO * 100}%): ${cantidades.seco}g/día`);
+        console.log(`   Húmedo (${PORCENTAJE_ALIMENTACION_MIXTA.HUMEDO * 100}%): ${cantidades.humedo}g/día`);
         
         resultado.recomendacion = {
           tipo: "mixta",
@@ -867,9 +930,16 @@ export async function calcularRecomendacionProductos(answers) {
       
       if (tipoAlimentacion === "Seca") {
         // Solo producto seco
-  const gramosDiarios = productoSeco ? calcularGramosProducto(kcalDiarias, productoSeco.kcalEmKg) : 0;
-  let variante = productoSeco ? seleccionarVariante(productoSeco, gramosDiarios, "Gato", false) : null;
-  if (productoSeco && variante) variante = aplicarOverrideVariante(productoSeco, variante);
+        const gramosDiarios = productoSeco ? calcularGramosProducto(kcalDiarias, productoSeco.kcalEmKg) : 0;
+        let variante = productoSeco ? seleccionarVariante(productoSeco, gramosDiarios, "Gato", false) : null;
+        if (productoSeco && variante) variante = aplicarOverrideVariante(productoSeco, variante);
+        
+        console.log(`\n📦 Alimentación SECA para ${answers.q2}:`);
+        console.log(`   Producto: ${productoSeco?.nombre || 'N/A'}`);
+        console.log(`   Calorías del producto: ${productoSeco?.kcalEmKg || 'N/A'} kcal/kg`);
+        console.log(`   Calorías necesarias: ${kcalDiarias} kcal/día`);
+        console.log(`   ➡️ Cantidad diaria: ${gramosDiarios}g/día`);
+        console.log(`   Variante recomendada: ${variante?.cantidad || 'NINGUNA'}`);
         
         resultado.recomendacion = {
           tipo: "seca",
@@ -881,11 +951,16 @@ export async function calcularRecomendacionProductos(answers) {
         };
       } else {
         // Alimentación mixta
-  const cantidades = calcularAlimentacionMixta(kcalDiarias, productoSeco, productoHumedo);
-  let varianteSeco = productoSeco ? seleccionarVariante(productoSeco, cantidades.seco, "Gato", false) : null;
-  let varianteHumedo = productoHumedo ? seleccionarVariante(productoHumedo, cantidades.humedo, "Gato", true) : null;
-  if (productoSeco && varianteSeco) varianteSeco = aplicarOverrideVariante(productoSeco, varianteSeco);
-  if (productoHumedo && varianteHumedo) varianteHumedo = aplicarOverrideVariante(productoHumedo, varianteHumedo);
+        const cantidades = calcularAlimentacionMixta(kcalDiarias, productoSeco, productoHumedo);
+        let varianteSeco = productoSeco ? seleccionarVariante(productoSeco, cantidades.seco, "Gato", false) : null;
+        let varianteHumedo = productoHumedo ? seleccionarVariante(productoHumedo, cantidades.humedo, "Gato", true) : null;
+        if (productoSeco && varianteSeco) varianteSeco = aplicarOverrideVariante(productoSeco, varianteSeco);
+        if (productoHumedo && varianteHumedo) varianteHumedo = aplicarOverrideVariante(productoHumedo, varianteHumedo);
+        
+        console.log(`\n📦 Alimentación MIXTA para ${answers.q2}:`);
+        console.log(`   Total calorías: ${kcalDiarias} kcal/día`);
+        console.log(`   Seco (${PORCENTAJE_ALIMENTACION_MIXTA.SECO * 100}%): ${cantidades.seco}g/día`);
+        console.log(`   Húmedo (${PORCENTAJE_ALIMENTACION_MIXTA.HUMEDO * 100}%): ${cantidades.humedo}g/día`);
         
         resultado.recomendacion = {
           tipo: "mixta",
