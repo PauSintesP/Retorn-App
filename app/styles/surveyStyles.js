@@ -139,7 +139,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     margin-top: 4px;
     position: relative;
     z-index: 1;
-    overflow-y: auto;
+    overflow-y: visible;
     overflow-x: hidden;
     width: 100%;
     box-sizing: border-box;
