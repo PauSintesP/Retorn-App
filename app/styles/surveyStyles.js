@@ -31,8 +31,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     overflow-x: hidden;
     overflow-y: auto;
     width: 100%;
-    height: auto;
-    min-height: 100%;
+    height: 100%;
   }
 
   body {
@@ -79,7 +78,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: var(--jdgm-primary-color);
     position: relative;
-    overflow: visible;
+    overflow-x: hidden;
+    overflow-y: visible;
     width: 100%;
     max-width: 100vw;
     box-sizing: border-box;
@@ -137,7 +137,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     margin-top: 4px;
     position: relative;
     z-index: 1;
-    overflow: visible;
+    overflow-x: hidden;
+    overflow-y: visible;
     width: 100%;
     box-sizing: border-box;
     -webkit-overflow-scrolling: touch;
@@ -172,7 +173,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     position: relative;
     margin: 0 auto;
     box-sizing: border-box;
-    overflow: visible;
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 
   /* Tablet */
@@ -319,7 +321,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     margin-bottom: 0;
     padding: 0 0.15rem;
     box-sizing: border-box;
-    overflow: visible;
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 
   @media (min-width: 600px) {
@@ -761,6 +764,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     border: 2px solid rgba(115, 159, 153, 0.2);
     animation: fadeSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    overflow: visible;
   }
 
   @keyframes fadeSlideIn {
@@ -850,6 +854,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .date-selector-scroll {
     max-height: 180px;
     overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -858,6 +863,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     border-radius: 10px;
     scrollbar-width: thin;
     scrollbar-color: rgba(115, 159, 153, 0.3) transparent;
+    -webkit-overflow-scrolling: touch;
   }
 
   .date-selector-scroll::-webkit-scrollbar {
@@ -1400,7 +1406,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
-    overflow: visible;
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 
   @media (min-width: 600px) {
@@ -1428,7 +1435,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     box-shadow: 0 4px 16px rgba(255, 215, 0, 0.2);
     animation: fadeIn 0.3s ease-out;
     box-sizing: border-box;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 
   @keyframes fadeIn {
@@ -1501,6 +1509,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     min-width: 0;
     overflow-wrap: break-word;
     word-wrap: break-word;
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 
   .alert-banner-text p {
@@ -2198,7 +2208,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     max-width: 100%;
     width: 100%;
     padding: 0.25rem 0.5rem 0.5rem 0.5rem;
-    overflow: visible;
+    overflow-x: hidden;
+    overflow-y: visible;
   }
 
   @media (min-width: 600px) {
@@ -2897,7 +2908,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
-    overflow: visible; /* Evitar scroll interno */
+    overflow-x: hidden;
+    overflow-y: visible;
     box-sizing: border-box;
   }
 
@@ -2989,7 +3001,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     width: 100%;
     max-width: 100%;
     padding-right: 0;
-    overflow: visible; /* Evitar scroll */
+    overflow-x: hidden;
+    overflow-y: visible;
     box-sizing: border-box;
   }
 
@@ -3800,6 +3813,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     padding: 0.75rem 0.5rem;
     box-sizing: border-box;
     overflow-x: hidden;
+    overflow-y: visible;
   }
 
   @media (min-width: 768px) {
@@ -4063,6 +4077,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     text-align: center;
     box-sizing: border-box;
     overflow-x: hidden;
+    overflow-y: visible;
   }
 
   @media (min-width: 768px) {
