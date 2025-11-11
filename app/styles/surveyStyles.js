@@ -3285,8 +3285,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     gap: 0.75rem;
     width: 100%;
     padding: 1.3rem 1.75rem;
-    background: linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%);
-    background-size: 200% 100%;
+    background: #739f99;
     color: white;
     border: none;
     border-radius: 10px;
@@ -3301,25 +3300,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
       0 6px 20px rgba(115, 159, 153, 0.35),
       0 2px 8px rgba(115, 159, 153, 0.2);
     position: relative;
-    overflow: hidden;
-  }
-
-  .add-to-cart-button::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.5s, height 0.5s;
-  }
-
-  .add-to-cart-button:hover::before {
-    width: 400px;
-    height: 400px;
   }
 
   .add-to-cart-button:hover {
@@ -3327,7 +3307,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     box-shadow: 
       0 12px 32px rgba(115, 159, 153, 0.4),
       0 6px 16px rgba(115, 159, 153, 0.25);
-    background-position: 100% 0;
+    background: #6ec1b3;
   }
 
   .add-to-cart-button:active {
