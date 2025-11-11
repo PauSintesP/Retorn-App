@@ -7,54 +7,12 @@ import { useState } from "react";
 export default function RecommendationResult({ recommendation, onRestart = () => {} }) {
   const [showFirstOrderBanner, setShowFirstOrderBanner] = useState(true);
   const [showSubscriptionBanner, setShowSubscriptionBanner] = useState(true);
-  const [cuponAplicado, setCuponAplicado] = useState(false);
 
   if (!recommendation) {
     return null;
   }
 
   const { tipoAnimal, nombreMascota, kcalDiarias, recomendacion, factores, tipoCroqueta } = recommendation;
-
-  const aplicarCupon = () => {
-    console.log('🎟️ Cupón aplicado - cuponAplicado cambia a true');
-    setCuponAplicado(true);
-  };
-
-  const agregarAlCarrito = () => {
-    console.log('🛒 Agregando al carrito - cuponAplicado:', cuponAplicado);
-    const productos = [];
-    
-    if (recomendacion.tipo === "seca") {
-      if (recomendacion.productoSeco) productos.push(recomendacion.productoSeco);
-    } else if (recomendacion.tipo === "mixta") {
-      if (recomendacion.productoSeco) productos.push(recomendacion.productoSeco);
-      if (recomendacion.productoHumedo) productos.push(recomendacion.productoHumedo);
-    }
-
-    const cartItems = productos
-      .map(p => {
-        const variantId = p?.varianteRecomendada?.variantId;
-        return variantId ? `${variantId}:1` : null;
-      })
-      .filter(Boolean)
-      .join(',');
-
-    if (cartItems) {
-      const cartUrl = cuponAplicado 
-        ? `https://retorn.com/cart/${cartItems}?discount=RET15`
-        : `https://retorn.com/cart/${cartItems}`;
-      console.log('🔗 URL del carrito:', cartUrl);
-      console.log('💳 Cupón aplicado:', cuponAplicado ? 'SÍ' : 'NO');
-      window.open(cartUrl, '_blank');
-    } else {
-      const cartUrl = cuponAplicado 
-        ? 'https://retorn.com/cart?discount=RET15'
-        : 'https://retorn.com/cart';
-      console.log('🔗 URL del carrito (sin items):', cartUrl);
-      console.log('💳 Cupón aplicado:', cuponAplicado ? 'SÍ' : 'NO');
-      window.open(cartUrl, '_blank');
-    }
-  };
 
   return (
     <div className="recommendation-container">
@@ -227,25 +185,17 @@ export default function RecommendationResult({ recommendation, onRestart = () =>
           )}
         </div>
 
-        {/* Botones de acción juntos */}
-        <div className="action-buttons-container">
-          <button 
-            onClick={agregarAlCarrito}
-            className="add-to-cart-button"
-          >
-            <span className="cart-icon">🛒</span>
-            <span>Agregar {recomendacion.tipo === "mixta" ? "productos" : "producto"} al carrito</span>
-          </button>
-
-          {onRestart && (
+        {/* Botón de acción */}
+        {onRestart && (
+          <div className="action-buttons-container">
             <button 
               onClick={onRestart}
               className="restart-survey-button"
             >
               Realizar otro cuestionario
             </button>
-          )}
-        </div>
+          </div>
+        )}
       </div>
 
       <div className="recommendation-footer">
