@@ -2224,6 +2224,26 @@ export const getSurveyStyles = (direction, theme = {}) => {
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     box-sizing: border-box;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(115, 159, 153, 0.4) transparent;
+  }
+
+  .recommendation-container::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .recommendation-container::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+  }
+
+  .recommendation-container::-webkit-scrollbar-thumb {
+    background: rgba(115, 159, 153, 0.4);
+    border-radius: 10px;
+  }
+
+  .recommendation-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(115, 159, 153, 0.6);
   }
 
   @media (min-width: 600px) {
@@ -3295,6 +3315,24 @@ export const getSurveyStyles = (direction, theme = {}) => {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
+  }
+
+  .add-to-cart-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+  }
+
+  .add-to-cart-button:hover::before {
+    width: 300px;
+    height: 300px;
   }
 
   .add-to-cart-button:hover {
