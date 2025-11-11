@@ -181,7 +181,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     position: relative;
     margin: 0 auto;
     box-sizing: border-box;
-    overflow-x: visible;
+    overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     display: flex;
@@ -332,7 +332,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     margin-bottom: 0;
     padding: 0 0.15rem;
     box-sizing: border-box;
-    overflow-x: visible;
+    overflow-x: hidden;
     overflow-y: visible;
   }
 
@@ -363,7 +363,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     text-align: left;
     font-weight: 500;
     position: relative;
-    overflow: visible;
+    overflow: hidden;
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -438,8 +438,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     border-color: var(--jdgm-paginate-color);
     transform: translateY(-2px);
     box-shadow: 
-      0 8px 24px rgba(115, 159, 153, 0.2),
-      0 4px 8px rgba(115, 159, 153, 0.1);
+      0 4px 12px rgba(115, 159, 153, 0.18),
+      0 2px 6px rgba(115, 159, 153, 0.1);
   }
 
   .option-button.selected {
@@ -617,7 +617,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .text-input:focus {
     border-color: var(--jdgm-paginate-color);
     box-shadow: 
-      0 8px 24px rgba(115, 159, 153, 0.15),
+      0 4px 16px rgba(115, 159, 153, 0.12),
       0 0 0 4px rgba(115, 159, 153, 0.08);
     transform: translateY(-2px);
     background: white;
