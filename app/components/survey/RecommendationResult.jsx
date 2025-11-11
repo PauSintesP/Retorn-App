@@ -288,6 +288,10 @@ export default function RecommendationResult({ recommendation, onRestart = () =>
           <button 
             onClick={irAlCarrito}
             className="add-to-cart-button"
+            style={{
+              backgroundColor: '#739f99',
+              color: 'white'
+            }}
           >
             <span className="cart-button-icon">🛒</span>
             <span className="cart-button-text">Ir al carrito de Retorn</span>
