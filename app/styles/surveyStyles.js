@@ -3285,8 +3285,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     gap: 0.75rem;
     width: 100%;
     padding: 1.3rem 1.75rem;
-    background: #739f99;
-    color: white;
+    background: #739f99 !important;
+    color: white !important;
     border: none;
     border-radius: 10px;
     font-family: 'Oswald', sans-serif;
@@ -3307,7 +3307,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     box-shadow: 
       0 12px 32px rgba(115, 159, 153, 0.4),
       0 6px 16px rgba(115, 159, 153, 0.25);
-    background: #6ec1b3;
+    background: #6ec1b3 !important;
   }
 
   .add-to-cart-button:active {
