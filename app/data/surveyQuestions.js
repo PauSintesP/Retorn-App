@@ -54,14 +54,17 @@ export const QUESTIONS = [
     required: true,
     condition: (answers) => answers.q1 === "Gato" && answers["q3_gato"] === "Gatito",
   },
-  // Q5 - Perro: actividad
+  // Q5 - Perro: actividad (solo para adultos)
   {
     id: "5_perro",
     question: "Nivel de actividad diaria",
     type: "choice",
     options: ["Baja", "Media", "Muy Alta (Deportiva)"],
     required: true,
-    condition: (answers) => answers.q1 === "Perro",
+    condition: (answers) => {
+      // Solo se muestra si es perro Y es adulto (no cachorro ni senior)
+      return answers.q1 === "Perro" && answers.q4_perro === "Adulto";
+    },
   },
   // Q5 - Gato: peso
   {

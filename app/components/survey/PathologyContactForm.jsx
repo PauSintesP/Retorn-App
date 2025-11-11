@@ -11,7 +11,7 @@ const QUESTION_LABELS = {
   q3_gato: "Edad del gato",
   q4_perro: "Edad del perro",
   q4_gato_gatito: "Meses del gatito",
-  q5_perro: "Nivel de actividad",
+  q5_perro: "Nivel de actividad (adultos)",
   q5_gato: "Peso ideal (kg)",
   q6_perro: "Peso ideal (kg)",
   q6_gato: "¿Está castrado?",

@@ -67,15 +67,22 @@ function determinarFactorEdadPerro(tamano, edad, fechaNacimiento) {
   return FACTOR_EDAD_PERRO["Adulto"];
 }
 
+/**
+ * Determina la variable de actividad según la edad del perro
+ * - Cachorros: 130 (valor fijo, no se pregunta nivel de actividad)
+ * - Seniors: 130 (valor fijo, no se pregunta nivel de actividad)
+ * - Adultos: según nivel de actividad (Baja: 95, Media: 130, Muy Alta: 180)
+ */
 function determinarVariableActividad(edad, nivelActividad) {
   if (edad === "Cachorro") {
-    return VAR_ACTIVIDAD_PERRO["Cachorro"];
+    return VAR_ACTIVIDAD_PERRO["Cachorro"]; // 130
   }
   
   if (edad === "Senior") {
-    return VAR_ACTIVIDAD_PERRO["Senior"];
+    return VAR_ACTIVIDAD_PERRO["Senior"]; // 130
   }
   
+  // Para adultos, usar el nivel de actividad seleccionado (o Media por defecto)
   return VAR_ACTIVIDAD_PERRO[nivelActividad] || VAR_ACTIVIDAD_PERRO["Media"];
 }
 
@@ -366,13 +373,16 @@ function determinarCasoGato(edad, mesesSeleccionados, castrado, patologias) {
  * - FACTOR_ESTERILIZADO = 0.8 si está esterilizado, 1 si no
  * - FACTOR_SNACKS = 0.9 si consume snacks habitualmente, 1 si no
  * - FACTOR_EDAD depende de edad y tamaño (ver tabla en productConstants.js)
- * - VAR = factor de actividad (95 baja, 130 media, 180 alta)
+ * - VAR = factor de actividad:
+ *   · Cachorro: 130 (fijo, no requiere pregunta de actividad)
+ *   · Senior: 130 (fijo, no requiere pregunta de actividad)
+ *   · Adulto: 95 (baja), 130 (media), 180 (muy alta deportiva)
  * - PESO = peso del perro en kg
  */
 export function calcularCaloriasPerro(answers) {
   const tamano = answers.q3_perro; // "Pequeño", "Mediano", "Grande"
   const edad = answers.q4_perro; // "Cachorro", "Adulto", "Senior"
-  const nivelActividad = answers.q5_perro; // "Baja", "Media", "Muy Alta (Deportiva)"
+  const nivelActividad = answers.q5_perro; // "Baja", "Media", "Muy Alta (Deportiva)" - Solo para adultos
   const peso = parseFloat(answers.q6_perro); // Peso en kg
   const snacks = answers.q7_perro; // "1 o menos", "2-3", "Muchos (Más de 3)"
   const castrado = answers.q8_perro; // "Sí", "No"
@@ -402,7 +412,12 @@ export function calcularCaloriasPerro(answers) {
   const kcalDiarias = factorEsterilizado * factorSnacks * factorEdad * tasaMetabolica;
   
   console.log(`\n🔢 Cálculo de Calorías para ${answers.q2}:`);
-  console.log(`   Peso: ${peso}kg | Edad: ${edad} | Tamaño: ${tamano} | Actividad: ${nivelActividad}`);
+  console.log(`   Peso: ${peso}kg | Edad: ${edad} | Tamaño: ${tamano}`);
+  if (edad === "Cachorro" || edad === "Senior") {
+    console.log(`   Actividad: 130 (automático para ${edad})`);
+  } else {
+    console.log(`   Actividad: ${nivelActividad || "Media (default)"}`);
+  }
   console.log(`   FACTOR_ESTERILIZADO: ${factorEsterilizado} (${castrado})`);
   console.log(`   FACTOR_SNACKS: ${factorSnacks} (${snacks})`);
   console.log(`   FACTOR_EDAD: ${factorEdad}`);

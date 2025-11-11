@@ -29,7 +29,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+    overflow-y: auto;
     width: 100%;
+    height: auto;
+    min-height: 100%;
   }
 
   body {
@@ -78,6 +81,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .survey-container {
     min-height: 100vh;
+    height: auto;
     display: flex;
     flex-direction: column;
     background: #ffffffff;
@@ -145,8 +149,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     margin-top: 4px;
     position: relative;
     z-index: 1;
-    overflow-y: visible;
-    overflow-x: hidden;
+    overflow: visible;
     width: 100%;
     box-sizing: border-box;
     -webkit-overflow-scrolling: touch;
@@ -2207,6 +2210,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     max-width: 100%;
     width: 100%;
     padding: 0.25rem 0.5rem 0.5rem 0.5rem;
+    overflow: visible;
   }
 
   @media (min-width: 600px) {
@@ -3220,22 +3224,22 @@ export const getSurveyStyles = (direction, theme = {}) => {
     justify-content: center;
     gap: 0.5rem;
     width: 100%;
-    padding: 1.25rem 2rem;
-    background: linear-gradient(135deg, #5fb3a1 0%, #739f99 100%);
+    padding: 0.9rem 0.75rem;
+    background: linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%);
+    background-size: 200% 100%;
     color: white;
     border: none;
-    border-radius: 12px;
+    border-radius: 8px;
     font-family: 'Oswald', sans-serif;
-    font-size: 1rem;
+    font-size: 0.8rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1.5px;
+    letter-spacing: 0.5px;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 
-      0 8px 24px rgba(95, 179, 161, 0.35),
-      0 4px 8px rgba(95, 179, 161, 0.2),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      0 6px 20px rgba(115, 159, 153, 0.3),
+      0 2px 6px rgba(115, 159, 153, 0.15);
     position: relative;
     overflow: hidden;
   }
@@ -3266,10 +3270,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .add-to-cart-button {
-      padding: 1.4rem 2.5rem;
-      font-size: 1.05rem;
-      letter-spacing: 1.8px;
-      border-radius: 14px;
+      padding: 1rem 1.5rem;
+      font-size: 0.88rem;
+      letter-spacing: 1px;
     }
     
     .add-to-cart-button::before {
@@ -3279,13 +3282,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .add-to-cart-button {
-      width: auto;
-      min-width: 320px;
-      flex: 1;
-      max-width: 500px;
-      padding: 1.5rem 3rem;
-      font-size: 1.15rem;
-      letter-spacing: 2px;
+      min-width: 160px;
+      padding: 1.05rem 2rem;
+      font-size: 0.92rem;
+      letter-spacing: 1.5px;
     }
     
     .add-to-cart-button::before {
@@ -3294,19 +3294,18 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .add-to-cart-button:hover {
-    transform: translateY(-4px) scale(1.03);
+    transform: translateY(-3px) scale(1.02);
     box-shadow: 
-      0 12px 32px rgba(95, 179, 161, 0.45),
-      0 6px 12px rgba(95, 179, 161, 0.25),
-      inset 0 1px 0 rgba(255, 255, 255, 0.3);
-    background: linear-gradient(135deg, #4ea593 0%, #638a84 100%);
+      0 10px 28px rgba(115, 159, 153, 0.35),
+      0 4px 10px rgba(115, 159, 153, 0.2);
+    background-position: 100% 0;
   }
 
   .add-to-cart-button:active {
     transform: translateY(-2px) scale(1.01);
     box-shadow: 
-      0 8px 24px rgba(95, 179, 161, 0.35),
-      0 4px 8px rgba(95, 179, 161, 0.2);
+      0 6px 20px rgba(115, 159, 153, 0.3),
+      0 2px 6px rgba(115, 159, 153, 0.15);
   }
 
   .restart-survey-button {
