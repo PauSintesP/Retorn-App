@@ -28,8 +28,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   html, body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
-    height: 100vh;
+    overflow-x: hidden;
     width: 100%;
   }
 
@@ -78,15 +77,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .survey-container {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     background: #ffffffff;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: var(--jdgm-primary-color);
     position: relative;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     width: 100%;
     max-width: 100vw;
     box-sizing: border-box;
@@ -3220,28 +3218,35 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 0.5rem;
     width: 100%;
-    padding: 1.1rem 1.5rem;
-    background: linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%);
-    background-size: 200% 100%;
+    padding: 1.25rem 2rem;
+    background: linear-gradient(135deg, #5fb3a1 0%, #739f99 100%);
     color: white;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1.2px;
+    letter-spacing: 1.5px;
     cursor: pointer;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 
-      0 6px 20px rgba(115, 159, 153, 0.3),
-      0 2px 6px rgba(115, 159, 153, 0.15);
+      0 8px 24px rgba(95, 179, 161, 0.35),
+      0 4px 8px rgba(95, 179, 161, 0.2),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
     position: relative;
     overflow: hidden;
   }
 
   .add-to-cart-button::before {
+    content: '🛒';
+    font-size: 1.2rem;
+    margin-right: -0.5rem;
+  }
+
+  .add-to-cart-button::after {
     content: '';
     position: absolute;
     top: 50%;
@@ -3249,49 +3254,59 @@ export const getSurveyStyles = (direction, theme = {}) => {
     width: 0;
     height: 0;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.15);
     transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
+    transition: width 0.5s, height 0.5s;
   }
 
-  .add-to-cart-button:hover::before {
+  .add-to-cart-button:hover::after {
     width: 400px;
     height: 400px;
   }
 
   @media (min-width: 600px) {
     .add-to-cart-button {
-      padding: 1.25rem 2rem;
+      padding: 1.4rem 2.5rem;
       font-size: 1.05rem;
-      letter-spacing: 1.5px;
-      border-radius: 12px;
+      letter-spacing: 1.8px;
+      border-radius: 14px;
+    }
+    
+    .add-to-cart-button::before {
+      font-size: 1.3rem;
     }
   }
 
   @media (min-width: 768px) {
     .add-to-cart-button {
       width: auto;
-      min-width: 300px;
+      min-width: 320px;
       flex: 1;
-      max-width: 450px;
-      padding: 1.35rem 2.5rem;
-      font-size: 1.1rem;
+      max-width: 500px;
+      padding: 1.5rem 3rem;
+      font-size: 1.15rem;
+      letter-spacing: 2px;
+    }
+    
+    .add-to-cart-button::before {
+      font-size: 1.4rem;
     }
   }
 
   .add-to-cart-button:hover {
-    transform: translateY(-3px) scale(1.02);
+    transform: translateY(-4px) scale(1.03);
     box-shadow: 
-      0 10px 28px rgba(115, 159, 153, 0.35),
-      0 4px 10px rgba(115, 159, 153, 0.2);
-    background-position: 100% 0;
+      0 12px 32px rgba(95, 179, 161, 0.45),
+      0 6px 12px rgba(95, 179, 161, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    background: linear-gradient(135deg, #4ea593 0%, #638a84 100%);
   }
 
   .add-to-cart-button:active {
     transform: translateY(-2px) scale(1.01);
     box-shadow: 
-      0 8px 25px rgba(115, 159, 153, 0.3),
-      0 3px 8px rgba(115, 159, 153, 0.15);
+      0 8px 24px rgba(95, 179, 161, 0.35),
+      0 4px 8px rgba(95, 179, 161, 0.2);
   }
 
   .restart-survey-button {
