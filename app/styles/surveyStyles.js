@@ -3302,10 +3302,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .cart-button {
     width: 100%;
     gap: 0.75rem;
+    padding: 1.5rem 2rem !important;
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 1.5px !important;
   }
 
   .cart-button-icon {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     line-height: 1;
     display: inline-flex;
     align-items: center;
@@ -3320,24 +3324,28 @@ export const getSurveyStyles = (direction, theme = {}) => {
   @media (min-width: 600px) {
     .cart-button {
       gap: 0.85rem;
+      padding: 1.65rem 2.25rem !important;
+      font-size: 1.15rem !important;
     }
 
     .cart-button-icon {
-      font-size: 1.3rem;
+      font-size: 1.5rem;
     }
   }
 
   @media (min-width: 768px) {
     .cart-button {
       width: auto;
-      min-width: 300px;
+      min-width: 350px;
       flex: 1;
-      max-width: 450px;
+      max-width: 500px;
       gap: 1rem;
+      padding: 1.75rem 2.5rem !important;
+      font-size: 1.2rem !important;
     }
 
     .cart-button-icon {
-      font-size: 1.4rem;
+      font-size: 1.6rem;
     }
   }
 
@@ -3352,7 +3360,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
-  /* Restart Survey Button */
+  /* Restart Survey Button - Más discreto y pequeño */
   .action-buttons-container .restart-survey-button,
   .cart-action-section .restart-survey-button,
   button.restart-survey-button {
@@ -3360,48 +3368,50 @@ export const getSurveyStyles = (direction, theme = {}) => {
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 1.1rem 1.5rem;
-    background: white;
-    color: var(--jdgm-paginate-color);
-    border: 2.5px solid var(--jdgm-paginate-color);
-    border-radius: 10px;
-    font-family: 'Oswald', sans-serif;
-    font-size: 0.95rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1.2px;
+    padding: 0.75rem 1rem;
+    background: transparent;
+    color: #999;
+    border: 1.5px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0.3px;
     cursor: pointer;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 4px 15px rgba(115, 159, 153, 0.2);
+    transition: all 0.25s ease;
+    box-shadow: none;
     position: relative;
     overflow: hidden;
+    opacity: 0.7;
   }
 
   .action-buttons-container .restart-survey-button:hover,
   .cart-action-section .restart-survey-button:hover,
   button.restart-survey-button:hover {
-    background: var(--jdgm-paginate-color);
-    color: white;
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(115, 159, 153, 0.35);
-    border-color: var(--jdgm-paginate-color);
+    background: #f5f5f5;
+    color: #666;
+    transform: none;
+    box-shadow: none;
+    border-color: #ccc;
+    opacity: 1;
   }
 
   .action-buttons-container .restart-survey-button:active,
   .cart-action-section .restart-survey-button:active,
   button.restart-survey-button:active {
-    transform: translateY(-1px);
-    box-shadow: 0 5px 15px rgba(115, 159, 153, 0.3);
+    transform: scale(0.98);
+    box-shadow: none;
   }
 
   @media (min-width: 600px) {
     .action-buttons-container .restart-survey-button,
     .cart-action-section .restart-survey-button,
     button.restart-survey-button {
-      padding: 1.25rem 2rem;
-      font-size: 1.05rem;
-      letter-spacing: 1.5px;
-      border-radius: 12px;
+      padding: 0.8rem 1.25rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.4px;
+      border-radius: 8px;
     }
   }
 
@@ -3410,11 +3420,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .cart-action-section .restart-survey-button,
     button.restart-survey-button {
       width: auto;
-      min-width: 300px;
-      flex: 1;
-      max-width: 450px;
-      padding: 1.35rem 2.5rem;
-      font-size: 1.1rem;
+      min-width: 200px;
+      max-width: 280px;
+      padding: 0.85rem 1.5rem;
+      font-size: 0.875rem;
     }
   }
 
