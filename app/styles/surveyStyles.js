@@ -3277,7 +3277,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
-  .add-to-cart-button {
+  /* ============================================ */
+  /* BOTÓN AGREGAR AL CARRITO - Especificidad aumentada */
+  /* ============================================ */
+  
+  .action-buttons-container .add-to-cart-button,
+  .cart-action-section .add-to-cart-button,
+  button.add-to-cart-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3308,12 +3314,16 @@ export const getSurveyStyles = (direction, theme = {}) => {
     line-height: 1;
   }
 
-  .add-to-cart-button > span {
+  .action-buttons-container .add-to-cart-button > span,
+  .cart-action-section .add-to-cart-button > span,
+  button.add-to-cart-button > span {
     position: relative;
     z-index: 1;
   }
 
-  .add-to-cart-button::before {
+  .action-buttons-container .add-to-cart-button::before,
+  .cart-action-section .add-to-cart-button::before,
+  button.add-to-cart-button::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -3327,13 +3337,17 @@ export const getSurveyStyles = (direction, theme = {}) => {
     z-index: 0;
   }
 
-  .add-to-cart-button:hover::before {
+  .action-buttons-container .add-to-cart-button:hover::before,
+  .cart-action-section .add-to-cart-button:hover::before,
+  button.add-to-cart-button:hover::before {
     width: 300px;
     height: 300px;
   }
 
   @media (min-width: 600px) {
-    .add-to-cart-button {
+    .action-buttons-container .add-to-cart-button,
+    .cart-action-section .add-to-cart-button,
+    button.add-to-cart-button {
       padding: 1rem 1.5rem;
       font-size: 0.88rem;
       letter-spacing: 1px;
@@ -3341,7 +3355,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   @media (min-width: 768px) {
-    .add-to-cart-button {
+    .action-buttons-container .add-to-cart-button,
+    .cart-action-section .add-to-cart-button,
+    button.add-to-cart-button {
       min-width: 160px;
       padding: 1.05rem 2rem;
       font-size: 0.92rem;
@@ -3349,7 +3365,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
-  .add-to-cart-button:hover {
+  .action-buttons-container .add-to-cart-button:hover,
+  .cart-action-section .add-to-cart-button:hover,
+  button.add-to-cart-button:hover {
     transform: translateY(-3px) scale(1.02);
     box-shadow: 
       0 10px 28px rgba(115, 159, 153, 0.35),
@@ -3357,7 +3375,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     background-position: 100% 0;
   }
 
-  .add-to-cart-button:active {
+  .action-buttons-container .add-to-cart-button:active,
+  .cart-action-section .add-to-cart-button:active,
+  button.add-to-cart-button:active {
     transform: translateY(-2px) scale(1.01);
     box-shadow: 
       0 6px 20px rgba(115, 159, 153, 0.3),
