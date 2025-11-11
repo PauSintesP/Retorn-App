@@ -3384,7 +3384,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
       0 2px 6px rgba(115, 159, 153, 0.15);
   }
 
-  .restart-survey-button {
+  .action-buttons-container .restart-survey-button,
+  .cart-action-section .restart-survey-button,
+  button.restart-survey-button {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -3406,7 +3408,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     overflow: hidden;
   }
 
-  .restart-survey-button::before {
+  .action-buttons-container .restart-survey-button::before,
+  .cart-action-section .restart-survey-button::before,
+  button.restart-survey-button::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -3419,13 +3423,17 @@ export const getSurveyStyles = (direction, theme = {}) => {
     transition: width 0.6s, height 0.6s;
   }
 
-  .restart-survey-button:hover::before {
+  .action-buttons-container .restart-survey-button:hover::before,
+  .cart-action-section .restart-survey-button:hover::before,
+  button.restart-survey-button:hover::before {
     width: 400px;
     height: 400px;
   }
 
   @media (min-width: 600px) {
-    .restart-survey-button {
+    .action-buttons-container .restart-survey-button,
+    .cart-action-section .restart-survey-button,
+    button.restart-survey-button {
       padding: 1.25rem 2rem;
       font-size: 1.05rem;
       letter-spacing: 1.5px;
@@ -3434,7 +3442,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   @media (min-width: 768px) {
-    .restart-survey-button {
+    .action-buttons-container .restart-survey-button,
+    .cart-action-section .restart-survey-button,
+    button.restart-survey-button {
       width: auto;
       min-width: 300px;
       flex: 1;
@@ -3444,7 +3454,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
-  .restart-survey-button:hover {
+  .action-buttons-container .restart-survey-button:hover,
+  .cart-action-section .restart-survey-button:hover,
+  button.restart-survey-button:hover {
     background: var(--jdgm-paginate-color);
     color: white;
     transform: translateY(-4px) scale(1.02);
