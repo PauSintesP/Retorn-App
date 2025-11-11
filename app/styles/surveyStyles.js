@@ -3277,6 +3277,120 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
+  /* Add to Cart Button - Botón principal */
+  .add-to-cart-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 1.3rem 1.75rem;
+    background: linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%);
+    background-size: 200% 100%;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    cursor: pointer;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 
+      0 6px 20px rgba(115, 159, 153, 0.35),
+      0 2px 8px rgba(115, 159, 153, 0.2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .add-to-cart-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+  }
+
+  .add-to-cart-button:hover::before {
+    width: 400px;
+    height: 400px;
+  }
+
+  .add-to-cart-button:hover {
+    transform: translateY(-4px) scale(1.02);
+    box-shadow: 
+      0 12px 32px rgba(115, 159, 153, 0.4),
+      0 6px 16px rgba(115, 159, 153, 0.25);
+    background-position: 100% 0;
+  }
+
+  .add-to-cart-button:active {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 
+      0 8px 24px rgba(115, 159, 153, 0.35),
+      0 4px 12px rgba(115, 159, 153, 0.2);
+  }
+
+  .cart-button-icon {
+    font-size: 1.4rem;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .cart-button-text {
+    position: relative;
+    z-index: 1;
+  }
+
+  @media (min-width: 600px) {
+    .add-to-cart-button {
+      padding: 1.4rem 2.25rem;
+      font-size: 1.1rem;
+      letter-spacing: 1.75px;
+      border-radius: 12px;
+      gap: 0.85rem;
+    }
+
+    .cart-button-icon {
+      font-size: 1.5rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .add-to-cart-button {
+      width: auto;
+      min-width: 350px;
+      flex: 1;
+      max-width: 500px;
+      padding: 1.5rem 3rem;
+      font-size: 1.15rem;
+      gap: 1rem;
+    }
+
+    .cart-button-icon {
+      font-size: 1.6rem;
+    }
+  }
+
+  /* Estilo para contenedor secundario */
+  .action-buttons-container.secondary {
+    margin-top: 1rem;
+  }
+
+  @media (min-width: 600px) {
+    .action-buttons-container.secondary {
+      margin-top: 1.25rem;
+    }
+  }
+
   /* Restart Survey Button */
   .action-buttons-container .restart-survey-button,
   .cart-action-section .restart-survey-button,

@@ -7,12 +7,110 @@ import { useState } from "react";
 export default function RecommendationResult({ recommendation, onRestart = () => {} }) {
   const [showFirstOrderBanner, setShowFirstOrderBanner] = useState(true);
   const [showSubscriptionBanner, setShowSubscriptionBanner] = useState(true);
+  const [cuponAplicado, setCuponAplicado] = useState(false);
 
   if (!recommendation) {
     return null;
   }
 
   const { tipoAnimal, nombreMascota, kcalDiarias, recomendacion, factores, tipoCroqueta } = recommendation;
+
+  // Función para aplicar el cupón
+  const aplicarCupon = () => {
+    setCuponAplicado(true);
+  };
+
+  // Función para calcular la cantidad necesaria basada en los gramos diarios y el formato del producto
+  const calcularCantidadProducto = (producto) => {
+    if (!producto || !producto.varianteRecomendada) return 1;
+    
+    const cantidadOriginal = producto.varianteRecomendada.cantidad || "";
+    const cantidadLower = cantidadOriginal.toLowerCase();
+    
+    let gramosPorUnidad = 0;
+    
+    // Para productos con packs: "Caja 12 latas 185 g" o "Caja 18x80gr"
+    const matchCaja = cantidadLower.match(/caja\s*(\d+)(?:\s*latas)?\s*(?:x\s*)?(\d+(?:\.\d+)?)\s*g/i);
+    if (matchCaja) {
+      const unidades = parseFloat(matchCaja[1]);
+      const gramosPorLata = parseFloat(matchCaja[2]);
+      gramosPorUnidad = gramosPorLata * unidades;
+    }
+    // Para formato "185 gr x 12ud" o "400 gr x 12ud"
+    else {
+      const matchPack = cantidadLower.match(/(\d+(?:\.\d+)?)\s*gr?\s*x\s*(\d+)\s*ud/i);
+      if (matchPack) {
+        const gramosPorLata = parseFloat(matchPack[1]);
+        const unidades = parseFloat(matchPack[2]);
+        gramosPorUnidad = gramosPorLata * unidades;
+      }
+      // Si es en kg (sin pack)
+      else if (cantidadLower.includes("kg") && !cantidadLower.includes("x")) {
+        const numeros = cantidadLower.match(/(\d+(?:\.\d+)?)/);
+        gramosPorUnidad = numeros ? parseFloat(numeros[1]) * 1000 : 0;
+      }
+      // Si es en gramos simples (lata individual)
+      else {
+        const numeros = cantidadLower.match(/(\d+(?:\.\d+)?)/);
+        gramosPorUnidad = numeros ? parseFloat(numeros[1]) : 0;
+      }
+    }
+    
+    if (!gramosPorUnidad || gramosPorUnidad <= 0 || !producto.gramosDiarios) return 1;
+    
+    // Calcular cuántos días dura una unidad
+    const diasPorUnidad = gramosPorUnidad / producto.gramosDiarios;
+    
+    // Si dura más de 25 días, devolver 1 unidad
+    // Si dura menos, calcular cuántas unidades necesita para aproximadamente 1 mes
+    if (diasPorUnidad >= 25) {
+      return 1;
+    } else {
+      return Math.max(1, Math.ceil(30 / diasPorUnidad));
+    }
+  };
+
+  // Función para redirigir al carrito con los productos
+  const irAlCarrito = () => {
+    const items = [];
+    
+    console.log('🛒 Construyendo carrito de compras...');
+    
+    // Añadir producto seco si existe
+    if (recomendacion.productoSeco && recomendacion.productoSeco.varianteRecomendada?.variantId) {
+      const cantidad = calcularCantidadProducto(recomendacion.productoSeco);
+      const variantId = recomendacion.productoSeco.varianteRecomendada.variantId;
+      items.push(`${variantId}:${cantidad}`);
+      console.log(`  ✅ Producto seco: ${recomendacion.productoSeco.nombre}`);
+      console.log(`     - Variant ID: ${variantId}`);
+      console.log(`     - Cantidad: ${cantidad} unidad(es)`);
+    }
+    
+    // Añadir producto húmedo si existe (alimentación mixta)
+    if (recomendacion.productoHumedo && recomendacion.productoHumedo.varianteRecomendada?.variantId) {
+      const cantidad = calcularCantidadProducto(recomendacion.productoHumedo);
+      const variantId = recomendacion.productoHumedo.varianteRecomendada.variantId;
+      items.push(`${variantId}:${cantidad}`);
+      console.log(`  ✅ Producto húmedo: ${recomendacion.productoHumedo.nombre}`);
+      console.log(`     - Variant ID: ${variantId}`);
+      console.log(`     - Cantidad: ${cantidad} unidad(es)`);
+    }
+    
+    // Construir la URL del carrito
+    let cartUrl = `https://retorn.com/cart/${items.join(',')}`;
+    
+    // Añadir el cupón si está aplicado
+    if (cuponAplicado) {
+      cartUrl += `?discount=RET15`;
+      console.log(`  🎉 Cupón RET15 aplicado`);
+    }
+    
+    console.log(`  🔗 URL del carrito: ${cartUrl}`);
+    console.log('  🚀 Abriendo carrito en nueva pestaña...');
+    
+    // Abrir en nueva pestaña
+    window.open(cartUrl, '_blank', 'noopener,noreferrer');
+  };
 
   return (
     <div className="recommendation-container">
@@ -185,9 +283,20 @@ export default function RecommendationResult({ recommendation, onRestart = () =>
           )}
         </div>
 
-        {/* Botón de acción */}
+        {/* Botón principal: Ir al carrito */}
+        <div className="action-buttons-container">
+          <button 
+            onClick={irAlCarrito}
+            className="add-to-cart-button"
+          >
+            <span className="cart-button-icon">🛒</span>
+            <span className="cart-button-text">Ir al carrito de Retorn</span>
+          </button>
+        </div>
+
+        {/* Botón de acción secundario */}
         {onRestart && (
-          <div className="action-buttons-container">
+          <div className="action-buttons-container secondary">
             <button 
               onClick={onRestart}
               className="restart-survey-button"
