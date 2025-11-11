@@ -181,7 +181,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     position: relative;
     margin: 0 auto;
     box-sizing: border-box;
-    overflow-x: hidden;
+    overflow-x: visible;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     display: flex;
@@ -332,7 +332,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     margin-bottom: 0;
     padding: 0 0.15rem;
     box-sizing: border-box;
-    overflow-x: hidden;
+    overflow-x: visible;
     overflow-y: visible;
   }
 
@@ -363,7 +363,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     text-align: left;
     font-weight: 500;
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     display: flex;
     align-items: center;
     gap: 0.5rem;
