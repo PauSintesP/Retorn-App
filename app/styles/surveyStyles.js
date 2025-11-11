@@ -3232,13 +3232,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
     overflow: hidden;
   }
 
-  .add-to-cart-button::before {
-    content: '🛒';
-    font-size: 1.2rem;
-    margin-right: -0.5rem;
+  .add-to-cart-button > span {
+    position: relative;
+    z-index: 1;
   }
 
-  .add-to-cart-button::after {
+  .add-to-cart-button::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -3246,14 +3245,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
     width: 0;
     height: 0;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.15);
+    background: rgba(255, 255, 255, 0.3);
     transform: translate(-50%, -50%);
     transition: width 0.5s, height 0.5s;
+    z-index: 0;
   }
 
-  .add-to-cart-button:hover::after {
-    width: 400px;
-    height: 400px;
+  .add-to-cart-button:hover::before {
+    width: 300px;
+    height: 300px;
   }
 
   @media (min-width: 600px) {
@@ -3261,10 +3261,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
       padding: 1rem 1.5rem;
       font-size: 0.88rem;
       letter-spacing: 1px;
-    }
-    
-    .add-to-cart-button::before {
-      font-size: 1.3rem;
     }
   }
 
@@ -3274,10 +3270,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
       padding: 1.05rem 2rem;
       font-size: 0.92rem;
       letter-spacing: 1.5px;
-    }
-    
-    .add-to-cart-button::before {
-      font-size: 1.4rem;
     }
   }
 
