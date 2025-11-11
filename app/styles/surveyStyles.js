@@ -139,7 +139,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0.75rem;
+    padding: 1rem 0.75rem 0.75rem 0.75rem;
     margin-top: 4px;
     position: relative;
     z-index: 1;
@@ -191,7 +191,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Tablet */
   @media (min-width: 600px) {
     .survey-content {
-      padding: 1.25rem 1rem;
+      padding: 1.5rem 1rem 1.25rem 1rem;
       padding-bottom: 100px;
     }
 
@@ -206,7 +206,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Desktop */
   @media (min-width: 768px) {
     .survey-content {
-      padding: 2.5rem 1rem;
+      padding: 3rem 1rem 2.5rem 1rem;
       padding-bottom: 80px;
     }
 
@@ -2219,13 +2219,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
     max-width: 100%;
     width: 100%;
     height: 100%;
-    padding: 0.25rem 0.5rem 0.5rem 0.5rem;
+    padding: 1rem 0.5rem 0.5rem 0.5rem;
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     box-sizing: border-box;
     scrollbar-width: thin;
     scrollbar-color: rgba(115, 159, 153, 0.4) transparent;
+    margin: 0;
   }
 
   .recommendation-container::-webkit-scrollbar {
