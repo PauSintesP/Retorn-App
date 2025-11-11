@@ -83,7 +83,11 @@ export default function RecommendationResult({ recommendation, onRestart = () =>
           Recomendación Personalizada para {nombreMascota}
         </h2>
         <p className="recommendation-subtitle">
-          {tipoAnimal} • {Math.round(kcalDiarias)} kcal/día necesarias
+          <span style={{ fontSize: '1.1em' }}>{tipoAnimal === "Perro" ? "🐕" : "🐱"}</span>
+          <span>{tipoAnimal}</span>
+          <span style={{ color: '#ccc' }}>•</span>
+          <span style={{ fontSize: '1.1em' }}>⚡</span>
+          <span>{Math.round(kcalDiarias)} kcal/día necesarias</span>
         </p>
       </div>
 
@@ -92,18 +96,18 @@ export default function RecommendationResult({ recommendation, onRestart = () =>
           <h3 className="calorie-title">Cálculo Nutricional</h3>
           <div className="calorie-details">
             <div className="calorie-item">
-              <span className="calorie-label">Calorías diarias:</span>
+              <span className="calorie-label">⚡ Calorías diarias</span>
               <span className="calorie-value">{Math.round(kcalDiarias)} kcal</span>
             </div>
             {factores.peso && (
               <div className="calorie-item">
-                <span className="calorie-label">Peso actual:</span>
+                <span className="calorie-label">⚖️ Peso actual</span>
                 <span className="calorie-value">{factores.peso} kg</span>
               </div>
             )}
             {factores.edadMeses !== undefined && (
               <div className="calorie-item">
-                <span className="calorie-label">Edad:</span>
+                <span className="calorie-label">🎂 Edad</span>
                 <span className="calorie-value">
                   {factores.edadMeses < 12 
                     ? `${factores.edadMeses} meses` 

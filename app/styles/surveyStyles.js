@@ -2217,65 +2217,107 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .recommendation-header {
     text-align: center;
-    margin-bottom: 1rem;
-    padding: 0.875rem 0.75rem;
-    background: linear-gradient(135deg, rgba(115, 159, 153, 0.1) 0%, rgba(115, 159, 153, 0.05) 100%);
-    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem 1rem;
+    background: linear-gradient(135deg, rgba(115, 159, 153, 0.12) 0%, rgba(95, 179, 161, 0.08) 100%);
+    border-radius: 16px;
+    border: 1px solid rgba(115, 159, 153, 0.2);
+    box-shadow: 
+      0 4px 16px rgba(115, 159, 153, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .recommendation-header::before {
+    content: '🎉';
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 1.5rem;
+    opacity: 0.3;
   }
 
   @media (min-width: 600px) {
     .recommendation-header {
       margin-bottom: 2rem;
-      padding: 1.5rem 1rem;
+      padding: 2rem 1.5rem;
+      border-radius: 20px;
+    }
+
+    .recommendation-header::before {
+      top: 1rem;
+      right: 1rem;
+      font-size: 2rem;
     }
   }
 
   @media (min-width: 768px) {
     .recommendation-header {
-      margin-bottom: 3rem;
-      padding: 2rem;
+      margin-bottom: 2.5rem;
+      padding: 2.5rem 2rem;
+      border-radius: 24px;
+    }
+
+    .recommendation-header::before {
+      top: 1.5rem;
+      right: 1.5rem;
+      font-size: 2.5rem;
     }
   }
 
   .recommendation-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.4rem;
     color: var(--jdgm-primary-color);
-    margin: 0 0 0.4rem 0;
-    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+    font-weight: 700;
     line-height: 1.3;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #3E3E3E 0%, #5a5a5a 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 
   @media (min-width: 600px) {
     .recommendation-title {
-      font-size: 1.75rem;
+      font-size: 1.9rem;
+      margin: 0 0 0.65rem 0;
     }
   }
 
   @media (min-width: 768px) {
     .recommendation-title {
-      font-size: 2.5rem;
+      font-size: 2.6rem;
       line-height: 1.2;
+      margin: 0 0 0.75rem 0;
     }
   }
 
   .recommendation-subtitle {
     font-family: 'Inter', sans-serif;
-    font-size: 0.875rem;
-    color: #666;
+    font-size: 0.9rem;
+    color: #739f99;
     margin: 0;
     line-height: 1.5;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
   }
 
   @media (min-width: 600px) {
     .recommendation-subtitle {
-      font-size: 0.95rem;
+      font-size: 1rem;
     }
   }
 
   @media (min-width: 768px) {
     .recommendation-subtitle {
-      font-size: 1.1rem;
+      font-size: 1.15rem;
     }
   }
 
@@ -3397,80 +3439,212 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   /* Estilos adicionales para recomendación mejorada */
   .calorie-info {
-    background: linear-gradient(135deg, rgba(115, 159, 153, 0.08) 0%, rgba(115, 159, 153, 0.03) 100%);
-    border-radius: 5px;
-    padding: 1.25rem 1rem;
+    background: linear-gradient(135deg, #ffffff 0%, #f8fffe 100%);
+    border-radius: 16px;
+    padding: 1.5rem 1.25rem;
     margin-bottom: 2rem;
-    border: 2px solid rgba(115, 159, 153, 0.15);
+    border: 2px solid rgba(115, 159, 153, 0.2);
+    box-shadow: 
+      0 8px 24px rgba(115, 159, 153, 0.08),
+      0 2px 8px rgba(115, 159, 153, 0.04);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .calorie-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #5fb3a1 0%, #739f99 50%, #8fc4b8 100%);
+    border-radius: 16px 16px 0 0;
   }
 
   @media (min-width: 600px) {
     .calorie-info {
-      padding: 1.5rem;
+      padding: 2rem 1.75rem;
       margin-bottom: 2.5rem;
+      border-radius: 20px;
+    }
+
+    .calorie-info::before {
+      height: 5px;
+      border-radius: 20px 20px 0 0;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .calorie-info {
+      padding: 2.5rem 2rem;
+      border-radius: 24px;
+    }
+
+    .calorie-info::before {
+      height: 6px;
+      border-radius: 24px 24px 0 0;
     }
   }
 
   .calorie-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.15rem;
+    font-size: 1.25rem;
     color: var(--jdgm-primary-color);
-    margin: 0 0 0.85rem 0;
-    font-weight: 600;
+    margin: 0 0 1.25rem 0;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .calorie-title::before {
+    content: '📊';
+    font-size: 1.4rem;
   }
 
   @media (min-width: 600px) {
     .calorie-title {
-      font-size: 1.3rem;
-      margin: 0 0 1rem 0;
+      font-size: 1.4rem;
+      margin: 0 0 1.5rem 0;
+    }
+
+    .calorie-title::before {
+      font-size: 1.6rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .calorie-title {
+      font-size: 1.6rem;
+      margin: 0 0 1.75rem 0;
+    }
+
+    .calorie-title::before {
+      font-size: 1.8rem;
     }
   }
 
   .calorie-details {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 0.85rem;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
   }
 
   @media (min-width: 600px) {
     .calorie-details {
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.25rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .calorie-details {
+      gap: 1.5rem;
     }
   }
 
   .calorie-item {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
-    padding: 0.65rem;
-    background: white;
-    border-radius: 5px;
+    gap: 0.4rem;
+    padding: 1rem 0.85rem;
+    background: linear-gradient(135deg, rgba(115, 159, 153, 0.06) 0%, rgba(115, 159, 153, 0.02) 100%);
+    border-radius: 12px;
+    border: 1px solid rgba(115, 159, 153, 0.15);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .calorie-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, #5fb3a1 0%, #739f99 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .calorie-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 8px 20px rgba(115, 159, 153, 0.15),
+      0 2px 6px rgba(115, 159, 153, 0.08);
+    border-color: rgba(115, 159, 153, 0.3);
+  }
+
+  .calorie-item:hover::before {
+    opacity: 1;
   }
 
   @media (min-width: 600px) {
     .calorie-item {
-      padding: 0.75rem;
+      padding: 1.15rem 1rem;
+      border-radius: 14px;
+    }
+
+    .calorie-item::before {
+      width: 4px;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .calorie-item {
+      padding: 1.25rem 1.15rem;
     }
   }
 
   .calorie-label {
     font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
-    color: #666;
-    font-weight: 500;
+    font-size: 0.75rem;
+    color: #888;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
   }
 
   @media (min-width: 600px) {
     .calorie-label {
+      font-size: 0.8rem;
+      letter-spacing: 0.6px;
+      gap: 0.4rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .calorie-label {
       font-size: 0.85rem;
+      gap: 0.45rem;
     }
   }
 
   .calorie-value {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.4rem;
+    font-size: 1.6rem;
     color: var(--jdgm-paginate-color);
-    font-weight: 600;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+  }
+
+  @media (min-width: 600px) {
+    .calorie-value {
+      font-size: 1.8rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .calorie-value {
+      font-size: 2rem;
+    }
   }
 
   .products-section {
