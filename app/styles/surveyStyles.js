@@ -139,7 +139,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 10rem 0.75rem 0.75rem 0.75rem;
+    padding: 1.5rem 0.75rem 0.75rem 0.75rem;
     margin-top: 4px;
     position: relative;
     z-index: 1;
@@ -3298,59 +3298,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
-  /* Add to Cart Button - Botón principal */
-  .add-to-cart-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
+  /* Cart Button - Hereda estilos de .nav-button.primary */
+  .cart-button {
     width: 100%;
-    padding: 1.3rem 1.75rem;
-    border-radius: 8px;
-    font-family: 'Oswald', sans-serif;
-    font-size: 1rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 1.5px;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-  }
-
-  .add-to-cart-button::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.25);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s ease-out, height 0.6s ease-out;
-    pointer-events: none;
-  }
-
-  .add-to-cart-button:hover::before {
-    width: 120%;
-    height: 300%;
-  }
-
-  .add-to-cart-button:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 
-      0 10px 28px rgba(115, 159, 153, 0.35),
-      0 4px 10px rgba(115, 159, 153, 0.2) !important;
-    background-position: 100% 0 !important;
-  }
-
-  .add-to-cart-button:active {
-    transform: translateY(-1px) scale(1.01);
+    gap: 0.75rem;
   }
 
   .cart-button-icon {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     line-height: 1;
     display: inline-flex;
     align-items: center;
@@ -3363,32 +3318,26 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   @media (min-width: 600px) {
-    .add-to-cart-button {
-      padding: 1.4rem 2.25rem;
-      font-size: 1.1rem;
-      letter-spacing: 1.75px;
-      border-radius: 12px;
+    .cart-button {
       gap: 0.85rem;
     }
 
     .cart-button-icon {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
     }
   }
 
   @media (min-width: 768px) {
-    .add-to-cart-button {
+    .cart-button {
       width: auto;
       min-width: 350px;
       flex: 1;
       max-width: 500px;
-      padding: 1.5rem 3rem;
-      font-size: 1.15rem;
       gap: 1rem;
     }
 
     .cart-button-icon {
-      font-size: 1.6rem;
+      font-size: 1.4rem;
     }
   }
 

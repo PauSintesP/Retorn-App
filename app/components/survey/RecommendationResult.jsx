@@ -287,14 +287,7 @@ export default function RecommendationResult({ recommendation, onRestart = () =>
         <div className="action-buttons-container">
           <button 
             onClick={irAlCarrito}
-            className="add-to-cart-button"
-            style={{
-              background: 'linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%)',
-              backgroundSize: '200% 100%',
-              color: 'white',
-              boxShadow: '0 6px 20px rgba(115, 159, 153, 0.3), 0 2px 6px rgba(115, 159, 153, 0.15)',
-              border: 'none'
-            }}
+            className="nav-button primary cart-button"
           >
             <span className="cart-button-icon">🛒</span>
             <span className="cart-button-text">Ir al carrito de Retorn</span>
