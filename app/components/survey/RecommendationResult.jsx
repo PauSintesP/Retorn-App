@@ -233,7 +233,7 @@ export default function RecommendationResult({ recommendation, onRestart = () =>
             onClick={agregarAlCarrito}
             className="add-to-cart-button"
           >
-            <span style={{ fontSize: '1.2em' }}>🛒</span>
+            <span className="cart-icon">🛒</span>
             <span>Agregar {recomendacion.tipo === "mixta" ? "productos" : "producto"} al carrito</span>
           </button>
 

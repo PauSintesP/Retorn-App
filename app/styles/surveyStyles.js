@@ -3276,6 +3276,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
     overflow: hidden;
   }
 
+  .cart-icon {
+    font-size: 1.2em;
+    line-height: 1;
+  }
+
   .add-to-cart-button > span {
     position: relative;
     z-index: 1;
