@@ -25,6 +25,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
     --jdgm-reviewer-name-color: ${primary};
   }
 
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    height: 100vh;
+    width: 100%;
+  }
+
   body {
     background: ${bg} !important;
   }
@@ -70,7 +78,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .survey-container {
-    min-height: 100vh;
+    height: 100vh;
     display: flex;
     flex-direction: column;
     background: #ffffffff;
