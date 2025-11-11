@@ -3384,6 +3384,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
       0 2px 6px rgba(115, 159, 153, 0.15);
   }
 
+  /* Restart Survey Button */
   .action-buttons-container .restart-survey-button,
   .cart-action-section .restart-survey-button,
   button.restart-survey-button {
@@ -3408,26 +3409,21 @@ export const getSurveyStyles = (direction, theme = {}) => {
     overflow: hidden;
   }
 
-  .action-buttons-container .restart-survey-button::before,
-  .cart-action-section .restart-survey-button::before,
-  button.restart-survey-button::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(115, 159, 153, 0.1);
-    transform: translate(-50%, -50%);
-    transition: width 0.6s, height 0.6s;
+  .action-buttons-container .restart-survey-button:hover,
+  .cart-action-section .restart-survey-button:hover,
+  button.restart-survey-button:hover {
+    background: var(--jdgm-paginate-color);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(115, 159, 153, 0.35);
+    border-color: var(--jdgm-paginate-color);
   }
 
-  .action-buttons-container .restart-survey-button:hover::before,
-  .cart-action-section .restart-survey-button:hover::before,
-  button.restart-survey-button:hover::before {
-    width: 400px;
-    height: 400px;
+  .action-buttons-container .restart-survey-button:active,
+  .cart-action-section .restart-survey-button:active,
+  button.restart-survey-button:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 15px rgba(115, 159, 153, 0.3);
   }
 
   @media (min-width: 600px) {
@@ -3452,21 +3448,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
       padding: 1.35rem 2.5rem;
       font-size: 1.1rem;
     }
-  }
-
-  .action-buttons-container .restart-survey-button:hover,
-  .cart-action-section .restart-survey-button:hover,
-  button.restart-survey-button:hover {
-    background: var(--jdgm-paginate-color);
-    color: white;
-    transform: translateY(-4px) scale(1.02);
-    box-shadow: 0 10px 28px rgba(115, 159, 153, 0.35);
-    border-color: var(--jdgm-paginate-color);
-  }
-
-  .restart-survey-button:active {
-    transform: translateY(-2px) scale(1.01);
-    box-shadow: 0 6px 18px rgba(115, 159, 153, 0.3);
   }
 
   .recommendation-footer {
