@@ -3284,29 +3284,27 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .action-buttons-container .add-to-cart-button,
   .cart-action-section .add-to-cart-button,
   button.add-to-cart-button {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    width: 100%;
-    padding: 0.9rem 0.75rem;
-    background: linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%);
-    background-size: 200% 100%;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-family: 'Oswald', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 
-      0 6px 20px rgba(115, 159, 153, 0.3),
-      0 2px 6px rgba(115, 159, 153, 0.15);
-    position: relative;
-    overflow: hidden;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 0.5rem !important;
+    width: 100% !important;
+    padding: 0.9rem 0.75rem !important;
+    background: linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%) !important;
+    background-size: 200% 100% !important;
+    color: white !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-family: 'Oswald', sans-serif !important;
+    font-size: 0.8rem !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    cursor: pointer !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    box-shadow: 0 6px 20px rgba(115, 159, 153, 0.3), 0 2px 6px rgba(115, 159, 153, 0.15) !important;
+    position: relative !important;
+    overflow: hidden !important;
   }
 
   .cart-icon {
@@ -3348,9 +3346,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .action-buttons-container .add-to-cart-button,
     .cart-action-section .add-to-cart-button,
     button.add-to-cart-button {
-      padding: 1rem 1.5rem;
-      font-size: 0.88rem;
-      letter-spacing: 1px;
+      padding: 1rem 1.5rem !important;
+      font-size: 0.88rem !important;
+      letter-spacing: 1px !important;
     }
   }
 
@@ -3358,30 +3356,26 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .action-buttons-container .add-to-cart-button,
     .cart-action-section .add-to-cart-button,
     button.add-to-cart-button {
-      min-width: 160px;
-      padding: 1.05rem 2rem;
-      font-size: 0.92rem;
-      letter-spacing: 1.5px;
+      min-width: 160px !important;
+      padding: 1.05rem 2rem !important;
+      font-size: 0.92rem !important;
+      letter-spacing: 1.5px !important;
     }
   }
 
   .action-buttons-container .add-to-cart-button:hover,
   .cart-action-section .add-to-cart-button:hover,
   button.add-to-cart-button:hover {
-    transform: translateY(-3px) scale(1.02);
-    box-shadow: 
-      0 10px 28px rgba(115, 159, 153, 0.35),
-      0 4px 10px rgba(115, 159, 153, 0.2);
-    background-position: 100% 0;
+    transform: translateY(-3px) scale(1.02) !important;
+    box-shadow: 0 10px 28px rgba(115, 159, 153, 0.35), 0 4px 10px rgba(115, 159, 153, 0.2) !important;
+    background-position: 100% 0 !important;
   }
 
   .action-buttons-container .add-to-cart-button:active,
   .cart-action-section .add-to-cart-button:active,
   button.add-to-cart-button:active {
-    transform: translateY(-2px) scale(1.01);
-    box-shadow: 
-      0 6px 20px rgba(115, 159, 153, 0.3),
-      0 2px 6px rgba(115, 159, 153, 0.15);
+    transform: translateY(-2px) scale(1.01) !important;
+    box-shadow: 0 6px 20px rgba(115, 159, 153, 0.3), 0 2px 6px rgba(115, 159, 153, 0.15) !important;
   }
 
   /* Restart Survey Button */
