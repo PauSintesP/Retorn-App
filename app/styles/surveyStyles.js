@@ -139,7 +139,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 1rem 0.75rem 0.75rem 0.75rem;
+    padding: 3rem 0.75rem 0.75rem 0.75rem;
     margin-top: 4px;
     position: relative;
     z-index: 1;
@@ -191,7 +191,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Tablet */
   @media (min-width: 600px) {
     .survey-content {
-      padding: 1.5rem 1rem 1.25rem 1rem;
+      padding: 2rem 1rem 1.25rem 1rem;
       padding-bottom: 100px;
     }
 
@@ -206,7 +206,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Desktop */
   @media (min-width: 768px) {
     .survey-content {
-      padding: 3rem 1rem 2.5rem 1rem;
+      padding: 3.5rem 1rem 2.5rem 1rem;
       padding-bottom: 80px;
     }
 
@@ -3326,14 +3326,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
     width: 0;
     height: 0;
     border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
+    background: rgba(255, 255, 255, 0.25);
     transform: translate(-50%, -50%);
-    transition: width 0.5s, height 0.5s;
+    transition: width 0.6s ease-out, height 0.6s ease-out;
+    pointer-events: none;
   }
 
   .add-to-cart-button:hover::before {
-    width: 300px;
-    height: 300px;
+    width: 120%;
+    height: 300%;
   }
 
   .add-to-cart-button:hover {
