@@ -254,7 +254,11 @@ export default function PublicSurveyPage() {
       <style>{getSurveyStyles(direction, theme)}</style>
 
       <div className="survey-container">
-        <ProgressBar progress={progress} />
+        {/* Ocultar barra de progreso en intro y primera pregunta */}
+        <ProgressBar 
+          progress={progress} 
+          show={started && currentStep > 0 && !showRecommendation && !showPathologyContact} 
+        />
 
         <div className="survey-content">
           {isLoading ? (

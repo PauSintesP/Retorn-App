@@ -70,15 +70,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
-  @keyframes shimmer {
-    0% {
-      background-position: -1000px 0;
-    }
-    100% {
-      background-position: 1000px 0;
-    }
-  }
-
   .survey-container {
     min-height: 100vh;
     height: auto;
@@ -112,19 +103,16 @@ export const getSurveyStyles = (direction, theme = {}) => {
     left: 0;
     right: 0;
     height: 4px;
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(115, 159, 153, 0.15);
     z-index: 100;
-    backdrop-filter: blur(20px);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
 
   .progress-bar {
     height: 100%;
-    background: linear-gradient(90deg, #5fb3a1 0%, #739f99 50%, #8fc4b8 100%);
-    background-size: 200% 100%;
-    animation: shimmer 2s linear infinite;
+    background: linear-gradient(90deg, #5fb3a1 0%, #739f99 100%);
     transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 20px rgba(115, 159, 153, 0.5);
+    box-shadow: 0 0 10px rgba(115, 159, 153, 0.4);
     position: relative;
   }
 
@@ -133,7 +121,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     position: absolute;
     top: 0;
     right: 0;
-    width: 100px;
+    width: 40px;
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
   }
