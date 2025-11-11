@@ -70,14 +70,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .survey-container {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     background: #ffffffff;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: var(--jdgm-primary-color);
     position: relative;
-    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
     width: 100%;
     max-width: 100vw;
     box-sizing: border-box;
@@ -134,6 +135,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     align-items: center;
     justify-content: center;
     padding: 0.75rem;
+    padding-bottom: 120px;
     margin-top: 4px;
     position: relative;
     z-index: 1;
@@ -180,6 +182,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   @media (min-width: 600px) {
     .survey-content {
       padding: 1.25rem 1rem;
+      padding-bottom: 100px;
     }
 
     .question-card {
@@ -194,6 +197,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   @media (min-width: 768px) {
     .survey-content {
       padding: 2.5rem 1rem;
+      padding-bottom: 80px;
     }
 
     .question-card {
