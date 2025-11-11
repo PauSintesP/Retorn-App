@@ -3285,36 +3285,28 @@ export const getSurveyStyles = (direction, theme = {}) => {
     gap: 0.75rem;
     width: 100%;
     padding: 1.3rem 1.75rem;
-    background: #739f99 !important;
-    color: white !important;
-    border: none;
-    border-radius: 10px;
+    border-radius: 8px;
     font-family: 'Oswald', sans-serif;
     font-size: 1rem;
-    font-weight: 700;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 1.5px;
     cursor: pointer;
-    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 
-      0 6px 20px rgba(115, 159, 153, 0.35),
-      0 2px 8px rgba(115, 159, 153, 0.2);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
+    overflow: hidden;
   }
 
   .add-to-cart-button:hover {
-    transform: translateY(-4px) scale(1.02);
+    transform: translateY(-3px) scale(1.02);
     box-shadow: 
-      0 12px 32px rgba(115, 159, 153, 0.4),
-      0 6px 16px rgba(115, 159, 153, 0.25);
-    background: #6ec1b3 !important;
+      0 10px 28px rgba(115, 159, 153, 0.35),
+      0 4px 10px rgba(115, 159, 153, 0.2) !important;
+    background-position: 100% 0 !important;
   }
 
   .add-to-cart-button:active {
-    transform: translateY(-2px) scale(1.01);
-    box-shadow: 
-      0 8px 24px rgba(115, 159, 153, 0.35),
-      0 4px 12px rgba(115, 159, 153, 0.2);
+    transform: translateY(-1px) scale(1.01);
   }
 
   .cart-button-icon {

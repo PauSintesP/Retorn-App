@@ -289,8 +289,11 @@ export default function RecommendationResult({ recommendation, onRestart = () =>
             onClick={irAlCarrito}
             className="add-to-cart-button"
             style={{
-              backgroundColor: '#739f99',
-              color: 'white'
+              background: 'linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%)',
+              backgroundSize: '200% 100%',
+              color: 'white',
+              boxShadow: '0 6px 20px rgba(115, 159, 153, 0.3), 0 2px 6px rgba(115, 159, 153, 0.15)',
+              border: 'none'
             }}
           >
             <span className="cart-button-icon">🛒</span>
