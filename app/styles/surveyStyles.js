@@ -330,7 +330,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex-direction: column;
     gap: 0.6rem;
     margin-bottom: 0;
-    padding: 0 0.15rem;
+    padding: 0.5rem 0.15rem 0 0.15rem;
     box-sizing: border-box;
     overflow-x: hidden;
     overflow-y: visible;
@@ -339,14 +339,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
   @media (min-width: 600px) {
     .options-container {
       gap: 0.95rem;
-      padding: 0 0.5rem;
+      padding: 0.65rem 0.5rem 0 0.5rem;
     }
   }
 
   @media (min-width: 768px) {
     .options-container {
       gap: 1rem;
-      padding: 0;
+      padding: 0.75rem 0 0 0;
     }
   }
 
