@@ -142,8 +142,6 @@ export default function RecommendationResult({ recommendation, onRestart = () =>
           <span style={{ fontSize: '1.1em' }}>{tipoAnimal === "Perro" ? "🐕" : "🐱"}</span>
           <span>{tipoAnimal}</span>
           <span style={{ color: '#ccc' }}>•</span>
-          <span style={{ fontSize: '1.1em' }}>⚡</span>
-          <span>{Math.round(kcalDiarias)} kcal/día necesarias</span>
         </p>
       </div>
 
