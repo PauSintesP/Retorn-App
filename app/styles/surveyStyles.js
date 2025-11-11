@@ -2755,7 +2755,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .product-link {
     display: inline-block;
-    margin-top: auto;
+    margin-top: 1.5rem;
     padding: 0.8rem 1.5rem;
     background: var(--jdgm-paginate-color);
     color: white;
@@ -2772,6 +2772,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .product-link {
+      margin-top: 2rem;
       padding: 0.9rem 1.75rem;
       font-size: 0.85rem;
     }
@@ -2779,6 +2780,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .product-link {
+      margin-top: 2.5rem;
       padding: 1rem 2rem;
       font-size: 1rem;
     }
