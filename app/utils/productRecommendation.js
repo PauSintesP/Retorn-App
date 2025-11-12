@@ -276,10 +276,10 @@ function determinarTipoCroqueta(peso) {
 }
 
 /**
- * Detecta el tipo de croqueta real del producto seleccionado
- * Analiza el nombre, handle y variantes del producto para determinar si tiene croqueta pequeña o regular
+ * Detecta el tipo de croqueta real de la variante seleccionada
+ * Analiza la variante específica para determinar si es croqueta pequeña o regular
  */
-function detectarTipoCroquetaProducto(producto) {
+function detectarTipoCroquetaVariante(producto, varianteRecomendada) {
   if (!producto || producto.tipo !== "Seco" || producto.animal !== "Perro") {
     return null; // Solo aplica a alimentos secos para perros
   }
@@ -289,18 +289,40 @@ function detectarTipoCroquetaProducto(producto) {
   
   console.log(`\n🔍 Detectando tipo de croqueta para: ${producto.nombre}`);
   console.log(`   Handle: ${producto.handle}`);
-  console.log(`   Variantes disponibles:`, producto.variantes?.map(v => ({
-    sku: v.sku,
-    cantidad: v.cantidad
-  })));
+  console.log(`   Variante recomendada:`, varianteRecomendada);
   
-  // Patrones más específicos para detectar croqueta pequeña en SKU
+  // Si hay variante recomendada, analizar su SKU específicamente
+  let tipoCroquetaVariante = null;
+  if (varianteRecomendada) {
+    const skuLower = varianteRecomendada.sku?.toLowerCase() || "";
+    const cantidadLower = varianteRecomendada.cantidad?.toLowerCase() || "";
+    
+    console.log(`   Analizando SKU de variante: ${varianteRecomendada.sku}`);
+    
+    // Verificar si la variante específica es pequeña
+    const esVarianteSmall = (
+      skuLower.endsWith('-s') || 
+      skuLower.endsWith('s') ||
+      /[-_]s[-_]/.test(skuLower) ||
+      cantidadLower.includes('small') ||
+      cantidadLower.includes('pequeña') ||
+      cantidadLower.includes('mini')
+    );
+    
+    if (esVarianteSmall) {
+      console.log(`   ✅ Variante seleccionada es PEQUEÑA`);
+      tipoCroquetaVariante = "Pequeña";
+    } else {
+      console.log(`   ✅ Variante seleccionada es REGULAR`);
+      tipoCroquetaVariante = "Regular";
+    }
+  }
+  
+  // Patrones más específicos para detectar croqueta pequeña en SKU de todas las variantes
   const tieneVariantesSmall = producto.variantes?.some(v => {
     const skuLower = v.sku?.toLowerCase() || "";
     const cantidadLower = v.cantidad?.toLowerCase() || "";
     
-    // Buscar SKUs que terminen en 'S' o 's' (ej: "PUPPY-S", "ADULT-1.5KG-S")
-    // O que contengan 'small' o 'pequeña' en cantidad
     const esSmall = (
       skuLower.endsWith('-s') || 
       skuLower.endsWith('s') ||
@@ -310,9 +332,6 @@ function detectarTipoCroquetaProducto(producto) {
       cantidadLower.includes('mini')
     );
     
-    if (esSmall) {
-      console.log(`   ✓ Variante PEQUEÑA detectada: ${v.sku} - ${v.cantidad}`);
-    }
     return esSmall;
   });
   
@@ -321,7 +340,6 @@ function detectarTipoCroquetaProducto(producto) {
     const skuLower = v.sku?.toLowerCase() || "";
     const cantidadLower = v.cantidad?.toLowerCase() || "";
     
-    // Buscar SKUs que NO sean small (no terminen en S ni contengan small)
     const esRegular = !(
       skuLower.endsWith('-s') || 
       skuLower.endsWith('s') ||
@@ -331,42 +349,41 @@ function detectarTipoCroquetaProducto(producto) {
       cantidadLower.includes('mini')
     );
     
-    if (esRegular) {
-      console.log(`   ✓ Variante REGULAR detectada: ${v.sku} - ${v.cantidad}`);
-    }
     return esRegular;
   });
   
-  // Detectar si el producto/handle específico indica small bite
-  // Buscar patrones como "small-bite", "mini-adult", "razas-pequeñas"
-  const esProductoSmallBite = (
-    nombreLower.includes('small') || 
-    nombreLower.includes('pequeña') ||
-    nombreLower.includes('mini') ||
-    handleLower.includes('small-bite') ||
-    handleLower.includes('small') ||
-    handleLower.includes('mini') ||
-    producto.segmento?.toLowerCase().includes('razas s')
-  );
-  
-  console.log(`   Producto es Small Bite: ${esProductoSmallBite}`);
   console.log(`   Tiene variantes Small: ${tieneVariantesSmall}`);
   console.log(`   Tiene variantes Regular: ${tieneVariantesRegular}`);
   
-  // Determinar el tipo de croqueta y disponibilidad
-  if (esProductoSmallBite) {
-    return {
-      tipo: "Pequeña",
-      diametro: "10 mm",
-      disponibilidad: tieneVariantesRegular ? "También disponible en croqueta regular" : null
-    };
-  } else {
-    return {
-      tipo: "Regular",
-      diametro: "15 mm",
-      disponibilidad: tieneVariantesSmall ? "También disponible en croqueta pequeña" : null
-    };
+  // Si no se pudo determinar por la variante, usar el tipo del producto
+  if (!tipoCroquetaVariante) {
+    const esProductoSmallBite = (
+      nombreLower.includes('small') || 
+      nombreLower.includes('pequeña') ||
+      nombreLower.includes('mini') ||
+      handleLower.includes('small-bite') ||
+      handleLower.includes('small') ||
+      handleLower.includes('mini') ||
+      producto.segmento?.toLowerCase().includes('razas s')
+    );
+    
+    tipoCroquetaVariante = esProductoSmallBite ? "Pequeña" : "Regular";
+    console.log(`   Tipo inferido del producto: ${tipoCroquetaVariante}`);
   }
+  
+  // Determinar disponibilidad del otro tipo
+  let disponibilidad = null;
+  if (tipoCroquetaVariante === "Pequeña" && tieneVariantesRegular) {
+    disponibilidad = "También disponible en croqueta regular";
+  } else if (tipoCroquetaVariante === "Regular" && tieneVariantesSmall) {
+    disponibilidad = "También disponible en croqueta pequeña";
+  }
+  
+  return {
+    tipo: tipoCroquetaVariante,
+    diametro: tipoCroquetaVariante === "Pequeña" ? "10 mm" : "15 mm",
+    disponibilidad
+  };
 }
 
 /**
@@ -937,15 +954,15 @@ export async function calcularRecomendacionProductos(answers) {
       const productoSeco = await seleccionarProductoSecoPerro(answers);
       const productoHumedo = await seleccionarProductoHumedoPerro(productoSeco, answers);
       
-      // Actualizar tipo de croqueta con información real del producto seleccionado
-      const tipoCroquetaReal = detectarTipoCroquetaProducto(productoSeco);
-      resultado.tipoCroqueta = tipoCroquetaReal || tipoCroqueta;
-      
       if (tipoAlimentacion === "Seca") {
         // Solo producto seco
         const gramosDiarios = productoSeco ? calcularGramosProducto(kcalDiarias, productoSeco.kcalEmKg) : 0;
         let variante = productoSeco ? seleccionarVariante(productoSeco, gramosDiarios, answers.q3_perro, false) : null;
         if (productoSeco && variante) variante = aplicarOverrideVariante(productoSeco, variante);
+        
+        // Actualizar tipo de croqueta con información real de la variante seleccionada
+        const tipoCroquetaReal = detectarTipoCroquetaVariante(productoSeco, variante);
+        resultado.tipoCroqueta = tipoCroquetaReal || tipoCroqueta;
         
         console.log(`\n📦 Alimentación SECA para ${answers.q2}:`);
         console.log(`   Producto: ${productoSeco?.nombre || 'N/A'}`);
@@ -953,6 +970,7 @@ export async function calcularRecomendacionProductos(answers) {
         console.log(`   Calorías necesarias: ${kcalDiarias} kcal/día`);
         console.log(`   ➡️ Cantidad diaria: ${gramosDiarios}g/día`);
         console.log(`   Variante recomendada: ${variante?.cantidad || 'NINGUNA'}`);
+        console.log(`   Tipo de croqueta: ${resultado.tipoCroqueta?.tipo || 'N/A'}`);
         
         resultado.recomendacion = {
           tipo: "seca",
@@ -970,10 +988,15 @@ export async function calcularRecomendacionProductos(answers) {
         if (productoSeco && varianteSeco) varianteSeco = aplicarOverrideVariante(productoSeco, varianteSeco);
         if (productoHumedo && varianteHumedo) varianteHumedo = aplicarOverrideVariante(productoHumedo, varianteHumedo);
         
+        // Actualizar tipo de croqueta con información real de la variante seleccionada
+        const tipoCroquetaReal = detectarTipoCroquetaVariante(productoSeco, varianteSeco);
+        resultado.tipoCroqueta = tipoCroquetaReal || tipoCroqueta;
+        
         console.log(`\n📦 Alimentación MIXTA para ${answers.q2}:`);
         console.log(`   Total calorías: ${kcalDiarias} kcal/día`);
         console.log(`   Seco (${PORCENTAJE_ALIMENTACION_MIXTA.SECO * 100}%): ${cantidades.seco}g/día`);
         console.log(`   Húmedo (${PORCENTAJE_ALIMENTACION_MIXTA.HUMEDO * 100}%): ${cantidades.humedo}g/día`);
+        console.log(`   Tipo de croqueta: ${resultado.tipoCroqueta?.tipo || 'N/A'}`);
         
         resultado.recomendacion = {
           tipo: "mixta",
