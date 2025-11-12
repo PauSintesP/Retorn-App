@@ -89,6 +89,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     bottom: 0;
     overflow: hidden;
     box-sizing: border-box;
+    transform: scale(0.75);
+    transform-origin: top center;
   }
 
   .survey-container::before {
