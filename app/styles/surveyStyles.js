@@ -89,8 +89,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     bottom: 0;
     overflow: hidden;
     box-sizing: border-box;
-    transform: scale(0.75);
-    transform-origin: top center;
   }
 
   .survey-container::before {
@@ -173,7 +171,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
       0 8px 24px rgba(0, 0, 0, 0.08),
       0 4px 12px rgba(115, 159, 153, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    padding: 1rem 0.85rem;
+    padding: 0.85rem 0.75rem;
     max-width: 100%;
     width: 100%;
     min-width: 280px;
@@ -198,8 +196,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
 
     .question-card {
-      padding: 1.75rem 1.35rem;
-      border-radius: 1.2rem;
+      padding: 1.35rem 1.15rem;
+      border-radius: 1rem;
       max-width: 90%;
       min-width: 450px;
     }
@@ -213,8 +211,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
 
     .question-card {
-      padding: 3rem 1.75rem;
-      border-radius: 1.6rem;
+      padding: 2rem 1.5rem;
+      border-radius: 1.4rem;
       max-width: 900px;
       min-width: 550px;
       box-shadow: 
