@@ -247,54 +247,53 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .question-number {
     color: var(--jdgm-paginate-color);
     font-family: 'Oswald', sans-serif;
-    font-size: 0.6rem;
+    font-size: 0.55rem;
     font-weight: 500;
     text-transform: uppercase;
-    letter-spacing: 1.2px;
-    margin-bottom: 0.4rem;
+    letter-spacing: 1px;
+    margin-bottom: 0.35rem;
     display: inline-block;
-    padding: 0.25rem 0.6rem;
+    padding: 0.2rem 0.5rem;
     background: rgba(115, 159, 153, 0.08);
     border-radius: 20px;
   }
 
   .question-text {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.05rem;
+    font-size: 0.95rem;
     font-weight: 600;
     color: var(--jdgm-primary-color);
-    line-height: 1.3;
+    line-height: 1.25;
     margin: 0;
-    padding: 0 0.15rem;
+    padding: 0 0.1rem;
     word-wrap: break-word;
     overflow-wrap: break-word;
-    min-height: 2.2rem;
+    min-height: auto;
   }
 
   @media (min-width: 600px) {
     .question-header {
-      margin-bottom: 1.15rem;
+      margin-bottom: 1rem;
     }
 
     .question-number {
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      padding: 0.35rem 0.85rem;
-      margin-bottom: 0.75rem;
+      font-size: 0.65rem;
+      letter-spacing: 1.5px;
+      padding: 0.3rem 0.7rem;
+      margin-bottom: 0.6rem;
     }
 
     .question-text {
-      font-size: 1.25rem;
-      line-height: 1.4;
-      padding: 0 0.5rem;
-      min-height: 2.5rem;
+      font-size: 1.15rem;
+      line-height: 1.35;
+      padding: 0 0.35rem;
     }
   }
 
   @media (min-width: 768px) {
     .question-text {
-      font-size: 1.75rem;
-      line-height: 1.35;
+      font-size: 1.5rem;
+      line-height: 1.3;
     }
   }
     line-height: 1.3;
@@ -305,19 +304,19 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .question-header {
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
       text-align: left;
     }
 
     .question-number {
-      font-size: 0.75rem;
-      letter-spacing: 2.5px;
-      margin-bottom: 1rem;
-      padding: 0.4rem 1rem;
+      font-size: 0.7rem;
+      letter-spacing: 2px;
+      margin-bottom: 0.85rem;
+      padding: 0.35rem 0.85rem;
     }
 
     .question-text {
-      font-size: 2.2rem;
+      font-size: 1.8rem;
       line-height: 1.25;
       text-align: left;
     }
@@ -354,9 +353,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
     border: 2px solid rgba(115, 159, 153, 0.15);
     border-radius: 8px;
-    padding: 0.75rem 0.85rem;
+    padding: 0.65rem 0.75rem;
     font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--jdgm-primary-color);
     cursor: pointer;
     transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
@@ -366,43 +365,43 @@ export const getSurveyStyles = (direction, theme = {}) => {
     overflow: hidden;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
-    min-height: 52px;
+    gap: 0.45rem;
+    min-height: 48px;
   }
 
   @media (min-width: 600px) {
     .option-button {
-      padding: 1rem 1.25rem;
-      font-size: 0.95rem;
-      gap: 0.75rem;
-      min-height: 62px;
+      padding: 0.85rem 1.1rem;
+      font-size: 0.9rem;
+      gap: 0.65rem;
+      min-height: 56px;
     }
   }
 
   @media (min-width: 768px) {
     .option-button {
-      padding: 1.3rem 1.75rem;
-      font-size: 1.05rem;
-      gap: 1rem;
+      padding: 1.1rem 1.5rem;
+      font-size: 1rem;
+      gap: 0.85rem;
       min-height: auto;
     }
   }
 
   .option-icon {
-    font-size: 1.1rem;
+    font-size: 1rem;
     flex-shrink: 0;
     line-height: 1;
   }
 
   @media (min-width: 600px) {
     .option-icon {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
     }
   }
 
   @media (min-width: 768px) {
     .option-icon {
-      font-size: 2rem;
+      font-size: 1.7rem;
     }
   }
 
@@ -456,41 +455,41 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Optimización para preguntas con pocos botones (2-3 opciones) - Mobile */
   .options-container:has(.option-button:nth-child(2):last-child) .option-button,
   .options-container:has(.option-button:nth-child(3):last-child) .option-button {
-    padding: 0.85rem 1rem;
-    font-size: 0.9rem;
-    min-height: 60px;
+    padding: 0.75rem 0.9rem;
+    font-size: 0.85rem;
+    min-height: 54px;
   }
 
   .options-container:has(.option-button:nth-child(2):last-child) .option-icon,
   .options-container:has(.option-button:nth-child(3):last-child) .option-icon {
-    font-size: 1.6rem;
+    font-size: 1.4rem;
   }
 
   @media (min-width: 600px) {
     .options-container:has(.option-button:nth-child(2):last-child) .option-button,
     .options-container:has(.option-button:nth-child(3):last-child) .option-button {
-      padding: 1.1rem 1.5rem;
-      font-size: 1rem;
-      min-height: 70px;
+      padding: 0.95rem 1.3rem;
+      font-size: 0.95rem;
+      min-height: 64px;
     }
 
     .options-container:has(.option-button:nth-child(2):last-child) .option-icon,
     .options-container:has(.option-button:nth-child(3):last-child) .option-icon {
-      font-size: 2rem;
+      font-size: 1.7rem;
     }
   }
 
   @media (min-width: 768px) {
     .options-container:has(.option-button:nth-child(2):last-child) .option-button,
     .options-container:has(.option-button:nth-child(3):last-child) .option-button {
-      padding: 1.3rem 1.75rem;
-      font-size: 1.05rem;
+      padding: 1.15rem 1.6rem;
+      font-size: 1rem;
       min-height: auto;
     }
 
     .options-container:has(.option-button:nth-child(2):last-child) .option-icon,
     .options-container:has(.option-button:nth-child(3):last-child) .option-icon {
-      font-size: 2.2rem;
+      font-size: 1.9rem;
     }
   }
 
@@ -632,7 +631,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     width: calc(100% - 0.5rem);
     max-width: calc(100% - 0.5rem);
     margin: 0 0.25rem;
-    padding: 0.9rem 1rem;
+    padding: 0.75rem 0.85rem;
     background: white;
     border: 2px solid rgba(115, 159, 153, 0.3);
     border-radius: 12px;
@@ -640,7 +639,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     transition: all 0.3s ease;
     position: relative;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    min-height: 54px;
+    min-height: 48px;
     box-sizing: border-box;
   }
 
@@ -649,8 +648,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
       width: calc(100% - 1rem);
       max-width: calc(100% - 1rem);
       margin: 0 0.5rem;
-      padding: 1.25rem 1.25rem;
-      min-height: 62px;
+      padding: 1rem 1.1rem;
+      min-height: 56px;
     }
   }
 
@@ -702,10 +701,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .date-display-text {
-    font-size: 0.9rem;
+    font-size: 0.82rem;
     font-weight: 600;
     color: #3E3E3E;
-    line-height: 1.3;
+    line-height: 1.25;
     white-space: normal;
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -714,8 +713,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .date-display-text {
-      font-size: 1rem;
-      line-height: 1.4;
+      font-size: 0.92rem;
+      line-height: 1.35;
     }
   }
 
@@ -725,17 +724,17 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .date-age-text {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: #739f99;
     font-weight: 600;
-    line-height: 1.3;
+    line-height: 1.25;
     font-family: 'Inter', sans-serif;
   }
 
   @media (min-width: 600px) {
     .date-age-text {
-      font-size: 0.85rem;
-      line-height: 1.4;
+      font-size: 0.8rem;
+      line-height: 1.35;
     }
   }
     padding: 0.4rem 0.75rem;
@@ -1796,16 +1795,16 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex: 1;
     min-width: 0;
     max-width: none;
-    padding: 0.9rem 0.75rem;
+    padding: 0.75rem 0.65rem;
     border: none;
     border-radius: 8px;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
     position: relative;
     overflow: hidden;
     white-space: nowrap;
@@ -1825,9 +1824,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
 
     .nav-button {
-      padding: 1rem 1.5rem;
-      font-size: 0.88rem;
-      letter-spacing: 1px;
+      padding: 0.85rem 1.3rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.8px;
       white-space: normal;
     }
   }
@@ -1836,9 +1835,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .nav-button {
       flex: 0 0 auto;
       min-width: 160px;
-      padding: 1.05rem 2rem;
-      font-size: 0.92rem;
-      letter-spacing: 1.5px;
+      padding: 0.95rem 1.8rem;
+      font-size: 0.88rem;
+      letter-spacing: 1.2px;
     }
   }
 
