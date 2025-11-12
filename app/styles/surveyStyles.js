@@ -2218,7 +2218,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     max-width: 100%;
     width: 100%;
     height: 100%;
-    padding: 1rem 0.5rem 0.5rem 0.5rem;
+    padding: 0 0.5rem 0.5rem 0.5rem;
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
@@ -2249,20 +2249,21 @@ export const getSurveyStyles = (direction, theme = {}) => {
   @media (min-width: 600px) {
     .recommendation-container {
       max-width: 95%;
-      padding: 0.75rem;
+      padding: 0 0.75rem 0.75rem 0.75rem;
     }
   }
 
   @media (min-width: 768px) {
     .recommendation-container {
       max-width: 900px;
-      padding: 1.5rem;
+      padding: 0 1.5rem 1.5rem 1.5rem;
     }
   }
 
   .recommendation-header {
     text-align: center;
     margin-bottom: 1.5rem;
+    margin-top: 0;
     padding: 1.5rem 1rem;
     background: linear-gradient(135deg, rgba(115, 159, 153, 0.12) 0%, rgba(95, 179, 161, 0.08) 100%);
     border-radius: 16px;

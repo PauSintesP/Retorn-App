@@ -277,7 +277,7 @@ function determinarTipoCroqueta(peso) {
 
 /**
  * Detecta el tipo de croqueta real del producto seleccionado
- * Analiza el nombre y variantes del producto para determinar si tiene croqueta pequeña o regular
+ * Analiza el nombre, handle y variantes del producto para determinar si tiene croqueta pequeña o regular
  */
 function detectarTipoCroquetaProducto(producto) {
   if (!producto || producto.tipo !== "Seco" || producto.animal !== "Perro") {
@@ -285,36 +285,86 @@ function detectarTipoCroquetaProducto(producto) {
   }
   
   const nombreLower = producto.nombre?.toLowerCase() || "";
+  const handleLower = producto.handle?.toLowerCase() || "";
   
-  // Verificar si tiene variantes de ambos tipos
-  const tieneVariantesSmall = producto.variantes?.some(v => 
-    v.sku?.toLowerCase().includes('s') || 
-    v.cantidad?.toLowerCase().includes('small') ||
-    v.cantidad?.toLowerCase().includes('pequeña')
+  console.log(`\n🔍 Detectando tipo de croqueta para: ${producto.nombre}`);
+  console.log(`   Handle: ${producto.handle}`);
+  console.log(`   Variantes disponibles:`, producto.variantes?.map(v => ({
+    sku: v.sku,
+    cantidad: v.cantidad
+  })));
+  
+  // Patrones más específicos para detectar croqueta pequeña en SKU
+  const tieneVariantesSmall = producto.variantes?.some(v => {
+    const skuLower = v.sku?.toLowerCase() || "";
+    const cantidadLower = v.cantidad?.toLowerCase() || "";
+    
+    // Buscar SKUs que terminen en 'S' o 's' (ej: "PUPPY-S", "ADULT-1.5KG-S")
+    // O que contengan 'small' o 'pequeña' en cantidad
+    const esSmall = (
+      skuLower.endsWith('-s') || 
+      skuLower.endsWith('s') ||
+      /[-_]s[-_]/.test(skuLower) ||
+      cantidadLower.includes('small') ||
+      cantidadLower.includes('pequeña') ||
+      cantidadLower.includes('mini')
+    );
+    
+    if (esSmall) {
+      console.log(`   ✓ Variante PEQUEÑA detectada: ${v.sku} - ${v.cantidad}`);
+    }
+    return esSmall;
+  });
+  
+  // Patrones para detectar croqueta regular/grande
+  const tieneVariantesRegular = producto.variantes?.some(v => {
+    const skuLower = v.sku?.toLowerCase() || "";
+    const cantidadLower = v.cantidad?.toLowerCase() || "";
+    
+    // Buscar SKUs que NO sean small (no terminen en S ni contengan small)
+    const esRegular = !(
+      skuLower.endsWith('-s') || 
+      skuLower.endsWith('s') ||
+      /[-_]s[-_]/.test(skuLower) ||
+      cantidadLower.includes('small') ||
+      cantidadLower.includes('pequeña') ||
+      cantidadLower.includes('mini')
+    );
+    
+    if (esRegular) {
+      console.log(`   ✓ Variante REGULAR detectada: ${v.sku} - ${v.cantidad}`);
+    }
+    return esRegular;
+  });
+  
+  // Detectar si el producto/handle específico indica small bite
+  // Buscar patrones como "small-bite", "mini-adult", "razas-pequeñas"
+  const esProductoSmallBite = (
+    nombreLower.includes('small') || 
+    nombreLower.includes('pequeña') ||
+    nombreLower.includes('mini') ||
+    handleLower.includes('small-bite') ||
+    handleLower.includes('small') ||
+    handleLower.includes('mini') ||
+    producto.segmento?.toLowerCase().includes('razas s')
   );
   
-  const tieneVariantesRegular = producto.variantes?.some(v => 
-    !v.sku?.toLowerCase().includes('s') && 
-    !v.cantidad?.toLowerCase().includes('small') &&
-    !v.cantidad?.toLowerCase().includes('pequeña')
-  );
+  console.log(`   Producto es Small Bite: ${esProductoSmallBite}`);
+  console.log(`   Tiene variantes Small: ${tieneVariantesSmall}`);
+  console.log(`   Tiene variantes Regular: ${tieneVariantesRegular}`);
   
-  // Detectar si el producto específico es small bite
-  const esSmallBite = nombreLower.includes('small') || 
-                      nombreLower.includes('pequeña') ||
-                      producto.segmento?.toLowerCase().includes('razas s');
-  
-  if (esSmallBite) {
+  // Determinar el tipo de croqueta y disponibilidad
+  if (esProductoSmallBite) {
     return {
       tipo: "Pequeña",
       diametro: "10 mm",
-      disponibilidad: tieneVariantesRegular ? "También disponible en croqueta regular" : "Tamaño único"
+      disponibilidad: tieneVariantesRegular ? "También disponible en croqueta regular" : null
     };
   } else {
     return {
       tipo: "Regular",
       diametro: "15 mm",
-      disponibilidad: tieneVariantesSmall ? "También disponible en croqueta pequeña" : "Tamaño único"
+      disponibilidad: tieneVariantesSmall ? "También disponible en croqueta pequeña" : null
     };
   }
 }
