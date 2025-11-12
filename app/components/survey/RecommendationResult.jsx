@@ -367,11 +367,14 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
   const debesMostrarCroqueta = () => {
     // Solo para perros, alimento seco, y si hay información de tipoCroqueta
     if (!tipoCroqueta || tipoAnimal !== "Perro" || !tipo.includes("Seco")) {
+      console.log(`   ❌ No mostrar badge: tipoCroqueta=${!!tipoCroqueta}, tipoAnimal=${tipoAnimal}, tipo=${tipo}`);
       return false;
     }
     
-    // Mostrar SOLO si hay disponibilidad de otro tipo (es decir, hay más de un tipo de croqueta)
-    return tipoCroqueta.disponibilidad !== null && tipoCroqueta.disponibilidad !== undefined;
+    // Mostrar siempre que haya información de tipoCroqueta
+    // (ya sea que tenga disponibilidad de otro tipo o no)
+    console.log(`   ✅ Mostrar badge de croqueta: ${tipoCroqueta.tipo}`);
+    return true;
   };
   
   const mostrarBadgeCroqueta = debesMostrarCroqueta();
