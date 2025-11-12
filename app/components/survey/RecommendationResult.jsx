@@ -359,6 +359,22 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
   console.log(`   varianteRecomendada:`, producto.varianteRecomendada);
   console.log(`   gramosDiarios: ${producto.gramosDiarios}g`);
   console.log(`   variantes disponibles: ${producto.variantes?.length || 0}`);
+  console.log(`   tipoCroqueta recibido:`, tipoCroqueta);
+  console.log(`   tipoAnimal:`, tipoAnimal);
+  console.log(`   tipo producto:`, tipo);
+  
+  // Determinar si debe mostrar el badge de croqueta
+  const debesMostrarCroqueta = () => {
+    // Solo para perros, alimento seco, y si hay información de tipoCroqueta
+    if (!tipoCroqueta || tipoAnimal !== "Perro" || !tipo.includes("Seco")) {
+      return false;
+    }
+    
+    // Mostrar SOLO si hay disponibilidad de otro tipo (es decir, hay más de un tipo de croqueta)
+    return tipoCroqueta.disponibilidad !== null && tipoCroqueta.disponibilidad !== undefined;
+  };
+  
+  const mostrarBadgeCroqueta = debesMostrarCroqueta();
   
   const calcularDuracion = () => {
     const cantidadOriginal = producto.varianteRecomendada?.cantidad || "";
@@ -470,7 +486,7 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
         </div>
 
         {/* Badge de tipo de croqueta para alimentos secos de perro */}
-        {tipoCroqueta && tipoAnimal === "Perro" && tipo.includes("Seco") ? (
+        {mostrarBadgeCroqueta ? (
           <div className="product-croqueta-badge" role="note" aria-label={`Tipo de croqueta: ${tipoCroqueta.tipo}`}>
             <span className="croqueta-icon">●</span>
             <div className="croqueta-info">
