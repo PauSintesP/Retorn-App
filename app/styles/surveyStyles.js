@@ -1880,9 +1880,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .nav-button.secondary:hover:not(:disabled) {
-    background: linear-gradient(135deg, #ebebeb 0%, #e0e0e0 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: linear-gradient(135deg, #e0e0e0 0%, #d5d5d5 100%);
+    border-color: rgba(0, 0, 0, 0.12);
   }
 
   .nav-button.primary {
@@ -1892,15 +1891,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
     box-shadow: 
       0 6px 20px rgba(115, 159, 153, 0.3),
       0 2px 6px rgba(115, 159, 153, 0.15);
-    border: none;
+    border: 2px solid transparent;
   }
 
   .nav-button.primary:hover:not(:disabled) {
-    transform: translateY(-2px);
+    background: linear-gradient(135deg, #5fb3a1 0%, #6a8f8a 50%, #4fa091 100%);
     box-shadow: 
-      0 8px 24px rgba(115, 159, 153, 0.3),
-      0 4px 10px rgba(115, 159, 153, 0.2);
-    background-position: 100% 0;
+      0 6px 20px rgba(115, 159, 153, 0.35),
+      0 2px 6px rgba(115, 159, 153, 0.2);
   }
 
   .nav-button:disabled {
