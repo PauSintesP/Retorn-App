@@ -240,6 +240,12 @@ export default function PublicSurveyPage() {
     setShowPathologyContact(false);
   };
 
+  const handleBackFromRecommendation = () => {
+    setShowRecommendation(false);
+    setRecommendation(null);
+    setCurrentStep(totalQuestions - 1);
+  };
+
   const handleRestart = () => {
     setCurrentStep(0);
     setAnswers({});
@@ -439,6 +445,7 @@ export default function PublicSurveyPage() {
               <RecommendationResult
                 recommendation={recommendation}
                 answers={answers}
+                onBack={handleBackFromRecommendation}
                 onRestart={handleRestart}
               />
             </div>

@@ -4,7 +4,7 @@
 
 import { useState } from "react";
 
-export default function RecommendationResult({ recommendation, onRestart = () => {} }) {
+export default function RecommendationResult({ recommendation, onBack = () => {}, onRestart = () => {} }) {
   const [showFirstOrderBanner, setShowFirstOrderBanner] = useState(true);
   const [showSubscriptionBanner, setShowSubscriptionBanner] = useState(true);
   const [cuponAplicado, setCuponAplicado] = useState(false);
@@ -116,8 +116,8 @@ export default function RecommendationResult({ recommendation, onRestart = () =>
     <div className="recommendation-container">
       <button 
         className="back-button"
-        onClick={onRestart}
-        aria-label="Volver al inicio"
+        onClick={onBack}
+        aria-label="Volver a la última pregunta"
       >
         <svg 
           width="24" 
