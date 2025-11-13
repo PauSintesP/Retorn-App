@@ -197,14 +197,14 @@ export default function PublicSurveyPage() {
     setDirection("forward");
     setTimeout(() => {
       setCurrentStep((prev) => Math.min(prev + 1, totalQuestions - 1));
-    }, 50);
+    }, 100);
   };
 
   const goPrevious = () => {
     setDirection("backward");
     setTimeout(() => {
       setCurrentStep((prev) => Math.max(prev - 1, 0));
-    }, 50);
+    }, 100);
   };
 
   const canGoNext = isCurrentQuestionAnswered();

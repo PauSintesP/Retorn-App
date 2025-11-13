@@ -43,24 +43,28 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   @keyframes fadeSlideIn {
-    from {
+    0% {
       opacity: 0;
-      transform: translateX(40px) scale(0.98);
+      transform: translateX(50px) scale(0.95);
+      filter: blur(4px);
     }
-    to {
+    100% {
       opacity: 1;
       transform: translateX(0) scale(1);
+      filter: blur(0);
     }
   }
 
   @keyframes fadeSlideOut {
-    from {
+    0% {
       opacity: 0;
-      transform: translateX(-40px) scale(0.98);
+      transform: translateX(-50px) scale(0.95);
+      filter: blur(4px);
     }
-    to {
+    100% {
       opacity: 1;
       transform: translateX(0) scale(1);
+      filter: blur(0);
     }
   }
 
@@ -70,6 +74,37 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
     50% {
       transform: scale(1.02);
+    }
+  }
+
+  @keyframes fadeInUp {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes scaleIn {
+    0% {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: -1000px 0;
+    }
+    100% {
+      background-position: 1000px 0;
     }
   }
 
@@ -118,8 +153,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .progress-bar {
     height: 100%;
     background: linear-gradient(90deg, #5fb3a1 0%, #739f99 100%);
-    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 0 10px rgba(115, 159, 153, 0.4);
+    transition: width 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 0 12px rgba(115, 159, 153, 0.5);
     position: relative;
   }
 
@@ -130,7 +165,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     right: 0;
     width: 40px;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4));
+    animation: shimmer 2s infinite;
   }
 
   .survey-content {
@@ -176,7 +212,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     width: 100%;
     min-width: 280px;
     max-height: 100%;
-    animation: ${direction === "forward" ? "fadeSlideIn" : "fadeSlideOut"} 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    animation: ${direction === "forward" ? "fadeSlideIn" : "fadeSlideOut"} 0.6s cubic-bezier(0.16, 1, 0.3, 1);
     border: 1px solid rgba(115, 159, 153, 0.1);
     position: relative;
     margin: 0 auto;
@@ -186,6 +222,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     -webkit-overflow-scrolling: touch;
     display: flex;
     flex-direction: column;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   /* Tablet */
@@ -230,6 +267,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .question-header {
     margin-bottom: 0.75rem;
     text-align: center;
+    animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.1s backwards;
   }
 
   @media (min-width: 600px) {
@@ -256,6 +294,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     padding: 0.2rem 0.5rem;
     background: rgba(115, 159, 153, 0.08);
     border-radius: 20px;
+    animation: scaleIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.05s backwards;
   }
 
   .question-text {
@@ -269,6 +308,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     word-wrap: break-word;
     overflow-wrap: break-word;
     min-height: auto;
+    animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.15s backwards;
   }
 
   @media (min-width: 600px) {
@@ -358,7 +398,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-size: 0.8rem;
     color: var(--jdgm-primary-color);
     cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     text-align: left;
     font-weight: 500;
     position: relative;
@@ -367,7 +407,18 @@ export const getSurveyStyles = (direction, theme = {}) => {
     align-items: center;
     gap: 0.45rem;
     min-height: 48px;
+    animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) backwards;
   }
+
+  .option-button:nth-child(1) { animation-delay: 0.25s; }
+  .option-button:nth-child(2) { animation-delay: 0.3s; }
+  .option-button:nth-child(3) { animation-delay: 0.35s; }
+  .option-button:nth-child(4) { animation-delay: 0.4s; }
+  .option-button:nth-child(5) { animation-delay: 0.45s; }
+  .option-button:nth-child(6) { animation-delay: 0.5s; }
+  .option-button:nth-child(7) { animation-delay: 0.55s; }
+  .option-button:nth-child(8) { animation-delay: 0.6s; }
+  .option-button:nth-child(n+9) { animation-delay: 0.65s; }
 
   @media (min-width: 600px) {
     .option-button {
@@ -435,10 +486,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .option-button:hover {
     background: linear-gradient(135deg, #e8f5e9 0%, #d4ede8 100%);
     border-color: var(--jdgm-paginate-color);
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.01);
     box-shadow: 
-      0 4px 12px rgba(115, 159, 153, 0.18),
-      0 2px 6px rgba(115, 159, 153, 0.1);
+      0 8px 20px rgba(115, 159, 153, 0.22),
+      0 4px 10px rgba(115, 159, 153, 0.12);
   }
 
   .option-button.selected {
@@ -449,7 +500,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     box-shadow: 
       0 6px 20px rgba(115, 159, 153, 0.25),
       inset 0 1px 0 rgba(255, 255, 255, 0.5);
-    transform: none;
+    transform: scale(1.02);
+    animation: scaleIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   /* Optimización para preguntas con pocos botones (2-3 opciones) - Mobile */
@@ -589,10 +641,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
     border-radius: 8px;
     border: 2px solid rgba(115, 159, 153, 0.2);
     outline: none;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     font-family: 'Inter', sans-serif;
     background: rgba(255, 255, 255, 0.8);
     box-sizing: border-box;
+    animation: fadeInUp 0.4s cubic-bezier(0.16, 1, 0.3, 1) 0.25s backwards;
   }
 
   @media (min-width: 600px) {
@@ -616,9 +669,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .text-input:focus {
     border-color: var(--jdgm-paginate-color);
     box-shadow: 
-      0 4px 16px rgba(115, 159, 153, 0.12),
-      0 0 0 4px rgba(115, 159, 153, 0.08);
-    transform: translateY(-2px);
+      0 6px 20px rgba(115, 159, 153, 0.15),
+      0 0 0 4px rgba(115, 159, 153, 0.1);
+    transform: translateY(-3px) scale(1.01);
     background: white;
   }
 
@@ -1802,7 +1855,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     text-transform: uppercase;
     letter-spacing: 0.4px;
     position: relative;
@@ -1911,8 +1964,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .nav-button.secondary:hover:not(:disabled) {
     background: linear-gradient(135deg, #ebebeb 0%, #e0e0e0 100%);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   .nav-button.primary {
@@ -1926,10 +1979,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .nav-button.primary:hover:not(:disabled) {
-    transform: translateY(-3px) scale(1.02);
+    transform: translateY(-3px) scale(1.03);
     box-shadow: 
-      0 10px 28px rgba(115, 159, 153, 0.35),
-      0 4px 10px rgba(115, 159, 153, 0.2);
+      0 12px 32px rgba(115, 159, 153, 0.4),
+      0 6px 14px rgba(115, 159, 153, 0.25);
     background-position: 100% 0;
   }
 
@@ -2082,7 +2135,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     text-transform: uppercase;
     letter-spacing: 1.5px;
     box-shadow: 
@@ -2092,6 +2145,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     overflow: hidden;
     display: block;
     margin: 0 auto;
+    animation: fadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) 0.3s backwards;
   }
 
   @media (min-width: 768px) {
@@ -2127,10 +2181,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .submit-button:hover:not(:disabled) {
-    transform: translateY(-3px) scale(1.02);
+    transform: translateY(-4px) scale(1.03);
     box-shadow: 
-      0 10px 28px rgba(115, 159, 153, 0.35),
-      0 4px 10px rgba(115, 159, 153, 0.2);
+      0 12px 32px rgba(115, 159, 153, 0.4),
+      0 6px 14px rgba(115, 159, 153, 0.25);
     background-position: 100% 0;
   }
 
