@@ -7,7 +7,7 @@ import { useState } from "react";
 
 export default function MultipleChoiceQuestion({ question, value = [], onChange, answers }) {
   const [otrosTexto, setOtrosTexto] = useState("");
-  const [showAlert, setShowAlert] = useState(true);
+  const [showPopup, setShowPopup] = useState(false);
   
   const handleToggle = (option) => {
     const currentValues = Array.isArray(value) ? value : [];
@@ -15,8 +15,10 @@ export default function MultipleChoiceQuestion({ question, value = [], onChange,
       onChange(currentValues.filter((v) => v !== option));
     } else {
       onChange([...currentValues, option]);
-      // Mostrar alerta cuando se selecciona una patología
-      setShowAlert(true);
+      // Mostrar popup cuando se selecciona una patología por primera vez
+      if (option !== "Ninguna" && currentValues.length === 0) {
+        setShowPopup(true);
+      }
     }
   };
 
@@ -112,28 +114,32 @@ export default function MultipleChoiceQuestion({ question, value = [], onChange,
         Selecciona todas las que apliquen para personalizar la recomendación
       </p>
 
-      {/* Contenedor con altura reservada para la alerta - SIEMPRE PRESENTE */}
-      <div className="patologia-alert-wrapper">
-        {/* Alerta si se seleccionó alguna patología - Con estilo de la imagen */}
-        {tienePatologias && showAlert && (
-          <div className="patologia-alert-banner">
-            <div className="alert-banner-content">
-              <div className="alert-banner-icon">⚠️</div>
-              <div className="alert-banner-text">
-                <p>Evaluaremos una dieta personalizada para entender mejor qué necesita y ofrecerle la mejor alimentación adaptada a su condición.</p>
-              </div>
-            </div>
+      {/* Popup modal */}
+      {showPopup && (
+        <div className="pathology-popup-overlay" onClick={() => setShowPopup(false)}>
+          <div className="pathology-popup" onClick={(e) => e.stopPropagation()}>
             <button 
-              className="alert-banner-close"
-              onClick={() => setShowAlert(false)}
+              className="pathology-popup-close"
+              onClick={() => setShowPopup(false)}
               aria-label="Cerrar"
               type="button"
             >
               ✕
             </button>
+            <div className="pathology-popup-icon">⚠️</div>
+            <p className="pathology-popup-text">
+              Evaluaremos una dieta personalizada para entender mejor qué necesita y ofrecerle la mejor alimentación adaptada a su condición.
+            </p>
+            <button 
+              className="pathology-popup-button"
+              onClick={() => setShowPopup(false)}
+              type="button"
+            >
+              Entendido
+            </button>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -933,7 +933,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-weight: 600;
     color: #3E3E3E;
     cursor: pointer;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s ease-out;
     text-align: center;
     min-height: 48px;
     display: flex;
@@ -1212,7 +1212,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     right: 1rem;
     padding: 0.5rem;
     border-radius: 5px;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s ease-out;
     background: linear-gradient(135deg, #5fb3a1 0%, #739f99 100%);
     color: white;
     width: 36px;
@@ -1434,168 +1434,125 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   /* ============================================ */
-  /* NUEVO BANNER DE ALERTA - ESTILO PROMOCIONAL */
+  /* POPUP DE PATOLOGÍA */
   /* ============================================ */
   
-  /* Wrapper que reserva el espacio para la alerta - SIEMPRE OCUPA ESPACIO */
-  .patologia-alert-wrapper {
-    min-height: 100px;
-    margin-top: 1.25rem;
+  .pathology-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
-    align-items: flex-start;
-    transition: min-height 0.3s ease;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 1rem;
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  .pathology-popup {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem 1.5rem;
+    max-width: 500px;
     width: 100%;
-    max-width: 100%;
-    box-sizing: border-box;
-    overflow-x: hidden;
-    overflow-y: visible;
-  }
-
-  @media (min-width: 600px) {
-    .patologia-alert-wrapper {
-      min-height: 110px;
-      margin-top: 1.5rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .patologia-alert-wrapper {
-      min-height: 100px;
-      margin-top: 2rem;
-    }
-  }
-  
-  .patologia-alert-banner {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     position: relative;
-    width: 100%;
-    max-width: 100%;
-    padding: 0.85rem 2.25rem 0.85rem 0.85rem;
-    background: linear-gradient(135deg, #FFF9E6 0%, #FFFBF0 100%);
-    border: 2px solid #FFD700;
-    border-radius: 10px;
-    box-shadow: 0 4px 16px rgba(255, 215, 0, 0.2);
-    animation: fadeIn 0.3s ease-out;
-    box-sizing: border-box;
-    overflow-x: hidden;
-    overflow-y: visible;
+    animation: slideUp 0.3s ease-out;
+    text-align: center;
   }
 
-  @keyframes fadeIn {
+  @keyframes slideUp {
     from {
       opacity: 0;
-      transform: scale(0.95);
+      transform: translateY(20px);
     }
     to {
       opacity: 1;
-      transform: scale(1);
+      transform: translateY(0);
     }
   }
 
-  @media (min-width: 600px) {
-    .patologia-alert-banner {
-      padding: 1.25rem 3rem 1.25rem 1.5rem;
-      border-radius: 16px;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .patologia-alert-banner {
-      padding: 1.5rem 3.5rem 1.5rem 2rem;
-    }
-  }
-
-  .alert-banner-content {
-    display: flex;
-    gap: 0.65rem;
-    align-items: flex-start;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  @media (min-width: 600px) {
-    .alert-banner-content {
-      gap: 1rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .alert-banner-content {
-      gap: 1.25rem;
-    }
-  }
-
-  .alert-banner-icon {
-    font-size: 1.3rem;
-    line-height: 1;
-    flex-shrink: 0;
-    margin-top: 0.125rem;
-  }
-
-  @media (min-width: 600px) {
-    .alert-banner-icon {
-      font-size: 1.75rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .alert-banner-icon {
-      font-size: 2rem;
-    }
-  }
-
-  .alert-banner-text {
-    flex: 1;
-    font-family: 'Inter', sans-serif;
-    color: #3E3E3E;
-    min-width: 0;
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-    overflow-x: hidden;
-    overflow-y: visible;
-  }
-
-  .alert-banner-text p {
-    margin: 0;
-    font-size: 0.8rem;
-    line-height: 1.4;
-    color: #4a4a4a;
-    font-weight: 500;
-    word-break: break-word;
-  }
-
-  @media (min-width: 600px) {
-    .alert-banner-text p {
-      font-size: 0.9rem;
-      line-height: 1.55;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .alert-banner-text p {
-      font-size: 0.95rem;
-      line-height: 1.6;
-    }
-  }
-
-  .alert-banner-close {
+  .pathology-popup-close {
     position: absolute;
-    top: 0.65rem;
-    right: 0.65rem;
+    top: 1rem;
+    right: 1rem;
     background: transparent;
     border: none;
     color: #666;
-    font-size: 1.15rem;
+    font-size: 1.5rem;
     line-height: 1;
     cursor: pointer;
     transition: all 0.2s ease;
-    padding: 0.2rem;
-    width: 1.5rem;
-    height: 1.5rem;
+    padding: 0.25rem;
+    width: 2rem;
+    height: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 50%;
-    flex-shrink: 0;
+  }
+
+  .pathology-popup-close:hover {
+    background: rgba(0, 0, 0, 0.05);
+    color: #333;
+    transform: rotate(90deg);
+  }
+
+  .pathology-popup-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+  }
+
+  .pathology-popup-text {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #4a4a4a;
+    margin: 0 0 1.5rem 0;
+    font-weight: 500;
+  }
+
+  .pathology-popup-button {
+    background: linear-gradient(135deg, #6ec1b3 0%, #739f99 100%);
+    color: white;
+    border: none;
+    padding: 0.875rem 2rem;
+    border-radius: 8px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.25s ease-out;
+    box-shadow: 0 4px 12px rgba(115, 159, 153, 0.3);
+  }
+
+  .pathology-popup-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(115, 159, 153, 0.4);
+  }
+
+  @media (min-width: 600px) {
+    .pathology-popup {
+      padding: 2.5rem 2rem;
+    }
+
+    .pathology-popup-icon {
+      font-size: 3.5rem;
+    }
+
+    .pathology-popup-text {
+      font-size: 1.05rem;
+    }
+
+    .pathology-popup-button {
+      padding: 1rem 2.5rem;
+      font-size: 1rem;
+    }
   }
 
   @media (min-width: 600px) {
@@ -1618,31 +1575,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
-  .alert-banner-close:hover {
-    background: rgba(0, 0, 0, 0.08);
-    color: #333;
-    transform: scale(1.1);
-  }
-
-  .alert-banner-close:active {
-    transform: scale(0.95);
-  }
-
   /* ============================================ */
   /* MEJORA RESPONSIVIDAD PREGUNTA PATOLOGÍAS */
   /* ============================================ */
   
-  /* Contenedor específico para pregunta de patologías - ALTURA FIJA PARA EVITAR DESPLAZAMIENTOS */
+  /* Contenedor específico para pregunta de patologías */
   .patologias-question {
     position: relative;
-  }
-
-  /* Reservar espacio para la alerta desde el inicio */
-  .patologias-question::after {
-    content: '';
-    display: block;
-    height: 0;
-    transition: height 0.3s ease;
   }
 
   /* Los botones de patologías tienen un estilo mejorado */
@@ -1670,7 +1609,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-weight: bold;
     color: white;
     background: transparent;
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s ease-out;
     flex-shrink: 0;
     margin-left: 0.65rem;
   }
@@ -2257,6 +2196,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     scrollbar-width: thin;
     scrollbar-color: rgba(115, 159, 153, 0.4) transparent;
     margin: 0;
+    animation: fadeSlideIn 0.4s ease-out;
   }
 
   .recommendation-container::-webkit-scrollbar {
@@ -2466,7 +2406,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
       0 8px 20px rgba(0, 0, 0, 0.08),
       0 4px 10px rgba(115, 159, 153, 0.1);
     border: 1px solid rgba(115, 159, 153, 0.15);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s ease-out;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -2498,10 +2438,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .product-card:hover {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
     box-shadow: 
-      0 30px 80px rgba(0, 0, 0, 0.12),
-      0 12px 30px rgba(115, 159, 153, 0.15);
+      0 16px 40px rgba(0, 0, 0, 0.1),
+      0 6px 15px rgba(115, 159, 153, 0.12);
   }
 
   .product-image-container {
@@ -2843,7 +2783,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1px;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease-out;
     border: 2px solid var(--jdgm-paginate-color);
   }
 
@@ -2972,7 +2912,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     gap: 0.75rem;
     margin: 0;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s ease-out;
     position: relative;
     overflow-x: hidden;
     overflow-y: visible;
@@ -3866,6 +3806,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
+    animation: fadeSlideIn 0.4s ease-out;
   }
 
   @media (min-width: 768px) {
