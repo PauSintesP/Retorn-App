@@ -13,6 +13,14 @@ export default function MultipleChoiceQuestion({ question, value = [], onChange,
     const currentValues = Array.isArray(value) ? value : [];
     if (currentValues.includes(option)) {
       onChange(currentValues.filter((v) => v !== option));
+      // Si desmarca "Otros", limpiar el texto
+      if (option === "Otros") {
+        setOtrosTexto("");
+        const otrosKey = `${question.id}_otros`;
+        if (answers) {
+          answers[otrosKey] = "";
+        }
+      }
     } else {
       onChange([...currentValues, option]);
       // Mostrar popup cuando se selecciona una patología por primera vez
@@ -24,11 +32,7 @@ export default function MultipleChoiceQuestion({ question, value = [], onChange,
 
   const handleOtrosChange = (text) => {
     setOtrosTexto(text);
-    // Guardar el texto en las respuestas
-    const questionId = question.id;
-    const otrosKey = `${questionId}_otros`;
-    
-    // Actualizar directamente en answers (se propagará al padre)
+    const otrosKey = `${question.id}_otros`;
     if (answers) {
       answers[otrosKey] = text;
     }

@@ -124,17 +124,6 @@ export const QUESTIONS = [
     required: false,
     condition: (answers) => answers.q1 === "Gato",
   },
-  // Q7 - Gato otros (si selecciona "Otros")
-  {
-    id: "7_gato_otros",
-    question: "Especifica otras patologías",
-    type: "text",
-    required: false,
-    placeholder: "Describe aquí...",
-    maxLength: 200,
-    condition: (answers) =>
-      answers.q1 === "Gato" && answers["q7_gato"]?.includes("Otros"),
-  },
   // Q8 - Perro: castrado
   {
     id: "8_perro",
@@ -174,17 +163,6 @@ export const QUESTIONS = [
     ],
     required: false,
     condition: (answers) => answers.q1 === "Perro",
-  },
-  // Q9 - Perro otros (si selecciona "Otros")
-  {
-    id: "9_perro_otros",
-    question: "Especifica otras patologías",
-    type: "text",
-    required: false,
-    placeholder: "Describe aquí...",
-    maxLength: 200,
-    condition: (answers) =>
-      answers.q1 === "Perro" && answers["q9_perro"]?.includes("Otros"),
   },
   // Q10 - Perro: alimentación
   {
