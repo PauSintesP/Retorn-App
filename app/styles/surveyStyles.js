@@ -45,22 +45,22 @@ export const getSurveyStyles = (direction, theme = {}) => {
   @keyframes fadeSlideIn {
     0% {
       opacity: 0;
-      transform: translateX(30px) scale(0.98);
+      transform: translateX(30px);
     }
     100% {
       opacity: 1;
-      transform: translateX(0) scale(1);
+      transform: translateX(0);
     }
   }
 
   @keyframes fadeSlideOut {
     0% {
       opacity: 0;
-      transform: translateX(-30px) scale(0.98);
+      transform: translateX(-30px);
     }
     100% {
       opacity: 1;
-      transform: translateX(0) scale(1);
+      transform: translateX(0);
     }
   }
 
@@ -87,7 +87,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   @keyframes scaleIn {
     0% {
       opacity: 0;
-      transform: scale(0.95);
+      transform: scale(0.9);
     }
     100% {
       opacity: 1;
@@ -101,69 +101,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
     100% {
       background-position: 1000px 0;
-    }
-  }
-
-  @keyframes optionFadeIn {
-    0% {
-      opacity: 0;
-      transform: translateY(10px) scale(0.98);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-  }
-
-  @keyframes buttonPop {
-    0% {
-      transform: scale(1);
-    }
-    50% {
-      transform: scale(1.05);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-
-  @keyframes progressShimmer {
-    0% {
-      left: -100%;
-    }
-    100% {
-      left: 100%;
-    }
-  }
-
-  @keyframes slideInFromBottom {
-    0% {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    100% {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(-5px);
-    }
-  }
-
-  /* Reduced motion support for accessibility */
-  @media (prefers-reduced-motion: reduce) {
-    *,
-    *::before,
-    *::after {
-      animation-duration: 0.01ms !important;
-      animation-iteration-count: 1 !important;
-      transition-duration: 0.01ms !important;
     }
   }
 
@@ -212,7 +149,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .progress-bar {
     height: 100%;
     background: linear-gradient(90deg, #5fb3a1 0%, #739f99 100%);
-    transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: width 0.5s ease-out;
     box-shadow: 0 0 10px rgba(115, 159, 153, 0.4);
     position: relative;
   }
@@ -221,11 +158,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
     content: '';
     position: absolute;
     top: 0;
-    left: -100%;
-    width: 100%;
+    right: 0;
+    width: 40px;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
-    animation: progressShimmer 2s ease-in-out infinite;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3));
   }
 
   .survey-content {
@@ -271,7 +207,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     width: 100%;
     min-width: 280px;
     max-height: 100%;
-    animation: ${direction === "forward" ? "fadeSlideIn" : "fadeSlideOut"} 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    animation: ${direction === "forward" ? "fadeSlideIn" : "fadeSlideOut"} 0.4s ease-out;
     border: 1px solid rgba(115, 159, 153, 0.1);
     position: relative;
     margin: 0 auto;
@@ -351,7 +287,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     padding: 0.2rem 0.5rem;
     background: rgba(115, 159, 153, 0.08);
     border-radius: 20px;
-    animation: fadeInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .question-text {
@@ -365,7 +300,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     word-wrap: break-word;
     overflow-wrap: break-word;
     min-height: auto;
-    animation: fadeInUp 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   @media (min-width: 600px) {
@@ -455,7 +389,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-size: 0.8rem;
     color: var(--jdgm-primary-color);
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s ease-out;
     text-align: left;
     font-weight: 500;
     position: relative;
@@ -464,21 +398,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     align-items: center;
     gap: 0.45rem;
     min-height: 48px;
-    opacity: 0;
-    animation: optionFadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
-
-  /* Staggered animation delays for options */
-  .option-button:nth-child(1) { animation-delay: 0.05s; }
-  .option-button:nth-child(2) { animation-delay: 0.1s; }
-  .option-button:nth-child(3) { animation-delay: 0.15s; }
-  .option-button:nth-child(4) { animation-delay: 0.2s; }
-  .option-button:nth-child(5) { animation-delay: 0.25s; }
-  .option-button:nth-child(6) { animation-delay: 0.3s; }
-  .option-button:nth-child(7) { animation-delay: 0.35s; }
-  .option-button:nth-child(8) { animation-delay: 0.4s; }
-  .option-button:nth-child(9) { animation-delay: 0.45s; }
-  .option-button:nth-child(n+10) { animation-delay: 0.5s; }
 
   @media (min-width: 600px) {
     .option-button {
@@ -546,10 +466,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .option-button:hover {
     background: linear-gradient(135deg, #e8f5e9 0%, #d4ede8 100%);
     border-color: var(--jdgm-paginate-color);
-    transform: translateY(-3px) scale(1.02);
+    transform: translateY(-2px);
     box-shadow: 
-      0 6px 16px rgba(115, 159, 153, 0.22),
-      0 3px 8px rgba(115, 159, 153, 0.12);
+      0 4px 12px rgba(115, 159, 153, 0.18),
+      0 2px 6px rgba(115, 159, 153, 0.1);
   }
 
   .option-button.selected {
@@ -560,8 +480,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     box-shadow: 
       0 6px 20px rgba(115, 159, 153, 0.25),
       inset 0 1px 0 rgba(255, 255, 255, 0.5);
-    transform: scale(1.02);
-    animation: buttonPop 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: none;
   }
 
   /* Optimización para preguntas con pocos botones (2-3 opciones) - Mobile */
@@ -621,14 +540,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
     background: rgba(255, 255, 255, 0.5);
     border-radius: 8px;
     border: 2px solid rgba(115, 159, 153, 0.15);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s ease;
   }
 
   .terms-label:hover {
     background: rgba(115, 159, 153, 0.05);
     border-color: rgba(115, 159, 153, 0.3);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(115, 159, 153, 0.1);
   }
 
   .terms-checkbox {
@@ -703,11 +620,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
     border-radius: 8px;
     border: 2px solid rgba(115, 159, 153, 0.2);
     outline: none;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s ease-out;
     font-family: 'Inter', sans-serif;
     background: rgba(255, 255, 255, 0.8);
     box-sizing: border-box;
-    animation: slideInFromBottom 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   @media (min-width: 600px) {
@@ -731,9 +647,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .text-input:focus {
     border-color: var(--jdgm-paginate-color);
     box-shadow: 
-      0 6px 20px rgba(115, 159, 153, 0.15),
-      0 0 0 4px rgba(115, 159, 153, 0.1);
-    transform: translateY(-2px) scale(1.01);
+      0 4px 16px rgba(115, 159, 153, 0.12),
+      0 0 0 4px rgba(115, 159, 153, 0.08);
+    transform: translateY(-1px);
     background: white;
   }
 
@@ -1017,7 +933,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-weight: 600;
     color: #3E3E3E;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s ease-out;
     text-align: center;
     min-height: 48px;
     display: flex;
@@ -1029,12 +945,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .date-option:hover:not(.selected) {
     border-color: #739f99;
     background: rgba(95, 179, 161, 0.08);
-    transform: translateY(-2px) scale(1.02);
+    transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(115, 159, 153, 0.15);
   }
 
   .date-option:active:not(.selected) {
-    transform: translateY(0) scale(0.98);
+    transform: translateY(0);
   }
 
   .date-option.selected {
@@ -1043,8 +959,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     color: white;
     font-weight: 700;
     box-shadow: 0 4px 16px rgba(95, 179, 161, 0.35);
-    transform: scale(1.05);
-    animation: buttonPop 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(1.02);
   }
 
   .date-picker-footer {
@@ -1064,7 +979,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-weight: 700;
     font-size: 0.95rem;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s ease;
     min-height: 48px;
     font-family: 'Inter', sans-serif;
   }
@@ -1073,12 +988,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
     background: rgba(115, 159, 153, 0.1);
     border-color: #5fb3a1;
     color: #5fb3a1;
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 6px 16px rgba(115, 159, 153, 0.25);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(115, 159, 153, 0.2);
   }
 
   .date-clear-btn:active {
-    transform: translateY(0) scale(0.98);
+    transform: translateY(0);
   }
 
   /* Responsive Tablet */
@@ -1694,7 +1609,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-weight: bold;
     color: white;
     background: transparent;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s ease-out;
     flex-shrink: 0;
     margin-left: 0.65rem;
   }
@@ -1730,7 +1645,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     background: var(--jdgm-paginate-color);
     border-color: var(--jdgm-paginate-color);
     box-shadow: 0 2px 8px rgba(115, 159, 153, 0.4);
-    animation: buttonPop 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   /* Asegurar que los botones mantengan tamaño consistente */
@@ -1858,7 +1772,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s ease-out;
     text-transform: uppercase;
     letter-spacing: 0.4px;
     position: relative;
@@ -1868,10 +1782,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-
-  .nav-button:active:not(:disabled) {
-    transform: scale(0.96);
   }
 
   .nav-button.full-width {
@@ -1972,8 +1882,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .nav-button.secondary:hover:not(:disabled) {
     background: linear-gradient(135deg, #e0e0e0 0%, #d5d5d5 100%);
     border-color: rgba(0, 0, 0, 0.12);
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   .nav-button.primary {
@@ -1988,10 +1896,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .nav-button.primary:hover:not(:disabled) {
     background: linear-gradient(135deg, #5fb3a1 0%, #6a8f8a 50%, #4fa091 100%);
-    transform: translateY(-2px) scale(1.02);
     box-shadow: 
-      0 8px 24px rgba(115, 159, 153, 0.4),
-      0 4px 10px rgba(115, 159, 153, 0.25);
+      0 6px 20px rgba(115, 159, 153, 0.35),
+      0 2px 6px rgba(115, 159, 153, 0.2);
   }
 
   .nav-button:disabled {
@@ -2497,20 +2404,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
       0 8px 20px rgba(0, 0, 0, 0.08),
       0 4px 10px rgba(115, 159, 153, 0.1);
     border: 1px solid rgba(115, 159, 153, 0.15);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: all 0.25s ease-out;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     height: 100%;
-    opacity: 0;
-    animation: scaleIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   }
-
-  /* Staggered animation for product cards */
-  .product-card:nth-child(1) { animation-delay: 0.1s; }
-  .product-card:nth-child(2) { animation-delay: 0.2s; }
-  .product-card:nth-child(3) { animation-delay: 0.3s; }
-  .product-card:nth-child(4) { animation-delay: 0.4s; }
 
   @media (min-width: 600px) {
     .product-card {
@@ -2537,10 +2436,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .product-card:hover {
-    transform: translateY(-4px) scale(1.02);
+    transform: translateY(-2px);
     box-shadow: 
-      0 20px 50px rgba(0, 0, 0, 0.12),
-      0 8px 20px rgba(115, 159, 153, 0.15);
+      0 16px 40px rgba(0, 0, 0, 0.1),
+      0 6px 15px rgba(115, 159, 153, 0.12);
   }
 
   .product-image-container {
@@ -2582,13 +2481,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
     width: auto;
     height: auto;
     object-fit: contain;
-    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s ease;
     display: block;
     margin: auto;
   }
 
   .product-card:hover .product-image {
-    transform: scale(1.08);
+    transform: scale(1.05);
   }
 
   .product-content {
@@ -3384,7 +3283,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    animation: float 3s ease-in-out infinite;
   }
 
   .cart-button-text {
