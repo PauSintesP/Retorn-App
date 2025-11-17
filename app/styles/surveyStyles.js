@@ -821,7 +821,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     max-width: 100%;
     background: white;
     border-radius: 16px;
-    padding: clamp(0.8rem, 2vh, 2rem) clamp(0.8rem, 2vw, 1.75rem);
+    padding: clamp(0.6rem, 1.5vh, 2rem) clamp(0.7rem, 1.5vw, 1.75rem);
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(115, 159, 153, 0.1);
     border: 2px solid rgba(115, 159, 153, 0.2);
     animation: fadeSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -841,8 +841,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .date-picker-header {
-    padding-bottom: clamp(0.6rem, 1.5vh, 1rem);
-    margin-bottom: clamp(0.8rem, 2vh, 1.25rem);
+    padding-bottom: clamp(0.5rem, 1.2vh, 1rem);
+    margin-bottom: clamp(0.6rem, 1.5vh, 1.25rem);
     border-bottom: 2px solid rgba(115, 159, 153, 0.15);
     display: flex;
     align-items: center;
@@ -891,8 +891,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .date-selectors-grid {
     display: grid;
     grid-template-columns: 1fr 1.8fr 1fr;
-    gap: clamp(0.5rem, 1.5vw, 1rem);
-    margin-bottom: clamp(0.8rem, 2vh, 1.25rem);
+    gap: clamp(0.4rem, 1vw, 1rem);
+    margin-bottom: clamp(0.6rem, 1.5vh, 1.25rem);
   }
 
   .date-selector-column {
@@ -914,7 +914,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .date-selector-scroll {
-    max-height: clamp(140px, 20vh, 200px);
+    max-height: clamp(120px, 18vh, 200px);
     overflow-y: auto;
     overflow-x: hidden;
     display: flex;
@@ -946,7 +946,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .date-option {
-    padding: clamp(0.7rem, 1.5vh, 1rem) 1rem;
+    padding: clamp(0.5rem, 1.2vh, 1rem) clamp(0.6rem, 1.5vw, 1rem);
     background: white;
     border: 2px solid rgba(115, 159, 153, 0.2);
     border-radius: 10px;
@@ -956,7 +956,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     cursor: pointer;
     transition: all 0.25s ease-out;
     text-align: center;
-    min-height: clamp(40px, 6vh, 48px);
+    min-height: clamp(36px, 5vh, 48px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -986,7 +986,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .date-picker-footer {
     display: flex;
     justify-content: center;
-    padding-top: clamp(0.8rem, 2vh, 1.25rem);
+    padding-top: clamp(0.6rem, 1.5vh, 1.25rem);
     margin-top: 0.5rem;
     border-top: 2px solid rgba(115, 159, 153, 0.15);
   }
