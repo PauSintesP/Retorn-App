@@ -2286,14 +2286,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .recommendation-container {
-      max-width: 900px;
-      padding: 0 1.5rem 1.5rem 1.5rem;
+      max-width: 1400px;
+      padding: 0 2rem 1rem 2rem;
     }
   }
 
   .recommendation-header {
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     margin-top: 0;
     padding: 1.5rem 1rem;
     background: linear-gradient(135deg, rgba(115, 159, 153, 0.12) 0%, rgba(95, 179, 161, 0.08) 100%);
@@ -2317,7 +2317,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .recommendation-header {
-      margin-bottom: 2rem;
+      margin-bottom: 1.25rem;
       padding: 2rem 1.5rem;
       border-radius: 20px;
     }
@@ -2331,9 +2331,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .recommendation-header {
-      margin-bottom: 2.5rem;
-      padding: 2.5rem 2rem;
-      border-radius: 24px;
+      margin-bottom: 1.5rem;
+      margin-top: 0;
+      padding: 1.5rem 2rem;
+      border-radius: 20px;
     }
 
     .recommendation-header::before {
@@ -3497,7 +3498,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     background: linear-gradient(135deg, #ffffff 0%, #f8fffe 100%);
     border-radius: 16px;
     padding: 1.5rem 1.25rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1.25rem;
     border: 2px solid rgba(115, 159, 153, 0.2);
     box-shadow: 
       0 8px 24px rgba(115, 159, 153, 0.08),
@@ -3532,8 +3533,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .calorie-info {
-      padding: 2.5rem 2rem;
-      border-radius: 24px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 1.5rem;
+      border-radius: 20px;
     }
 
     .calorie-info::before {
@@ -3703,7 +3705,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .products-section {
-    margin: 2rem 0;
+    margin: 1rem 0;
   }
 
   .products-title {
