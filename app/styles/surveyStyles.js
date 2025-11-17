@@ -2004,6 +2004,17 @@ export const getSurveyStyles = (direction, theme = {}) => {
     border: 2px solid transparent;
   }
 
+  /* En móvil, botón primario (siguiente) un poco más arriba que secundario (anterior) */
+  @media (max-width: 599px) {
+    .nav-button.primary {
+      transform: translateY(-2px);
+    }
+
+    .nav-button.primary:hover:not(:disabled) {
+      transform: translateY(-4px);
+    }
+  }
+
   .nav-button.primary:hover:not(:disabled) {
     background: linear-gradient(135deg, #5fb3a1 0%, #6a8f8a 50%, #4fa091 100%);
     box-shadow: 
