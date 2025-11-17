@@ -125,28 +125,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
-  @keyframes floatPaw {
-    0%, 100% {
-      transform: translate(0, 0) rotate(0deg);
-      opacity: 0.15;
-    }
-    50% {
-      transform: translate(10px, -10px) rotate(5deg);
-      opacity: 0.25;
-    }
-  }
-
-  @keyframes floatBone {
-    0%, 100% {
-      transform: translate(0, 0) rotate(-5deg);
-      opacity: 0.12;
-    }
-    50% {
-      transform: translate(-8px, 8px) rotate(5deg);
-      opacity: 0.2;
-    }
-  }
-
   .survey-container {
     width: 100%;
     height: 100vh;
@@ -168,39 +146,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .survey-container::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-      /* Huesos */
-      url("data:image/svg+xml,%3Csvg width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23739f99' fill-opacity='0.08'%3E%3Cpath d='M20 35c-2.8 0-5 2.2-5 5s2.2 5 5 5h40c2.8 0 5-2.2 5-5s-2.2-5-5-5h-3c0-2.8-2.2-5-5-5s-5 2.2-5 5h-14c0-2.8-2.2-5-5-5s-5 2.2-5 5h-3z'/%3E%3C/g%3E%3C/svg%3E"),
-      /* Huellas de pata */
-      url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%235fb3a1' fill-opacity='0.06'%3E%3Cellipse cx='30' cy='35' rx='8' ry='10'/%3E%3Cellipse cx='22' cy='22' rx='5' ry='6' transform='rotate(-20 22 22)'/%3E%3Cellipse cx='30' cy='18' rx='5' ry='6'/%3E%3Cellipse cx='38' cy='22' rx='5' ry='6' transform='rotate(20 38 22)'/%3E%3C/g%3E%3C/svg%3E"),
-      /* Gradient de fondo */
-      radial-gradient(circle at 20% 80%, rgba(115, 159, 153, 0.03) 0%, transparent 50%),
-      radial-gradient(circle at 80% 20%, rgba(95, 179, 161, 0.03) 0%, transparent 50%);
-    background-size: 160px 160px, 120px 120px, 100% 100%, 100% 100%;
-    background-position: 0 0, 80px 80px, center, center;
-    animation: floatBone 20s ease-in-out infinite;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(115, 159, 153, 0.05) 0%, transparent 70%);
+    animation: pulse 8s ease-in-out infinite;
     pointer-events: none;
-    z-index: 0;
-  }
-
-  .survey-container::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-      url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23739f99' fill-opacity='0.05'%3E%3Cellipse cx='30' cy='35' rx='8' ry='10'/%3E%3Cellipse cx='22' cy='22' rx='5' ry='6' transform='rotate(-20 22 22)'/%3E%3Cellipse cx='30' cy='18' rx='5' ry='6'/%3E%3Cellipse cx='38' cy='22' rx='5' ry='6' transform='rotate(20 38 22)'/%3E%3C/g%3E%3C/svg%3E");
-    background-size: 140px 140px;
-    background-position: 40px 40px;
-    animation: floatPaw 15s ease-in-out infinite;
-    pointer-events: none;
-    z-index: 0;
   }
 
   .progress-bar-container {
@@ -2004,17 +1956,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     border: 2px solid transparent;
   }
 
-  /* En móvil, botón primario (siguiente) un poco más arriba que secundario (anterior) */
-  @media (max-width: 599px) {
-    .nav-button.primary {
-      transform: translateY(-2px);
-    }
-
-    .nav-button.primary:hover:not(:disabled) {
-      transform: translateY(-4px);
-    }
-  }
-
   .nav-button.primary:hover:not(:disabled) {
     background: linear-gradient(135deg, #5fb3a1 0%, #6a8f8a 50%, #4fa091 100%);
     box-shadow: 
@@ -2345,8 +2286,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .recommendation-container {
-      max-width: 1600px;
-      padding: 0 3rem 0.5rem 3rem;
+      max-width: 1400px;
+      padding: 0 2rem 1rem 2rem;
     }
   }
 
@@ -2390,10 +2331,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .recommendation-header {
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
       margin-top: 0;
-      padding: 1.25rem 1.5rem;
-      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      border-radius: 20px;
     }
 
     .recommendation-header::before {
@@ -2498,15 +2439,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .mixta-products-grid {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
-    margin: 0 0 1.25rem 0;
+    gap: 1.5rem;
+    margin: 0 0 2rem 0;
   }
 
   @media (min-width: 768px) {
     .mixta-products-grid {
       flex-direction: row;
-      gap: 1rem;
-      margin-bottom: 1rem;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
       align-items: stretch;
     }
   }
@@ -2520,7 +2461,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .product-card {
     background: white;
     border-radius: 8px;
-    padding: 0.75rem 0.6rem;
+    padding: 0.85rem 0.6rem;
     margin-bottom: 0.85rem;
     box-shadow: 
       0 8px 20px rgba(0, 0, 0, 0.08),
@@ -3556,7 +3497,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .calorie-info {
     background: linear-gradient(135deg, #ffffff 0%, #f8fffe 100%);
     border-radius: 16px;
-    padding: 1.25rem 1rem;
+    padding: 1.5rem 1.25rem;
     margin-bottom: 1.25rem;
     border: 2px solid rgba(115, 159, 153, 0.2);
     box-shadow: 
@@ -3592,22 +3533,22 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .calorie-info {
-      padding: 1rem 1.5rem;
-      margin-bottom: 1rem;
-      border-radius: 16px;
+      padding: 1.5rem 2rem;
+      margin-bottom: 1.5rem;
+      border-radius: 20px;
     }
 
     .calorie-info::before {
-      height: 4px;
-      border-radius: 16px 16px 0 0;
+      height: 6px;
+      border-radius: 24px 24px 0 0;
     }
   }
 
   .calorie-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.15rem;
+    font-size: 1.25rem;
     color: var(--jdgm-primary-color);
-    margin: 0 0 0.85rem 0;
+    margin: 0 0 1.25rem 0;
     font-weight: 700;
     letter-spacing: -0.01em;
     display: flex;
@@ -3633,19 +3574,19 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .calorie-title {
-      font-size: 1.3rem;
-      margin: 0 0 0.75rem 0;
+      font-size: 1.6rem;
+      margin: 0 0 1.75rem 0;
     }
 
     .calorie-title::before {
-      font-size: 1.4rem;
+      font-size: 1.8rem;
     }
   }
 
   .calorie-details {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 0.75rem;
+    gap: 1rem;
   }
 
   @media (min-width: 600px) {
@@ -3759,33 +3700,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .calorie-value {
-      font-size: 1.6rem;
+      font-size: 2rem;
     }
   }
 
   .products-section {
-    margin: 0.75rem 0;
-  }
-
-  /* Layout horizontal en desktop para aprovechar espacio */
-  @media (min-width: 1024px) {
-    .recommendation-container {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 0;
-    }
-
-    .recommendation-header {
-      grid-column: 1 / -1;
-    }
-
-    .calorie-info {
-      margin-bottom: 1rem;
-    }
-
-    .products-section {
-      margin-top: 0;
-    }
+    margin: 1rem 0;
   }
 
   .products-title {
@@ -3795,13 +3715,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     margin: 0 0 1.5rem 0;
     font-weight: 600;
     text-align: center;
-  }
-
-  @media (min-width: 768px) {
-    .products-title {
-      font-size: 1.4rem;
-      margin: 0 0 1rem 0;
-    }
   }
 
   .mixta-title {
