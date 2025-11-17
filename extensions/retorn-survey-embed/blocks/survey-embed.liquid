@@ -4,28 +4,28 @@
 
 <style>
   /* Oculta header y footer del theme */
-  header, .shopify-section--footer {
+  header, .shopify-section--footer, footer {
     display: none !important;
   }
 
   html, body {
     margin: 0 !important;
     padding: 0 !important;
-    width: 100vw !important;
-    height: 100vh !important;
     overflow: hidden !important;
   }
 
   .retorn-survey-fullscreen {
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100vw;
     height: 100vh;
-    margin-left: calc(-50vw + 50%);
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
     background: {{ block.settings.container_bg }};
+    z-index: 9999;
   }
 
   .retorn-survey-iframe {
@@ -94,7 +94,7 @@
 
 {% schema %}
 {
-  "name": "Retorn Survey (pantalla completa)",
+  "name": "Retorn Survey",
   "target": "section",
   "settings": [
     {
