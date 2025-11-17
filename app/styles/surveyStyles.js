@@ -208,10 +208,21 @@ export const getSurveyStyles = (direction, theme = {}) => {
     justify-content: flex-start;
   }
 
+  /* Alineación para la pantalla de recomendación - siempre desde arriba */
+  .survey-content:has(.recommendation-container) {
+    justify-content: flex-start;
+    padding-top: 1rem;
+  }
+
   /* Tablet y Desktop: volver al centrado para todas las preguntas */
   @media (min-width: 600px) {
     .survey-content:has(.pathology-question) {
       justify-content: center;
+    }
+
+    .survey-content:has(.recommendation-container) {
+      justify-content: flex-start;
+      padding-top: 1.5rem;
     }
   }
 
@@ -2293,9 +2304,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .recommendation-header {
     text-align: center;
-    margin-bottom: 1rem;
-    margin-top: 0;
-    padding: 1.5rem 1rem;
+    margin-bottom: 1.25rem;
+    margin-top: 0.5rem;
+    padding: 1.75rem 1rem;
     background: linear-gradient(135deg, rgba(115, 159, 153, 0.12) 0%, rgba(95, 179, 161, 0.08) 100%);
     border-radius: 16px;
     border: 1px solid rgba(115, 159, 153, 0.2);
@@ -2317,7 +2328,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .recommendation-header {
-      margin-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
+      margin-top: 0.75rem;
       padding: 2rem 1.5rem;
       border-radius: 20px;
     }
@@ -2331,9 +2343,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .recommendation-header {
-      margin-bottom: 1.5rem;
-      margin-top: 0;
-      padding: 1.5rem 2rem;
+      margin-bottom: 1.75rem;
+      margin-top: 1rem;
+      padding: 2rem 2rem;
       border-radius: 20px;
     }
 
@@ -3533,8 +3545,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .calorie-info {
-      padding: 1.5rem 2rem;
-      margin-bottom: 1.5rem;
+      padding: 1.75rem 2rem;
+      margin-bottom: 1.75rem;
       border-radius: 20px;
     }
 
@@ -3705,7 +3717,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .products-section {
-    margin: 1rem 0;
+    margin: 1.5rem 0;
   }
 
   .products-title {
