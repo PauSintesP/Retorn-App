@@ -223,7 +223,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
       0 8px 24px rgba(0, 0, 0, 0.08),
       0 4px 12px rgba(115, 159, 153, 0.1),
       inset 0 1px 0 rgba(255, 255, 255, 0.9);
-    padding: clamp(0.6rem, 1.5vh, 2rem) clamp(0.6rem, 1.5vw, 1.5rem);
+    padding: 0.85rem 0.75rem;
     max-width: 100%;
     width: 100%;
     min-width: 280px;
@@ -299,7 +299,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .question-number {
     color: var(--jdgm-paginate-color);
     font-family: 'Oswald', sans-serif;
-    font-size: clamp(0.5rem, 1.2vh, 0.65rem);
+    font-size: 0.55rem;
     font-weight: 500;
     text-transform: uppercase;
     letter-spacing: 1px;
@@ -312,7 +312,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .question-text {
     font-family: 'Oswald', sans-serif;
-    font-size: clamp(0.85rem, 2.2vh, 1.5rem);
+    font-size: 0.95rem;
     font-weight: 600;
     color: var(--jdgm-primary-color);
     line-height: 1.25;
@@ -405,9 +405,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 100%);
     border: 2px solid rgba(115, 159, 153, 0.15);
     border-radius: 8px;
-    padding: clamp(0.5rem, 1.5vh, 1.1rem) 0.75rem;
+    padding: 0.65rem 0.75rem;
     font-family: 'Inter', sans-serif;
-    font-size: clamp(0.75rem, 1.8vh, 1rem);
+    font-size: 0.8rem;
     color: var(--jdgm-primary-color);
     cursor: pointer;
     transition: all 0.25s ease-out;
@@ -418,7 +418,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     align-items: center;
     gap: 0.45rem;
-    min-height: clamp(44px, 6vh, 56px);
+    min-height: 48px;
   }
 
   @media (min-width: 600px) {
@@ -440,7 +440,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .option-icon {
-    font-size: clamp(0.95rem, 2vh, 1.7rem);
+    font-size: 1rem;
     flex-shrink: 0;
     line-height: 1;
   }
@@ -636,8 +636,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .text-input {
     width: calc(100% - 0.5rem);
     margin: 0 0.25rem;
-    padding: clamp(0.8rem, 2vh, 1.3rem) 1rem;
-    font-size: clamp(0.85rem, 1.8vh, 1.05rem);
+    padding: 1rem 1rem;
+    font-size: 0.95rem;
     border-radius: 8px;
     border: 2px solid rgba(115, 159, 153, 0.2);
     outline: none;
@@ -753,7 +753,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .date-display-text {
-    font-size: clamp(0.75rem, 1.6vh, 0.92rem);
+    font-size: 0.82rem;
     font-weight: 600;
     color: #3E3E3E;
     line-height: 1.25;
@@ -776,7 +776,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .date-age-text {
-    font-size: clamp(0.65rem, 1.4vh, 0.8rem);
+    font-size: 0.7rem;
     color: #739f99;
     font-weight: 600;
     line-height: 1.25;
@@ -817,11 +817,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   /* Panel de selección - Mobile First */
   .date-picker-panel {
-    margin: 1.25rem auto 0;
+    margin: 1rem auto 0;
     max-width: 100%;
     background: white;
-    border-radius: 16px;
-    padding: clamp(0.6rem, 1.5vh, 2rem) clamp(0.7rem, 1.5vw, 1.75rem);
+    border-radius: 12px;
+    padding: 0.8rem 0.7rem;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(115, 159, 153, 0.1);
     border: 2px solid rgba(115, 159, 153, 0.2);
     animation: fadeSlideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -841,8 +841,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .date-picker-header {
-    padding-bottom: clamp(0.5rem, 1.2vh, 1rem);
-    margin-bottom: clamp(0.6rem, 1.5vh, 1.25rem);
+    padding-bottom: 0.6rem;
+    margin-bottom: 0.8rem;
     border-bottom: 2px solid rgba(115, 159, 153, 0.15);
     display: flex;
     align-items: center;
@@ -850,7 +850,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .picker-title {
-    font-size: clamp(0.9rem, 2vh, 1rem);
+    font-size: 1rem;
     font-weight: 700;
     color: #5fb3a1;
     flex: 1;
@@ -891,8 +891,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .date-selectors-grid {
     display: grid;
     grid-template-columns: 1fr 1.8fr 1fr;
-    gap: clamp(0.4rem, 1vw, 1rem);
-    margin-bottom: clamp(0.6rem, 1.5vh, 1.25rem);
+    gap: 0.5rem;
+    margin-bottom: 0.8rem;
   }
 
   .date-selector-column {
@@ -902,7 +902,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .date-selector-label {
-    font-size: clamp(0.65rem, 1.4vh, 0.75rem);
+    font-size: 0.7rem;
     font-weight: 700;
     color: #739f99;
     text-transform: uppercase;
@@ -914,13 +914,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .date-selector-scroll {
-    max-height: clamp(120px, 18vh, 200px);
+    max-height: 140px;
     overflow-y: auto;
     overflow-x: hidden;
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
-    padding: 0.75rem 0.5rem;
+    gap: 0.4rem;
+    padding: 0.6rem 0.4rem;
     background: rgba(115, 159, 153, 0.04);
     border-radius: 10px;
     scrollbar-width: thin;
@@ -946,17 +946,17 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .date-option {
-    padding: clamp(0.5rem, 1.2vh, 1rem) clamp(0.6rem, 1.5vw, 1rem);
+    padding: 0.6rem 0.7rem;
     background: white;
     border: 2px solid rgba(115, 159, 153, 0.2);
     border-radius: 10px;
-    font-size: clamp(0.85rem, 1.7vh, 0.95rem);
+    font-size: 0.85rem;
     font-weight: 600;
     color: #3E3E3E;
     cursor: pointer;
     transition: all 0.25s ease-out;
     text-align: center;
-    min-height: clamp(36px, 5vh, 48px);
+    min-height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -986,19 +986,19 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .date-picker-footer {
     display: flex;
     justify-content: center;
-    padding-top: clamp(0.6rem, 1.5vh, 1.25rem);
-    margin-top: 0.5rem;
+    padding-top: 0.8rem;
+    margin-top: 0.4rem;
     border-top: 2px solid rgba(115, 159, 153, 0.15);
   }
 
   .date-clear-btn {
-    padding: clamp(0.7rem, 1.5vh, 0.95rem) clamp(1.5rem, 3vw, 2.25rem);
+    padding: 0.75rem 1.8rem;
     background: white;
     border: 2px solid rgba(115, 159, 153, 0.3);
     border-radius: 10px;
     color: #739f99;
     font-weight: 700;
-    font-size: clamp(0.85rem, 1.7vh, 0.95rem);
+    font-size: 0.85rem;
     cursor: pointer;
     transition: all 0.25s ease;
     min-height: 48px;
@@ -1118,6 +1118,47 @@ export const getSurveyStyles = (direction, theme = {}) => {
       padding: 1rem 0.75rem;
       gap: 0.65rem;
     }
+  }
+
+  /* Pantallas de escritorio pequeñas o con poca altura */
+  @media (min-width: 768px) and (max-height: 800px) {
+    .date-picker-panel {
+      padding: 1rem 1.2rem;
+      margin: 0.5rem auto 0;
+    }
+
+    .date-picker-header {
+      padding-bottom: 0.5rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .date-selectors-grid {
+      gap: 0.7rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .date-selector-scroll {
+      max-height: 150px;
+      padding: 0.6rem 0.5rem;
+      gap: 0.4rem;
+    }
+
+    .date-option {
+      padding: 0.6rem 0.8rem;
+      font-size: 0.9rem;
+      min-height: 38px;
+    }
+
+    .date-picker-footer {
+      padding-top: 0.6rem;
+      margin-top: 0.3rem;
+    }
+
+    .date-clear-btn {
+      padding: 0.7rem 1.5rem;
+      font-size: 0.85rem;
+    }
+  }
 
     .date-option {
       padding: 1.1rem 1.25rem;
@@ -1786,11 +1827,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex: 1;
     min-width: 0;
     max-width: none;
-    padding: clamp(0.65rem, 1.5vh, 0.95rem) 0.65rem;
+    padding: 0.75rem 0.65rem;
     border: none;
     border-radius: 8px;
     font-family: 'Oswald', sans-serif;
-    font-size: clamp(0.7rem, 1.6vh, 0.88rem);
+    font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.25s ease-out;
@@ -2061,14 +2102,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .submit-button {
     width: 100%;
     max-width: 100%;
-    padding: clamp(0.9rem, 2vh, 1.1rem) 1.5rem;
+    padding: 1.1rem 1.5rem;
     border: none;
     border-radius: 5px;
     background: linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%);
     background-size: 200% 100%;
     color: white;
     font-family: 'Oswald', sans-serif;
-    font-size: clamp(0.85rem, 1.9vh, 1rem);
+    font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.25s ease-out;
@@ -2304,7 +2345,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .recommendation-title {
     font-family: 'Oswald', sans-serif;
-    font-size: clamp(1.2rem, 3vh, 2.6rem);
+    font-size: 1.4rem;
     color: var(--jdgm-primary-color);
     margin: 0 0 0.5rem 0;
     font-weight: 700;
@@ -2333,7 +2374,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .recommendation-subtitle {
     font-family: 'Inter', sans-serif;
-    font-size: clamp(0.8rem, 1.7vh, 1.1rem);
+    font-size: 0.9rem;
     color: #739f99;
     margin: 0;
     line-height: 1.5;
@@ -3869,7 +3910,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .pathology-title {
     font-family: 'Oswald', sans-serif;
-    font-size: clamp(1.4rem, 3.2vh, 2.5rem);
+    font-size: 1.75rem;
     font-weight: 600;
     color: var(--jdgm-primary-color);
     margin-bottom: 0.75rem;
@@ -3884,7 +3925,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .pathology-subtitle {
-    font-size: clamp(0.8rem, 1.7vh, 1.1rem);
+    font-size: 0.9rem;
     color: #666;
     line-height: 1.6;
     max-width: 100%;
