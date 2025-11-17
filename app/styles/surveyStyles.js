@@ -212,6 +212,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .survey-content:has(.recommendation-container) {
     justify-content: flex-start;
     padding-top: 1rem;
+    overflow-y: auto;
+    overflow-x: hidden;
   }
 
   /* Tablet y Desktop: volver al centrado para todas las preguntas */
@@ -223,6 +225,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .survey-content:has(.recommendation-container) {
       justify-content: flex-start;
       padding-top: 1.5rem;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
   }
 
@@ -2258,14 +2262,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .recommendation-container {
     max-width: 100%;
     width: 100%;
-    height: 100%;
+    min-height: 100%;
     padding: 0 0.5rem 0.5rem 0.5rem;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow: visible;
     box-sizing: border-box;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(115, 159, 153, 0.4) transparent;
     margin: 0;
     animation: fadeSlideIn 0.4s ease-out;
   }
@@ -3569,7 +3569,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .calorie-title::before {
-    content: '📊';
     font-size: 1.4rem;
   }
 

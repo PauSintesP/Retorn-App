@@ -226,13 +226,6 @@ export default function RecommendationResult({ recommendation, onBack = () => {}
           {/* Mensaje de descuento para primer pedido */}
           {showFirstOrderBanner && (
             <div className="discount-banner first-order-banner">
-              <button 
-                className="banner-close-button"
-                onClick={() => setShowFirstOrderBanner(false)}
-                aria-label="Cerrar notificación"
-              >
-                ×
-              </button>
               <div className="discount-icon">🎉</div>
               <div className="discount-content">
                 <h4 className="discount-title">¡Aprovecha tu primer pedido!</h4>
@@ -258,13 +251,6 @@ export default function RecommendationResult({ recommendation, onBack = () => {}
           {/* Mensaje de suscripción */}
           {showSubscriptionBanner && (
             <div className="discount-banner subscription-banner">
-              <button 
-                className="banner-close-button"
-                onClick={() => setShowSubscriptionBanner(false)}
-                aria-label="Cerrar notificación"
-              >
-                ×
-              </button>
               <div className="discount-icon">⭐</div>
               <div className="discount-content">
                 <h4 className="discount-title">¡Hazte suscriptor y disfruta de un 10% de descuento en todos tus pedidos!</h4>

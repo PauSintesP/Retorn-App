@@ -25,6 +25,7 @@ export default function MultipleChoiceQuestion({ question, value = [], onChange,
       onChange([...currentValues, option]);
       // Mostrar popup cuando se selecciona una patología por primera vez
       if (option !== "Ninguna" && currentValues.length === 0) {
+        
         setShowPopup(true);
       }
     }
@@ -41,6 +42,11 @@ export default function MultipleChoiceQuestion({ question, value = [], onChange,
   const currentValues = Array.isArray(value) ? value : [];
   const tienePatologias = currentValues.length > 0 && !currentValues.includes("Ninguna");
   const tieneOtros = currentValues.includes("Otros");
+
+  // Determinar el icono según el tipo de animal (basado en el ID de la pregunta)
+  const esPatologiaPerro = question.id === "9_perro";
+  const esPatologiaGato = question.id === "7_gato";
+  const iconoAnimal = esPatologiaPerro ? "🐶" : esPatologiaGato ? "🐱" : "🐶";
 
   // Dividir opciones en dos columnas, colocando "Otros" en la segunda columna
   const opcionesSinOtros = question.options.filter(opt => opt !== "Otros");
@@ -130,7 +136,7 @@ export default function MultipleChoiceQuestion({ question, value = [], onChange,
             >
               ✕
             </button>
-            <div className="pathology-popup-icon">⚠️</div>
+            <div className="pathology-popup-icon">{iconoAnimal}</div>
             <p className="pathology-popup-text">
               Evaluaremos una dieta personalizada para entender mejor qué necesita y ofrecerle la mejor alimentación adaptada a su condición.
             </p>

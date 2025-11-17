@@ -91,7 +91,7 @@ export default function Index() {
               color: '#999', 
               fontSize: '0.875rem' 
             }}>
-              ⏱️ Dura aproximadamente 4 minutos
+              ⏱️ Dura aproximadamente 2 minutos
             </p>
           </div>
         </div>

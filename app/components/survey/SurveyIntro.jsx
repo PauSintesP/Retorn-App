@@ -6,7 +6,7 @@ export default function SurveyIntro({ onStart }) {
   return (
     <div className="question-card">
       <div className="question-header">
-        <div className="question-number">Dura 4 minutos</div>
+        <div className="question-number">Dura 2 minutos</div>
         <h2 className="question-text">Dieta personalizada para tus pelud@s</h2>
         <p style={{ 
           marginTop: '12px', 
