@@ -399,7 +399,7 @@ function detectarTipoCroquetaVariante(producto, varianteRecomendada) {
     diametro: tipoCroquetaVariante === "Pequeña" ? "10 mm" : "15 mm",
     disponibilidad,
     variantesDisponibles, // Array de variantes del otro tipo
-    tieneMultiplesTamaños: tieneVariantesSmall && tieneVariantesRegular
+    tieneMultiplesTamanos: tieneVariantesSmall && tieneVariantesRegular
   };
 }
 
