@@ -241,15 +241,25 @@ async function fetchYMapearPrimero(animal, tipo, segmento, tamanoCroqueta = null
 }
 
 /**
- * Determina el tipo de croqueta recomendada según el peso del perro
- * Tabla de referencia:
+ * Determina el tipo de croqueta recomendada según el peso del perro y la edad
+ * Para cachorros: siempre croqueta pequeña (los productos de cachorro solo tienen ese tamaño)
+ * Para adultos/seniors:
  * - Mini/Toy (hasta 5kg): Pequeña (10mm)
  * - Pequeño (5-10kg): Pequeña (10mm)
  * - Mediano (10-25kg): Regular/Grande (15mm)
  * - Grande (25-40kg): Regular/Grande (15mm)
  * - Gigante (>40kg): Regular/Grande (15mm)
  */
-function determinarTipoCroqueta(peso) {
+function determinarTipoCroqueta(peso, edad = null) {
+  // Los productos de cachorro siempre son croqueta pequeña
+  if (edad === "Cachorro") {
+    return {
+      tipo: "Pequeña",
+      diametro: "10 mm",
+      tamanoCroqueta: "pequeña"
+    };
+  }
+  
   if (!peso || isNaN(peso)) {
     return {
       tipo: "Regular",
@@ -566,7 +576,8 @@ export function calcularCaloriasGato(answers) {
 async function seleccionarProductoSecoPerro(answers) {
   const segmentoSeco = resolverSegmentoPerroSeco(answers);
   const peso = parseFloat(answers.q6_perro);
-  const tipoCroqueta = determinarTipoCroqueta(peso);
+  const edad = answers.q4_perro;
+  const tipoCroqueta = determinarTipoCroqueta(peso, edad);
   
   console.log("🔍 Seleccionando producto seco para perro → segmento:", segmentoSeco, "| croqueta:", tipoCroqueta.tamanoCroqueta);
   return await fetchYMapearPrimero("Perro", "Seco", segmentoSeco, tipoCroqueta.tamanoCroqueta);
