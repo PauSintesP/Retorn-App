@@ -183,28 +183,45 @@ export const QUESTIONS = [
     question: "¿Tienes preferencia por alguna receta?",
     type: "choice",
     options: (answers) => {
+      const edad = answers.q4_perro;
       const esSeca = answers["q10_perro"] === "Seca";
+      const patologias = answers.q9_perro;
+      const esSeniorOSobrepeso = edad === "Senior" || patologias?.includes("Sobrepeso");
+      
       if (esSeca) {
+        // SECO - Cachorro: Solo 1 ref → No mostrar pregunta
+        if (edad === "Cachorro") return null;
+        
+        // SECO - Senior o Sobrepeso: Solo 1 ref (Senior Light) → No mostrar pregunta
+        if (esSeniorOSobrepeso) return null;
+        
+        // SECO - Adulto: 3 opciones reales
         return [
           "Salmón",
           "Cordero",
           "Pollo",
-          "Salmón Light",
-          "Salmón Cachorro",
           "¡Sorpréndeme!",
         ];
+      } else {
+        // MIXTA - Cachorro: Solo 1 ref → No mostrar pregunta
+        if (edad === "Cachorro") return null;
+        
+        // MIXTA - Adulto/Senior: Ref por defecto → No mostrar pregunta
+        return null;
       }
-      return [
-        "Salmón + Lata Pescado con Zanahorias",
-        "Cordero + Lata Cordero con Arroz",
-        "Pollo + Lata Pollo con Zanahorias",
-        "Salmón Light + Lata Pescado con Zanahorias",
-        "Salmón Cachorro + Lata Cachorro",
-        "¡Sorpréndeme!",
-      ];
     },
     required: true,
-    condition: (answers) => answers.q1 === "Perro",
+    condition: (answers) => {
+      if (answers.q1 !== "Perro") return false;
+      
+      const edad = answers.q4_perro;
+      const esSeca = answers["q10_perro"] === "Seca";
+      const patologias = answers.q9_perro;
+      const esSeniorOSobrepeso = edad === "Senior" || patologias?.includes("Sobrepeso");
+      
+      // Solo mostrar para SECO + ADULTO (sin sobrepeso)
+      return esSeca && edad === "Adulto" && !esSeniorOSobrepeso;
+    },
   },
   // Q9 - Gato: preferencia receta
   {
@@ -212,26 +229,46 @@ export const QUESTIONS = [
     question: "¿Tienes preferencia por alguna receta?",
     type: "choice",
     options: (answers) => {
+      const edad = answers.q3_gato;
+      const castrado = answers.q6_gato;
+      const patologias = answers.q7_gato;
       const esSeca = answers["q8_gato"] === "Seca";
+      const esEsterilizadoOSobrepeso = castrado === "Sí" || patologias?.includes("Sobrepeso");
+      
       if (esSeca) {
+        // SECO - Gatito: Solo 1 ref → No mostrar pregunta
+        if (edad === "Gatito") return null;
+        
+        // SECO - Esterilizado/Sobrepeso/Senior: Solo 1 ref → No mostrar pregunta
+        if (esEsterilizadoOSobrepeso || edad === "Senior") return null;
+        
+        // SECO - Adulto (no esterilizado): 2 opciones reales
         return [
           "Pollo",
           "Pescado",
-          "Esterilizados",
-          "Gatito",
           "¡Sorpréndeme!",
         ];
+      } else {
+        // MIXTA - Gatito: Solo 1 ref → No mostrar pregunta
+        if (edad === "Gatito") return null;
+        
+        // MIXTA - Adulto/Senior: Ref por defecto → No mostrar pregunta
+        return null;
       }
-      return [
-        "Pollo + Lata Pollo con Conejo",
-        "Pescado + Lata Atún con Gambas",
-        "Esterilizados + Lata Pollo",
-        "Gatito + Lata Gatitos",
-        "¡Sorpréndeme!",
-      ];
     },
     required: true,
-    condition: (answers) => answers.q1 === "Gato",
+    condition: (answers) => {
+      if (answers.q1 !== "Gato") return false;
+      
+      const edad = answers.q3_gato;
+      const castrado = answers.q6_gato;
+      const patologias = answers.q7_gato;
+      const esSeca = answers["q8_gato"] === "Seca";
+      const esEsterilizadoOSobrepeso = castrado === "Sí" || patologias?.includes("Sobrepeso");
+      
+      // Solo mostrar para SECO + ADULTO (no esterilizado, no sobrepeso, no senior)
+      return esSeca && edad === "Adulto" && !esEsterilizadoOSobrepeso;
+    },
   },
 ];
 

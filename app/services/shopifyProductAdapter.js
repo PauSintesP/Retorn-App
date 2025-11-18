@@ -182,6 +182,14 @@ function mapSingleProduct(shopifyProduct) {
       localProduct.variantes_small = variantes_small;
     }
     
+    // Para productos de Cachorros Seco de Perro, agregar "- Croqueta Pequeña" si no está ya en el nombre
+    if (animal === "Perro" && tipo === "Seco" && segmento === "Cachorros") {
+      const nombreLower = title.toLowerCase();
+      if (!nombreLower.includes("croqueta pequeña") && !nombreLower.includes("small bite")) {
+        localProduct.nombre = `${title} - Croqueta Pequeña`;
+      }
+    }
+    
     return {
       key: productKey,
       data: localProduct

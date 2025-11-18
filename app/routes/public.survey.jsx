@@ -187,10 +187,38 @@ export default function PublicSurveyPage() {
   }, []);
 
   const handleAnswer = (value) => {
-    setAnswers((prev) => ({
-      ...prev,
-      [`q${currentQuestion.id}`]: value,
-    }));
+    setAnswers((prev) => {
+      const newAnswers = {
+        ...prev,
+        [`q${currentQuestion.id}`]: value,
+      };
+
+      // Si es la pregunta q1 (tipo de animal), limpiar respuestas específicas del animal anterior
+      if (currentQuestion.id === 1) {
+        // Limpiar respuestas específicas de perro
+        delete newAnswers.q3_perro;
+        delete newAnswers.q4_perro;
+        delete newAnswers.q5_perro;
+        delete newAnswers.q6_perro;
+        delete newAnswers.q7_perro;
+        delete newAnswers.q8_perro;
+        delete newAnswers.q9_perro;
+        delete newAnswers.q9_perro_otros;
+        delete newAnswers.q10_perro;
+        delete newAnswers.q11_perro;
+        
+        // Limpiar respuestas específicas de gato
+        delete newAnswers.q3_gato;
+        delete newAnswers.q4_gato_gatito;
+        delete newAnswers.q5_gato;
+        delete newAnswers.q6_gato;
+        delete newAnswers.q7_gato;
+        delete newAnswers.q7_gato_otros;
+        delete newAnswers.q8_gato;
+      }
+
+      return newAnswers;
+    });
   };
 
   const goNext = () => {
