@@ -2,11 +2,9 @@
  * API endpoint para enviar formulario de contacto de patologías
  */
 
-import { json } from "@remix-run/node";
-
 export const action = async ({ request }) => {
   if (request.method !== "POST") {
-    return json({ error: "Method not allowed" }, { status: 405 });
+    return Response.json({ error: "Method not allowed" }, { status: 405 });
   }
 
   try {
@@ -38,7 +36,7 @@ export const action = async ({ request }) => {
 
     const result = await response.json();
     
-    return json({ 
+    return Response.json({ 
       success: true, 
       message: "Formulario enviado correctamente",
       data: result 
@@ -46,7 +44,7 @@ export const action = async ({ request }) => {
     
   } catch (error) {
     console.error("Error al enviar formulario:", error);
-    return json(
+    return Response.json(
       { 
         success: false, 
         error: "Error al enviar el formulario",
