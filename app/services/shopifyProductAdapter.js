@@ -438,6 +438,9 @@ function extractSegment(title, tags) {
  * @returns {number} Kcal por kg
  */
 function extractCalories(shopifyProduct, title, tags) {
+  const productName = title.substring(0, 50); // Primeros 50 caracteres para el log
+  
+  // Prioridad 1: Buscar en metafields
   if (shopifyProduct.metafields && Array.isArray(shopifyProduct.metafields)) {
     const caloriesField = shopifyProduct.metafields.find(
       mf => mf.key === "kcal_per_kg" || mf.key === "kcal_em_kg" || mf.key === "calories" || mf.key === "calorias"
@@ -446,17 +449,58 @@ function extractCalories(shopifyProduct, title, tags) {
     if (caloriesField && caloriesField.value) {
       const calories = parseFloat(caloriesField.value);
       if (!isNaN(calories) && calories > 0) {
+        console.log(`[Adapter] 🔵 METAFIELD | "${productName}" → ${calories} kcal/kg (campo: ${caloriesField.key})`);
         return calories;
       }
     }
   }
   
+  // Prioridad 2: Intentar extraer calorías desde el body_html (descripción del producto)
   if (shopifyProduct.body_html) {
-    const kcalMatch = shopifyProduct.body_html.match(/(\d{3,4})\s*kcal[\s\/]*kg/i);
-    if (kcalMatch) {
-      return parseInt(kcalMatch[1]);
+    // Decodificar entidades HTML Unicode (ej: \u003c -> <, \u003e -> >)
+    const decodedHtml = shopifyProduct.body_html
+      .replace(/\\u003c/g, '<')
+      .replace(/\\u003e/g, '>')
+      .replace(/\\u0027/g, "'")
+      .replace(/\\"/g, '"');
+    
+    // Patrón 1: "Energía Metabolizable: 5250 kcal / Kg" o "5250 kcal/Kg"
+    const kcalPattern1 = /Energ[ií]a\s+Metabolizable[:\s]*(\d{3,5})\s*kcal\s*\/?\s*kg/i;
+    const match1 = decodedHtml.match(kcalPattern1);
+    if (match1) {
+      console.log(`[Adapter] 🟢 BODY_HTML (Patrón 1) | "${productName}" → ${match1[1]} kcal/kg`);
+      return parseInt(match1[1]);
     }
+    
+    // Patrón 2: "3500 kcal/kg" o "3500 kcal / kg"
+    const kcalPattern2 = /(\d{3,5})\s*kcal\s*\/?\s*kg/i;
+    const match2 = decodedHtml.match(kcalPattern2);
+    if (match2) {
+      console.log(`[Adapter] 🟢 BODY_HTML (Patrón 2) | "${productName}" → ${match2[1]} kcal/kg`);
+      return parseInt(match2[1]);
+    }
+    
+    // Patrón 3: "EM: 3500 kcal/kg" o "EM 3500 kcal/kg"
+    const kcalPattern3 = /EM[:\s]*(\d{3,5})\s*kcal\s*\/?\s*kg/i;
+    const match3 = decodedHtml.match(kcalPattern3);
+    if (match3) {
+      console.log(`[Adapter] 🟢 BODY_HTML (Patrón 3) | "${productName}" → ${match3[1]} kcal/kg`);
+      return parseInt(match3[1]);
+    }
+    
+    // Patrón 4: Buscar en tablas HTML cualquier número seguido de kcal/kg
+    const kcalPattern4 = /(\d{3,5})\s*kcal\s*EM\s*\/?\s*kg/i;
+    const match4 = decodedHtml.match(kcalPattern4);
+    if (match4) {
+      console.log(`[Adapter] 🟢 BODY_HTML (Patrón 4) | "${productName}" → ${match4[1]} kcal/kg`);
+      return parseInt(match4[1]);
+    }
+    
+    console.log(`[Adapter] ⚠️ No se encontraron calorías en body_html para: "${productName}"`);
   }
+  
+  // Prioridad 3: Valores por defecto basados en tipo de producto
+  console.log(`[Adapter] 🟡 FALLBACK | "${productName}" → Usando valor por defecto`);
   
   const titleLower = title.toLowerCase();
   const tipo = extractProductType(title, tags, "");

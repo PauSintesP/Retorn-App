@@ -273,8 +273,8 @@ export default function RecommendationResult({ recommendation, onBack = () => {}
             onClick={irAlCarrito}
             className="nav-button primary cart-button"
           >
+            <span className="cart-button-text">Agregar los productos al carrito</span>
             <span className="cart-button-icon">🛒</span>
-            <span className="cart-button-text">Ir al carrito de Retorn</span>
           </button>
         </div>
 
