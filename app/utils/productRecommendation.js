@@ -277,7 +277,7 @@ function determinarTipoCroqueta(peso) {
 
 /**
  * Detecta el tipo de croqueta real de la variante seleccionada
- * Analiza la variante específica para determinar si es croqueta pequeña o regular
+ * Analiza TODAS las variantes del producto para determinar disponibilidad completa
  */
 function detectarTipoCroquetaVariante(producto, varianteRecomendada) {
   if (!producto || producto.tipo !== "Seco" || producto.animal !== "Perro") {
@@ -290,6 +290,7 @@ function detectarTipoCroquetaVariante(producto, varianteRecomendada) {
   console.log(`\n🔍 Detectando tipo de croqueta para: ${producto.nombre}`);
   console.log(`   Handle: ${producto.handle}`);
   console.log(`   Variante recomendada:`, varianteRecomendada);
+  console.log(`   Total variantes: ${producto.variantes?.length || 0}`);
   
   // Si hay variante recomendada, analizar su SKU específicamente
   let tipoCroquetaVariante = null;
@@ -318,36 +319,42 @@ function detectarTipoCroquetaVariante(producto, varianteRecomendada) {
     }
   }
   
-  // Patrones más específicos para detectar croqueta pequeña en SKU de todas las variantes
-  const tieneVariantesSmall = producto.variantes?.some(v => {
+  // Analizar TODAS las variantes para detectar tipos disponibles
+  const variantesSmall = [];
+  const variantesRegular = [];
+  
+  producto.variantes?.forEach(v => {
     const skuLower = v.sku?.toLowerCase() || "";
     const cantidadLower = v.cantidad?.toLowerCase() || "";
     
+    // Patrones para detectar croqueta pequeña
     const esSmall = (
       skuLower.endsWith('-s') || 
-      skuLower.endsWith('s') ||
-      /[-_]s[-_]/.test(skuLower) ||
+      skuLower.includes('-s-') ||
+      /\bs\b/.test(skuLower) || // 's' como palabra completa
       cantidadLower.includes('small') ||
       cantidadLower.includes('pequeña') ||
       cantidadLower.includes('mini')
     );
     
-    return esSmall;
+    if (esSmall) {
+      variantesSmall.push(v);
+    } else {
+      variantesRegular.push(v);
+    }
   });
   
-  // Patrones para detectar croqueta regular/grande
-  const tieneVariantesRegular = producto.variantes?.some(v => {
-    const skuLower = v.sku?.toLowerCase() || "";
-    const cantidadLower = v.cantidad?.toLowerCase() || "";
-    
-    const esRegular = !(
-      skuLower.endsWith('-s') || 
-      skuLower.endsWith('s') ||
-      /[-_]s[-_]/.test(skuLower) ||
-      cantidadLower.includes('small') ||
-      cantidadLower.includes('pequeña') ||
-      cantidadLower.includes('mini')
-    );
+  const tieneVariantesSmall = variantesSmall.length > 0;
+  const tieneVariantesRegular = variantesRegular.length > 0;
+  
+  console.log(`   Variantes Small: ${variantesSmall.length} | Regular: ${variantesRegular.length}`);
+  
+  // Mostrar cantidades disponibles
+  if (variantesSmall.length > 0) {
+    console.log(`   📦 Small: ${variantesSmall.map(v => v.cantidad).join(', ')}`);
+  }
+  if (variantesRegular.length > 0) {
+    console.log(`   📦 Regular: ${variantesRegular.map(v => v.cantidad).join(', ')}`);
     
     return esRegular;
   });
@@ -371,18 +378,28 @@ function detectarTipoCroquetaVariante(producto, varianteRecomendada) {
     console.log(`   Tipo inferido del producto: ${tipoCroquetaVariante}`);
   }
   
-  // Determinar disponibilidad del otro tipo
+  // Determinar disponibilidad del otro tipo con cantidades específicas
   let disponibilidad = null;
+  let variantesDisponibles = [];
+  
   if (tipoCroquetaVariante === "Pequeña" && tieneVariantesRegular) {
-    disponibilidad = "También disponible en croqueta regular";
+    const cantidades = variantesRegular.map(v => v.cantidad).slice(0, 3).join(', ');
+    disponibilidad = `También en croqueta regular (${cantidades}${variantesRegular.length > 3 ? '...' : ''})`;
+    variantesDisponibles = variantesRegular;
   } else if (tipoCroquetaVariante === "Regular" && tieneVariantesSmall) {
-    disponibilidad = "También disponible en croqueta pequeña";
+    const cantidades = variantesSmall.map(v => v.cantidad).slice(0, 3).join(', ');
+    disponibilidad = `También en croqueta pequeña (${cantidades}${variantesSmall.length > 3 ? '...' : ''})`;
+    variantesDisponibles = variantesSmall;
   }
+  
+  console.log(`   ✅ Resultado: ${tipoCroquetaVariante} - ${disponibilidad || 'Sin otras opciones'}`);
   
   return {
     tipo: tipoCroquetaVariante,
     diametro: tipoCroquetaVariante === "Pequeña" ? "10 mm" : "15 mm",
-    disponibilidad
+    disponibilidad,
+    variantesDisponibles, // Array de variantes del otro tipo
+    tieneMultiplesTamaños: tieneVariantesSmall && tieneVariantesRegular
   };
 }
 

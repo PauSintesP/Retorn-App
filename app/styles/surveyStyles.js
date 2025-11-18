@@ -2626,10 +2626,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
     align-items: center;
     gap: 0.4rem;
     padding: 0.6rem 0.75rem;
-    background: linear-gradient(135deg, #8B6B47 0%, #A0826D 100%);
+    background: linear-gradient(135deg, rgba(139, 107, 71, 0.08) 0%, rgba(160, 130, 109, 0.12) 100%);
+    border: 1px solid rgba(139, 107, 71, 0.2);
     border-radius: 8px;
     margin-bottom: 0.85rem;
-    box-shadow: 0 2px 8px rgba(139, 107, 71, 0.15);
+    box-shadow: 0 1px 3px rgba(139, 107, 71, 0.08);
     min-height: 2.5rem;
   }
 
@@ -2657,7 +2658,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .croqueta-icon {
     font-size: 1rem;
-    color: #FFE4C4;
+    color: #8B6B47;
     font-weight: bold;
     flex-shrink: 0;
   }
@@ -2679,7 +2680,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-family: 'Inter', sans-serif;
     font-size: 0.8rem;
     font-weight: 600;
-    color: #ffffff;
+    color: #5d4a36;
     letter-spacing: 0.3px;
     line-height: 1.3;
   }
@@ -2694,7 +2695,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-family: 'Inter', sans-serif;
     font-size: 0.7rem;
     font-weight: 400;
-    color: rgba(255, 255, 255, 0.85);
+    color: rgba(93, 74, 54, 0.75);
     font-style: italic;
   }
 
