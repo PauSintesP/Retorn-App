@@ -8,14 +8,11 @@ export const action = async ({ request }) => {
   }
 
   try {
-    const formData = await request.json();
+    // Leer el body del request
+    const body = await request.text();
+    const formData = JSON.parse(body);
     
-    // Aquí puedes integrar con tu servicio de email preferido
-    // Opciones:
-    // 1. SendGrid
-    // 2. Resend
-    // 3. Nodemailer con SMTP
-    // 4. Shopify Email API (si está disponible)
+    console.log("📧 Enviando formulario de contacto:", formData);
     
     // Por ahora, vamos a usar FormSubmit desde el servidor (sin CORS)
     const response = await fetch(
@@ -31,10 +28,13 @@ export const action = async ({ request }) => {
     );
 
     if (!response.ok) {
-      throw new Error(`FormSubmit error: ${response.status}`);
+      const errorText = await response.text();
+      console.error("❌ Error de FormSubmit:", response.status, errorText);
+      throw new Error(`FormSubmit error: ${response.status} - ${errorText}`);
     }
 
     const result = await response.json();
+    console.log("✅ Formulario enviado exitosamente:", result);
     
     return Response.json({ 
       success: true, 
@@ -43,7 +43,7 @@ export const action = async ({ request }) => {
     });
     
   } catch (error) {
-    console.error("Error al enviar formulario:", error);
+    console.error("❌ Error al enviar formulario:", error);
     return Response.json(
       { 
         success: false, 
