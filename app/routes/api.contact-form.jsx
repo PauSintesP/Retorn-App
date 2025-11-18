@@ -14,26 +14,29 @@ export const action = async ({ request }) => {
     
     console.log("📧 Enviando formulario de contacto:", formData);
     
-    // Por ahora, vamos a usar FormSubmit desde el servidor (sin CORS)
+    // Usar FormSubmit con la URL correcta para AJAX
     const response = await fetch(
-      "https://formsubmit.co/ajax/gal.la@retorn.com",
+      "https://formsubmit.co/ajax/pausintespaul@gmail.com",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          _captcha: "false",
+        }),
       }
     );
 
+    const result = await response.json();
+    
     if (!response.ok) {
-      const errorText = await response.text();
-      console.error("❌ Error de FormSubmit:", response.status, errorText);
-      throw new Error(`FormSubmit error: ${response.status} - ${errorText}`);
+      console.error("❌ Error de FormSubmit:", response.status, result);
+      throw new Error(`FormSubmit error: ${response.status} - ${JSON.stringify(result)}`);
     }
 
-    const result = await response.json();
     console.log("✅ Formulario enviado exitosamente:", result);
     
     return Response.json({ 
