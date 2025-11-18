@@ -228,7 +228,7 @@ function mapVariants(shopifyVariants, tipo, productHandle) {
     const title = variant.title || "";
     const barcode = variant.barcode || "";
     
-    const cantidad = extractQuantity(title, variant);
+    const cantidad = extractQuantity(title, variant, productHandle);
     
     const link = productHandle 
       ? buildProductUrl(productHandle, variant.id)
@@ -554,9 +554,12 @@ function extractCalories(shopifyProduct, title, tags) {
  * Extrae la cantidad desde el título de la variante
  * @param {string} title - Título de la variante
  * @param {Object} variant - Objeto variante de Shopify
+ * @param {string} productHandle - Handle del producto (para logging)
  * @returns {string} Cantidad formateada
  */
-function extractQuantity(title, variant) {
+function extractQuantity(title, variant, productHandle = "") {
+  const productInfo = productHandle ? `[${productHandle}]` : "";
+  
   if (title && title !== "Default Title") {
     const boxMatch = title.match(/caja\s+(\d+)\s+latas?\s+(\d+)\s*(gr?|g|kg)/i);
     if (boxMatch) {
@@ -598,6 +601,13 @@ function extractQuantity(title, variant) {
   // Intentar desde weight (en gramos)
   if (variant.weight && variant.weight > 0) {
     const weightInGrams = variant.weight;
+    
+    // Validar que el peso sea realista (mínimo 50g para productos alimenticios)
+    if (weightInGrams < 50) {
+      console.warn(`      ❌ ${productInfo} Peso demasiado bajo para ser válido: ${weightInGrams}g (variante: "${title}")`);
+      return "";
+    }
+    
     let result;
     if (weightInGrams >= 1000) {
       const weightInKg = (weightInGrams / 1000).toFixed(1);
@@ -605,11 +615,11 @@ function extractQuantity(title, variant) {
     } else {
       result = `${weightInGrams} g`;
     }
-    console.log(`      ⚠️ Usando weight como fallback: ${result} (${weightInGrams}g)`);
+    console.log(`      ⚠️ ${productInfo} Usando weight como fallback: ${result} (variante: "${title}")`);
     return result;
   }
   
-  console.warn(`      ❌ No se pudo extraer cantidad de "${title}"`);
+  console.warn(`      ❌ ${productInfo} No se pudo extraer cantidad de "${title}"`);
   return "";
 }
 
