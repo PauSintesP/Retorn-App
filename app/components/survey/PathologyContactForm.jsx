@@ -97,8 +97,8 @@ export default function PathologyContactForm({ answers, onBack }) {
         formDataToSend[questionLabel] = formattedValue || "Sin respuesta";
       });
 
-      // Enviar a través de nuestro endpoint de API (evita problemas de CORS)
-      const response = await fetch("/api/contact-form", {
+      // Enviar directamente a FormSubmit usando su AJAX endpoint
+      const response = await fetch("https://formsubmit.co/ajax/pausintespaul@gmail.com", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -112,7 +112,7 @@ export default function PathologyContactForm({ answers, onBack }) {
       if (response.ok && result.success) {
         setIsSubmitted(true);
       } else {
-        throw new Error(result.error || "Error en el envío");
+        throw new Error(result.message || "Error en el envío");
       }
     } catch (error) {
       console.error("Error al enviar formulario:", error);
