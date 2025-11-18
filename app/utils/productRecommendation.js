@@ -355,9 +355,7 @@ function detectarTipoCroquetaVariante(producto, varianteRecomendada) {
   }
   if (variantesRegular.length > 0) {
     console.log(`   📦 Regular: ${variantesRegular.map(v => v.cantidad).join(', ')}`);
-    
-    return esRegular;
-  });
+  }
   
   console.log(`   Tiene variantes Small: ${tieneVariantesSmall}`);
   console.log(`   Tiene variantes Regular: ${tieneVariantesRegular}`);
