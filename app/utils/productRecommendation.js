@@ -288,6 +288,18 @@ function detectarTipoCroquetaVariante(producto, varianteRecomendada) {
     return null; // Solo aplica a alimentos secos para perros
   }
   
+  // REGLA FIJA: Si el segmento es "Cachorros", SIEMPRE es croqueta pequeña (10 mm)
+  if (producto.segmento === "Cachorros") {
+    console.log(`\n🔍 Producto de CACHORROS → Forzando croqueta pequeña (10 mm)`);
+    return {
+      tipo: "Pequeña",
+      diametro: "10 mm",
+      disponibilidad: null,
+      variantesDisponibles: [],
+      tieneMultiplesTamanos: false
+    };
+  }
+  
   const nombreLower = producto.nombre?.toLowerCase() || "";
   const handleLower = producto.handle?.toLowerCase() || "";
   
