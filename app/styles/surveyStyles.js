@@ -2317,15 +2317,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     overflow: hidden;
   }
 
-  .recommendation-header::before {
-    content: '🎉';
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    font-size: 1.5rem;
-    opacity: 0.3;
-  }
-
   @media (min-width: 600px) {
     .recommendation-header {
       margin-bottom: 1.5rem;
