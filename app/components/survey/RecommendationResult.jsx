@@ -499,7 +499,7 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
         <div className="product-main">
           <h4 className="product-name">{producto.nombre}</h4>
           <p className="product-description">
-            {producto.tipo === "Seco" ? "Alimento seco completo" : "Alimento húmedo completo"} 
+            {tipo.includes("Seco") ? "Alimento seco completo" : "Alimento húmedo completo"} 
             {" "}para {producto.animal?.toLowerCase() || tipoAnimal?.toLowerCase()}s
           </p>
         </div>
