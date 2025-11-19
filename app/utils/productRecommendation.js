@@ -972,9 +972,10 @@ export async function calcularRecomendacionProductos(answers) {
       resultado.kcalDiarias = kcalDiarias;
       resultado.factores = factores;
       
-      // Determinar tipo de croqueta según el peso
+      // Determinar tipo de croqueta según el peso y la edad (para cachorros siempre pequeña)
       const peso = parseFloat(answers.q6_perro);
-      const tipoCroqueta = determinarTipoCroqueta(peso);
+      const edad = answers.q4_perro;
+      const tipoCroqueta = determinarTipoCroqueta(peso, edad);
       
       // Seleccionar productos usando el sistema de IDs
       const productoSeco = await seleccionarProductoSecoPerro(answers);
@@ -986,9 +987,16 @@ export async function calcularRecomendacionProductos(answers) {
         let variante = productoSeco ? seleccionarVariante(productoSeco, gramosDiarios, answers.q3_perro, false) : null;
         if (productoSeco && variante) variante = aplicarOverrideVariante(productoSeco, variante);
         
+        // Forzar croqueta pequeña para Pienso Natural para Cachorros de Salmón
+        const TINY_SALMON_PUPPY_ID = 1303206658114;
+        let tipoCroquetaFallback = tipoCroqueta;
+        if (productoSeco && productoSeco.productId === TINY_SALMON_PUPPY_ID) {
+          tipoCroquetaFallback = { tipo: "Pequeña", diametro: "10 mm", tamanoCroqueta: "pequeña" };
+        }
+
         // Actualizar tipo de croqueta con información real de la variante seleccionada
         const tipoCroquetaReal = detectarTipoCroquetaVariante(productoSeco, variante);
-        resultado.tipoCroqueta = tipoCroquetaReal || tipoCroqueta;
+        resultado.tipoCroqueta = tipoCroquetaReal || tipoCroquetaFallback;
         
         console.log(`\n📦 Alimentación SECA para ${answers.q2}:`);
         console.log(`   Producto: ${productoSeco?.nombre || 'N/A'}`);
@@ -1014,9 +1022,16 @@ export async function calcularRecomendacionProductos(answers) {
         if (productoSeco && varianteSeco) varianteSeco = aplicarOverrideVariante(productoSeco, varianteSeco);
         if (productoHumedo && varianteHumedo) varianteHumedo = aplicarOverrideVariante(productoHumedo, varianteHumedo);
         
+        // Forzar croqueta pequeña para Pienso Natural para Cachorros de Salmón
+        const TINY_SALMON_PUPPY_ID = 1303206658114;
+        let tipoCroquetaFallback = tipoCroqueta;
+        if (productoSeco && productoSeco.productId === TINY_SALMON_PUPPY_ID) {
+          tipoCroquetaFallback = { tipo: "Pequeña", diametro: "10 mm", tamanoCroqueta: "pequeña" };
+        }
+
         // Actualizar tipo de croqueta con información real de la variante seleccionada
         const tipoCroquetaReal = detectarTipoCroquetaVariante(productoSeco, varianteSeco);
-        resultado.tipoCroqueta = tipoCroquetaReal || tipoCroqueta;
+        resultado.tipoCroqueta = tipoCroquetaReal || tipoCroquetaFallback;
         
         console.log(`\n📦 Alimentación MIXTA para ${answers.q2}:`);
         console.log(`   Total calorías: ${kcalDiarias} kcal/día`);
