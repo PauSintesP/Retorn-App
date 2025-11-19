@@ -975,7 +975,13 @@ export async function calcularRecomendacionProductos(answers) {
       // Determinar tipo de croqueta según el peso y la edad (para cachorros siempre pequeña)
       const peso = parseFloat(answers.q6_perro);
       const edad = answers.q4_perro;
-      const tipoCroqueta = determinarTipoCroqueta(peso, edad);
+      // Forzar croqueta pequeña si la respuesta es 'Cachorro' (independiente de otros factores)
+      let tipoCroqueta;
+      if (typeof edad === "string" && edad.trim().toLowerCase() === "cachorro") {
+        tipoCroqueta = { tipo: "Pequeña", diametro: "10 mm", tamanoCroqueta: "pequeña" };
+      } else {
+        tipoCroqueta = determinarTipoCroqueta(peso, edad);
+      }
       
       // Seleccionar productos usando el sistema de IDs
       const productoSeco = await seleccionarProductoSecoPerro(answers);
