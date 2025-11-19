@@ -210,25 +210,19 @@ async function fetchYMapearPrimero(animal, tipo, segmento, tamanoCroqueta = null
     const mapeados = mapShopifyProductsToLocal(productosShopify);
     
     // Si es alimento seco para perros y hay especificación de tamaño de croqueta
+    // priorizar productos que tengan variantes_small (croqueta pequeña) o sólo variantes regular
     if (animal === "Perro" && tipo === "Seco" && tamanoCroqueta && Object.keys(mapeados).length > 1) {
-      // Buscar producto con croqueta del tamaño correcto
-      const productosCroquetaPequeña = Object.values(mapeados).filter(p => 
-        p.nombre?.toLowerCase().includes("pequeña") || 
-        p.nombre?.toLowerCase().includes("small")
-      );
-      
-      const productosCroquetaRegular = Object.values(mapeados).filter(p => 
-        !p.nombre?.toLowerCase().includes("pequeña") && 
-        !p.nombre?.toLowerCase().includes("small")
-      );
-      
-      if (tamanoCroqueta === "pequeña" && productosCroquetaPequeña.length > 0) {
-        console.log(`[Recomendación] Seleccionado producto con croqueta pequeña`);
-        return productosCroquetaPequeña[0];
-      } else if (tamanoCroqueta === "grande" && productosCroquetaRegular.length > 0) {
-        console.log(`[Recomendación] Seleccionado producto con croqueta regular`);
-        return productosCroquetaRegular[0];
+      const productosConSmall = Object.values(mapeados).filter(p => Array.isArray(p.variantes_small) && p.variantes_small.length > 0);
+      const productosSinSmall = Object.values(mapeados).filter(p => !Array.isArray(p.variantes_small) || p.variantes_small.length === 0);
+
+      if (tamanoCroqueta === "pequeña" && productosConSmall.length > 0) {
+        console.log(`[Recomendación] Seleccionado producto con croqueta pequeña (por variantes_small)`);
+        return productosConSmall[0];
+      } else if (tamanoCroqueta === "grande" && productosSinSmall.length > 0) {
+        console.log(`[Recomendación] Seleccionado producto con croqueta regular (sin variantes_small)`);
+        return productosSinSmall[0];
       }
+      // Si no encontramos por variantes, caeremos al comportamiento por defecto
     }
     
     // Por defecto, devolver el primero

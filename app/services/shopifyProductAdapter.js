@@ -182,13 +182,10 @@ function mapSingleProduct(shopifyProduct) {
       localProduct.variantes_small = variantes_small;
     }
     
-    // Para productos de Cachorros Seco de Perro, agregar "- Croqueta Pequeña" si no está ya en el nombre
-    if (animal === "Perro" && tipo === "Seco" && segmento === "Cachorros") {
-      const nombreLower = title.toLowerCase();
-      if (!nombreLower.includes("croqueta pequeña") && !nombreLower.includes("small bite")) {
-        localProduct.nombre = `${title} - Croqueta Pequeña`;
-      }
-    }
+    // Nota: No modificar el título del producto para indicar el tamaño de croqueta.
+    // El tamaño de croqueta se determina por las variantes (`variantes_small`) y se
+    // mostrará en el badge en la UI. Evitar incluir la información de croqueta en
+    // `localProduct.nombre` para que el título se mantenga limpio.
     
     return {
       key: productKey,
