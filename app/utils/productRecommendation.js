@@ -14,14 +14,14 @@ import { getVariantIdOverride } from "../data/productVariantMapping";
 
 function calcularEdadEnMeses(fechaNacimiento) {
   if (!fechaNacimiento) return null;
-  
+
   const hoy = new Date();
   const nacimiento = new Date(fechaNacimiento);
-  
+
   const diffTime = Math.abs(hoy - nacimiento);
   const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   const meses = Math.floor(diffDays / 30.44);
-  
+
   return meses;
 }
 
@@ -40,7 +40,7 @@ function determinarTamanoRaza(tamano) {
 
 function determinarFactorEdadPerro(tamano, edad, fechaNacimiento) {
   const meses = calcularEdadEnMeses(fechaNacimiento);
-  
+
   if (edad === "Cachorro" && meses !== null) {
     if (tamano === "Pequeño" || tamano === "Mediano") {
       if (meses <= 4) return FACTOR_EDAD_PERRO["Pequeño-Cachorro-0-4"];
@@ -55,15 +55,15 @@ function determinarFactorEdadPerro(tamano, edad, fechaNacimiento) {
       return FACTOR_EDAD_PERRO["Grande-Cachorro-18-24"];
     }
   }
-  
+
   if (edad === "Adulto") {
     return FACTOR_EDAD_PERRO["Adulto"];
   }
-  
+
   if (edad === "Senior") {
     return FACTOR_EDAD_PERRO["Senior"];
   }
-  
+
   return FACTOR_EDAD_PERRO["Adulto"];
 }
 
@@ -77,11 +77,11 @@ function determinarVariableActividad(edad, nivelActividad) {
   if (edad === "Cachorro") {
     return VAR_ACTIVIDAD_PERRO["Cachorro"]; // 130
   }
-  
+
   if (edad === "Senior") {
     return VAR_ACTIVIDAD_PERRO["Senior"]; // 130
   }
-  
+
   // Para adultos, usar el nivel de actividad seleccionado (o Media por defecto)
   return VAR_ACTIVIDAD_PERRO[nivelActividad] || VAR_ACTIVIDAD_PERRO["Media"];
 }
@@ -92,10 +92,10 @@ function resolverSegmentoPerroSeco(answers) {
   const patologias = answers.q9_perro;
 
   if (edad === "Cachorro") return "Cachorros";
-  
+
   // Prioridad 1: Si el cliente pide explícitamente Light en la preferencia
   if (preferencia.includes("Light")) return "Senior Light";
-  
+
   // Prioridad 2: Si es Senior o tiene sobrepeso
   if (edad === "Senior" || patologias?.includes("Sobrepeso")) return "Senior Light";
 
@@ -109,33 +109,33 @@ function resolverSegmentoPerroSeco(answers) {
 
 function resolverSegmentoPerroHumedo(segmentoSeco, preferencia) {
   if (segmentoSeco && segmentoSeco.includes("Cachorro")) return "Cachorros";
-  
+
   if (preferencia) {
-    if (preferencia.includes("Lata Pollo con Zanahorias") || preferencia.includes("Pollo zanahoria") || 
-        (preferencia.includes("Pollo") && !preferencia.includes("Cordero") && !preferencia.includes("Pescado"))) {
+    if (preferencia.includes("Lata Pollo con Zanahorias") || preferencia.includes("Pollo zanahoria") ||
+      (preferencia.includes("Pollo") && !preferencia.includes("Cordero") && !preferencia.includes("Pescado"))) {
       return "Adulto Pollo";
     }
-    
-    if (preferencia.includes("Lata Cordero con Arroz") || preferencia.includes("Cordero arroz") || 
-        (preferencia.includes("Cordero") && !preferencia.includes("Pollo"))) {
+
+    if (preferencia.includes("Lata Cordero con Arroz") || preferencia.includes("Cordero arroz") ||
+      (preferencia.includes("Cordero") && !preferencia.includes("Pollo"))) {
       return "Adulto Cordero";
     }
-    
-    if (preferencia.includes("Lata Pescado con Zanahorias") || preferencia.includes("Pesc zanahoria") || 
-        preferencia.includes("Pesc") || preferencia.includes("Pescado") || preferencia.includes("Salmón")) {
+
+    if (preferencia.includes("Lata Pescado con Zanahorias") || preferencia.includes("Pesc zanahoria") ||
+      preferencia.includes("Pesc") || preferencia.includes("Pescado") || preferencia.includes("Salmón")) {
       return "Adulto Pescado";
     }
-    
+
     if (preferencia.includes("Lata Cachorro") || preferencia.includes("Lata cachorro") || preferencia.includes("Cachorro")) {
       return "Cachorros";
     }
   }
-  
+
   if (segmentoSeco) {
     if (segmentoSeco.includes("Cordero")) return "Adulto Cordero";
     if (segmentoSeco.includes("Pollo")) return "Adulto Pollo";
   }
-  
+
   return "Adulto Pescado";
 }
 
@@ -146,14 +146,14 @@ function resolverSegmentoGatoSeco(answers) {
   const preferencia = answers.q9_gato || "";
 
   if (edad === "Gatito") return "Cachorros";
-  
+
   if (castrado === "Sí" || patologias?.includes("Sobrepeso")) return "Esterilizados Light";
-  
+
   if (preferencia.includes("Pollo")) return "Adulto Pollo";
   if (preferencia.includes("Pescado")) return "Adulto Pescado";
   if (preferencia.includes("Esterilizados")) return "Esterilizados Light";
   if (preferencia.includes("Gatito")) return "Cachorros";
-  
+
   return "Adulto Pollo";
 }
 
@@ -161,45 +161,45 @@ function resolverSegmentoGatoHumedo(segmentoSeco, preferencia) {
   if (segmentoSeco && (segmentoSeco.includes("Cachorro") || segmentoSeco.includes("Gatito"))) {
     return "Cachorros";
   }
-  
+
   // Revisar la preferencia del usuario primero (de q9_gato)
   // Mapear según las opciones de la pregunta 9 para gatos (Mixta):
   // - "Pollo + Lata Pollo con Conejo" → Adulto Pollo
   // - "Pescado + Lata Atún con Gambas" → Adulto Pescado
   // - "Esterilizados + Lata Pollo" → Adulto Pollo
   // - "Gatito + Lata Gatitos" → Cachorros
-  
+
   if (preferencia) {
     // Si menciona "Lata Pollo con Conejo", "Lata Pollo", o "Pollo"
-    if (preferencia.includes("Lata Pollo con Conejo") || preferencia.includes("Lata Pollo") || 
-        (preferencia.includes("Pollo") && !preferencia.includes("Pescado") && !preferencia.includes("Atún"))) {
+    if (preferencia.includes("Lata Pollo con Conejo") || preferencia.includes("Lata Pollo") ||
+      (preferencia.includes("Pollo") && !preferencia.includes("Pescado") && !preferencia.includes("Atún"))) {
       return "Adulto Pollo";
     }
-    
+
     // Si menciona "Lata Atún con Gambas", "Pescado", o "Atún"
-    if (preferencia.includes("Lata Atún con Gambas") || preferencia.includes("Pescado") || 
-        preferencia.includes("Atún") || preferencia.includes("Fish")) {
+    if (preferencia.includes("Lata Atún con Gambas") || preferencia.includes("Pescado") ||
+      preferencia.includes("Atún") || preferencia.includes("Fish")) {
       return "Adulto Pescado";
     }
-    
+
     // Si menciona "Lata Gatitos" o "Gatito"
     if (preferencia.includes("Lata Gatitos") || preferencia.includes("Gatito")) {
       return "Cachorros";
     }
-    
+
     // "Esterilizados" va con Pollo por defecto
     if (preferencia.includes("Esterilizados")) {
       return "Adulto Pollo";
     }
   }
-  
+
   // Si no hay preferencia clara, revisar el segmento seco
   if (segmentoSeco) {
     if (segmentoSeco.includes("Pollo") || segmentoSeco.includes("Esterilizado")) {
       return "Adulto Pollo";
     }
   }
-  
+
   return "Adulto Pescado"; // default a pescado
 }
 
@@ -208,7 +208,7 @@ async function fetchYMapearPrimero(animal, tipo, segmento, tamanoCroqueta = null
     const productosShopify = await getRecommendedProducts(animal, tipo, segmento);
     if (!productosShopify || productosShopify.length === 0) return null;
     const mapeados = mapShopifyProductsToLocal(productosShopify);
-    
+
     // Si es alimento seco para perros y hay especificación de tamaño de croqueta
     // priorizar productos que tengan variantes_small (croqueta pequeña) o sólo variantes regular
     if (animal === "Perro" && tipo === "Seco" && tamanoCroqueta && Object.keys(mapeados).length > 1) {
@@ -224,7 +224,7 @@ async function fetchYMapearPrimero(animal, tipo, segmento, tamanoCroqueta = null
       }
       // Si no encontramos por variantes, caeremos al comportamiento por defecto
     }
-    
+
     // Por defecto, devolver el primero
     const primero = Object.values(mapeados)[0];
     return primero || null;
@@ -253,7 +253,7 @@ function determinarTipoCroqueta(peso, edad = null) {
       tamanoCroqueta: "pequeña"
     };
   }
-  
+
   if (!peso || isNaN(peso)) {
     return {
       tipo: "Regular",
@@ -261,9 +261,9 @@ function determinarTipoCroqueta(peso, edad = null) {
       tamanoCroqueta: "grande"
     };
   }
-  
+
   const pesoNum = parseFloat(peso);
-  
+
   if (pesoNum <= 10) {
     return {
       tipo: "Pequeña",
@@ -287,7 +287,7 @@ function detectarTipoCroquetaVariante(producto, varianteRecomendada) {
   if (!producto || producto.tipo !== "Seco" || producto.animal !== "Perro") {
     return null; // Solo aplica a alimentos secos para perros
   }
-  
+
   // REGLA FIJA: Si el segmento es "Cachorros", SIEMPRE es croqueta pequeña (10 mm)
   if (producto.segmento === "Cachorros") {
     console.log(`\n🔍 Producto de CACHORROS → Forzando croqueta pequeña (10 mm)`);
@@ -299,33 +299,33 @@ function detectarTipoCroquetaVariante(producto, varianteRecomendada) {
       tieneMultiplesTamanos: false
     };
   }
-  
+
   const nombreLower = producto.nombre?.toLowerCase() || "";
   const handleLower = producto.handle?.toLowerCase() || "";
-  
+
   console.log(`\n🔍 Detectando tipo de croqueta para: ${producto.nombre}`);
   console.log(`   Handle: ${producto.handle}`);
   console.log(`   Variante recomendada:`, varianteRecomendada);
   console.log(`   Total variantes: ${producto.variantes?.length || 0}`);
-  
+
   // Si hay variante recomendada, analizar su SKU específicamente
   let tipoCroquetaVariante = null;
   if (varianteRecomendada) {
     const skuLower = varianteRecomendada.sku?.toLowerCase() || "";
     const cantidadLower = varianteRecomendada.cantidad?.toLowerCase() || "";
-    
+
     console.log(`   Analizando SKU de variante: ${varianteRecomendada.sku}`);
-    
+
     // Verificar si la variante específica es pequeña
     const esVarianteSmall = (
-      skuLower.endsWith('-s') || 
+      skuLower.endsWith('-s') ||
       skuLower.endsWith('s') ||
       /[-_]s[-_]/.test(skuLower) ||
       cantidadLower.includes('small') ||
       cantidadLower.includes('pequeña') ||
       cantidadLower.includes('mini')
     );
-    
+
     if (esVarianteSmall) {
       console.log(`   ✅ Variante seleccionada es PEQUEÑA`);
       tipoCroquetaVariante = "Pequeña";
@@ -334,37 +334,37 @@ function detectarTipoCroquetaVariante(producto, varianteRecomendada) {
       tipoCroquetaVariante = "Regular";
     }
   }
-  
+
   // Analizar TODAS las variantes para detectar tipos disponibles
   const variantesSmall = [];
   const variantesRegular = [];
-  
+
   producto.variantes?.forEach(v => {
     const skuLower = v.sku?.toLowerCase() || "";
     const cantidadLower = v.cantidad?.toLowerCase() || "";
-    
+
     // Patrones para detectar croqueta pequeña
     const esSmall = (
-      skuLower.endsWith('-s') || 
+      skuLower.endsWith('-s') ||
       skuLower.includes('-s-') ||
       /\bs\b/.test(skuLower) || // 's' como palabra completa
       cantidadLower.includes('small') ||
       cantidadLower.includes('pequeña') ||
       cantidadLower.includes('mini')
     );
-    
+
     if (esSmall) {
       variantesSmall.push(v);
     } else {
       variantesRegular.push(v);
     }
   });
-  
+
   const tieneVariantesSmall = variantesSmall.length > 0;
   const tieneVariantesRegular = variantesRegular.length > 0;
-  
+
   console.log(`   Variantes Small: ${variantesSmall.length} | Regular: ${variantesRegular.length}`);
-  
+
   // Mostrar cantidades disponibles
   if (variantesSmall.length > 0) {
     console.log(`   📦 Small: ${variantesSmall.map(v => v.cantidad).join(', ')}`);
@@ -372,14 +372,14 @@ function detectarTipoCroquetaVariante(producto, varianteRecomendada) {
   if (variantesRegular.length > 0) {
     console.log(`   📦 Regular: ${variantesRegular.map(v => v.cantidad).join(', ')}`);
   }
-  
+
   console.log(`   Tiene variantes Small: ${tieneVariantesSmall}`);
   console.log(`   Tiene variantes Regular: ${tieneVariantesRegular}`);
-  
+
   // Si no se pudo determinar por la variante, usar el tipo del producto
   if (!tipoCroquetaVariante) {
     const esProductoSmallBite = (
-      nombreLower.includes('small') || 
+      nombreLower.includes('small') ||
       nombreLower.includes('pequeña') ||
       nombreLower.includes('mini') ||
       handleLower.includes('small-bite') ||
@@ -387,15 +387,15 @@ function detectarTipoCroquetaVariante(producto, varianteRecomendada) {
       handleLower.includes('mini') ||
       producto.segmento?.toLowerCase().includes('razas s')
     );
-    
+
     tipoCroquetaVariante = esProductoSmallBite ? "Pequeña" : "Regular";
     console.log(`   Tipo inferido del producto: ${tipoCroquetaVariante}`);
   }
-  
+
   // Determinar disponibilidad del otro tipo con cantidades específicas
   let disponibilidad = null;
   let variantesDisponibles = [];
-  
+
   if (tipoCroquetaVariante === "Pequeña" && tieneVariantesRegular) {
     const cantidades = variantesRegular.map(v => v.cantidad).slice(0, 3).join(', ');
     disponibilidad = `También en croqueta regular (${cantidades}${variantesRegular.length > 3 ? '...' : ''})`;
@@ -405,9 +405,9 @@ function detectarTipoCroquetaVariante(producto, varianteRecomendada) {
     disponibilidad = `También en croqueta pequeña (${cantidades}${variantesSmall.length > 3 ? '...' : ''})`;
     variantesDisponibles = variantesSmall;
   }
-  
+
   console.log(`   ✅ Resultado: ${tipoCroquetaVariante} - ${disponibilidad || 'Sin otras opciones'}`);
-  
+
   return {
     tipo: tipoCroquetaVariante,
     diametro: tipoCroquetaVariante === "Pequeña" ? "10 mm" : "15 mm",
@@ -423,7 +423,7 @@ function detectarTipoCroquetaVariante(producto, varianteRecomendada) {
  */
 function determinarCasoGato(edad, mesesSeleccionados, castrado, patologias) {
   const meses = calcularEdadEnMeses(mesesSeleccionados);
-  
+
   if (edad === "Gatito") {
     // Con fecha de nacimiento
     if (meses !== null) {
@@ -433,7 +433,7 @@ function determinarCasoGato(edad, mesesSeleccionados, castrado, patologias) {
       if (meses <= 12) return FACTOR_GATO["Gatito-9-12"];     // 9-12 meses: 100, 1 (mismo que 7-9)
       return FACTOR_GATO["Gatito-12-14"];                     // >12 meses: 80, 1
     }
-    
+
     // Sin fecha de nacimiento, usar selector manual
     const rangoMeses = mesesSeleccionados;
     if (rangoMeses === "1-4 meses") return FACTOR_GATO["Gatito-1.5-5"];
@@ -441,21 +441,21 @@ function determinarCasoGato(edad, mesesSeleccionados, castrado, patologias) {
     if (rangoMeses === "7-9 meses") return FACTOR_GATO["Gatito-7-9"];
     if (rangoMeses === "9-12 meses") return FACTOR_GATO["Gatito-9-12"];
     if (rangoMeses === "12-14 meses") return FACTOR_GATO["Gatito-12-14"];
-    
+
     // Default para gatito
     return FACTOR_GATO["Gatito-4-7"];
   }
-  
+
   if (edad === "Senior") {
     return FACTOR_GATO["Senior"]; // 45, 1
   }
-  
+
   // Adulto
   const tieneSobrepeso = patologias?.includes("Sobrepeso");
   if (castrado === "Sí" || tieneSobrepeso) {
     return FACTOR_GATO["Adulto-Esterilizado"]; // 130, 0.4
   }
-  
+
   return FACTOR_GATO["Adulto"]; // 100, 0.67
 }
 
@@ -468,7 +468,7 @@ function determinarCasoGato(edad, mesesSeleccionados, castrado, patologias) {
  * Fórmula: Kcal_dia = FACTOR_ESTERILIZADO * FACTOR_SNACKS * FACTOR_EDAD * (VAR * PESO^0.75)
  * 
  * Donde:
- * - FACTOR_ESTERILIZADO = 0.8 si está esterilizado, 1 si no
+ * - FACTOR_ESTERILIZADO = 0.9 si está esterilizado, 1 si no
  * - FACTOR_SNACKS = 0.9 si consume snacks habitualmente, 1 si no
  * - FACTOR_EDAD depende de edad y tamaño (ver tabla en productConstants.js)
  * - VAR = factor de actividad:
@@ -486,29 +486,29 @@ export function calcularCaloriasPerro(answers) {
   const castrado = answers.q8_perro; // "Sí", "No"
   const patologias = answers.q9_perro; // Patologías
   const fechaNacimiento = answers.q2b;
-  
+
   if (!peso || isNaN(peso)) {
     throw new Error("Peso no válido");
   }
-  
-  // 1. FACTOR_ESTERILIZADO: 0.8 si está esterilizado o tiene sobrepeso, 1 si no
-  const factorEsterilizado = (castrado === "Sí" || patologias?.includes("Sobrepeso")) ? 0.8 : 1;
-  
+
+  // 1. FACTOR_ESTERILIZADO: 0.9 si está esterilizado o tiene sobrepeso, 1 si no
+  const factorEsterilizado = (castrado === "Sí" || patologias?.includes("Sobrepeso")) ? FACT_ESTERILIZADO["Sí"] : FACT_ESTERILIZADO["No"];
+
   // 2. FACTOR_SNACKS: según cantidad de snacks
   const factorSnacks = FACT_SNACKS[snacks] || 1;
-  
+
   // 3. FACTOR_EDAD: según edad, tamaño y meses (ver tabla en productConstants.js)
   const factorEdad = determinarFactorEdadPerro(tamano, edad, fechaNacimiento);
-  
+
   // 4. VAR: Variable de actividad base según edad y nivel
   const varActividad = determinarVariableActividad(edad, nivelActividad);
-  
+
   // 5. Cálculo de la tasa metabólica basal: VAR * PESO^0.75
   const tasaMetabolica = varActividad * Math.pow(peso, 0.75);
-  
+
   // 6. Fórmula completa: FACTOR_ESTERILIZADO * FACTOR_SNACKS * FACTOR_EDAD * tasaMetabolica
   const kcalDiarias = factorEsterilizado * factorSnacks * factorEdad * tasaMetabolica;
-  
+
   console.log(`\n🔢 Cálculo de Calorías para ${answers.q2}:`);
   console.log(`   Peso: ${peso}kg | Edad: ${edad} | Tamaño: ${tamano}`);
   if (edad === "Cachorro" || edad === "Senior") {
@@ -523,7 +523,7 @@ export function calcularCaloriasPerro(answers) {
   console.log(`   Tasa Metabólica: ${varActividad} × ${peso}^0.75 = ${tasaMetabolica.toFixed(2)}`);
   console.log(`   Fórmula: ${factorEsterilizado} × ${factorSnacks} × ${factorEdad} × ${tasaMetabolica.toFixed(2)}`);
   console.log(`   ➡️ TOTAL: ${kcalDiarias.toFixed(2)} kcal/día`);
-  
+
   return {
     kcalDiarias: Math.round(kcalDiarias * 10) / 10, // Redondear a 1 decimal
     factores: {
@@ -551,17 +551,17 @@ export function calcularCaloriasGato(answers) {
   const castrado = answers.q6_gato; // "Sí", "No"
   const patologias = answers.q7_gato; // Array de patologías
   const fechaNacimiento = answers.q2b;
-  
+
   if (!peso || isNaN(peso)) {
     throw new Error("Peso no válido");
   }
-  
+
   // Determinar caso específico
   const caso = determinarCasoGato(edad, mesesGatito || fechaNacimiento, castrado, patologias);
-  
+
   // Fórmula: FACT * (PESO^FACT2)
   const kcalDiarias = caso.FACT * Math.pow(peso, caso.FACT2);
-  
+
   return {
     kcalDiarias: Math.round(kcalDiarias * 100) / 100,
     factores: {
@@ -584,7 +584,7 @@ async function seleccionarProductoSecoPerro(answers) {
   const peso = parseFloat(answers.q6_perro);
   const edad = answers.q4_perro;
   const tipoCroqueta = determinarTipoCroqueta(peso, edad);
-  
+
   console.log("🔍 Seleccionando producto seco para perro → segmento:", segmentoSeco, "| croqueta:", tipoCroqueta.tamanoCroqueta);
   return await fetchYMapearPrimero("Perro", "Seco", segmentoSeco, tipoCroqueta.tamanoCroqueta);
 }
@@ -641,12 +641,12 @@ function calcularGramosProducto(kcalDiarias, kcalEmKg) {
     console.warn("⚠️ kcalEmKg no válido:", kcalEmKg);
     return 0;
   }
-  
+
   if (!kcalDiarias || kcalDiarias <= 0) {
     console.warn("⚠️ kcalDiarias no válido:", kcalDiarias);
     return 0;
   }
-  
+
   const gramos = (kcalDiarias / kcalEmKg) * 1000;
   return Math.round(gramos);
 }
@@ -671,30 +671,30 @@ function calcularAlimentacionMixta(kcalDiarias, productoSeco, productoHumedo) {
   // Distribuir calorías según porcentajes configurados
   const kcalSeco = kcalDiarias * PORCENTAJE_ALIMENTACION_MIXTA.SECO;
   const kcalHumedo = kcalDiarias * PORCENTAJE_ALIMENTACION_MIXTA.HUMEDO;
-  
+
   console.log(`\n📊 Cálculo Alimentación Mixta:`);
   console.log(`   Calorías totales/día: ${kcalDiarias.toFixed(1)} kcal`);
   console.log(`   Distribución: ${PORCENTAJE_ALIMENTACION_MIXTA.SECO * 100}% seco + ${PORCENTAJE_ALIMENTACION_MIXTA.HUMEDO * 100}% húmedo`);
   console.log(`   → Seco: ${kcalSeco.toFixed(1)} kcal/día`);
   console.log(`   → Húmedo: ${kcalHumedo.toFixed(1)} kcal/día`);
-  
+
   // Calcular gramos para cada tipo
-  const gramosSeco = productoSeco?.kcalEmKg 
+  const gramosSeco = productoSeco?.kcalEmKg
     ? calcularGramosProducto(kcalSeco, productoSeco.kcalEmKg)
     : 0;
-    
-  const gramosHumedo = productoHumedo?.kcalEmKg 
+
+  const gramosHumedo = productoHumedo?.kcalEmKg
     ? calcularGramosProducto(kcalHumedo, productoHumedo.kcalEmKg)
     : 0;
-  
+
   if (productoSeco?.kcalEmKg) {
     console.log(`   Producto Seco: ${productoSeco.kcalEmKg} kcal/kg → ${gramosSeco}g/día`);
   }
-  
+
   if (productoHumedo?.kcalEmKg) {
     console.log(`   Producto Húmedo: ${productoHumedo.kcalEmKg} kcal/kg → ${gramosHumedo}g/día`);
   }
-  
+
   return {
     seco: gramosSeco,
     humedo: gramosHumedo,
@@ -708,7 +708,7 @@ function calcularAlimentacionMixta(kcalDiarias, productoSeco, productoHumedo) {
  */
 function calcularGramosTotales(cantidad) {
   const cantidadLower = cantidad.toLowerCase();
-  
+
   // Patrón 1: "Caja 12 latas 185 g" o "Caja 18x80gr"
   const matchCaja = cantidadLower.match(/caja\s*(\d+)(?:\s*latas)?\s*(?:x\s*)?(\d+(?:\.\d+)?)\s*g/i);
   if (matchCaja) {
@@ -716,7 +716,7 @@ function calcularGramosTotales(cantidad) {
     const gramosPorUnidad = parseFloat(matchCaja[2]);
     return gramosPorUnidad * unidades;
   }
-  
+
   // Patrón 2: "185 g x 12ud" o "400 gr x 12ud"
   const matchPack = cantidadLower.match(/(\d+(?:\.\d+)?)\s*gr?\s*x\s*(\d+)\s*ud/i);
   if (matchPack) {
@@ -724,7 +724,7 @@ function calcularGramosTotales(cantidad) {
     const unidades = parseFloat(matchPack[2]);
     return gramosPorUnidad * unidades;
   }
-  
+
   // Patrón 3: "Pack 12 ud" o "Pack 18 ud" (buscar en el título si no hay gramaje explícito)
   // En este caso, intentar extraer el gramaje base de otras variantes
   const matchPackSolo = cantidadLower.match(/(?:pack|caja)\s*(\d+)\s*(?:latas|ud)/i);
@@ -737,13 +737,13 @@ function calcularGramosTotales(cantidad) {
       return gramosPorUnidad * unidades;
     }
   }
-  
+
   // Patrón 4: Si es en kg (sin pack)
   if (cantidadLower.includes("kg") && !cantidadLower.includes("x")) {
     const numeros = cantidadLower.match(/(\d+(?:\.\d+)?)/);
     return numeros ? parseFloat(numeros[1]) * 1000 : 0;
   }
-  
+
   // Patrón 5: Gramos simples (lata individual)
   const numeros = cantidadLower.match(/(\d+(?:\.\d+)?)/);
   return numeros ? parseFloat(numeros[1]) : 0;
@@ -757,7 +757,7 @@ function calcularGramosTotales(cantidad) {
 function seleccionarVariante(producto, gramosDiarios, tamano, esHumedo = false) {
   console.log(`\n🔍 seleccionarVariante: ${producto.nombre}`);
   console.log(`   Gramos diarios: ${gramosDiarios}g | Tamaño: ${tamano} | Húmedo: ${esHumedo}`);
-  
+
   let variantes = producto.variantes;
   console.log(`   Variantes disponibles: ${variantes?.length || 0}`);
   if (variantes && variantes.length > 0) {
@@ -775,7 +775,7 @@ function seleccionarVariante(producto, gramosDiarios, tamano, esHumedo = false) 
       return (
         cantidadLower.includes("caja") ||
         cantidadLower.includes("pack") ||
-        cantidadLower.includes("12 ud") || 
+        cantidadLower.includes("12 ud") ||
         cantidadLower.includes("12ud") ||
         cantidadLower.includes("18 ud") ||
         cantidadLower.includes("18ud") ||
@@ -789,7 +789,7 @@ function seleccionarVariante(producto, gramosDiarios, tamano, esHumedo = false) 
         cantidadLower.includes("x 25")
       );
     });
-    
+
     // Si hay packs, usar SOLO esos (ignorar latas individuales completamente)
     if (variantesPack.length > 0) {
       variantes = variantesPack;
@@ -824,7 +824,7 @@ function seleccionarVariante(producto, gramosDiarios, tamano, esHumedo = false) 
   for (const variante of variantes) {
     const gramos = calcularGramosTotales(variante.cantidad);
     const diasDuracion = gramos / gramosDiarios;
-    
+
     console.log(`Variante "${variante.cantidad}": ${gramos}g total, ${diasDuracion.toFixed(1)} días de duración`);
 
     let puntuacion = 0;
@@ -832,9 +832,9 @@ function seleccionarVariante(producto, gramosDiarios, tamano, esHumedo = false) 
     // BONUS ESPECIAL para productos húmedos en pack/caja (20 puntos extra)
     if (esHumedo) {
       const cantidadLower = variante.cantidad.toLowerCase();
-      const esPack = cantidadLower.includes("caja") || 
-                     cantidadLower.includes("pack") ||
-                     /\d+\s*ud/.test(cantidadLower);
+      const esPack = cantidadLower.includes("caja") ||
+        cantidadLower.includes("pack") ||
+        /\d+\s*ud/.test(cantidadLower);
       if (esPack) {
         puntuacion += 20;
         console.log(`  ✅ Bonus pack/caja: +20 puntos`);
@@ -905,9 +905,9 @@ function seleccionarVariante(producto, gramosDiarios, tamano, esHumedo = false) 
     puntuacion += Math.max(0, 20 - costoPorKg * 1.5); // Favorece más las cantidades grandes
 
     // BONUS: Para productos húmedos, dar 50 puntos extra a packs de 12
-    if (esHumedo && (variante.cantidad.toLowerCase().includes("12 ud") || 
-                     variante.cantidad.toLowerCase().includes("12ud") ||
-                     variante.cantidad.toLowerCase().includes("x 12"))) {
+    if (esHumedo && (variante.cantidad.toLowerCase().includes("12 ud") ||
+      variante.cantidad.toLowerCase().includes("12ud") ||
+      variante.cantidad.toLowerCase().includes("x 12"))) {
       puntuacion += 50; // Gran bonus para packs de 12
     }
 
@@ -957,27 +957,27 @@ function aplicarOverrideVariante(producto, variante) {
  */
 export async function calcularRecomendacionProductos(answers) {
   const tipoAnimal = answers.q1; // "Perro" o "Gato"
-  const tipoAlimentacion = tipoAnimal === "Perro" 
-    ? answers.q10_perro 
+  const tipoAlimentacion = tipoAnimal === "Perro"
+    ? answers.q10_perro
     : answers.q8_gato; // "Seca" o "Mixta"
-  
+
   console.log("🎯 Calculando recomendación de productos...");
   console.log("   Animal:", tipoAnimal, "| Alimentación:", tipoAlimentacion);
   // Con el nuevo sistema, obtendremos exactamente los productos necesarios por IDs
-  
+
   let resultado = {
     tipoAnimal,
     nombreMascota: answers.q2,
     tipoAlimentacion,
   };
-  
+
   try {
     if (tipoAnimal === "Perro") {
       // Calcular calorías
       const { kcalDiarias, factores } = calcularCaloriasPerro(answers);
       resultado.kcalDiarias = kcalDiarias;
       resultado.factores = factores;
-      
+
       // Determinar tipo de croqueta según el peso y la edad (para cachorros siempre pequeña)
       const peso = parseFloat(answers.q6_perro);
       const edad = answers.q4_perro;
@@ -988,17 +988,17 @@ export async function calcularRecomendacionProductos(answers) {
       } else {
         tipoCroqueta = determinarTipoCroqueta(peso, edad);
       }
-      
+
       // Seleccionar productos usando el sistema de IDs
       const productoSeco = await seleccionarProductoSecoPerro(answers);
       const productoHumedo = await seleccionarProductoHumedoPerro(productoSeco, answers);
-      
+
       if (tipoAlimentacion === "Seca") {
         // Solo producto seco
         const gramosDiarios = productoSeco ? calcularGramosProducto(kcalDiarias, productoSeco.kcalEmKg) : 0;
         let variante = productoSeco ? seleccionarVariante(productoSeco, gramosDiarios, answers.q3_perro, false) : null;
         if (productoSeco && variante) variante = aplicarOverrideVariante(productoSeco, variante);
-        
+
         // Forzar croqueta pequeña para Pienso Natural para Cachorros de Salmón
         const TINY_SALMON_PUPPY_ID = 1303206658114;
         let tipoCroquetaFallback = tipoCroqueta;
@@ -1009,7 +1009,7 @@ export async function calcularRecomendacionProductos(answers) {
         // Actualizar tipo de croqueta con información real de la variante seleccionada
         const tipoCroquetaReal = detectarTipoCroquetaVariante(productoSeco, variante);
         resultado.tipoCroqueta = tipoCroquetaReal || tipoCroquetaFallback;
-        
+
         console.log(`\n📦 Alimentación SECA para ${answers.q2}:`);
         console.log(`   Producto: ${productoSeco?.nombre || 'N/A'}`);
         console.log(`   Calorías del producto: ${productoSeco?.kcalEmKg || 'N/A'} kcal/kg`);
@@ -1017,7 +1017,7 @@ export async function calcularRecomendacionProductos(answers) {
         console.log(`   ➡️ Cantidad diaria: ${gramosDiarios}g/día`);
         console.log(`   Variante recomendada: ${variante?.cantidad || 'NINGUNA'}`);
         console.log(`   Tipo de croqueta: ${resultado.tipoCroqueta?.tipo || 'N/A'}`);
-        
+
         resultado.recomendacion = {
           tipo: "seca",
           productoSeco: productoSeco ? {
@@ -1033,7 +1033,7 @@ export async function calcularRecomendacionProductos(answers) {
         let varianteHumedo = productoHumedo ? seleccionarVariante(productoHumedo, cantidades.humedo, answers.q3_perro, true) : null;
         if (productoSeco && varianteSeco) varianteSeco = aplicarOverrideVariante(productoSeco, varianteSeco);
         if (productoHumedo && varianteHumedo) varianteHumedo = aplicarOverrideVariante(productoHumedo, varianteHumedo);
-        
+
         // Forzar croqueta pequeña para Pienso Natural para Cachorros de Salmón
         const TINY_SALMON_PUPPY_ID = 1303206658114;
         let tipoCroquetaFallback = tipoCroqueta;
@@ -1044,13 +1044,13 @@ export async function calcularRecomendacionProductos(answers) {
         // Actualizar tipo de croqueta con información real de la variante seleccionada
         const tipoCroquetaReal = detectarTipoCroquetaVariante(productoSeco, varianteSeco);
         resultado.tipoCroqueta = tipoCroquetaReal || tipoCroquetaFallback;
-        
+
         console.log(`\n📦 Alimentación MIXTA para ${answers.q2}:`);
         console.log(`   Total calorías: ${kcalDiarias} kcal/día`);
         console.log(`   Seco (${PORCENTAJE_ALIMENTACION_MIXTA.SECO * 100}%): ${cantidades.seco}g/día`);
         console.log(`   Húmedo (${PORCENTAJE_ALIMENTACION_MIXTA.HUMEDO * 100}%): ${cantidades.humedo}g/día`);
         console.log(`   Tipo de croqueta: ${resultado.tipoCroqueta?.tipo || 'N/A'}`);
-        
+
         resultado.recomendacion = {
           tipo: "mixta",
           productoSeco: productoSeco ? {
@@ -1065,30 +1065,30 @@ export async function calcularRecomendacionProductos(answers) {
           } : null,
         };
       }
-      
+
     } else if (tipoAnimal === "Gato") {
       // Calcular calorías
       const { kcalDiarias, factores } = calcularCaloriasGato(answers);
       resultado.kcalDiarias = kcalDiarias;
       resultado.factores = factores;
-      
+
       // Seleccionar productos usando el sistema de IDs
       const productoSeco = await seleccionarProductoSecoGato(answers);
       const productoHumedo = await seleccionarProductoHumedoGato(productoSeco, answers);
-      
+
       if (tipoAlimentacion === "Seca") {
         // Solo producto seco
         const gramosDiarios = productoSeco ? calcularGramosProducto(kcalDiarias, productoSeco.kcalEmKg) : 0;
         let variante = productoSeco ? seleccionarVariante(productoSeco, gramosDiarios, "Gato", false) : null;
         if (productoSeco && variante) variante = aplicarOverrideVariante(productoSeco, variante);
-        
+
         console.log(`\n📦 Alimentación SECA para ${answers.q2}:`);
         console.log(`   Producto: ${productoSeco?.nombre || 'N/A'}`);
         console.log(`   Calorías del producto: ${productoSeco?.kcalEmKg || 'N/A'} kcal/kg`);
         console.log(`   Calorías necesarias: ${kcalDiarias} kcal/día`);
         console.log(`   ➡️ Cantidad diaria: ${gramosDiarios}g/día`);
         console.log(`   Variante recomendada: ${variante?.cantidad || 'NINGUNA'}`);
-        
+
         resultado.recomendacion = {
           tipo: "seca",
           productoSeco: productoSeco ? {
@@ -1104,12 +1104,12 @@ export async function calcularRecomendacionProductos(answers) {
         let varianteHumedo = productoHumedo ? seleccionarVariante(productoHumedo, cantidades.humedo, "Gato", true) : null;
         if (productoSeco && varianteSeco) varianteSeco = aplicarOverrideVariante(productoSeco, varianteSeco);
         if (productoHumedo && varianteHumedo) varianteHumedo = aplicarOverrideVariante(productoHumedo, varianteHumedo);
-        
+
         console.log(`\n📦 Alimentación MIXTA para ${answers.q2}:`);
         console.log(`   Total calorías: ${kcalDiarias} kcal/día`);
         console.log(`   Seco (${PORCENTAJE_ALIMENTACION_MIXTA.SECO * 100}%): ${cantidades.seco}g/día`);
         console.log(`   Húmedo (${PORCENTAJE_ALIMENTACION_MIXTA.HUMEDO * 100}%): ${cantidades.humedo}g/día`);
-        
+
         resultado.recomendacion = {
           tipo: "mixta",
           productoSeco: productoSeco ? {
@@ -1125,9 +1125,9 @@ export async function calcularRecomendacionProductos(answers) {
         };
       }
     }
-    
+
     return resultado;
-    
+
   } catch (error) {
     console.error("Error calculando recomendación:", error);
     throw error;
