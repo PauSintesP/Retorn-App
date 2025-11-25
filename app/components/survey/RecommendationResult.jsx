@@ -134,20 +134,16 @@ export default function RecommendationResult({ recommendation, onBack = () => {}
         <span>Volver</span>
       </button>
       
-      <div className="recommendation-header">
-        <h2 className="recommendation-title">
-          Recomendación Personalizada para {nombreMascota}
-        </h2>
-        <p className="recommendation-subtitle">
-          <span style={{ fontSize: '1.1em' }}>{tipoAnimal === "Perro" ? "🐕" : "🐱"}</span>
-          <span>{tipoAnimal}</span>
-          <span style={{ color: '#ccc' }}>•</span>
-        </p>
-      </div>
-
       {factores && (
         <div className="calorie-info">
-          <h3 className="calorie-title">Cálculo Nutricional</h3>
+          <h3 className="calorie-title">
+            Cálculo Nutricional para {nombreMascota} {tipoAnimal === "Perro" ? "🐶" : "🐱"}
+          </h3>
+          {recomendacion.tipo === "mixta" && (
+            <p className="mixta-note" style={{ fontSize: '0.9rem', marginBottom: '1rem', color: '#666' }}>
+              <strong>Alimentación Mixta:</strong> Distribución óptima 75% Alimento Seco + 25% Alimento Húmedo. Esta combinación proporciona las {Math.round(kcalDiarias)} kcal diarias necesarias.
+            </p>
+          )}
           <div className="calorie-details">
             <div className="calorie-item">
               <span className="calorie-label">⚡ Calorías diarias</span>
@@ -189,16 +185,6 @@ export default function RecommendationResult({ recommendation, onBack = () => {}
 
         {recomendacion.tipo === "mixta" && (
           <>
-            <div className="mixta-info">
-              <h3 className="mixta-title">Alimentación Mixta</h3>
-              <p className="mixta-description">
-                Distribución óptima: 75% Alimento Seco + 25% Alimento Húmedo
-              </p>
-              <p className="mixta-note">
-                Esta combinación proporciona las {Math.round(kcalDiarias)} kcal diarias necesarias
-              </p>
-            </div>
-            
             <div className="mixta-products-grid">
               <ProductCard
                 producto={recomendacion.productoSeco}
