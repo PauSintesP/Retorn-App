@@ -471,37 +471,16 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
       <div className="product-content">
         <div className="product-header">
           <h3 className="product-type">{tipo}</h3>
-          <span className="product-badge">{producto.segmento}</span>
+          {mostrarBadgeCroqueta && (
+            <span className="product-badge">
+              {tipoCroqueta.tipo === "Regular" ? "Croqueta Regular" : "Croqueta Pequeña"}
+              {tipoCroqueta.diametro && ` - ${tipoCroqueta.diametro}`}
+            </span>
+          )}
         </div>
-
-        {/* Badge de tipo de croqueta para alimentos secos de perro */}
-        {mostrarBadgeCroqueta ? (
-          <div className="product-croqueta-badge" role="note" aria-label={`Tipo de croqueta: ${tipoCroqueta.tipo}`}>
-            <span className="croqueta-icon">●</span>
-            <div className="croqueta-info">
-              <span className="croqueta-text">
-                <strong>{tipoCroqueta.tipo === "Regular" ? "Croqueta Regular" : "Croqueta Pequeña"}</strong>
-                {tipoCroqueta.diametro && ` - ${tipoCroqueta.diametro}`}
-              </span>
-              {tipoCroqueta.disponibilidad && (
-                <span className="croqueta-disponibilidad">
-                  {tipoCroqueta.disponibilidad}
-                </span>
-              )}
-            </div>
-          </div>
-        ) : (
-          <div className="product-croqueta-badge product-croqueta-placeholder" aria-hidden="true">
-            {/* Espacio reservado para mantener alineación con otras tarjetas */}
-          </div>
-        )}
 
         <div className="product-main">
           <h4 className="product-name">{producto.nombre}</h4>
-          <p className="product-description">
-            {tipo.includes("Seco") ? "Alimento seco completo" : "Alimento húmedo completo"} 
-            {" "}para {producto.animal?.toLowerCase() || tipoAnimal?.toLowerCase()}s
-          </p>
         </div>
         
         <div className="product-nutrition">

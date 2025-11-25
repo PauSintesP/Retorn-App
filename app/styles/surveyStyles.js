@@ -2612,107 +2612,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
-  .product-croqueta-badge {
-    display: flex;
-    align-items: center;
-    gap: 0.4rem;
-    padding: 0.6rem 0.75rem;
-    background: linear-gradient(135deg, rgba(139, 107, 71, 0.08) 0%, rgba(160, 130, 109, 0.12) 100%);
-    border: 1px solid rgba(139, 107, 71, 0.2);
-    border-radius: 8px;
-    margin-bottom: 0.85rem;
-    box-shadow: 0 1px 3px rgba(139, 107, 71, 0.08);
-    min-height: 2.5rem;
-  }
 
-  @media (min-width: 600px) {
-    .product-croqueta-badge {
-      gap: 0.5rem;
-      padding: 0.75rem 1rem;
-      margin-bottom: 1rem;
-      min-height: 3rem;
-    }
-  }
-
-  .product-croqueta-placeholder {
-    background: transparent;
-    box-shadow: none;
-    padding: 0.6rem 0.75rem;
-    visibility: hidden;
-  }
-
-  @media (min-width: 600px) {
-    .product-croqueta-placeholder {
-      padding: 0.75rem 1rem;
-    }
-  }
-
-  .croqueta-icon {
-    font-size: 1rem;
-    color: #8B6B47;
-    font-weight: bold;
-    flex-shrink: 0;
-  }
-
-  @media (min-width: 600px) {
-    .croqueta-icon {
-      font-size: 1.2rem;
-    }
-  }
-
-  .croqueta-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    flex: 1;
-  }
-
-  .croqueta-text {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #5d4a36;
-    letter-spacing: 0.3px;
-    line-height: 1.3;
-  }
-
-  @media (min-width: 600px) {
-    .croqueta-text {
-      font-size: 0.9rem;
-    }
-  }
-
-  .croqueta-disponibilidad {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 400;
-    color: rgba(93, 74, 54, 0.75);
-    font-style: italic;
-  }
-
-  @media (min-width: 600px) {
-    .croqueta-disponibilidad {
-      font-size: 0.75rem;
-    }
-  }
-
-  .croqueta-size {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 500;
-    color: rgba(255, 255, 255, 0.9);
-    background: rgba(255, 255, 255, 0.15);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    margin-left: auto;
-  }
-
-  @media (min-width: 600px) {
-    .croqueta-size {
-      font-size: 0.85rem;
-      padding: 0.25rem 0.6rem;
-    }
-  }
 
   .product-name {
     font-family: 'Oswald', sans-serif;
@@ -3740,12 +3640,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     margin-bottom: 1.5rem;
   }
 
-  .product-description {
-    font-family: 'Inter', sans-serif;
-    font-size: 0.95rem;
-    color: #666;
-    margin: 0.5rem 0 0 0;
-  }
+
 
   .product-nutrition {
     display: flex;
