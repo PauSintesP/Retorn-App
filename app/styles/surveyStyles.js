@@ -3328,6 +3328,38 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
+
+  /* Contenedor de botones de acción - Layout en columna centrado */
+  .action-buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  .action-buttons-container .restart-survey-button,
+  .action-buttons-container .cart-button {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  @media (min-width: 600px) {
+    .action-buttons-container {
+      gap: 1rem;
+      max-width: 500px;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .action-buttons-container {
+      gap: 1.25rem;
+      max-width: 600px;
+    }
+  }
+
   /* Estilo para contenedor secundario */
   .action-buttons-container.secondary {
     margin-top: 1rem;
@@ -3338,6 +3370,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
       margin-top: 1.25rem;
     }
   }
+
 
   /* Restart Survey Button - Mismo estilo que el botón primario */
   .action-buttons-container .restart-survey-button,

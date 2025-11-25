@@ -4,7 +4,7 @@
 
 import { useState } from "react";
 
-export default function RecommendationResult({ recommendation, onBack = () => {}, onRestart = () => {} }) {
+export default function RecommendationResult({ recommendation, onBack = () => { }, onRestart = () => { } }) {
   const [showFirstOrderBanner, setShowFirstOrderBanner] = useState(true);
   const [showSubscriptionBanner, setShowSubscriptionBanner] = useState(true);
   const [cuponAplicado, setCuponAplicado] = useState(false);
@@ -23,12 +23,12 @@ export default function RecommendationResult({ recommendation, onBack = () => {}
   // Función para calcular la cantidad necesaria basada en los gramos diarios y el formato del producto
   const calcularCantidadProducto = (producto) => {
     if (!producto || !producto.varianteRecomendada) return 1;
-    
+
     const cantidadOriginal = producto.varianteRecomendada.cantidad || "";
     const cantidadLower = cantidadOriginal.toLowerCase();
-    
+
     let gramosPorUnidad = 0;
-    
+
     // Para productos con packs: "Caja 12 latas 185 g" o "Caja 18x80gr"
     const matchCaja = cantidadLower.match(/caja\s*(\d+)(?:\s*latas)?\s*(?:x\s*)?(\d+(?:\.\d+)?)\s*g/i);
     if (matchCaja) {
@@ -55,12 +55,12 @@ export default function RecommendationResult({ recommendation, onBack = () => {}
         gramosPorUnidad = numeros ? parseFloat(numeros[1]) : 0;
       }
     }
-    
+
     if (!gramosPorUnidad || gramosPorUnidad <= 0 || !producto.gramosDiarios) return 1;
-    
+
     // Calcular cuántos días dura una unidad
     const diasPorUnidad = gramosPorUnidad / producto.gramosDiarios;
-    
+
     // Si dura más de 25 días, devolver 1 unidad
     // Si dura menos, calcular cuántas unidades necesita para aproximadamente 1 mes
     if (diasPorUnidad >= 25) {
@@ -70,70 +70,80 @@ export default function RecommendationResult({ recommendation, onBack = () => {}
     }
   };
 
-  // Función para redirigir al carrito con los productos
-  const irAlCarrito = () => {
-    const items = [];
-    
-    console.log('🛒 Construyendo carrito de compras...');
-    
-    // Añadir producto seco si existe
-    if (recomendacion.productoSeco && recomendacion.productoSeco.varianteRecomendada?.variantId) {
-      const cantidad = calcularCantidadProducto(recomendacion.productoSeco);
-      const variantId = recomendacion.productoSeco.varianteRecomendada.variantId;
-      items.push(`${variantId}:${cantidad}`);
-      console.log(`  ✅ Producto seco: ${recomendacion.productoSeco.nombre}`);
-      console.log(`     - Variant ID: ${variantId}`);
-      console.log(`     - Cantidad: ${cantidad} unidad(es)`);
+  // Función para agregar productos al carrito de Shopify
+  const agregarAlCarrito = () => {
+    try {
+      const items = [];
+
+      console.log('🛒 Construyendo carrito de compras...');
+
+      // Añadir producto seco si existe
+      if (recomendacion.productoSeco?.varianteRecomendada?.variantId) {
+        const cantidad = calcularCantidadProducto(recomendacion.productoSeco);
+        const variantId = recomendacion.productoSeco.varianteRecomendada.variantId;
+        items.push(`${variantId}:${cantidad}`);
+        console.log(`  ✅ Producto seco: ${recomendacion.productoSeco.nombre}`);
+        console.log(`     - Variant ID: ${variantId}`);
+        console.log(`     - Cantidad: ${cantidad} unidad(es)`);
+      }
+
+      // Añadir producto húmedo si existe (alimentación mixta)
+      if (recomendacion.productoHumedo?.varianteRecomendada?.variantId) {
+        const cantidad = calcularCantidadProducto(recomendacion.productoHumedo);
+        const variantId = recomendacion.productoHumedo.varianteRecomendada.variantId;
+        items.push(`${variantId}:${cantidad}`);
+        console.log(`  ✅ Producto húmedo: ${recomendacion.productoHumedo.nombre}`);
+        console.log(`     - Variant ID: ${variantId}`);
+        console.log(`     - Cantidad: ${cantidad} unidad(es)`);
+      }
+
+      // Validar que haya productos
+      if (items.length === 0) {
+        console.error('❌ No hay productos para agregar al carrito');
+        return;
+      }
+
+      // Construir la URL del carrito de Shopify
+      let cartUrl = `https://retorn.com/cart/${items.join(',')}`;
+
+      // Añadir el cupón RET15 si está aplicado
+      if (cuponAplicado) {
+        cartUrl += `?discount=RET15`;
+        console.log(`  🎉 Cupón RET15 aplicado`);
+      }
+
+      console.log(`  🔗 URL del carrito: ${cartUrl}`);
+      console.log('  🚀 Abriendo carrito en nueva pestaña...');
+
+      // Abrir el carrito en nueva pestaña
+      window.open(cartUrl, '_blank', 'noopener,noreferrer');
+    } catch (error) {
+      console.error('❌ Error al agregar productos al carrito:', error);
     }
-    
-    // Añadir producto húmedo si existe (alimentación mixta)
-    if (recomendacion.productoHumedo && recomendacion.productoHumedo.varianteRecomendada?.variantId) {
-      const cantidad = calcularCantidadProducto(recomendacion.productoHumedo);
-      const variantId = recomendacion.productoHumedo.varianteRecomendada.variantId;
-      items.push(`${variantId}:${cantidad}`);
-      console.log(`  ✅ Producto húmedo: ${recomendacion.productoHumedo.nombre}`);
-      console.log(`     - Variant ID: ${variantId}`);
-      console.log(`     - Cantidad: ${cantidad} unidad(es)`);
-    }
-    
-    // Construir la URL del carrito
-    let cartUrl = `https://retorn.com/cart/${items.join(',')}`;
-    
-    // Añadir el cupón si está aplicado
-    if (cuponAplicado) {
-      cartUrl += `?discount=RET15`;
-      console.log(`  🎉 Cupón RET15 aplicado`);
-    }
-    
-    console.log(`  🔗 URL del carrito: ${cartUrl}`);
-    console.log('  🚀 Abriendo carrito en nueva pestaña...');
-    
-    // Abrir en nueva pestaña
-    window.open(cartUrl, '_blank', 'noopener,noreferrer');
   };
 
   return (
     <div className="recommendation-container">
-      <button 
+      <button
         className="back-button"
         onClick={onBack}
         aria-label="Volver a la última pregunta"
       >
-        <svg 
-          width="24" 
-          height="24" 
-          viewBox="0 0 24 24" 
-          fill="none" 
-          stroke="currentColor" 
-          strokeWidth="2" 
-          strokeLinecap="round" 
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
           strokeLinejoin="round"
         >
-          <path d="M19 12H5M12 19l-7-7 7-7"/>
+          <path d="M19 12H5M12 19l-7-7 7-7" />
         </svg>
         <span>Volver</span>
       </button>
-      
+
       {factores && (
         <div className="calorie-info">
           <h3 className="calorie-title">
@@ -159,8 +169,8 @@ export default function RecommendationResult({ recommendation, onBack = () => {}
               <div className="calorie-item">
                 <span className="calorie-label">🎂 Edad</span>
                 <span className="calorie-value">
-                  {factores.edadMeses < 12 
-                    ? `${factores.edadMeses} meses` 
+                  {factores.edadMeses < 12
+                    ? `${factores.edadMeses} meses`
                     : `${Math.floor(factores.edadMeses / 12)} años`}
                 </span>
               </div>
@@ -194,7 +204,7 @@ export default function RecommendationResult({ recommendation, onBack = () => {}
                 tipoCroqueta={tipoCroqueta}
                 tipoAnimal={tipoAnimal}
               />
-              
+
               <ProductCard
                 producto={recomendacion.productoHumedo}
                 tipo="Alimento Húmedo"
@@ -223,7 +233,7 @@ export default function RecommendationResult({ recommendation, onBack = () => {}
                   )}
                 </p>
                 {!cuponAplicado && (
-                  <button 
+                  <button
                     onClick={aplicarCupon}
                     className="apply-coupon-button"
                   >
@@ -240,7 +250,7 @@ export default function RecommendationResult({ recommendation, onBack = () => {}
               <div className="discount-icon">⭐</div>
               <div className="discount-content">
                 <h4 className="discount-title">¡Hazte suscriptor y disfruta de un 10% de descuento en todos tus pedidos!</h4>
-                <a 
+                <a
                   href="https://retorn.com/pages/suscripcion"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -255,15 +265,15 @@ export default function RecommendationResult({ recommendation, onBack = () => {}
 
         {/* Botones de acción */}
         <div className="action-buttons-container">
-          <button 
+          <button
             onClick={onRestart}
             className="restart-survey-button"
           >
             Realizar otro cuestionario
           </button>
-          
-          <button 
-            onClick={irAlCarrito}
+
+          <button
+            onClick={agregarAlCarrito}
             className="cart-button"
           >
             Agregar los productos al carrito
@@ -290,11 +300,11 @@ export default function RecommendationResult({ recommendation, onBack = () => {}
             considerando su edad, peso, actividad física y condiciones particulares.
           </p>
         </div>
-        
+
         <div className="footer-card">
           <h4 className="footer-card-title">⚠️ Ajustes</h4>
           <p className="footer-note">
-            Las cantidades indicadas son aproximadas. Ajusta según la condición corporal 
+            Las cantidades indicadas son aproximadas. Ajusta según la condición corporal
             y consulta con tu veterinario ante cualquier duda.
           </p>
         </div>
@@ -319,7 +329,7 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
       </div>
     );
   }
-  
+
   // Log de depuración para ver qué datos llegan
   console.log(`\n🎴 ProductCard para ${producto.nombre}:`);
   console.log(`   varianteRecomendada:`, producto.varianteRecomendada);
@@ -328,7 +338,7 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
   console.log(`   tipoCroqueta recibido:`, tipoCroqueta);
   console.log(`   tipoAnimal:`, tipoAnimal);
   console.log(`   tipo producto:`, tipo);
-  
+
   // Determinar si debe mostrar el badge de croqueta
   const debesMostrarCroqueta = () => {
     // Solo para perros, alimento seco, y si hay información de tipoCroqueta
@@ -336,49 +346,49 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
       console.log(`   ❌ No mostrar badge: tipoCroqueta=${!!tipoCroqueta}, tipoAnimal=${tipoAnimal}, tipo=${tipo}`);
       return false;
     }
-    
+
     // Mostrar siempre que haya información de tipoCroqueta
     // (ya sea que tenga disponibilidad de otro tipo o no)
     console.log(`   ✅ Mostrar badge de croqueta: ${tipoCroqueta.tipo}`);
     return true;
   };
-  
+
   const mostrarBadgeCroqueta = debesMostrarCroqueta();
-  
+
   const formatearCantidad = () => {
     const cantidadOriginal = producto.varianteRecomendada?.cantidad || "";
     if (!cantidadOriginal) {
       return "";
     }
-    
+
     // Para "Caja 12 latas 185 g" -> "Caja 12 latas"
     // Para "Caja 18x80gr" -> "Caja 18"
     // Para "185 gr x 12ud" -> "12ud"
     // Para "12 kg" -> "12 kg" (mantener como está)
-    
+
     let formatoLimpio = cantidadOriginal;
-    
+
     // Eliminar gramos después de "latas": "Caja 12 latas 185 g" -> "Caja 12 latas"
     formatoLimpio = formatoLimpio.replace(/(\d+\s*latas)\s*\d+(?:\.\d+)?\s*g(?:r)?/i, '$1');
-    
+
     // Eliminar gramos en formato "x80gr": "Caja 18x80gr" -> "Caja 18"
     formatoLimpio = formatoLimpio.replace(/x\s*\d+(?:\.\d+)?\s*g(?:r)?/i, '');
-    
+
     // Para formato "185 gr x 12ud" -> "12ud"
     formatoLimpio = formatoLimpio.replace(/^\d+(?:\.\d+)?\s*g(?:r)?\s*x\s*(\d+\s*ud)/i, '$1');
-    
+
     return formatoLimpio.trim();
   };
-  
+
   const calcularDuracion = () => {
     const cantidadOriginal = producto.varianteRecomendada?.cantidad || "";
     if (!cantidadOriginal) {
       return "No disponible";
     }
-    
+
     let gramosTotales = 0;
     const cantidadLower = cantidadOriginal.toLowerCase();
-    
+
     // Para productos con packs: "Caja 12 latas 185 g" o "Caja 18x80gr"
     const matchCaja = cantidadLower.match(/caja\s*(\d+)(?:\s*latas)?\s*(?:x\s*)?(\d+(?:\.\d+)?)\s*g/i);
     if (matchCaja) {
@@ -409,17 +419,17 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
         console.log(`Gramos simples: ${cantidadLower} = ${gramosTotales}g`);
       }
     }
-    
+
     if (!gramosTotales || gramosTotales <= 0) {
       console.warn(`⚠️ No se pudo calcular gramos totales de "${cantidadOriginal}"`);
       return "Consultar envase";
     }
-    
+
     if (!producto.gramosDiarios || producto.gramosDiarios <= 0) {
       console.warn(`⚠️ Gramos diarios no válidos: ${producto.gramosDiarios}`);
       return "Consultar envase";
     }
-    
+
     const dias = Math.round(gramosTotales / producto.gramosDiarios);
     console.log(`Duración: ${gramosTotales}g ÷ ${producto.gramosDiarios}g/día = ${dias} días`);
 
@@ -444,7 +454,7 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
       const meses = Math.floor(dias / 30);
       const diasRestantes = dias % 30;
       const semanasRestantes = Math.floor(diasRestantes / 7);
-      
+
       if (semanasRestantes === 0) {
         return `${meses} mes${meses !== 1 ? 'es' : ''}`;
       } else {
@@ -457,15 +467,15 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
     if (porcentaje) {
       return Math.round((kcalDiarias * porcentaje) / 100);
     }
-  return producto.kcalEmKg ? Math.round((producto.gramosDiarios * producto.kcalEmKg) / 1000) : 0;
+    return producto.kcalEmKg ? Math.round((producto.gramosDiarios * producto.kcalEmKg) / 1000) : 0;
   };
 
   return (
     <div className="product-card">
       {producto.imagen && (
         <div className="product-image-container">
-          <img 
-            src={producto.imagen} 
+          <img
+            src={producto.imagen}
             alt={producto.nombre}
             className="product-image"
             onError={(e) => { e.target.style.display = 'none'; }}
@@ -487,7 +497,7 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
         <div className="product-main">
           <h4 className="product-name">{producto.nombre}</h4>
         </div>
-        
+
         <div className="product-nutrition">
           <div className="nutrition-grid">
             <div className="nutrition-item highlight">
