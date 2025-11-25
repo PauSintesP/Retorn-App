@@ -3253,7 +3253,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
-  /* Cart Button - Botón primario para agregar al carrito */
+  /* Cart Button - Mismo estilo que el botón primario de siguiente */
   .cart-button {
     width: 100%;
     display: flex;
@@ -3261,9 +3261,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
     justify-content: center;
     gap: 0.5rem;
     padding: 0.85rem 1.25rem;
-    background: linear-gradient(135deg, rgba(115, 159, 153, 1) 0%, rgba(95, 139, 133, 1) 100%);
+    background: linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%);
+    background-size: 200% 100%;
     color: white;
-    border: none;
+    box-shadow: 
+      0 6px 20px rgba(115, 159, 153, 0.3),
+      0 2px 6px rgba(115, 159, 153, 0.15);
+    border: 2px solid transparent;
     border-radius: 8px;
     font-family: 'Oswald', sans-serif;
     font-size: 0.85rem;
@@ -3272,7 +3276,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     text-transform: uppercase;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 0 3px 8px rgba(115, 159, 153, 0.25);
     position: relative;
     overflow: hidden;
     -webkit-tap-highlight-color: transparent;
@@ -3281,27 +3284,31 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .cart-button::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-    transition: left 0.5s ease;
-  }
-
-  .cart-button:hover {
-    background: linear-gradient(135deg, rgba(105, 149, 143, 1) 0%, rgba(85, 129, 123, 1) 100%);
-    box-shadow: 0 5px 15px rgba(115, 159, 153, 0.35);
-    transform: translateY(-2px);
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
   }
 
   .cart-button:hover::before {
-    left: 100%;
+    width: 300px;
+    height: 300px;
+  }
+
+  .cart-button:hover {
+    background: linear-gradient(135deg, #5fb3a1 0%, #6a8f8a 50%, #4fa091 100%);
+    box-shadow: 
+      0 6px 20px rgba(115, 159, 153, 0.35),
+      0 2px 6px rgba(115, 159, 153, 0.2);
+    transform: translateY(-2px);
   }
 
   .cart-button:active {
     transform: translateY(0);
-    box-shadow: 0 2px 5px rgba(115, 159, 153, 0.25);
   }
 
   @media (min-width: 600px) {
