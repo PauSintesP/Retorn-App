@@ -2871,6 +2871,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .action-buttons-container {
+      flex-direction: row;
       gap: 0.75rem;
       margin-top: 1.25rem;
     }
@@ -2878,7 +2879,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .action-buttons-container {
-      gap: 0.85rem;
+      gap: 1rem;
       margin-top: 1.5rem;
     }
   }
@@ -3338,7 +3339,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
-  /* Restart Survey Button - Más discreto y pequeño */
+  /* Restart Survey Button - Mismo estilo que el botón primario */
   .action-buttons-container .restart-survey-button,
   .cart-action-section .restart-survey-button,
   button.restart-survey-button {
@@ -3346,50 +3347,72 @@ export const getSurveyStyles = (direction, theme = {}) => {
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 0.65rem 0.9rem;
-    background: transparent;
-    color: #999;
-    border: 1.5px solid #ddd;
-    border-radius: 6px;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 500;
-    text-transform: none;
-    letter-spacing: 0.2px;
+    padding: 0.85rem 1.25rem;
+    background: linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%);
+    background-size: 200% 100%;
+    color: white;
+    box-shadow: 
+      0 6px 20px rgba(115, 159, 153, 0.3),
+      0 2px 6px rgba(115, 159, 153, 0.15);
+    border: 2px solid transparent;
+    border-radius: 8px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
     cursor: pointer;
-    transition: all 0.25s ease;
-    box-shadow: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     position: relative;
     overflow: hidden;
-    opacity: 0.7;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .action-buttons-container .restart-survey-button::before,
+  .cart-action-section .restart-survey-button::before,
+  button.restart-survey-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+  }
+
+  .action-buttons-container .restart-survey-button:hover::before,
+  .cart-action-section .restart-survey-button:hover::before,
+  button.restart-survey-button:hover::before {
+    width: 300px;
+    height: 300px;
   }
 
   .action-buttons-container .restart-survey-button:hover,
   .cart-action-section .restart-survey-button:hover,
   button.restart-survey-button:hover {
-    background: #f5f5f5;
-    color: #666;
-    transform: none;
-    box-shadow: none;
-    border-color: #ccc;
-    opacity: 1;
+    background: linear-gradient(135deg, #5fb3a1 0%, #6a8f8a 50%, #4fa091 100%);
+    box-shadow: 
+      0 6px 20px rgba(115, 159, 153, 0.35),
+      0 2px 6px rgba(115, 159, 153, 0.2);
+    transform: translateY(-2px);
   }
 
   .action-buttons-container .restart-survey-button:active,
   .cart-action-section .restart-survey-button:active,
   button.restart-survey-button:active {
-    transform: scale(0.98);
-    box-shadow: none;
+    transform: translateY(0);
   }
 
   @media (min-width: 600px) {
     .action-buttons-container .restart-survey-button,
     .cart-action-section .restart-survey-button,
     button.restart-survey-button {
-      padding: 0.7rem 1rem;
-      font-size: 0.78rem;
-      letter-spacing: 0.3px;
-      border-radius: 8px;
+      padding: 0.95rem 1.5rem;
+      font-size: 0.9rem;
+      border-radius: 9px;
     }
   }
 
@@ -3397,11 +3420,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .action-buttons-container .restart-survey-button,
     .cart-action-section .restart-survey-button,
     button.restart-survey-button {
-      width: auto;
-      min-width: 200px;
-      max-width: 280px;
-      padding: 0.85rem 1.5rem;
-      font-size: 0.875rem;
+      padding: 1rem 1.75rem;
+      font-size: 0.95rem;
+      border-radius: 10px;
     }
   }
 
