@@ -2489,15 +2489,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .product-card {
-      padding: 1.5rem;
-      margin-bottom: 1.5rem;
+      padding: 1.1rem;
+      margin-bottom: 1.25rem;
       box-shadow: 
         0 20px 60px rgba(0, 0, 0, 0.08),
         0 8px 20px rgba(115, 159, 153, 0.1);
     }
     
     .mixta-products-grid .product-card {
-      padding: 1.25rem;
+      padding: 1rem;
     }
   }
 
@@ -3684,15 +3684,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .nutrition-grid {
-      gap: 0.85rem;
+      gap: 0.65rem;
     }
   }
 
   .nutrition-item {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    padding: 0.85rem;
+    gap: 0.65rem;
+    padding: 0.7rem;
     background: rgba(115, 159, 153, 0.05);
     border-radius: 5px;
     transition: all 0.2s ease;
@@ -3708,19 +3708,19 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .nutrition-icon {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     flex-shrink: 0;
   }
 
   @media (min-width: 600px) {
     .nutrition-icon {
-      font-size: 1.65rem;
+      font-size: 1.5rem;
     }
   }
 
   @media (min-width: 768px) {
     .nutrition-icon {
-      font-size: 1.8rem;
+      font-size: 1.55rem;
     }
   }
 
@@ -3733,39 +3733,39 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .nutrition-label {
     font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     color: #666;
     font-weight: 500;
   }
 
   @media (min-width: 600px) {
     .nutrition-label {
-      font-size: 0.8rem;
+      font-size: 0.75rem;
     }
   }
 
   @media (min-width: 768px) {
     .nutrition-label {
-      font-size: 0.85rem;
+      font-size: 0.78rem;
     }
   }
 
   .nutrition-value {
     font-family: 'Oswald', sans-serif;
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: var(--jdgm-primary-color);
     font-weight: 600;
   }
 
   @media (min-width: 600px) {
     .nutrition-value {
-      font-size: 1.1rem;
+      font-size: 1rem;
     }
   }
 
   @media (min-width: 768px) {
     .nutrition-value {
-      font-size: 1.2rem;
+      font-size: 1.05rem;
     }
   }
 
@@ -3773,8 +3773,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.4rem;
-    padding: 1rem;
+    gap: 0.35rem;
+    padding: 0.85rem;
     background: rgba(115, 159, 153, 0.08);
     border-radius: 8px;
     text-align: center;
@@ -3783,43 +3783,43 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .nutrition-duration-label {
     font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #666;
     font-weight: 500;
   }
 
   .nutrition-duration-value {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.15rem;
     color: var(--jdgm-primary-color);
     font-weight: 600;
   }
 
   @media (min-width: 600px) {
     .nutrition-duration {
-      padding: 1.15rem;
+      padding: 0.95rem;
     }
 
     .nutrition-duration-label {
-      font-size: 0.9rem;
+      font-size: 0.85rem;
     }
 
     .nutrition-duration-value {
-      font-size: 1.4rem;
+      font-size: 1.25rem;
     }
   }
 
   @media (min-width: 768px) {
     .nutrition-duration {
-      padding: 1.25rem;
+      padding: 1rem;
     }
 
     .nutrition-duration-label {
-      font-size: 0.95rem;
+      font-size: 0.88rem;
     }
 
     .nutrition-duration-value {
-      font-size: 1.5rem;
+      font-size: 1.3rem;
     }
   }
 

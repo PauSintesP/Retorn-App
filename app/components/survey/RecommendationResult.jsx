@@ -351,6 +351,31 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
   
   const mostrarBadgeCroqueta = debesMostrarCroqueta();
   
+  const formatearCantidad = () => {
+    const cantidadOriginal = producto.varianteRecomendada?.cantidad || "";
+    if (!cantidadOriginal) {
+      return "";
+    }
+    
+    // Para "Caja 12 latas 185 g" -> "Caja 12 latas"
+    // Para "Caja 18x80gr" -> "Caja 18"
+    // Para "185 gr x 12ud" -> "12ud"
+    // Para "12 kg" -> "12 kg" (mantener como está)
+    
+    let formatoLimpio = cantidadOriginal;
+    
+    // Eliminar gramos después de "latas": "Caja 12 latas 185 g" -> "Caja 12 latas"
+    formatoLimpio = formatoLimpio.replace(/(\d+\s*latas)\s*\d+(?:\.\d+)?\s*g(?:r)?/i, '$1');
+    
+    // Eliminar gramos en formato "x80gr": "Caja 18x80gr" -> "Caja 18"
+    formatoLimpio = formatoLimpio.replace(/x\s*\d+(?:\.\d+)?\s*g(?:r)?/i, '');
+    
+    // Para formato "185 gr x 12ud" -> "12ud"
+    formatoLimpio = formatoLimpio.replace(/^\d+(?:\.\d+)?\s*g(?:r)?\s*x\s*(\d+\s*ud)/i, '$1');
+    
+    return formatoLimpio.trim();
+  };
+  
   const calcularDuracion = () => {
     const cantidadOriginal = producto.varianteRecomendada?.cantidad || "";
     if (!cantidadOriginal) {
@@ -499,7 +524,7 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
               <span className="nutrition-icon">📦</span>
               <div className="nutrition-content">
                 <span className="nutrition-label">Formato recomendado</span>
-                <span className="nutrition-value">{producto.varianteRecomendada?.cantidad || ""}</span>
+                <span className="nutrition-value">{formatearCantidad()}</span>
               </div>
             </div>
           </div>
