@@ -3390,11 +3390,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     margin: 0 auto;
   }
 
-  .action-buttons-container .restart-survey-button,
-  .action-buttons-container .cart-button {
-    width: 100%;
-    max-width: 100%;
-  }
+
 
   @media (min-width: 600px) {
     .action-buttons-container {
