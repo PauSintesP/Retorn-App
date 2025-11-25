@@ -472,7 +472,7 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
         <div className="product-header">
           <h3 className="product-type">{tipo}</h3>
           {mostrarBadgeCroqueta && (
-            <span className="product-badge">
+            <span className="product-badge-croqueta">
               {tipoCroqueta.tipo === "Regular" ? "Croqueta Regular" : "Croqueta Pequeña"}
               {tipoCroqueta.diametro && ` - ${tipoCroqueta.diametro}`}
             </span>

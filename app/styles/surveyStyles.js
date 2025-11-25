@@ -2612,6 +2612,26 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
+  .product-badge-croqueta {
+    padding: 0.3rem 0.7rem;
+    background: linear-gradient(135deg, rgba(139, 107, 71, 0.12) 0%, rgba(160, 130, 109, 0.18) 100%);
+    border: 1px solid rgba(139, 107, 71, 0.25);
+    border-radius: 5px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #5d4a36;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  @media (min-width: 600px) {
+    .product-badge-croqueta {
+      padding: 0.4rem 1rem;
+      font-size: 0.8rem;
+    }
+  }
+
 
 
   .product-name {
