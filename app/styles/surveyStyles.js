@@ -3254,233 +3254,139 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
-  /* Cart Button - BOTÓN PRIMARIO (verde brillante) - MÁXIMA ESPECIFICIDAD */
-  .cart-action-section .action-buttons-container .cart-button,
-  .cart-action-section button.cart-button,
-  .action-buttons-container .cart-button,
+  /* ===================================================== */
+  /* BOTONES DE ACCIÓN - COPIADO EXACTO DE .nav-button   */
+  /* ===================================================== */
+
+  /* Botón de CARRITO - Estilo PRIMARIO (verde) - IGUAL que .nav-button.primary */
   .cart-button {
-    /* Layout y tamaño */
-    width: 100% !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    gap: 0.5rem !important;
-    
-    /* Espaciado */
-    padding: 0.85rem 1.25rem !important;
-    margin: 0 !important;
-    
-    /* Colores y fondo */
-    background: linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%) !important;
-    background-size: 200% 100% !important;
-    color: white !important;
-    
-    /* Bordes */
-    border: 2px solid transparent !important;
-    border-radius: 8px !important;
-    border-style: solid !important;
-    border-image: none !important;
-    
-    /* Sombras */
-    box-shadow: 
-      0 6px 20px rgba(115, 159, 153, 0.3),
-      0 2px 6px rgba(115, 159, 153, 0.15) !important;
-    
-    /* Tipografía */
-    font-family: 'Oswald', sans-serif !important;
-    font-size: 0.85rem !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.8px !important;
-    text-transform: uppercase !important;
-    text-align: center !important;
-    
-    /* Interacción */
-    cursor: pointer !important;
-    appearance: none !important;
-    -webkit-appearance: none !important;
-    -moz-appearance: none !important;
-    
-    /* Transiciones */
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    
-    /* Posicionamiento */
-    position: relative !important;
-    overflow: hidden !important;
-    box-sizing: border-box !important;
-    
-    /* Touch */
-    -webkit-tap-highlight-color: transparent !important;
-  }
-
-  .cart-action-section .action-buttons-container .cart-button::before,
-  .cart-action-section button.cart-button::before,
-  .action-buttons-container .cart-button::before,
-  .cart-button::before {
-    content: '' !important;
-    position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
-    width: 0 !important;
-    height: 0 !important;
-    border-radius: 50% !important;
-    background: rgba(255, 255, 255, 0.3) !important;
-    transform: translate(-50%, -50%) !important;
-    transition: width 0.5s, height 0.5s !important;
-  }
-
-  .cart-action-section .action-buttons-container .cart-button:hover::before,
-  .cart-action-section button.cart-button:hover::before,
-  .action-buttons-container .cart-button:hover::before,
-  .cart-button:hover::before {
-    width: 300px !important;
-    height: 300px !important;
-  }
-
-  .cart-action-section .action-buttons-container .cart-button:hover,
-  .cart-action-section button.cart-button:hover,
-  .action-buttons-container .cart-button:hover,
-  .cart-button:hover {
-    background: linear-gradient(135deg, #5fb3a1 0%, #6a8f8a 50%, #4fa091 100%) !important;
-    box-shadow: 
-      0 6px 20px rgba(115, 159, 153, 0.35),
-      0 2px 6px rgba(115, 159, 153, 0.2) !important;
-    transform: translateY(-2px) !important;
-  }
-
-  .cart-action-section .action-buttons-container .cart-button:active,
-  .cart-action-section button.cart-button:active,
-  .action-buttons-container .cart-button:active,
-  .cart-button:active {
-    transform: translateY(0) !important;
-  }
-
-  @media (min-width: 600px) {
-    .cart-action-section .action-buttons-container .cart-button,
-    .cart-action-section button.cart-button,
-    .action-buttons-container .cart-button,
-    .cart-button {
-      padding: 0.95rem 1.5rem !important;
-      font-size: 0.9rem !important;
-      border-radius: 9px !important;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .cart-action-section .action-buttons-container .cart-button,
-    .cart-action-section button.cart-button,
-    .action-buttons-container .cart-button,
-    .cart-button {
-      padding: 1rem 1.75rem !important;
-      font-size: 0.95rem !important;
-      border-radius: 10px !important;
-    }
-  }
-
-
-
-
-  /* Contenedor de botones de acción - Layout en columna centrado */
-  .action-buttons-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.75rem;
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
-  }
-
-
-
-  @media (min-width: 600px) {
-    .action-buttons-container {
-      gap: 1rem;
-      max-width: 500px;
-    }
-  }
-
-  @media (min-width: 900px) {
-    .action-buttons-container {
-      gap: 1.25rem;
-      max-width: 600px;
-    }
-  }
-
-  /* Estilo para contenedor secundario */
-  .action-buttons-container.secondary {
-    margin-top: 1rem;
-  }
-
-  @media (min-width: 600px) {
-    .action-buttons-container.secondary {
-      margin-top: 1.25rem;
-    }
-  }
-
-
-
-  /* Restart Survey Button - BOTÓN SECUNDARIO (blanco con borde) */
-  .action-buttons-container .restart-survey-button,
-  .cart-action-section .restart-survey-button,
-  button.restart-survey-button {
+    /* Base - copiado de .nav-button */
+    flex: 1;
+    min-width: 0;
+    max-width: none;
+    padding: 0.75rem 0.65rem;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease-out;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    padding: 0.85rem 1.25rem;
-    background: white;
-    color: var(--jdgm-primary-color);
+    
+    /* Primary - copiado de .nav-button.primary */
+    background: linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%);
+    background-size: 200% 100%;
+    color: white;
     box-shadow: 
-      0 2px 8px rgba(0, 0, 0, 0.08),
-      0 1px 3px rgba(0, 0, 0, 0.06);
-    border: 2px solid rgba(115, 159, 153, 0.3);
-    border-radius: 8px;
-    font-family: 'Oswald', sans-serif;
-    font-size: 0.85rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    overflow: hidden;
-    -webkit-tap-highlight-color: transparent;
+      0 6px 20px rgba(115, 159, 153, 0.3),
+      0 2px 6px rgba(115, 159, 153, 0.15);
+    border: 2px solid transparent;
   }
 
-  .action-buttons-container .restart-survey-button:hover,
-  .cart-action-section .restart-survey-button:hover,
-  button.restart-survey-button:hover {
-    background: rgba(115, 159, 153, 0.05);
-    border-color: rgba(115, 159, 153, 0.5);
-    box-shadow: 
-      0 4px 12px rgba(0, 0, 0, 0.1),
-      0 2px 6px rgba(0, 0, 0, 0.08);
-    transform: translateY(-2px);
+  .cart-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
   }
 
-  .action-buttons-container .restart-survey-button:active,
-  .cart-action-section .restart-survey-button:active,
-  button.restart-survey-button:active {
-    transform: translateY(0);
+  .cart-button:hover::before {
+    width: 300px;
+    height: 300px;
+  }
+
+  .cart-button:hover:not(:disabled) {
+    background: linear-gradient(135deg, #5fb3a1 0%, #6a8f8a 50%, #4fa091 100%);
+    box-shadow: 
+      0 6px 20px rgba(115, 159, 153, 0.35),
+      0 2px 6px rgba(115, 159, 153, 0.2);
   }
 
   @media (min-width: 600px) {
-    .action-buttons-container .restart-survey-button,
-    .cart-action-section .restart-survey-button,
-    button.restart-survey-button {
-      padding: 0.95rem 1.5rem;
-      font-size: 0.9rem;
-      border-radius: 9px;
+    .cart-button {
+      padding: 0.85rem 1.3rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.8px;
+      white-space: normal;
     }
   }
 
   @media (min-width: 768px) {
-    .action-buttons-container .restart-survey-button,
-    .cart-action-section .restart-survey-button,
-    button.restart-survey-button {
-      padding: 1rem 1.75rem;
-      font-size: 0.95rem;
-      border-radius: 10px;
+    .cart-button {
+      flex: 0 0 auto;
+      min-width: 160px;
+      padding: 0.95rem 1.8rem;
+      font-size: 0.88rem;
+      letter-spacing: 1.2px;
+    }
+  }
+
+  /* Botón RESTART - Estilo SECUNDARIO (gris) - IGUAL que .nav-button.secondary */
+  .restart-survey-button {
+    /* Base - copiado de .nav-button */
+    flex: 1;
+    min-width: 0;
+    max-width: none;
+    padding: 0.75rem 0.65rem;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease-out;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    position: relative;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Secondary - copiado de .nav-button.secondary */
+    background: linear-gradient(135deg, #f5f5f5 0%, #ebebeb 100%);
+    color: #666;
+    border: 2px solid rgba(0, 0, 0, 0.06);
+  }
+
+  .restart-survey-button:hover:not(:disabled) {
+    background: linear-gradient(135deg, #e0e0e0 0%, #d5d5d5 100%);
+    border-color: rgba(0, 0, 0, 0.12);
+  }
+
+  @media (min-width: 600px) {
+    .restart-survey-button {
+      padding: 0.85rem 1.3rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.8px;
+      white-space: normal;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .restart-survey-button {
+      flex: 0 0 auto;
+      min-width: 160px;
+      padding: 0.95rem 1.8rem;
+      font-size: 0.88rem;
+      letter-spacing: 1.2px;
     }
   }
 
