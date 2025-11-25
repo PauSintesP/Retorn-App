@@ -470,43 +470,43 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
         </div>
         
         <div className="product-nutrition">
-          <div className="nutrition-item highlight">
-            <span className="nutrition-icon">🍽️</span>
-            <div className="nutrition-content">
-              <span className="nutrition-label">Cantidad diaria</span>
-              <span className="nutrition-value">{Math.round(producto.gramosDiarios)}g/día</span>
+          <div className="nutrition-grid">
+            <div className="nutrition-item highlight">
+              <span className="nutrition-icon">🍽️</span>
+              <div className="nutrition-content">
+                <span className="nutrition-label">Cantidad diaria</span>
+                <span className="nutrition-value">{Math.round(producto.gramosDiarios)}g/día</span>
+              </div>
+            </div>
+
+            <div className="nutrition-item">
+              <span className="nutrition-icon">⚡</span>
+              <div className="nutrition-content">
+                <span className="nutrition-label">Energía por porción</span>
+                <span className="nutrition-value">{calcularKcalPorcion()} kcal</span>
+              </div>
+            </div>
+
+            <div className="nutrition-item">
+              <span className="nutrition-icon">🔥</span>
+              <div className="nutrition-content">
+                <span className="nutrition-label">Densidad energética</span>
+                <span className="nutrition-value">{producto.kcalEmKg || 'N/A'} kcal/kg</span>
+              </div>
+            </div>
+
+            <div className="nutrition-item">
+              <span className="nutrition-icon">📦</span>
+              <div className="nutrition-content">
+                <span className="nutrition-label">Formato recomendado</span>
+                <span className="nutrition-value">{producto.varianteRecomendada?.cantidad || ""}</span>
+              </div>
             </div>
           </div>
 
-          <div className="nutrition-item">
-            <span className="nutrition-icon">⚡</span>
-            <div className="nutrition-content">
-              <span className="nutrition-label">Energía por porción</span>
-              <span className="nutrition-value">{calcularKcalPorcion()} kcal</span>
-            </div>
-          </div>
-
-          <div className="nutrition-item">
-            <span className="nutrition-icon">🔥</span>
-            <div className="nutrition-content">
-              <span className="nutrition-label">Densidad energética</span>
-              <span className="nutrition-value">{producto.kcalEmKg || 'N/A'} kcal/kg</span>
-            </div>
-          </div>
-
-          <div className="nutrition-item">
-            <span className="nutrition-icon">📦</span>
-            <div className="nutrition-content">
-              <span className="nutrition-label">Formato recomendado</span>
-              <span className="nutrition-value">{producto.varianteRecomendada?.cantidad || ""}</span>
-            </div>
-          </div>
-
-          <div className="nutrition-item">
-            <div className="nutrition-content">
-              <span className="nutrition-label">Duración aproximada</span>
-              <span className="nutrition-value">{calcularDuracion()}</span>
-            </div>
+          <div className="nutrition-duration">
+            <span className="nutrition-duration-label">Duración aproximada</span>
+            <span className="nutrition-duration-value">{calcularDuracion()}</span>
           </div>
         </div>
       </div>

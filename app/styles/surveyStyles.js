@@ -2827,8 +2827,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     max-width: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.6rem;
-    margin-bottom: 1rem;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
     padding: 0;
     box-sizing: border-box;
     overflow: visible;
@@ -2837,22 +2837,22 @@ export const getSurveyStyles = (direction, theme = {}) => {
   @media (min-width: 500px) {
     .notifications-stack {
       grid-template-columns: repeat(2, 1fr);
-      gap: 0.75rem;
-      margin-bottom: 1.25rem;
+      gap: 0.6rem;
+      margin-bottom: 1rem;
     }
   }
 
   @media (min-width: 650px) {
     .notifications-stack {
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
     }
   }
 
   @media (min-width: 900px) {
     .notifications-stack {
-      gap: 1.25rem;
-      margin-bottom: 1.75rem;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
     }
   }
 
@@ -2889,15 +2889,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .discount-banner {
     width: 100%;
     max-width: 100%;
-    padding: 0.85rem 0.75rem;
-    padding-right: 2.25rem;
-    border-radius: 10px;
+    padding: 0.65rem 0.6rem;
+    padding-right: 2rem;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: 0.4rem;
     margin: 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.25s ease-out;
     position: relative;
     overflow-x: hidden;
@@ -2917,19 +2917,19 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .discount-banner:hover {
-    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
     transform: translateY(-1px);
   }
 
   /* Botón para cerrar notificaciones - Mejorado para móvil y táctil */
   .banner-close-button {
     position: absolute;
-    top: 0.35rem;
-    right: 0.35rem;
-    width: 1.5rem;
-    height: 1.5rem;
-    min-width: 1.5rem;
-    min-height: 1.5rem;
+    top: 0.3rem;
+    right: 0.3rem;
+    width: 1.3rem;
+    height: 1.3rem;
+    min-width: 1.3rem;
+    min-height: 1.3rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2937,7 +2937,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     border: none;
     border-radius: 50%;
     color: inherit;
-    font-size: 1.1rem;
+    font-size: 1rem;
     line-height: 1;
     cursor: pointer;
     transition: all 0.25s ease;
@@ -2980,7 +2980,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .discount-icon {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
     flex-shrink: 0;
     filter: grayscale(20%);
     margin-bottom: 0;
@@ -3000,12 +3000,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .discount-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-weight: 600;
     color: inherit;
-    margin: 0 0 0.4rem 0;
-    line-height: 1.3;
-    letter-spacing: 0.3px;
+    margin: 0 0 0.3rem 0;
+    line-height: 1.25;
+    letter-spacing: 0.2px;
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
@@ -3013,11 +3013,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .discount-description {
     font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     color: inherit;
     opacity: 0.92;
-    margin: 0 0 0.3rem 0;
-    line-height: 1.4;
+    margin: 0 0 0.25rem 0;
+    line-height: 1.3;
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
@@ -3030,12 +3030,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .discount-note {
     font-family: 'Inter', sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     color: inherit;
     opacity: 0.75;
     margin: 0;
     font-style: italic;
-    line-height: 1.4;
+    line-height: 1.3;
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
@@ -3046,12 +3046,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
     text-decoration: none;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     transition: all 0.3s ease;
-    margin-top: 0.3rem;
+    margin-top: 0.25rem;
     border-bottom: 1.5px solid transparent;
-    padding: 0.1rem 0;
-    line-height: 1.4;
+    padding: 0.08rem 0;
+    line-height: 1.3;
     word-wrap: break-word;
     overflow-wrap: break-word;
     max-width: 100%;
@@ -3069,69 +3069,69 @@ export const getSurveyStyles = (direction, theme = {}) => {
     background-color: #8b7355;
     color: white;
     border: none;
-    border-radius: 8px;
-    padding: 0.65rem 1.2rem;
+    border-radius: 6px;
+    padding: 0.55rem 1rem;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.8px;
+    letter-spacing: 0.6px;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 0.5rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    margin-top: 0.4rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
     -webkit-tap-highlight-color: transparent;
   }
 
   .apply-coupon-button:hover {
     background-color: #6d5a45;
     transform: translateY(-2px);
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.22);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.22);
   }
 
   .apply-coupon-button:active {
     transform: translateY(0);
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   }
 
   /* Tablet pequeña */
   @media (min-width: 500px) {
     .discount-banner {
-      padding: 0.9rem 0.85rem;
-      padding-right: 2.5rem;
-      gap: 0.6rem;
+      padding: 0.7rem 0.75rem;
+      padding-right: 2.2rem;
+      gap: 0.5rem;
     }
 
     .discount-icon {
-      font-size: 2rem;
+      font-size: 1.6rem;
     }
 
     .discount-title {
-      font-size: 0.95rem;
-      margin-bottom: 0.45rem;
+      font-size: 0.85rem;
+      margin-bottom: 0.35rem;
     }
 
     .discount-description {
-      font-size: 0.8rem;
+      font-size: 0.72rem;
     }
 
     .subscription-link {
-      font-size: 0.8rem;
+      font-size: 0.72rem;
     }
 
     .apply-coupon-button {
-      font-size: 0.85rem;
-      padding: 0.7rem 1.3rem;
+      font-size: 0.78rem;
+      padding: 0.6rem 1.1rem;
     }
 
     .banner-close-button {
-      top: 0.4rem;
-      right: 0.4rem;
-      width: 1.6rem;
-      height: 1.6rem;
-      min-width: 1.6rem;
-      min-height: 1.6rem;
-      font-size: 1.2rem;
+      top: 0.35rem;
+      right: 0.35rem;
+      width: 1.4rem;
+      height: 1.4rem;
+      min-width: 1.4rem;
+      min-height: 1.4rem;
+      font-size: 1.1rem;
     }
   }
 
@@ -3141,15 +3141,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
       width: 100%;
       flex-direction: row;
       align-items: center;
-      padding: 1rem 1rem;
-      padding-right: 2.75rem;
-      gap: 0.9rem;
+      padding: 0.8rem 0.85rem;
+      padding-right: 2.5rem;
+      gap: 0.75rem;
       margin: 0;
-      border-radius: 12px;
+      border-radius: 10px;
     }
 
     .discount-icon {
-      font-size: 2.25rem;
+      font-size: 1.9rem;
       margin-bottom: 0;
     }
 
@@ -3159,37 +3159,37 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
 
     .discount-title {
-      font-size: 1rem;
-      margin-bottom: 0.5rem;
-      letter-spacing: 0.4px;
+      font-size: 0.9rem;
+      margin-bottom: 0.4rem;
+      letter-spacing: 0.3px;
     }
 
     .discount-description {
-      font-size: 0.85rem;
-      line-height: 1.5;
+      font-size: 0.75rem;
+      line-height: 1.4;
     }
 
     .discount-note {
-      font-size: 0.75rem;
+      font-size: 0.7rem;
     }
 
     .subscription-link {
-      font-size: 0.85rem;
+      font-size: 0.75rem;
     }
 
     .apply-coupon-button {
-      font-size: 0.85rem;
-      padding: 0.65rem 1.2rem;
+      font-size: 0.8rem;
+      padding: 0.6rem 1.1rem;
     }
 
     .banner-close-button {
-      top: 0.5rem;
-      right: 0.5rem;
-      width: 1.75rem;
-      height: 1.75rem;
-      min-width: 1.75rem;
-      min-height: 1.75rem;
-      font-size: 1.35rem;
+      top: 0.45rem;
+      right: 0.45rem;
+      width: 1.5rem;
+      height: 1.5rem;
+      min-width: 1.5rem;
+      min-height: 1.5rem;
+      font-size: 1.2rem;
     }
   }
 
@@ -3199,45 +3199,45 @@ export const getSurveyStyles = (direction, theme = {}) => {
       width: 100%;
       max-width: 920px;
       margin: 0 auto;
-      padding: 1.1rem 1.25rem;
-      padding-right: 3rem;
-      gap: 1rem;
+      padding: 0.9rem 1rem;
+      padding-right: 2.75rem;
+      gap: 0.85rem;
     }
 
     .discount-icon {
-      font-size: 2.5rem;
+      font-size: 2.1rem;
     }
 
     .discount-title {
-      font-size: 1.05rem;
-      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+      margin-bottom: 0.45rem;
     }
 
     .discount-description {
-      font-size: 0.9rem;
-      line-height: 1.5;
+      font-size: 0.8rem;
+      line-height: 1.4;
     }
 
     .discount-note {
-      font-size: 0.8rem;
+      font-size: 0.72rem;
     }
 
     .subscription-link {
-      font-size: 0.9rem;
+      font-size: 0.8rem;
     }
 
     .apply-coupon-button {
-      font-size: 0.9rem;
-      padding: 0.7rem 1.4rem;
+      font-size: 0.85rem;
+      padding: 0.65rem 1.3rem;
     }
 
     .banner-close-button {
-      top: 0.6rem;
-      right: 0.6rem;
-      width: 1.9rem;
-      height: 1.9rem;
-      min-width: 1.9rem;
-      min-height: 1.9rem;
+      top: 0.55rem;
+      right: 0.55rem;
+      width: 1.7rem;
+      height: 1.7rem;
+      min-width: 1.7rem;
+      min-height: 1.7rem;
       font-size: 1.8rem;
     }
   }
@@ -3666,14 +3666,33 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .product-nutrition {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
+  }
+
+  .nutrition-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.6rem;
+  }
+
+  @media (min-width: 500px) {
+    .nutrition-grid {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .nutrition-grid {
+      gap: 0.85rem;
+    }
   }
 
   .nutrition-item {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    padding: 1rem;
+    gap: 0.75rem;
+    padding: 0.85rem;
     background: rgba(115, 159, 153, 0.05);
     border-radius: 5px;
     transition: all 0.2s ease;
@@ -3689,29 +3708,119 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .nutrition-icon {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     flex-shrink: 0;
+  }
+
+  @media (min-width: 600px) {
+    .nutrition-icon {
+      font-size: 1.65rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .nutrition-icon {
+      font-size: 1.8rem;
+    }
   }
 
   .nutrition-content {
     display: flex;
     flex-direction: column;
-    gap: 0.25rem;
+    gap: 0.2rem;
     flex: 1;
   }
 
   .nutrition-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    color: #666;
+    font-weight: 500;
+  }
+
+  @media (min-width: 600px) {
+    .nutrition-label {
+      font-size: 0.8rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .nutrition-label {
+      font-size: 0.85rem;
+    }
+  }
+
+  .nutrition-value {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1rem;
+    color: var(--jdgm-primary-color);
+    font-weight: 600;
+  }
+
+  @media (min-width: 600px) {
+    .nutrition-value {
+      font-size: 1.1rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .nutrition-value {
+      font-size: 1.2rem;
+    }
+  }
+
+  .nutrition-duration {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 1rem;
+    background: rgba(115, 159, 153, 0.08);
+    border-radius: 8px;
+    text-align: center;
+    margin-top: 0.25rem;
+  }
+
+  .nutrition-duration-label {
     font-family: 'Inter', sans-serif;
     font-size: 0.85rem;
     color: #666;
     font-weight: 500;
   }
 
-  .nutrition-value {
+  .nutrition-duration-value {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     color: var(--jdgm-primary-color);
     font-weight: 600;
+  }
+
+  @media (min-width: 600px) {
+    .nutrition-duration {
+      padding: 1.15rem;
+    }
+
+    .nutrition-duration-label {
+      font-size: 0.9rem;
+    }
+
+    .nutrition-duration-value {
+      font-size: 1.4rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .nutrition-duration {
+      padding: 1.25rem;
+    }
+
+    .nutrition-duration-label {
+      font-size: 0.95rem;
+    }
+
+    .nutrition-duration-value {
+      font-size: 1.5rem;
+    }
   }
 
   .footer-card {
