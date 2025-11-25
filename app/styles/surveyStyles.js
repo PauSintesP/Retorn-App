@@ -2827,8 +2827,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     max-width: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.5rem;
-    margin-bottom: 0.75rem;
+    gap: 0.35rem;
+    margin-bottom: 0.5rem;
     padding: 0;
     box-sizing: border-box;
     overflow: visible;
@@ -2837,22 +2837,22 @@ export const getSurveyStyles = (direction, theme = {}) => {
   @media (min-width: 500px) {
     .notifications-stack {
       grid-template-columns: repeat(2, 1fr);
-      gap: 0.6rem;
-      margin-bottom: 1rem;
+      gap: 0.4rem;
+      margin-bottom: 0.6rem;
     }
   }
 
   @media (min-width: 650px) {
     .notifications-stack {
-      gap: 0.75rem;
-      margin-bottom: 1.25rem;
+      gap: 0.45rem;
+      margin-bottom: 0.7rem;
     }
   }
 
   @media (min-width: 900px) {
     .notifications-stack {
-      gap: 1rem;
-      margin-bottom: 1.5rem;
+      gap: 0.5rem;
+      margin-bottom: 0.8rem;
     }
   }
 
@@ -2887,15 +2887,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .discount-banner {
     width: 100%;
     max-width: 100%;
-    padding: 0.65rem 0.6rem;
-    padding-right: 2rem;
-    border-radius: 8px;
+    padding: 0.45rem 0.5rem;
+    padding-right: 1.6rem;
+    border-radius: 6px;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.4rem;
+    gap: 0.25rem;
     margin: 0;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
     transition: all 0.25s ease-out;
     position: relative;
     overflow-x: hidden;
@@ -2922,12 +2922,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Botón para cerrar notificaciones - Mejorado para móvil y táctil */
   .banner-close-button {
     position: absolute;
-    top: 0.3rem;
-    right: 0.3rem;
-    width: 1.3rem;
-    height: 1.3rem;
-    min-width: 1.3rem;
-    min-height: 1.3rem;
+    top: 0.2rem;
+    right: 0.2rem;
+    width: 1.1rem;
+    height: 1.1rem;
+    min-width: 1.1rem;
+    min-height: 1.1rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2935,7 +2935,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     border: none;
     border-radius: 50%;
     color: inherit;
-    font-size: 1rem;
+    font-size: 0.85rem;
     line-height: 1;
     cursor: pointer;
     transition: all 0.25s ease;
@@ -2978,7 +2978,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .discount-icon {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     flex-shrink: 0;
     filter: grayscale(20%);
     margin-bottom: 0;
@@ -2998,12 +2998,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .discount-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.65rem;
     font-weight: 600;
     color: inherit;
-    margin: 0 0 0.3rem 0;
-    line-height: 1.25;
-    letter-spacing: 0.2px;
+    margin: 0 0 0.2rem 0;
+    line-height: 1.2;
+    letter-spacing: 0.15px;
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
@@ -3011,11 +3011,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .discount-description {
     font-family: 'Inter', sans-serif;
-    font-size: 0.7rem;
+    font-size: 0.58rem;
     color: inherit;
-    opacity: 0.92;
-    margin: 0 0 0.25rem 0;
-    line-height: 1.3;
+    opacity: 0.9;
+    margin: 0 0 0.15rem 0;
+    line-height: 1.25;
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
@@ -3028,12 +3028,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .discount-note {
     font-family: 'Inter', sans-serif;
-    font-size: 0.65rem;
+    font-size: 0.55rem;
     color: inherit;
-    opacity: 0.75;
+    opacity: 0.72;
     margin: 0;
     font-style: italic;
-    line-height: 1.3;
+    line-height: 1.25;
     word-wrap: break-word;
     overflow-wrap: break-word;
   }
@@ -3044,9 +3044,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     text-decoration: none;
     font-family: 'Inter', sans-serif;
     font-weight: 600;
-    font-size: 0.7rem;
+    font-size: 0.58rem;
     transition: all 0.3s ease;
-    margin-top: 0.25rem;
+    margin-top: 0.15rem;
     border-bottom: 1.5px solid transparent;
     padding: 0.08rem 0;
     line-height: 1.3;
@@ -3095,41 +3095,41 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Tablet pequeña */
   @media (min-width: 500px) {
     .discount-banner {
-      padding: 0.7rem 0.75rem;
-      padding-right: 2.2rem;
-      gap: 0.5rem;
+      padding: 0.5rem 0.6rem;
+      padding-right: 1.8rem;
+      gap: 0.3rem;
     }
 
     .discount-icon {
-      font-size: 1.6rem;
+      font-size: 1.2rem;
     }
 
     .discount-title {
-      font-size: 0.85rem;
-      margin-bottom: 0.35rem;
+      font-size: 0.68rem;
+      margin-bottom: 0.25rem;
     }
 
     .discount-description {
-      font-size: 0.72rem;
+      font-size: 0.6rem;
     }
 
     .subscription-link {
-      font-size: 0.72rem;
+      font-size: 0.6rem;
     }
 
     .apply-coupon-button {
-      font-size: 0.78rem;
-      padding: 0.6rem 1.1rem;
+      font-size: 0.65rem;
+      padding: 0.45rem 0.85rem;
     }
 
     .banner-close-button {
-      top: 0.35rem;
-      right: 0.35rem;
-      width: 1.4rem;
-      height: 1.4rem;
-      min-width: 1.4rem;
-      min-height: 1.4rem;
-      font-size: 1.1rem;
+      top: 0.25rem;
+      right: 0.25rem;
+      width: 1.15rem;
+      height: 1.15rem;
+      min-width: 1.15rem;
+      min-height: 1.15rem;
+      font-size: 0.9rem;
     }
   }
 
@@ -3139,15 +3139,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
       width: 100%;
       flex-direction: row;
       align-items: center;
-      padding: 0.8rem 0.85rem;
-      padding-right: 2.5rem;
-      gap: 0.75rem;
+      padding: 0.55rem 0.65rem;
+      padding-right: 2rem;
+      gap: 0.5rem;
       margin: 0;
-      border-radius: 10px;
+      border-radius: 7px;
     }
 
     .discount-icon {
-      font-size: 1.9rem;
+      font-size: 1.3rem;
       margin-bottom: 0;
     }
 
@@ -3157,37 +3157,37 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
 
     .discount-title {
-      font-size: 0.9rem;
-      margin-bottom: 0.4rem;
-      letter-spacing: 0.3px;
+      font-size: 0.7rem;
+      margin-bottom: 0.25rem;
+      letter-spacing: 0.2px;
     }
 
     .discount-description {
-      font-size: 0.75rem;
-      line-height: 1.4;
+      font-size: 0.62rem;
+      line-height: 1.3;
     }
 
     .discount-note {
-      font-size: 0.7rem;
+      font-size: 0.58rem;
     }
 
     .subscription-link {
-      font-size: 0.75rem;
+      font-size: 0.62rem;
     }
 
     .apply-coupon-button {
-      font-size: 0.8rem;
-      padding: 0.6rem 1.1rem;
+      font-size: 0.67rem;
+      padding: 0.5rem 0.9rem;
     }
 
     .banner-close-button {
-      top: 0.45rem;
-      right: 0.45rem;
-      width: 1.5rem;
-      height: 1.5rem;
-      min-width: 1.5rem;
-      min-height: 1.5rem;
-      font-size: 1.2rem;
+      top: 0.3rem;
+      right: 0.3rem;
+      width: 1.2rem;
+      height: 1.2rem;
+      min-width: 1.2rem;
+      min-height: 1.2rem;
+      font-size: 0.95rem;
     }
   }
 
@@ -3197,17 +3197,17 @@ export const getSurveyStyles = (direction, theme = {}) => {
       width: 100%;
       max-width: 920px;
       margin: 0 auto;
-      padding: 0.9rem 1rem;
-      padding-right: 2.75rem;
-      gap: 0.85rem;
+      padding: 0.6rem 0.75rem;
+      padding-right: 2.2rem;
+      gap: 0.6rem;
     }
 
     .discount-icon {
-      font-size: 2.1rem;
+      font-size: 1.4rem;
     }
 
     .discount-title {
-      font-size: 0.95rem;
+      font-size: 0.72rem;
       margin-bottom: 0.45rem;
     }
 
@@ -3253,32 +3253,70 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
-  /* Cart Button - Hereda estilos de .nav-button.primary */
+  /* Cart Button - Botón primario para agregar al carrito */
   .cart-button {
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     gap: 0.5rem;
-    padding: 0.85rem 1.25rem !important;
-    font-size: 0.85rem !important;
-    font-weight: 600 !important;
-    letter-spacing: 0.8px !important;
+    padding: 0.85rem 1.25rem;
+    background: linear-gradient(135deg, rgba(115, 159, 153, 1) 0%, rgba(95, 139, 133, 1) 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 3px 8px rgba(115, 159, 153, 0.25);
+    position: relative;
+    overflow: hidden;
+    -webkit-tap-highlight-color: transparent;
   }
 
-  .cart-button-text {
-    position: relative;
-    z-index: 1;
+  .cart-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+  }
+
+  .cart-button:hover {
+    background: linear-gradient(135deg, rgba(105, 149, 143, 1) 0%, rgba(85, 129, 123, 1) 100%);
+    box-shadow: 0 5px 15px rgba(115, 159, 153, 0.35);
+    transform: translateY(-2px);
+  }
+
+  .cart-button:hover::before {
+    left: 100%;
+  }
+
+  .cart-button:active {
+    transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(115, 159, 153, 0.25);
   }
 
   @media (min-width: 600px) {
     .cart-button {
-      padding: 0.95rem 1.5rem !important;
-      font-size: 0.9rem !important;
+      padding: 0.95rem 1.5rem;
+      font-size: 0.9rem;
+      border-radius: 9px;
     }
   }
 
   @media (min-width: 768px) {
     .cart-button {
-      padding: 1rem 1.75rem !important;
-      font-size: 0.95rem !important;
+      padding: 1rem 1.75rem;
+      font-size: 0.95rem;
+      border-radius: 10px;
     }
   }
 

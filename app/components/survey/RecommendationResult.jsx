@@ -255,20 +255,18 @@ export default function RecommendationResult({ recommendation, onBack = () => {}
 
         {/* Botones de acción */}
         <div className="action-buttons-container">
-          {onRestart && (
-            <button 
-              onClick={onRestart}
-              className="restart-survey-button"
-            >
-              Realizar otro cuestionario
-            </button>
-          )}
+          <button 
+            onClick={onRestart}
+            className="restart-survey-button"
+          >
+            Realizar otro cuestionario
+          </button>
           
           <button 
             onClick={irAlCarrito}
-            className="nav-button primary cart-button"
+            className="cart-button"
           >
-            <span className="cart-button-text">Agregar los productos al carrito</span>
+            Agregar los productos al carrito
           </button>
         </div>
       </div>
