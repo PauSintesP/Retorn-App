@@ -3254,21 +3254,24 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
-  /* Cart Button - Mismo estilo que el botón primario de siguiente */
-  .cart-button {
+  /* Cart Button - BOTÓN PRIMARIO (verde brillante) */
+  .cart-button,
+  .action-buttons-container .cart-button,
+  .cart-action-section .cart-button,
+  button.cart-button {
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
     padding: 0.85rem 1.25rem;
-    background: linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%);
+    background: linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%) !important;
     background-size: 200% 100%;
-    color: white;
+    color: white !important;
     box-shadow: 
       0 6px 20px rgba(115, 159, 153, 0.3),
       0 2px 6px rgba(115, 159, 153, 0.15);
-    border: 2px solid transparent;
+    border: 2px solid transparent !important;
     border-radius: 8px;
     font-family: 'Oswald', sans-serif;
     font-size: 0.85rem;
@@ -3282,7 +3285,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
     -webkit-tap-highlight-color: transparent;
   }
 
-  .cart-button::before {
+  .cart-button::before,
+  .action-buttons-container .cart-button::before,
+  .cart-action-section .cart-button::before,
+  button.cart-button::before {
     content: '';
     position: absolute;
     top: 50%;
@@ -3295,25 +3301,37 @@ export const getSurveyStyles = (direction, theme = {}) => {
     transition: width 0.5s, height 0.5s;
   }
 
-  .cart-button:hover::before {
+  .cart-button:hover::before,
+  .action-buttons-container .cart-button:hover::before,
+  .cart-action-section .cart-button:hover::before,
+  button.cart-button:hover::before {
     width: 300px;
     height: 300px;
   }
 
-  .cart-button:hover {
-    background: linear-gradient(135deg, #5fb3a1 0%, #6a8f8a 50%, #4fa091 100%);
+  .cart-button:hover,
+  .action-buttons-container .cart-button:hover,
+  .cart-action-section .cart-button:hover,
+  button.cart-button:hover {
+    background: linear-gradient(135deg, #5fb3a1 0%, #6a8f8a 50%, #4fa091 100%) !important;
     box-shadow: 
       0 6px 20px rgba(115, 159, 153, 0.35),
       0 2px 6px rgba(115, 159, 153, 0.2);
     transform: translateY(-2px);
   }
 
-  .cart-button:active {
+  .cart-button:active,
+  .action-buttons-container .cart-button:active,
+  .cart-action-section .cart-button:active,
+  button.cart-button:active {
     transform: translateY(0);
   }
 
   @media (min-width: 600px) {
-    .cart-button {
+    .cart-button,
+    .action-buttons-container .cart-button,
+    .cart-action-section .cart-button,
+    button.cart-button {
       padding: 0.95rem 1.5rem;
       font-size: 0.9rem;
       border-radius: 9px;
@@ -3321,12 +3339,16 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   @media (min-width: 768px) {
-    .cart-button {
+    .cart-button,
+    .action-buttons-container .cart-button,
+    .cart-action-section .cart-button,
+    button.cart-button {
       padding: 1rem 1.75rem;
       font-size: 0.95rem;
       border-radius: 10px;
     }
   }
+
 
 
   /* Contenedor de botones de acción - Layout en columna centrado */
@@ -3372,7 +3394,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
 
-  /* Restart Survey Button - Mismo estilo que el botón primario */
+
+  /* Restart Survey Button - BOTÓN SECUNDARIO (blanco con borde) */
   .action-buttons-container .restart-survey-button,
   .cart-action-section .restart-survey-button,
   button.restart-survey-button {
@@ -3381,13 +3404,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
     justify-content: center;
     width: 100%;
     padding: 0.85rem 1.25rem;
-    background: linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%);
-    background-size: 200% 100%;
-    color: white;
+    background: white;
+    color: var(--jdgm-primary-color);
     box-shadow: 
-      0 6px 20px rgba(115, 159, 153, 0.3),
-      0 2px 6px rgba(115, 159, 153, 0.15);
-    border: 2px solid transparent;
+      0 2px 8px rgba(0, 0, 0, 0.08),
+      0 1px 3px rgba(0, 0, 0, 0.06);
+    border: 2px solid rgba(115, 159, 153, 0.3);
     border-radius: 8px;
     font-family: 'Oswald', sans-serif;
     font-size: 0.85rem;
@@ -3401,35 +3423,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
     -webkit-tap-highlight-color: transparent;
   }
 
-  .action-buttons-container .restart-survey-button::before,
-  .cart-action-section .restart-survey-button::before,
-  button.restart-survey-button::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.5s, height 0.5s;
-  }
-
-  .action-buttons-container .restart-survey-button:hover::before,
-  .cart-action-section .restart-survey-button:hover::before,
-  button.restart-survey-button:hover::before {
-    width: 300px;
-    height: 300px;
-  }
-
   .action-buttons-container .restart-survey-button:hover,
   .cart-action-section .restart-survey-button:hover,
   button.restart-survey-button:hover {
-    background: linear-gradient(135deg, #5fb3a1 0%, #6a8f8a 50%, #4fa091 100%);
+    background: rgba(115, 159, 153, 0.05);
+    border-color: rgba(115, 159, 153, 0.5);
     box-shadow: 
-      0 6px 20px rgba(115, 159, 153, 0.35),
-      0 2px 6px rgba(115, 159, 153, 0.2);
+      0 4px 12px rgba(0, 0, 0, 0.1),
+      0 2px 6px rgba(0, 0, 0, 0.08);
     transform: translateY(-2px);
   }
 
@@ -3458,6 +3459,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
       border-radius: 10px;
     }
   }
+
 
   .recommendation-footer {
     text-align: center;
