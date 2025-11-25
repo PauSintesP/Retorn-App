@@ -253,28 +253,24 @@ export default function RecommendationResult({ recommendation, onBack = () => {}
           )}
         </div>
 
-        {/* Botón principal: Ir al carrito */}
+        {/* Botones de acción */}
         <div className="action-buttons-container">
-          <button 
-            onClick={irAlCarrito}
-            className="nav-button primary cart-button"
-          >
-            <span className="cart-button-text">Agregar los productos al carrito</span>
-            <span className="cart-button-icon">🛒</span>
-          </button>
-        </div>
-
-        {/* Botón de acción secundario */}
-        {onRestart && (
-          <div className="action-buttons-container secondary">
+          {onRestart && (
             <button 
               onClick={onRestart}
               className="restart-survey-button"
             >
               Realizar otro cuestionario
             </button>
-          </div>
-        )}
+          )}
+          
+          <button 
+            onClick={irAlCarrito}
+            className="nav-button primary cart-button"
+          >
+            <span className="cart-button-text">Agregar los productos al carrito</span>
+          </button>
+        </div>
       </div>
 
       <div className="recommendation-footer">

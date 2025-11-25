@@ -224,7 +224,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
     .survey-content:has(.recommendation-container) {
       justify-content: flex-start;
-      padding-top: 1.5rem;
+      padding-top: 0.75rem;
       overflow-y: auto;
       overflow-x: hidden;
     }
@@ -258,8 +258,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Tablet */
   @media (min-width: 600px) {
     .survey-content {
-      padding: 2rem 1rem 1.25rem 1rem;
-      padding-bottom: 100px;
+      padding: 1.25rem 1rem 1rem 1rem;
+      padding-bottom: 60px;
     }
 
     .question-card {
@@ -273,8 +273,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Desktop */
   @media (min-width: 768px) {
     .survey-content {
-      padding: 3.5rem 1rem 2.5rem 1rem;
-      padding-bottom: 80px;
+      padding: 1.5rem 1rem 1.25rem 1rem;
+      padding-bottom: 50px;
     }
 
     .question-card {
@@ -2863,25 +2863,23 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     flex-direction: column;
     align-items: stretch;
-    gap: 1rem;
+    gap: 0.65rem;
     padding: 0;
-    margin-top: 1.5rem;
+    margin-top: 1rem;
     box-sizing: border-box;
   }
 
   @media (min-width: 600px) {
     .action-buttons-container {
-      gap: 1.25rem;
-      margin-top: 2rem;
+      gap: 0.75rem;
+      margin-top: 1.25rem;
     }
   }
 
   @media (min-width: 768px) {
     .action-buttons-container {
-      flex-direction: row;
-      justify-content: center;
-      gap: 1.75rem;
-      align-items: center;
+      gap: 0.85rem;
+      margin-top: 1.5rem;
     }
   }
 
@@ -3258,19 +3256,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Cart Button - Hereda estilos de .nav-button.primary */
   .cart-button {
     width: 100%;
-    gap: 0.75rem;
-    padding: 1.5rem 2rem !important;
-    font-size: 1.1rem !important;
-    font-weight: 700 !important;
-    letter-spacing: 1.5px !important;
-  }
-
-  .cart-button-icon {
-    font-size: 1.4rem;
-    line-height: 1;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.85rem 1.25rem !important;
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.8px !important;
   }
 
   .cart-button-text {
@@ -3280,29 +3270,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .cart-button {
-      gap: 0.85rem;
-      padding: 1.65rem 2.25rem !important;
-      font-size: 1.15rem !important;
-    }
-
-    .cart-button-icon {
-      font-size: 1.5rem;
+      padding: 0.95rem 1.5rem !important;
+      font-size: 0.9rem !important;
     }
   }
 
   @media (min-width: 768px) {
     .cart-button {
-      width: auto;
-      min-width: 350px;
-      flex: 1;
-      max-width: 500px;
-      gap: 1rem;
-      padding: 1.75rem 2.5rem !important;
-      font-size: 1.2rem !important;
-    }
-
-    .cart-button-icon {
-      font-size: 1.6rem;
+      padding: 1rem 1.75rem !important;
+      font-size: 0.95rem !important;
     }
   }
 
@@ -3325,16 +3301,16 @@ export const getSurveyStyles = (direction, theme = {}) => {
     align-items: center;
     justify-content: center;
     width: 100%;
-    padding: 0.75rem 1rem;
+    padding: 0.65rem 0.9rem;
     background: transparent;
     color: #999;
     border: 1.5px solid #ddd;
-    border-radius: 8px;
+    border-radius: 6px;
     font-family: 'Inter', sans-serif;
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     font-weight: 500;
     text-transform: none;
-    letter-spacing: 0.3px;
+    letter-spacing: 0.2px;
     cursor: pointer;
     transition: all 0.25s ease;
     box-shadow: none;
@@ -3365,9 +3341,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .action-buttons-container .restart-survey-button,
     .cart-action-section .restart-survey-button,
     button.restart-survey-button {
-      padding: 0.8rem 1.25rem;
-      font-size: 0.85rem;
-      letter-spacing: 0.4px;
+      padding: 0.7rem 1rem;
+      font-size: 0.78rem;
+      letter-spacing: 0.3px;
       border-radius: 8px;
     }
   }
