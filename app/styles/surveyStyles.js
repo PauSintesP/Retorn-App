@@ -2263,10 +2263,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
     max-width: 100%;
     width: 100%;
     min-height: 100%;
-    padding: 0 0.5rem 0.5rem 0.5rem;
+    padding: 0.5rem;
     overflow: visible;
     box-sizing: border-box;
-    margin: 0;
+    margin: 0 auto;
     animation: fadeSlideIn 0.4s ease-out;
   }
 
@@ -2290,15 +2290,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .recommendation-container {
-      max-width: 95%;
-      padding: 0 0.75rem 0.75rem 0.75rem;
+      max-width: 90%;
+      padding: 1rem;
     }
   }
 
   @media (min-width: 768px) {
     .recommendation-container {
-      max-width: 1400px;
-      padding: 0 2rem 1rem 2rem;
+      max-width: 900px;
+      padding: 1.5rem;
     }
   }
 
@@ -2464,7 +2464,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .product-card {
     background: white;
     border-radius: 8px;
-    padding: 0.85rem 0.6rem;
+    padding: 0.75rem 0.6rem;
     margin-bottom: 0.85rem;
     box-shadow: 
       0 8px 20px rgba(0, 0, 0, 0.08),
@@ -2479,7 +2479,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .product-card {
-      padding: 1.25rem;
+      padding: 1rem;
       margin-bottom: 1.25rem;
       box-shadow: 
         0 10px 30px rgba(0, 0, 0, 0.08),
@@ -2489,15 +2489,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .product-card {
-      padding: 2rem;
-      margin-bottom: 2rem;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
       box-shadow: 
         0 20px 60px rgba(0, 0, 0, 0.08),
         0 8px 20px rgba(115, 159, 153, 0.1);
     }
     
     .mixta-products-grid .product-card {
-      padding: 1.5rem;
+      padding: 1.25rem;
     }
   }
 
@@ -2636,7 +2636,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .product-name {
     font-family: 'Oswald', sans-serif;
-    font-size: 1rem;
+    font-size: 0.95rem;
     color: var(--jdgm-primary-color);
     margin: 0 0 0.7rem 0;
     font-weight: 600;
@@ -2648,7 +2648,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .product-name {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       margin: 0 0 1rem 0;
       min-height: 2.5rem;
       line-height: 1.25;
@@ -2657,16 +2657,16 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .product-name {
-      font-size: 1.35rem;
-      margin: 0 0 1.5rem 0;
-      min-height: 3.5rem;
+      font-size: 1.2rem;
+      margin: 0 0 1.25rem 0;
+      min-height: 3rem;
       line-height: 1.3;
     }
     
     .mixta-products-grid .product-name {
-      font-size: 1.25rem;
+      font-size: 1.15rem;
       margin: 0 0 1rem 0;
-      min-height: 3.2rem;
+      min-height: 2.8rem;
     }
   }
 
@@ -3421,7 +3421,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .calorie-info {
     background: linear-gradient(135deg, #ffffff 0%, #f8fffe 100%);
     border-radius: 16px;
-    padding: 1.5rem 1.25rem;
+    padding: 1.25rem 1rem;
     margin-bottom: 1.25rem;
     border: 2px solid rgba(115, 159, 153, 0.2);
     box-shadow: 
@@ -3444,8 +3444,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .calorie-info {
-      padding: 2rem 1.75rem;
-      margin-bottom: 2.5rem;
+      padding: 1.5rem 1.25rem;
+      margin-bottom: 2rem;
       border-radius: 20px;
     }
 
@@ -3457,7 +3457,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .calorie-info {
-      padding: 1.75rem 2rem;
+      padding: 1.5rem 1.5rem;
       margin-bottom: 1.75rem;
       border-radius: 20px;
     }
@@ -3470,9 +3470,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .calorie-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.1rem;
     color: var(--jdgm-primary-color);
-    margin: 0 0 1.25rem 0;
+    margin: 0 0 1rem 0;
     font-weight: 700;
     letter-spacing: -0.01em;
     display: flex;
@@ -3481,10 +3481,21 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .calorie-title::before {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
   }
 
   @media (min-width: 600px) {
+    .calorie-title {
+      font-size: 1.25rem;
+      margin: 0 0 1.25rem 0;
+    }
+
+    .calorie-title::before {
+      font-size: 1.4rem;
+    }
+  }
+
+  @media (min-width: 768px) {
     .calorie-title {
       font-size: 1.4rem;
       margin: 0 0 1.5rem 0;
@@ -3492,17 +3503,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
     .calorie-title::before {
       font-size: 1.6rem;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .calorie-title {
-      font-size: 1.6rem;
-      margin: 0 0 1.75rem 0;
-    }
-
-    .calorie-title::before {
-      font-size: 1.8rem;
     }
   }
 
@@ -3633,16 +3633,16 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .products-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.6rem;
+    font-size: 1.3rem;
     color: var(--jdgm-primary-color);
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 1.25rem 0;
     font-weight: 600;
     text-align: center;
   }
 
   .mixta-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     color: var(--jdgm-paginate-color);
     margin: 0 0 0.75rem 0;
     font-weight: 600;
