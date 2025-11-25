@@ -3390,8 +3390,37 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
   }
 
+  /* ===================================================== */
+  /* CONTENEDOR DE BOTONES - Layout en columna centrado  */
+  /* ===================================================== */
+  
+  .action-buttons-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+
+  @media (min-width: 600px) {
+    .action-buttons-container {
+      gap: 1rem;
+      max-width: 500px;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .action-buttons-container {
+      gap: 1.25rem;
+      max-width: 600px;
+    }
+  }
+
 
   .recommendation-footer {
+
     text-align: center;
     margin-top: 2rem;
     padding-top: 1.5rem;
