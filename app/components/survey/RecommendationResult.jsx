@@ -264,50 +264,27 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
         </div>
 
         {/* Botones de acción */}
-        <div className="action-buttons-container">
-          <button
-            onClick={onRestart}
-            className="restart-survey-button"
-            style={{
-              flex: '1',
-              minWidth: '0',
-              maxWidth: 'none',
-              padding: '0.75rem 0.65rem',
-              border: '2px solid rgba(0, 0, 0, 0.06)',
-              borderRadius: '8px',
-              fontFamily: "'Oswald', sans-serif",
-              fontSize: '0.75rem',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'all 0.25s ease-out',
-              textTransform: 'uppercase',
-              letterSpacing: '0.4px',
-              position: 'relative',
-              overflow: 'hidden',
-              whiteSpace: 'nowrap',
-              textOverflow: 'ellipsis',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'linear-gradient(135deg, #f5f5f5 0%, #ebebeb 100%)',
-              color: '#666'
-            }}
-          >
-            Realizar otro cuestionario
-          </button>
-
+        <div 
+          className="action-buttons-container"
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '0.75rem',
+            width: '100%',
+            maxWidth: '500px',
+            margin: '0 auto'
+          }}
+        >
           <button
             onClick={agregarAlCarrito}
             className="cart-button"
             style={{
-              flex: '1',
-              minWidth: '0',
-              maxWidth: 'none',
-              padding: '0.75rem 0.65rem',
+              width: '100%',
+              padding: '0.85rem 1rem',
               border: '2px solid transparent',
               borderRadius: '8px',
               fontFamily: "'Oswald', sans-serif",
-              fontSize: '0.75rem',
+              fontSize: '0.85rem',
               fontWeight: '600',
               cursor: 'pointer',
               transition: 'all 0.25s ease-out',
@@ -315,8 +292,7 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
               letterSpacing: '0.4px',
               position: 'relative',
               overflow: 'hidden',
-              whiteSpace: 'nowrap',
-              textOverflow: 'ellipsis',
+              whiteSpace: 'normal',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -327,6 +303,34 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
             }}
           >
             Agregar los productos al carrito
+          </button>
+
+          <button
+            onClick={onRestart}
+            className="restart-survey-button"
+            style={{
+              width: '100%',
+              padding: '0.85rem 1rem',
+              border: '2px solid rgba(0, 0, 0, 0.06)',
+              borderRadius: '8px',
+              fontFamily: "'Oswald', sans-serif",
+              fontSize: '0.85rem',
+              fontWeight: '600',
+              cursor: 'pointer',
+              transition: 'all 0.25s ease-out',
+              textTransform: 'uppercase',
+              letterSpacing: '0.4px',
+              position: 'relative',
+              overflow: 'hidden',
+              whiteSpace: 'normal',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'linear-gradient(135deg, #f5f5f5 0%, #ebebeb 100%)',
+              color: '#666'
+            }}
+          >
+            Realizar otro cuestionario
           </button>
         </div>
       </div>
