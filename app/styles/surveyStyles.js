@@ -2758,40 +2758,70 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .product-link {
     display: inline-block;
     margin-top: 1.5rem;
-    padding: 0.8rem 1.5rem;
-    background: var(--jdgm-paginate-color);
-    color: white;
+    padding: 0.75rem 0.65rem;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 8px;
     font-family: 'Oswald', sans-serif;
-    font-size: 0.8rem;
-    font-weight: 500;
+    font-size: 0.75rem;
+    font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 1px;
+    letter-spacing: 0.4px;
     transition: all 0.25s ease-out;
-    border: 2px solid var(--jdgm-paginate-color);
+    position: relative;
+    overflow: hidden;
+    text-align: center;
+    
+    /* Primary button style - igual que .nav-button.primary */
+    background: linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%);
+    background-size: 200% 100%;
+    color: white;
+    box-shadow: 
+      0 6px 20px rgba(115, 159, 153, 0.3),
+      0 2px 6px rgba(115, 159, 153, 0.15);
+    border: 2px solid transparent;
+  }
+
+  .product-link::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+  }
+
+  .product-link:hover::before {
+    width: 300px;
+    height: 300px;
   }
 
   @media (min-width: 600px) {
     .product-link {
       margin-top: 2rem;
-      padding: 0.9rem 1.75rem;
-      font-size: 0.85rem;
+      padding: 0.85rem 1.3rem;
+      font-size: 0.82rem;
+      letter-spacing: 0.8px;
     }
   }
 
   @media (min-width: 768px) {
     .product-link {
       margin-top: 2.5rem;
-      padding: 1rem 2rem;
-      font-size: 1rem;
+      padding: 0.95rem 1.8rem;
+      font-size: 0.88rem;
+      letter-spacing: 1.2px;
     }
   }
 
   .product-link:hover {
-    background: transparent;
-    color: var(--jdgm-paginate-color);
-    transform: translateX(5px);
+    background: linear-gradient(135deg, #5fb3a1 0%, #6a8f8a 50%, #4fa091 100%);
+    box-shadow: 
+      0 6px 20px rgba(115, 159, 153, 0.35),
+      0 2px 6px rgba(115, 159, 153, 0.2);
   }
 
   .cart-action-section {
