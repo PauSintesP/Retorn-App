@@ -299,20 +299,20 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                 }}>
                   <div style={{ flex: 1 }}>
                     <div style={{
-                      fontSize: '0.6rem',
+                      fontSize: '0.55rem',
                       color: '#999',
                       fontWeight: '600',
-                      letterSpacing: '0.5px',
-                      marginBottom: '0.2rem',
+                      letterSpacing: '0.3px',
+                      marginBottom: '0.15rem',
                       fontFamily: "'Inter', sans-serif",
                       textTransform: 'uppercase'
                     }}>CÓDIGO:</div>
                     <div style={{
                       fontFamily: "'Oswald', sans-serif",
-                      fontSize: '1.1rem',
+                      fontSize: '0.9rem',
                       fontWeight: '700',
                       color: '#333',
-                      letterSpacing: '1px'
+                      letterSpacing: '0.5px'
                     }}>RET15</div>
                   </div>
                   <button
