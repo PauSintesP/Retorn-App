@@ -3123,6 +3123,136 @@ export const getSurveyStyles = (direction, theme = {}) => {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   }
 
+  /* Nuevo diseño profesional del cupón */
+  .coupon-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 0.6rem;
+    padding: 0.7rem 0.7rem 0.7rem 0.9rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.85) 100%);
+    border: 2px solid #8b7355;
+    border-radius: 10px;
+    box-shadow: 
+      0 4px 12px rgba(139, 115, 85, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .coupon-box::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, #8b7355 0%, #6d5a45 100%);
+  }
+
+  .coupon-box:hover {
+    box-shadow: 
+      0 6px 18px rgba(139, 115, 85, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+    transform: translateY(-1px);
+  }
+
+  .coupon-left {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    flex: 1;
+  }
+
+  .coupon-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.7rem;
+    font-weight: 600;
+    color: #8b7355;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .coupon-code-text {
+    font-family: 'Oswald', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #5d5342;
+    letter-spacing: 2.5px;
+    user-select: all;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+
+  .coupon-copy-btn {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, #8b7355 0%, #6d5a45 100%);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(139, 115, 85, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .coupon-copy-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+  }
+
+  .coupon-copy-btn:hover::before {
+    width: 100px;
+    height: 100px;
+  }
+
+  .coupon-copy-btn:hover {
+    background: linear-gradient(135deg, #6d5a45 0%, #5d4a36 100%);
+    transform: scale(1.08);
+    box-shadow: 0 4px 12px rgba(139, 115, 85, 0.4);
+  }
+
+  .coupon-copy-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 1px 4px rgba(139, 115, 85, 0.3);
+  }
+
+  .copy-icon-svg {
+    color: white;
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+  }
+
+  .coupon-copy-btn:hover .copy-icon-svg {
+    transform: scale(1.1);
+  }
+
+  .copy-success {
+    font-size: 1.4rem;
+    color: white;
+    animation: successPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+  }
+
+  @keyframes successPop {
+    0% { transform: scale(0); opacity: 0; }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
   /* Tablet pequeña */
   @media (min-width: 500px) {
     .discount-banner {
@@ -3151,6 +3281,23 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .apply-coupon-button {
       font-size: 0.65rem;
       padding: 0.45rem 0.85rem;
+    }
+
+    .coupon-box {
+      padding: 0.75rem 0.75rem 0.75rem 1rem;
+    }
+
+    .coupon-label {
+      font-size: 0.72rem;
+    }
+
+    .coupon-code-text {
+      font-size: 1.35rem;
+    }
+
+    .coupon-copy-btn {
+      width: 40px;
+      height: 40px;
     }
 
     .banner-close-button {
@@ -3211,22 +3358,21 @@ export const getSurveyStyles = (direction, theme = {}) => {
       padding: 0.5rem 0.9rem;
     }
 
-    .banner-close-button {
-      top: 0.3rem;
-      right: 0.3rem;
-      width: 1.2rem;
-      height: 1.2rem;
-      min-width: 1.2rem;
-      min-height: 1.2rem;
-      font-size: 0.95rem;
+    .coupon-box {
+      padding: 0.8rem 0.8rem 0.8rem 1.1rem;
+      border-radius: 12px;
     }
-  }
 
-  /* Desktop */
-  @media (min-width: 900px) {
-    .discount-banner {
-      width: 100%;
-      max-width: 920px;
+    .coupon-label {
+      font-size: 0.75rem;
+    }
+
+    .coupon-code-text {
+      font-size: 1.4rem;
+      letter-spacing: 3px;
+    }
+
+    .coupon-copy-btn {
       margin: 0 auto;
       padding: 0.6rem 0.75rem;
       padding-right: 2.2rem;
@@ -3258,6 +3404,28 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .apply-coupon-button {
       font-size: 0.85rem;
       padding: 0.65rem 1.3rem;
+    }
+
+    .coupon-box {
+      padding: 0.9rem 0.9rem 0.9rem 1.2rem;
+    }
+
+    .coupon-label {
+      font-size: 0.8rem;
+    }
+
+    .coupon-code-text {
+      font-size: 1.5rem;
+    }
+
+    .coupon-copy-btn {
+      width: 44px;
+      height: 44px;
+    }
+
+    .copy-icon-svg {
+      width: 22px;
+      height: 22px;
     }
 
     .banner-close-button {
