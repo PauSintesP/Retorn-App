@@ -293,16 +293,16 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                       color: '#999',
                       fontWeight: '600',
                       letterSpacing: '0.5px',
-                      marginBottom: '0.15rem',
+                      marginBottom: '0.1rem',
                       fontFamily: "'Inter', sans-serif",
                       textTransform: 'uppercase'
                     }}>CÓDIGO:</div>
                     <div style={{
                       fontFamily: "'Oswald', sans-serif",
-                      fontSize: '1.1rem',
+                      fontSize: '0.95rem',
                       fontWeight: '700',
                       color: '#333',
-                      letterSpacing: '0.5px'
+                      letterSpacing: '0.3px'
                     }}>RET15</div>
                   </div>
                   <button
