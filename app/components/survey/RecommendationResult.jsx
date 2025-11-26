@@ -249,19 +249,26 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
               <div className="discount-content">
                 <h4 className="discount-title">¡Aprovecha tu primer pedido!</h4>
                 <p className="discount-description">
-                  Usa este cupón y obtén un <strong>15% de descuento</strong>:
-                  <span className="coupon-inline">
-                    <strong>RET15</strong>
-                    <button
-                      onClick={copiarCupon}
-                      className="copy-btn-mini"
-                      aria-label="Copiar"
-                      title="Copiar código"
-                    >
-                      {cuponCopiado ? '✓' : '📋'}
-                    </button>
-                  </span>
+                  Usa este cupón y obtén un <strong>15% de descuento</strong>
                 </p>
+
+                <div className="coupon-display-container">
+                  <div className="coupon-code-wrapper">
+                    <span className="coupon-label-small">CÓDIGO:</span>
+                    <span className="coupon-value">RET15</span>
+                  </div>
+                  <button
+                    onClick={copiarCupon}
+                    className="coupon-action-btn"
+                    title="Copiar código"
+                  >
+                    {cuponCopiado ? (
+                      <><span>Copiado</span> <span className="check-icon">✓</span></>
+                    ) : (
+                      <><span>Copiar</span> <span className="copy-icon">📋</span></>
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
           )}
