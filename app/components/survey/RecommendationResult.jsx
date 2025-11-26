@@ -7,7 +7,7 @@ import { useState } from "react";
 export default function RecommendationResult({ recommendation, onBack = () => { }, onRestart = () => { } }) {
   const [showFirstOrderBanner, setShowFirstOrderBanner] = useState(true);
   const [showSubscriptionBanner, setShowSubscriptionBanner] = useState(true);
-  const [cuponAplicado, setCuponAplicado] = useState(false);
+  const [cuponCopiado, setCuponCopiado] = useState(false);
 
   if (!recommendation) {
     return null;
@@ -15,11 +15,35 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
 
   const { tipoAnimal, nombreMascota, kcalDiarias, recomendacion, factores, tipoCroqueta } = recommendation;
 
-  // Función para aplicar el cupón y redirigir directamente al carrito
-  const aplicarCuponYComprar = () => {
-    setCuponAplicado(true);
-    // Agregar productos al carrito con el cupón automáticamente
-    agregarAlCarritoConCupon();
+  // Función para copiar el cupón al portapapeles
+  const copiarCupon = async () => {
+    try {
+      await navigator.clipboard.writeText('RET15');
+      setCuponCopiado(true);
+      console.log('✅ Cupón RET15 copiado al portapapeles');
+
+      // Resetear el estado después de 2 segundos
+      setTimeout(() => {
+        setCuponCopiado(false);
+      }, 2000);
+    } catch (error) {
+      console.error('❌ Error al copiar cupón:', error);
+      // Fallback para navegadores que no soporten clipboard API
+      const textArea = document.createElement('textarea');
+      textArea.value = 'RET15';
+      document.body.appendChild(textArea);
+      textArea.select();
+      try {
+        document.execCommand('copy');
+        setCuponCopiado(true);
+        setTimeout(() => {
+          setCuponCopiado(false);
+        }, 2000);
+      } catch (err) {
+        console.error('❌ Fallback también falló:', err);
+      }
+      document.body.removeChild(textArea);
+    }
   };
 
   // Función para calcular la cantidad necesaria basada en los gramos diarios y el formato del producto
@@ -72,51 +96,7 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
     }
   };
 
-  // Función para agregar productos al carrito de Shopify con cupón
-  const agregarAlCarritoConCupon = () => {
-    try {
-      const items = [];
 
-      console.log('🛒 Construyendo carrito de compras con cupón...');
-
-      // Añadir producto seco si existe
-      if (recomendacion.productoSeco?.varianteRecomendada?.variantId) {
-        const cantidad = calcularCantidadProducto(recomendacion.productoSeco);
-        const variantId = recomendacion.productoSeco.varianteRecomendada.variantId;
-        items.push(`${variantId}:${cantidad}`);
-        console.log(`  ✅ Producto seco: ${recomendacion.productoSeco.nombre}`);
-        console.log(`     - Variant ID: ${variantId}`);
-        console.log(`     - Cantidad: ${cantidad} unidad(es)`);
-      }
-
-      // Añadir producto húmedo si existe (alimentación mixta)
-      if (recomendacion.productoHumedo?.varianteRecomendada?.variantId) {
-        const cantidad = calcularCantidadProducto(recomendacion.productoHumedo);
-        const variantId = recomendacion.productoHumedo.varianteRecomendada.variantId;
-        items.push(`${variantId}:${cantidad}`);
-        console.log(`  ✅ Producto húmedo: ${recomendacion.productoHumedo.nombre}`);
-        console.log(`     - Variant ID: ${variantId}`);
-        console.log(`     - Cantidad: ${cantidad} unidad(es)`);
-      }
-
-      // Validar que haya productos
-      if (items.length === 0) {
-        console.error('❌ No hay productos para agregar al carrito');
-        return;
-      }
-
-      // Construir la URL del carrito de Shopify con cupón RET15
-      const cartUrl = `https://retorn.com/cart/${items.join(',')}?discount=RET15`;
-      console.log(`  🎉 Cupón RET15 aplicado automáticamente`);
-      console.log(`  🔗 URL del carrito: ${cartUrl}`);
-      console.log('  🚀 Abriendo carrito en nueva pestaña...');
-
-      // Abrir el carrito en nueva pestaña
-      window.open(cartUrl, '_blank', 'noopener,noreferrer');
-    } catch (error) {
-      console.error('❌ Error al agregar productos al carrito:', error);
-    }
-  };
 
   // Función para agregar productos al carrito de Shopify
   const agregarAlCarrito = () => {
@@ -151,17 +131,12 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
         return;
       }
 
-      // Construir la URL del carrito de Shopify
-      let cartUrl = `https://retorn.com/cart/${items.join(',')}`;
-
-      // Añadir el cupón RET15 si está aplicado
-      if (cuponAplicado) {
-        cartUrl += `?discount=RET15`;
-        console.log(`  🎉 Cupón RET15 aplicado`);
-      }
+      // Construir la URL del carrito de Shopify sin cupón
+      const cartUrl = `https://retorn.com/cart/${items.join(',')}`;
 
       console.log(`  🔗 URL del carrito: ${cartUrl}`);
       console.log('  🚀 Abriendo carrito en nueva pestaña...');
+      console.log('  ℹ️ Recuerda aplicar el cupón RET15 en el checkout');
 
       // Abrir el carrito en nueva pestaña
       window.open(cartUrl, '_blank', 'noopener,noreferrer');
@@ -274,20 +249,28 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
               <div className="discount-content">
                 <h4 className="discount-title">¡Aprovecha tu primer pedido!</h4>
                 <p className="discount-description">
-                  {cuponAplicado ? (
-                    <>✓ Cupón <strong>RET15</strong> activado - <strong>15% de descuento</strong> aplicado</>
-                  ) : (
-                    <>Usa el cupón <strong>RET15</strong> y obtén un <strong>15% de descuento</strong> solo para tu primer pedido.</>
-                  )}
+                  Usa este cupón y obtén un <strong>15% de descuento</strong> en tu primer pedido:
                 </p>
-                {!cuponAplicado && (
+                <div className="coupon-container">
+                  <div className="coupon-code">RET15</div>
                   <button
-                    onClick={aplicarCuponYComprar}
-                    className="apply-coupon-button"
+                    onClick={copiarCupon}
+                    className="copy-coupon-button"
+                    aria-label="Copiar cupón"
                   >
-                    Aplicar cupón y comprar
+                    {cuponCopiado ? (
+                      <>
+                        <span className="copy-icon">✓</span>
+                        <span className="copy-text">Copiado</span>
+                      </>
+                    ) : (
+                      <>
+                        <span className="copy-icon">📋</span>
+                        <span className="copy-text">Copiar</span>
+                      </>
+                    )}
                   </button>
-                )}
+                </div>
               </div>
             </div>
           )}
@@ -312,7 +295,7 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
         </div>
 
         {/* Botones de acción */}
-        <div 
+        <div
           className="action-buttons-container"
           style={{
             display: 'flex',
