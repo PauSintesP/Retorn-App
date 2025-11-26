@@ -15,9 +15,11 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
 
   const { tipoAnimal, nombreMascota, kcalDiarias, recomendacion, factores, tipoCroqueta } = recommendation;
 
-  // Función para aplicar el cupón
-  const aplicarCupon = () => {
+  // Función para aplicar el cupón y redirigir directamente al carrito
+  const aplicarCuponYComprar = () => {
     setCuponAplicado(true);
+    // Agregar productos al carrito con el cupón automáticamente
+    agregarAlCarritoConCupon();
   };
 
   // Función para calcular la cantidad necesaria basada en los gramos diarios y el formato del producto
@@ -67,6 +69,52 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
       return 1;
     } else {
       return Math.max(1, Math.ceil(30 / diasPorUnidad));
+    }
+  };
+
+  // Función para agregar productos al carrito de Shopify con cupón
+  const agregarAlCarritoConCupon = () => {
+    try {
+      const items = [];
+
+      console.log('🛒 Construyendo carrito de compras con cupón...');
+
+      // Añadir producto seco si existe
+      if (recomendacion.productoSeco?.varianteRecomendada?.variantId) {
+        const cantidad = calcularCantidadProducto(recomendacion.productoSeco);
+        const variantId = recomendacion.productoSeco.varianteRecomendada.variantId;
+        items.push(`${variantId}:${cantidad}`);
+        console.log(`  ✅ Producto seco: ${recomendacion.productoSeco.nombre}`);
+        console.log(`     - Variant ID: ${variantId}`);
+        console.log(`     - Cantidad: ${cantidad} unidad(es)`);
+      }
+
+      // Añadir producto húmedo si existe (alimentación mixta)
+      if (recomendacion.productoHumedo?.varianteRecomendada?.variantId) {
+        const cantidad = calcularCantidadProducto(recomendacion.productoHumedo);
+        const variantId = recomendacion.productoHumedo.varianteRecomendada.variantId;
+        items.push(`${variantId}:${cantidad}`);
+        console.log(`  ✅ Producto húmedo: ${recomendacion.productoHumedo.nombre}`);
+        console.log(`     - Variant ID: ${variantId}`);
+        console.log(`     - Cantidad: ${cantidad} unidad(es)`);
+      }
+
+      // Validar que haya productos
+      if (items.length === 0) {
+        console.error('❌ No hay productos para agregar al carrito');
+        return;
+      }
+
+      // Construir la URL del carrito de Shopify con cupón RET15
+      const cartUrl = `https://retorn.com/cart/${items.join(',')}?discount=RET15`;
+      console.log(`  🎉 Cupón RET15 aplicado automáticamente`);
+      console.log(`  🔗 URL del carrito: ${cartUrl}`);
+      console.log('  🚀 Abriendo carrito en nueva pestaña...');
+
+      // Abrir el carrito en nueva pestaña
+      window.open(cartUrl, '_blank', 'noopener,noreferrer');
+    } catch (error) {
+      console.error('❌ Error al agregar productos al carrito:', error);
     }
   };
 
@@ -234,10 +282,10 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                 </p>
                 {!cuponAplicado && (
                   <button
-                    onClick={aplicarCupon}
+                    onClick={aplicarCuponYComprar}
                     className="apply-coupon-button"
                   >
-                    Aplicar cupón
+                    Aplicar cupón y comprar
                   </button>
                 )}
               </div>
