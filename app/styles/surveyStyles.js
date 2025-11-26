@@ -3791,6 +3791,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-size: 0.95rem;
     color: var(--jdgm-primary-color);
     font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   @media (min-width: 600px) {

@@ -268,23 +268,51 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
           className="action-buttons-container"
           style={{
             display: 'flex',
-            flexDirection: 'column',
+            flexDirection: 'row',
             gap: '0.75rem',
             width: '100%',
-            maxWidth: '500px',
+            maxWidth: '100%',
             margin: '0 auto'
           }}
         >
           <button
+            onClick={onRestart}
+            className="restart-survey-button"
+            style={{
+              flex: '1',
+              padding: '0.85rem 0.75rem',
+              border: '2px solid rgba(0, 0, 0, 0.06)',
+              borderRadius: '8px',
+              fontFamily: "'Oswald', sans-serif",
+              fontSize: '0.8rem',
+              fontWeight: '600',
+              cursor: 'pointer',
+              transition: 'all 0.25s ease-out',
+              textTransform: 'uppercase',
+              letterSpacing: '0.4px',
+              position: 'relative',
+              overflow: 'hidden',
+              whiteSpace: 'normal',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'linear-gradient(135deg, #f5f5f5 0%, #ebebeb 100%)',
+              color: '#666'
+            }}
+          >
+            Realizar otro cuestionario
+          </button>
+
+          <button
             onClick={agregarAlCarrito}
             className="cart-button"
             style={{
-              width: '100%',
-              padding: '0.85rem 1rem',
+              flex: '1',
+              padding: '0.85rem 0.75rem',
               border: '2px solid transparent',
               borderRadius: '8px',
               fontFamily: "'Oswald', sans-serif",
-              fontSize: '0.85rem',
+              fontSize: '0.8rem',
               fontWeight: '600',
               cursor: 'pointer',
               transition: 'all 0.25s ease-out',
@@ -303,34 +331,6 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
             }}
           >
             Agregar los productos al carrito
-          </button>
-
-          <button
-            onClick={onRestart}
-            className="restart-survey-button"
-            style={{
-              width: '100%',
-              padding: '0.85rem 1rem',
-              border: '2px solid rgba(0, 0, 0, 0.06)',
-              borderRadius: '8px',
-              fontFamily: "'Oswald', sans-serif",
-              fontSize: '0.85rem',
-              fontWeight: '600',
-              cursor: 'pointer',
-              transition: 'all 0.25s ease-out',
-              textTransform: 'uppercase',
-              letterSpacing: '0.4px',
-              position: 'relative',
-              overflow: 'hidden',
-              whiteSpace: 'normal',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              background: 'linear-gradient(135deg, #f5f5f5 0%, #ebebeb 100%)',
-              color: '#666'
-            }}
-          >
-            Realizar otro cuestionario
           </button>
         </div>
       </div>
