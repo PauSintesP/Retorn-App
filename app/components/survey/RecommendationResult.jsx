@@ -244,28 +244,90 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
         <div className="notifications-stack">
           {/* Mensaje de descuento para primer pedido */}
           {showFirstOrderBanner && (
-            <div className="discount-banner first-order-banner">
-              <div className="discount-icon">🎉</div>
-              <div className="discount-content">
-                <h4 className="discount-title">¡Aprovecha tu primer pedido!</h4>
-                <p className="discount-description">
-                  Usa este cupón y obtén un <strong>15% de descuento</strong>
+            <div className="discount-banner first-order-banner" style={{
+              backgroundColor: '#f9f3e8',
+              border: '1px solid #e8dcc8',
+              borderRadius: '12px',
+              padding: '1rem 0.9rem',
+              position: 'relative'
+            }}>
+              <div style={{
+                position: 'absolute',
+                top: '1rem',
+                left: '1rem',
+                fontSize: '1.5rem'
+              }}>🎉</div>
+              <div style={{ paddingLeft: '2.5rem' }}>
+                <h4 style={{
+                  fontFamily: "'Oswald', sans-serif",
+                  fontSize: '0.95rem',
+                  fontWeight: '600',
+                  color: '#333',
+                  margin: '0 0 0.4rem 0',
+                  lineHeight: '1.2'
+                }}>¡Aprovecha tu primer pedido!</h4>
+                <p style={{
+                  fontFamily: "'Inter', sans-serif",
+                  fontSize: '0.75rem',
+                  color: '#666',
+                  margin: '0 0 0.8rem 0',
+                  lineHeight: '1.3'
+                }}>
+                  Usa este cupón y obtén un <strong style={{ color: '#333' }}>15% de descuento</strong>
                 </p>
 
-                <div className="coupon-display-container">
-                  <div className="coupon-code-wrapper">
-                    <span className="coupon-label-small">CÓDIGO:</span>
-                    <span className="coupon-value">RET15</span>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  backgroundColor: '#fff',
+                  border: '1px solid #e0e0e0',
+                  borderRadius: '8px',
+                  padding: '0.6rem 0.8rem',
+                  boxShadow: '0 2px 4px rgba(0,0,0,0.05)'
+                }}>
+                  <div>
+                    <div style={{
+                      fontSize: '0.6rem',
+                      color: '#999',
+                      fontWeight: '600',
+                      letterSpacing: '0.5px',
+                      marginBottom: '0.15rem',
+                      fontFamily: "'Inter', sans-serif",
+                      textTransform: 'uppercase'
+                    }}>CÓDIGO:</div>
+                    <div style={{
+                      fontFamily: "'Oswald', sans-serif",
+                      fontSize: '1.3rem',
+                      fontWeight: '700',
+                      color: '#333',
+                      letterSpacing: '1px'
+                    }}>RET15</div>
                   </div>
                   <button
                     onClick={copiarCupon}
-                    className="coupon-action-btn"
-                    title="Copiar código"
+                    style={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      gap: '0.4rem',
+                      backgroundColor: cuponCopiado ? '#e8f5e9' : '#f7f7f7',
+                      border: `1px solid ${cuponCopiado ? '#a5d6a7' : '#e0e0e0'}`,
+                      borderRadius: '6px',
+                      padding: '0.5rem 1rem',
+                      fontSize: '0.8rem',
+                      fontWeight: '600',
+                      color: cuponCopiado ? '#2e7d32' : '#666',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      fontFamily: "'Inter', sans-serif"
+                    }}
+                    title="Copiar código al portapapeles"
                   >
                     {cuponCopiado ? (
-                      <><span>Copiado</span> <span className="check-icon">✓</span></>
+                      <><span>Copiado</span> <span style={{ fontSize: '1rem' }}>✓</span></>
                     ) : (
-                      <><span>Copiar</span> <span className="copy-icon">📋</span></>
+                      <><span>Copiar</span> <span style={{ fontSize: '0.9rem' }}>📋</span></>
                     )}
                   </button>
                 </div>
