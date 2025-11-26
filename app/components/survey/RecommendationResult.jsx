@@ -244,20 +244,21 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
         <div className="notifications-stack">
           {/* Mensaje de descuento para primer pedido */}
           {showFirstOrderBanner && (
-            <div className="discount-banner first-order-banner" style={{
+            <div style={{
               backgroundColor: '#f9f3e8',
               border: '1px solid #e8dcc8',
               borderRadius: '12px',
-              padding: '1rem 0.9rem',
-              position: 'relative'
+              padding: '1rem',
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '0.8rem'
             }}>
               <div style={{
-                position: 'absolute',
-                top: '1rem',
-                left: '1rem',
-                fontSize: '1.5rem'
+                fontSize: '2.5rem',
+                flexShrink: 0,
+                lineHeight: 1
               }}>🎉</div>
-              <div style={{ paddingLeft: '2.5rem' }}>
+              <div style={{ flex: 1 }}>
                 <h4 style={{
                   fontFamily: "'Oswald', sans-serif",
                   fontSize: '0.95rem',
@@ -341,16 +342,17 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
               backgroundColor: '#f9f3e8',
               border: '1px solid #e8dcc8',
               borderRadius: '12px',
-              padding: '1rem 0.9rem',
-              position: 'relative'
+              padding: '1rem',
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: '0.8rem'
             }}>
               <div style={{
-                position: 'absolute',
-                top: '1rem',
-                left: '1rem',
-                fontSize: '1.5rem'
+                fontSize: '2.5rem',
+                flexShrink: 0,
+                lineHeight: 1
               }}>⭐</div>
-              <div style={{ paddingLeft: '2.5rem' }}>
+              <div style={{ flex: 1 }}>
                 <h4 style={{
                   fontFamily: "'Oswald', sans-serif",
                   fontSize: '0.95rem',
