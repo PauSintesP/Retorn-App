@@ -298,10 +298,10 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                     }}>CÓDIGO:</div>
                     <div style={{
                       fontFamily: "'Oswald', sans-serif",
-                      fontSize: '1.3rem',
+                      fontSize: '1.1rem',
                       fontWeight: '700',
                       color: '#333',
-                      letterSpacing: '1px'
+                      letterSpacing: '0.5px'
                     }}>RET15</div>
                   </div>
                   <button
@@ -337,15 +337,44 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
 
           {/* Mensaje de suscripción */}
           {showSubscriptionBanner && (
-            <div className="discount-banner subscription-banner">
-              <div className="discount-icon">⭐</div>
-              <div className="discount-content">
-                <h4 className="discount-title">¡Hazte suscriptor y disfruta de un 10% de descuento en todos tus pedidos!</h4>
+            <div style={{
+              backgroundColor: '#f9f3e8',
+              border: '1px solid #e8dcc8',
+              borderRadius: '12px',
+              padding: '1rem 0.9rem',
+              position: 'relative'
+            }}>
+              <div style={{
+                position: 'absolute',
+                top: '1rem',
+                left: '1rem',
+                fontSize: '1.5rem'
+              }}>⭐</div>
+              <div style={{ paddingLeft: '2.5rem' }}>
+                <h4 style={{
+                  fontFamily: "'Oswald', sans-serif",
+                  fontSize: '0.95rem',
+                  fontWeight: '600',
+                  color: '#333',
+                  margin: '0 0 0.4rem 0',
+                  lineHeight: '1.2'
+                }}>¡Hazte suscriptor y disfruta de un 10% de descuento en todos tus pedidos!</h4>
                 <a
                   href="https://retorn.com/pages/suscripcion"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="subscription-link"
+                  style={{
+                    fontFamily: "'Inter', sans-serif",
+                    fontSize: '0.75rem',
+                    color: '#739f99',
+                    fontWeight: '500',
+                    textDecoration: 'none',
+                    display: 'inline-block',
+                    marginTop: '0.2rem',
+                    transition: 'color 0.2s ease'
+                  }}
+                  onMouseEnter={(e) => e.target.style.color = '#5fb3a1'}
+                  onMouseLeave={(e) => e.target.style.color = '#739f99'}
                 >
                   Más información sobre la suscripción →
                 </a>
