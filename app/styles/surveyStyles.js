@@ -3029,7 +3029,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .discount-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.65rem;
+    font-size: 1rem;
     font-weight: 600;
     color: inherit;
     margin: 0 0 0.2rem 0;
@@ -3042,7 +3042,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .discount-description {
     font-family: 'Inter', sans-serif;
-    font-size: 0.58rem;
+    font-size: 1rem;
     color: inherit;
     opacity: 0.9;
     margin: 0 0 0.15rem 0;
@@ -3136,12 +3136,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
 
     .discount-title {
-      font-size: 0.68rem;
+      font-size: 1.05rem;
       margin-bottom: 0.25rem;
     }
 
     .discount-description {
-      font-size: 0.6rem;
+      font-size: 1rem;
     }
 
     .subscription-link {
@@ -3188,13 +3188,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
 
     .discount-title {
-      font-size: 0.7rem;
+      font-size: 1.1rem;
       margin-bottom: 0.25rem;
       letter-spacing: 0.2px;
     }
 
     .discount-description {
-      font-size: 0.62rem;
+      font-size: 1rem;
       line-height: 1.3;
     }
 
@@ -3238,12 +3238,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
 
     .discount-title {
-      font-size: 0.72rem;
+      font-size: 1.15rem;
       margin-bottom: 0.45rem;
     }
 
     .discount-description {
-      font-size: 0.8rem;
+      font-size: 1rem;
       line-height: 1.4;
     }
 
