@@ -268,6 +268,30 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
           <button
             onClick={onRestart}
             className="restart-survey-button"
+            style={{
+              flex: '1',
+              minWidth: '0',
+              maxWidth: 'none',
+              padding: '0.75rem 0.65rem',
+              border: '2px solid rgba(0, 0, 0, 0.06)',
+              borderRadius: '8px',
+              fontFamily: "'Oswald', sans-serif",
+              fontSize: '0.75rem',
+              fontWeight: '600',
+              cursor: 'pointer',
+              transition: 'all 0.25s ease-out',
+              textTransform: 'uppercase',
+              letterSpacing: '0.4px',
+              position: 'relative',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'linear-gradient(135deg, #f5f5f5 0%, #ebebeb 100%)',
+              color: '#666'
+            }}
           >
             Realizar otro cuestionario
           </button>
@@ -275,6 +299,32 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
           <button
             onClick={agregarAlCarrito}
             className="cart-button"
+            style={{
+              flex: '1',
+              minWidth: '0',
+              maxWidth: 'none',
+              padding: '0.75rem 0.65rem',
+              border: '2px solid transparent',
+              borderRadius: '8px',
+              fontFamily: "'Oswald', sans-serif",
+              fontSize: '0.75rem',
+              fontWeight: '600',
+              cursor: 'pointer',
+              transition: 'all 0.25s ease-out',
+              textTransform: 'uppercase',
+              letterSpacing: '0.4px',
+              position: 'relative',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              background: 'linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%)',
+              backgroundSize: '200% 100%',
+              color: 'white',
+              boxShadow: '0 6px 20px rgba(115, 159, 153, 0.3), 0 2px 6px rgba(115, 159, 153, 0.15)'
+            }}
           >
             Agregar los productos al carrito
           </button>
@@ -357,27 +407,7 @@ function ProductCard({ producto, tipo, kcalDiarias, porcentaje, tipoCroqueta, ti
 
   const formatearCantidad = () => {
     const cantidadOriginal = producto.varianteRecomendada?.cantidad || "";
-    if (!cantidadOriginal) {
-      return "";
-    }
-
-    // Para "Caja 12 latas 185 g" -> "Caja 12 latas"
-    // Para "Caja 18x80gr" -> "Caja 18"
-    // Para "185 gr x 12ud" -> "12ud"
-    // Para "12 kg" -> "12 kg" (mantener como está)
-
-    let formatoLimpio = cantidadOriginal;
-
-    // Eliminar gramos después de "latas": "Caja 12 latas 185 g" -> "Caja 12 latas"
-    formatoLimpio = formatoLimpio.replace(/(\d+\s*latas)\s*\d+(?:\.\d+)?\s*g(?:r)?/i, '$1');
-
-    // Eliminar gramos en formato "x80gr": "Caja 18x80gr" -> "Caja 18"
-    formatoLimpio = formatoLimpio.replace(/x\s*\d+(?:\.\d+)?\s*g(?:r)?/i, '');
-
-    // Para formato "185 gr x 12ud" -> "12ud"
-    formatoLimpio = formatoLimpio.replace(/^\d+(?:\.\d+)?\s*g(?:r)?\s*x\s*(\d+\s*ud)/i, '$1');
-
-    return formatoLimpio.trim();
+    return cantidadOriginal;
   };
 
   const calcularDuracion = () => {
