@@ -288,22 +288,27 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                 </div>
 
                 <div style={{
-                  display: 'flex',
+                  display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.8rem',
+                  gap: '0.6rem',
                   backgroundColor: '#fff',
                   border: '1px solid #d5d5d5',
                   borderRadius: '8px',
-                  padding: '0.5rem 0.7rem',
+                  padding: '0.55rem 0.75rem',
                   boxShadow: '0 1px 3px rgba(0,0,0,0.08)'
                 }}>
                   <div style={{
                     fontFamily: "'Oswald', sans-serif",
-                    fontSize: '0.9rem',
+                    fontSize: '0.95rem',
                     fontWeight: '700',
                     color: '#333',
                     letterSpacing: '0.5px'
                   }}>RET15</div>
+                  <div style={{
+                    width: '1px',
+                    height: '20px',
+                    backgroundColor: '#e0e0e0'
+                  }}></div>
                   <button
                     onClick={copiarCupon}
                     style={{
@@ -311,15 +316,14 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                       alignItems: 'center',
                       justifyContent: 'center',
                       gap: '0.3rem',
-                      backgroundColor: cuponCopiado ? '#e8f5e9' : '#f5f5f5',
-                      border: `1.5px solid ${cuponCopiado ? '#81c784' : '#d5d5d5'}`,
-                      borderRadius: '6px',
-                      padding: '0.45rem 0.8rem',
+                      backgroundColor: 'transparent',
+                      border: 'none',
+                      padding: '0',
                       fontSize: '0.75rem',
                       fontWeight: '600',
-                      color: cuponCopiado ? '#2e7d32' : '#555',
+                      color: cuponCopiado ? '#2e7d32' : '#666',
                       cursor: 'pointer',
-                      transition: 'all 0.2s ease',
+                      transition: 'color 0.2s ease',
                       fontFamily: "'Inter', sans-serif",
                       whiteSpace: 'nowrap'
                     }}
