@@ -290,23 +290,19 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.8rem',
+                  gap: '0.6rem',
                   backgroundColor: '#fff',
                   border: '1px solid #d5d5d5',
                   borderRadius: '8px',
-                  padding: '0.7rem 0.9rem',
+                  padding: '0.5rem 0.6rem',
                   boxShadow: '0 1px 3px rgba(0,0,0,0.08)'
                 }}>
-                  <div style={{ flex: 1 }}>
-                    <div style={{
-                      fontSize: '0.55rem',
-                      color: '#999',
-                      fontWeight: '600',
-                      letterSpacing: '0.3px',
-                      marginBottom: '0.15rem',
-                      fontFamily: "'Inter', sans-serif",
-                      textTransform: 'uppercase'
-                    }}>CÓDIGO:</div>
+                  <div style={{ 
+                    flex: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center'
+                  }}>
                     <div style={{
                       fontFamily: "'Oswald', sans-serif",
                       fontSize: '0.9rem',
@@ -325,8 +321,8 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                       backgroundColor: cuponCopiado ? '#e8f5e9' : '#f5f5f5',
                       border: `1.5px solid ${cuponCopiado ? '#81c784' : '#d5d5d5'}`,
                       borderRadius: '6px',
-                      padding: '0.6rem 1.1rem',
-                      fontSize: '0.8rem',
+                      padding: '0.5rem 0.9rem',
+                      fontSize: '0.75rem',
                       fontWeight: '600',
                       color: cuponCopiado ? '#2e7d32' : '#555',
                       cursor: 'pointer',
