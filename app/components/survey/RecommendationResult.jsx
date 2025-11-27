@@ -265,9 +265,10 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                 flex: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '0.5rem'
+                gap: '0.5rem',
+                alignItems: 'center'
               }}>
-                <div>
+                <div style={{ width: '100%', textAlign: 'center' }}>
                   <h4 style={{
                     fontFamily: "'Oswald', sans-serif",
                     fontSize: '1rem',
