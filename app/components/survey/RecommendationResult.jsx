@@ -290,11 +290,11 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.5rem',
+                  justifyContent: 'space-between',
                   backgroundColor: '#fff',
                   border: '1px solid #d5d5d5',
                   borderRadius: '8px',
-                  padding: '0.5rem 0.6rem',
+                  padding: '0.5rem 0.7rem',
                   boxShadow: '0 1px 3px rgba(0,0,0,0.08)'
                 }}>
                   <div style={{
@@ -310,19 +310,18 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      gap: '0.35rem',
+                      gap: '0.3rem',
                       backgroundColor: cuponCopiado ? '#e8f5e9' : '#f5f5f5',
                       border: `1.5px solid ${cuponCopiado ? '#81c784' : '#d5d5d5'}`,
                       borderRadius: '6px',
-                      padding: '0.5rem 0.9rem',
+                      padding: '0.45rem 0.8rem',
                       fontSize: '0.75rem',
                       fontWeight: '600',
                       color: cuponCopiado ? '#2e7d32' : '#555',
                       cursor: 'pointer',
                       transition: 'all 0.2s ease',
                       fontFamily: "'Inter', sans-serif",
-                      whiteSpace: 'nowrap',
-                      marginLeft: 'auto'
+                      whiteSpace: 'nowrap'
                     }}
                     title="Copiar código al portapapeles"
                   >
