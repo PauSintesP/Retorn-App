@@ -290,24 +290,27 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                 <div style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.5rem',
+                  gap: '0.4rem',
                   backgroundColor: '#fff',
                   border: '1px solid #d5d5d5',
                   borderRadius: '6px',
-                  padding: '0.4rem 0.6rem',
-                  boxShadow: '0 1px 3px rgba(0,0,0,0.08)'
+                  padding: '0.35rem 0.5rem',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
+                  width: 'fit-content'
                 }}>
                   <div style={{
                     fontFamily: "'Oswald', sans-serif",
                     fontSize: '0.85rem',
                     fontWeight: '700',
                     color: '#333',
-                    letterSpacing: '0.3px'
+                    letterSpacing: '0.3px',
+                    lineHeight: 1
                   }}>RET15</div>
                   <div style={{
                     width: '1px',
-                    height: '16px',
-                    backgroundColor: '#e0e0e0'
+                    height: '14px',
+                    backgroundColor: '#e0e0e0',
+                    flexShrink: 0
                   }}></div>
                   <button
                     onClick={copiarCupon}
@@ -315,7 +318,7 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      gap: '0.25rem',
+                      gap: '0.2rem',
                       backgroundColor: 'transparent',
                       border: 'none',
                       padding: '0',
@@ -325,7 +328,8 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                       cursor: 'pointer',
                       transition: 'color 0.2s ease',
                       fontFamily: "'Inter', sans-serif",
-                      whiteSpace: 'nowrap'
+                      whiteSpace: 'nowrap',
+                      lineHeight: 1
                     }}
                     title="Copiar código al portapapeles"
                   >
