@@ -290,23 +290,23 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                 <div style={{
                   display: 'inline-flex',
                   alignItems: 'center',
-                  gap: '0.6rem',
+                  gap: '0.5rem',
                   backgroundColor: '#fff',
                   border: '1px solid #d5d5d5',
-                  borderRadius: '8px',
-                  padding: '0.55rem 0.75rem',
+                  borderRadius: '6px',
+                  padding: '0.4rem 0.6rem',
                   boxShadow: '0 1px 3px rgba(0,0,0,0.08)'
                 }}>
                   <div style={{
                     fontFamily: "'Oswald', sans-serif",
-                    fontSize: '0.95rem',
+                    fontSize: '0.85rem',
                     fontWeight: '700',
                     color: '#333',
-                    letterSpacing: '0.5px'
+                    letterSpacing: '0.3px'
                   }}>RET15</div>
                   <div style={{
                     width: '1px',
-                    height: '20px',
+                    height: '16px',
                     backgroundColor: '#e0e0e0'
                   }}></div>
                   <button
@@ -315,11 +315,11 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      gap: '0.3rem',
+                      gap: '0.25rem',
                       backgroundColor: 'transparent',
                       border: 'none',
                       padding: '0',
-                      fontSize: '0.75rem',
+                      fontSize: '0.7rem',
                       fontWeight: '600',
                       color: cuponCopiado ? '#2e7d32' : '#666',
                       cursor: 'pointer',
