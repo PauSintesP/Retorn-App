@@ -290,27 +290,20 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  gap: '0.6rem',
+                  gap: '0.5rem',
                   backgroundColor: '#fff',
                   border: '1px solid #d5d5d5',
                   borderRadius: '8px',
                   padding: '0.5rem 0.6rem',
                   boxShadow: '0 1px 3px rgba(0,0,0,0.08)'
                 }}>
-                  <div style={{ 
-                    flex: 1,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center'
-                  }}>
-                    <div style={{
-                      fontFamily: "'Oswald', sans-serif",
-                      fontSize: '0.9rem',
-                      fontWeight: '700',
-                      color: '#333',
-                      letterSpacing: '0.5px'
-                    }}>RET15</div>
-                  </div>
+                  <div style={{
+                    fontFamily: "'Oswald', sans-serif",
+                    fontSize: '0.9rem',
+                    fontWeight: '700',
+                    color: '#333',
+                    letterSpacing: '0.5px'
+                  }}>RET15</div>
                   <button
                     onClick={copiarCupon}
                     style={{
@@ -328,7 +321,8 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                       cursor: 'pointer',
                       transition: 'all 0.2s ease',
                       fontFamily: "'Inter', sans-serif",
-                      whiteSpace: 'nowrap'
+                      whiteSpace: 'nowrap',
+                      marginLeft: 'auto'
                     }}
                     title="Copiar código al portapapeles"
                   >
