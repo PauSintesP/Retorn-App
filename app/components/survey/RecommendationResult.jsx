@@ -294,9 +294,10 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                   backgroundColor: '#fff',
                   border: '1px solid #d5d5d5',
                   borderRadius: '6px',
-                  padding: '0.35rem 0.5rem',
+                  padding: '0.35rem 0.45rem',
                   boxShadow: '0 1px 3px rgba(0,0,0,0.08)',
-                  width: 'fit-content'
+                  width: 'auto',
+                  maxWidth: 'fit-content'
                 }}>
                   <div style={{
                     fontFamily: "'Oswald', sans-serif",
@@ -304,7 +305,8 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                     fontWeight: '700',
                     color: '#333',
                     letterSpacing: '0.3px',
-                    lineHeight: 1
+                    lineHeight: 1,
+                    flexShrink: 0
                   }}>RET15</div>
                   <div style={{
                     width: '1px',
@@ -315,13 +317,14 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                   <button
                     onClick={copiarCupon}
                     style={{
-                      display: 'flex',
+                      display: 'inline-flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       gap: '0.2rem',
                       backgroundColor: 'transparent',
                       border: 'none',
                       padding: '0',
+                      margin: '0',
                       fontSize: '0.7rem',
                       fontWeight: '600',
                       color: cuponCopiado ? '#2e7d32' : '#666',
@@ -329,7 +332,9 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                       transition: 'color 0.2s ease',
                       fontFamily: "'Inter', sans-serif",
                       whiteSpace: 'nowrap',
-                      lineHeight: 1
+                      lineHeight: 1,
+                      flexShrink: 0,
+                      width: 'auto'
                     }}
                     title="Copiar código al portapapeles"
                   >
