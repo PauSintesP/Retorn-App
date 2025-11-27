@@ -290,7 +290,7 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
-                  justifyContent: 'space-between',
+                  gap: '0.8rem',
                   backgroundColor: '#fff',
                   border: '1px solid #d5d5d5',
                   borderRadius: '8px',
