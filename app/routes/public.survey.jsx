@@ -169,22 +169,40 @@ export default function PublicSurveyPage() {
   useEffect(() => {
     const sendHeight = () => {
       try {
-        const viewportHeight = window.innerHeight || 800;
+        const body = document.body;
+        const html = document.documentElement;
+        const height = Math.max(
+          body.scrollHeight,
+          body.offsetHeight,
+          html.clientHeight,
+          html.scrollHeight,
+          html.offsetHeight
+        );
         window.parent.postMessage({ 
           type: "retorn-survey-height", 
-          height: viewportHeight 
+          height: height 
         }, "*");
       } catch (e) {}
     };
 
-    sendHeight();
+    // Enviar altura inicial
+    setTimeout(sendHeight, 100);
+
+    // Enviar altura cuando cambie el contenido
+    const observer = new MutationObserver(sendHeight);
+    observer.observe(document.body, {
+      childList: true,
+      subtree: true,
+      attributes: true
+    });
 
     window.addEventListener('resize', sendHeight);
 
     return () => {
+      observer.disconnect();
       window.removeEventListener('resize', sendHeight);
     };
-  }, []);
+  }, [started, showRecommendation, showPathologyContact, currentStep]);
 
   const handleAnswer = (value) => {
     setAnswers((prev) => {
