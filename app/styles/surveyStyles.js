@@ -3689,10 +3689,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .calorie-item {
     display: flex;
     flex-direction: column;
-    gap: 0.4rem;
-    padding: 1rem 0.85rem;
+    gap: 0.25rem;
+    padding: 0.5rem 0.6rem;
     background: linear-gradient(135deg, rgba(115, 159, 153, 0.06) 0%, rgba(115, 159, 153, 0.02) 100%);
-    border-radius: 12px;
+    border-radius: 10px;
     border: 1px solid rgba(115, 159, 153, 0.15);
     transition: all 0.3s ease;
     position: relative;
@@ -3725,8 +3725,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .calorie-item {
-      padding: 1.15rem 1rem;
-      border-radius: 14px;
+      padding: 0.65rem 0.75rem;
+      border-radius: 12px;
     }
 
     .calorie-item::before {
@@ -3736,40 +3736,40 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .calorie-item {
-      padding: 1.25rem 1.15rem;
+      padding: 0.75rem 0.9rem;
     }
   }
 
   .calorie-label {
     font-family: 'Inter', sans-serif;
-    font-size: 0.75rem;
+    font-size: 0.65rem;
     color: #888;
     font-weight: 600;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.4px;
     display: flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: 0.25rem;
   }
 
   @media (min-width: 600px) {
     .calorie-label {
-      font-size: 0.8rem;
-      letter-spacing: 0.6px;
-      gap: 0.4rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.5px;
+      gap: 0.3rem;
     }
   }
 
   @media (min-width: 768px) {
     .calorie-label {
-      font-size: 0.85rem;
-      gap: 0.45rem;
+      font-size: 0.75rem;
+      gap: 0.35rem;
     }
   }
 
   .calorie-value {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     color: var(--jdgm-paginate-color);
     font-weight: 700;
     letter-spacing: -0.02em;
@@ -3778,7 +3778,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .calorie-value {
-      font-size: 1.8rem;
+      font-size: 1.35rem;
     }
   }
 
