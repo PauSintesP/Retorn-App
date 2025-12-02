@@ -1,15 +1,20 @@
 {% comment %}
-  Bloque de cuestionario Retorn para insertar en páginas
+  Bloque de cuestionario Retorn
 {% endcomment %}
 
 <style>
+  .retorn-survey-wrapper {
+    width: 100%;
+    background: {{ block.settings.section_bg }};
+    padding: 0;
+    margin: 0;
+  }
+
   .retorn-survey-container-{{ block.id }} {
     width: 100%;
-    min-height: 600px;
-    background: {{ block.settings.container_bg }};
-    padding: {{ block.settings.padding_top }}px {{ block.settings.padding_horizontal }}px {{ block.settings.padding_bottom }}px;
-    margin: {{ block.settings.margin_top }}px auto {{ block.settings.margin_bottom }}px;
-    max-width: {{ block.settings.max_width }}px;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
   }
 
   .retorn-survey-iframe-{{ block.id }} {
@@ -18,21 +23,25 @@
     height: auto;
     border: none;
     display: block;
-    border-radius: {{ block.settings.border_radius }}px;
-    box-shadow: {{ block.settings.box_shadow }};
+    border-radius: 0;
+    box-shadow: none;
+    background: {{ block.settings.iframe_bg }};
+    overflow: hidden;
   }
 </style>
 
-<div class="retorn-survey-container-{{ block.id }}" {{ block.shopify_attributes }}>
-  <iframe 
-    id="retorn-survey-frame-{{ block.id }}"
-    class="retorn-survey-iframe-{{ block.id }}"
-    src="{{ block.settings.survey_url }}?primary={{ block.settings.primary_color | url_encode }}&accent={{ block.settings.accent_color | url_encode }}&bg={{ block.settings.background_color | url_encode }}&radius={{ block.settings.border_radius }}"
-    title="Cuestionario de Recomendación Retorn"
-    loading="lazy"
-    allow="clipboard-write"
-    sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
-  ></iframe>
+<div class="retorn-survey-wrapper">
+  <div class="retorn-survey-container-{{ block.id }}" {{ block.shopify_attributes }}>
+    <iframe 
+      id="retorn-survey-frame-{{ block.id }}"
+      class="retorn-survey-iframe-{{ block.id }}"
+      src="{{ block.settings.survey_url }}?primary={{ block.settings.primary_color | url_encode }}&accent={{ block.settings.accent_color | url_encode }}&bg={{ block.settings.background_color | url_encode }}"
+      title="Cuestionario de Recomendación Retorn"
+      loading="lazy"
+      allow="clipboard-write"
+      sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
+    ></iframe>
+  </div>
 </div>
 
 <script>
@@ -40,12 +49,14 @@
     const iframe = document.getElementById('retorn-survey-frame-{{ block.id }}');
     const surveyOrigin = new URL('{{ block.settings.survey_url }}').origin;
 
-    // Ajustar altura del iframe dinámicamente
+    // Ajustar altura del iframe dinámicamente para evitar doble scroll
     window.addEventListener('message', function(e) {
       if (!e.data || e.origin !== surveyOrigin) return;
 
       if (e.data.type === 'retorn-survey-height' && e.data.height) {
-        iframe.style.height = Math.max(600, e.data.height) + 'px';
+        // Ajustar altura exacta del contenido + pequeño margen
+        iframe.style.height = (e.data.height + 20) + 'px';
+        iframe.style.minHeight = 'auto';
       }
 
       if (e.data.type === 'retorn-survey-started') {
@@ -81,7 +92,7 @@
 {% schema %}
 {
   "name": "Cuestionario Retorn",
-  "target": "body",
+  "target": "section",
   "settings": [
     {
       "type": "header",
@@ -100,8 +111,14 @@
     },
     {
       "type": "color",
-      "id": "container_bg",
-      "label": "Color de fondo del contenedor",
+      "id": "section_bg",
+      "label": "Color de fondo de la sección",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "iframe_bg",
+      "label": "Color de fondo del iframe",
       "default": "#ffffff"
     },
     {
@@ -130,7 +147,7 @@
       "type": "range",
       "id": "max_width",
       "min": 600,
-      "max": 1400,
+      "max": 1600,
       "step": 50,
       "unit": "px",
       "label": "Ancho máximo",
@@ -140,21 +157,21 @@
       "type": "range",
       "id": "padding_top",
       "min": 0,
-      "max": 100,
-      "step": 5,
+      "max": 150,
+      "step": 10,
       "unit": "px",
       "label": "Padding superior",
-      "default": 20
+      "default": 40
     },
     {
       "type": "range",
       "id": "padding_bottom",
       "min": 0,
-      "max": 100,
-      "step": 5,
+      "max": 150,
+      "step": 10,
       "unit": "px",
       "label": "Padding inferior",
-      "default": 20
+      "default": 40
     },
     {
       "type": "range",
@@ -165,26 +182,6 @@
       "unit": "px",
       "label": "Padding lateral",
       "default": 20
-    },
-    {
-      "type": "range",
-      "id": "margin_top",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "label": "Margen superior",
-      "default": 0
-    },
-    {
-      "type": "range",
-      "id": "margin_bottom",
-      "min": 0,
-      "max": 100,
-      "step": 5,
-      "unit": "px",
-      "label": "Margen inferior",
-      "default": 0
     },
     {
       "type": "range",

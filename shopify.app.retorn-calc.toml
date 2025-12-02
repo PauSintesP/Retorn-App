@@ -1,0 +1,21 @@
+# Learn more about configuring your app at https://shopify.dev/docs/apps/tools/cli/configuration
+
+client_id = "9334be36e05091be229b60221769c77e"
+name = "Retorn-Calc"
+application_url = "https://retorn-app.vercel.app/app"
+embedded = true
+
+[webhooks]
+api_version = "2025-10"
+
+[access_scopes]
+# Learn more at https://shopify.dev/docs/apps/tools/cli/configuration#access_scopes
+scopes = ""
+optional_scopes = [ ]
+use_legacy_install_flow = false
+
+[auth]
+redirect_urls = [
+  "https://retorn-app.vercel.app/auth/callback",
+  "https://retorn-app.vercel.app/auth/shopify/callback"
+]

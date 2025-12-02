@@ -2,12 +2,32 @@
  * Componente para mostrar la recomendación de productos
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function RecommendationResult({ recommendation, onBack = () => { }, onRestart = () => { } }) {
   const [showFirstOrderBanner, setShowFirstOrderBanner] = useState(true);
   const [showSubscriptionBanner, setShowSubscriptionBanner] = useState(true);
   const [cuponCopiado, setCuponCopiado] = useState(false);
+
+  // Enviar altura del contenido al padre (para iframe)
+  useEffect(() => {
+    const sendHeight = () => {
+      const height = document.documentElement.scrollHeight;
+      window.parent.postMessage({
+        type: 'retorn-survey-height',
+        height: height
+      }, '*');
+    };
+
+    // Enviar altura inicial
+    sendHeight();
+
+    // Enviar altura cuando cambie el contenido
+    const observer = new ResizeObserver(sendHeight);
+    observer.observe(document.body);
+
+    return () => observer.disconnect();
+  }, []);
 
   if (!recommendation) {
     return null;
