@@ -2,12 +2,20 @@
  * Componente para mostrar la recomendación de productos
  */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function RecommendationResult({ recommendation, onBack = () => { }, onRestart = () => { } }) {
   const [showFirstOrderBanner, setShowFirstOrderBanner] = useState(true);
   const [showSubscriptionBanner, setShowSubscriptionBanner] = useState(true);
   const [cuponCopiado, setCuponCopiado] = useState(false);
+
+  // Notificar al iframe padre que estamos en la pantalla final
+  useEffect(() => {
+    window.parent.postMessage({
+      type: 'retorn-survey-final-screen',
+      height: 2400
+    }, '*');
+  }, []);
 
   if (!recommendation) {
     return null;
