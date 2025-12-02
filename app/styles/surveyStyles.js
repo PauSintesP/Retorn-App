@@ -2510,8 +2510,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .product-image-container {
     width: 100%;
-    height: 160px;
-    margin: 0 0 0.85rem 0;
+    height: 100px;
+    margin: 0 0 0.4rem 0;
     overflow: hidden;
     background: #fafafa;
     display: flex;
@@ -2525,19 +2525,19 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .product-image-container {
-      height: 220px;
-      margin: 0 0 1.25rem 0;
+      height: 120px;
+      margin: 0 0 0.5rem 0;
     }
   }
 
   @media (min-width: 768px) {
     .product-image-container {
-      height: 300px;
-      margin: 0 0 1.5rem 0;
+      height: 150px;
+      margin: 0 0 0.6rem 0;
     }
     
     .mixta-products-grid .product-image-container {
-      height: 250px;
+      height: 130px;
     }
   }
 
@@ -2566,8 +2566,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.7rem;
-    min-height: 2rem;
+    margin-bottom: 0.35rem;
+    min-height: 1.5rem;
   }
 
   @media (min-width: 600px) {
@@ -2636,37 +2636,37 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .product-name {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     color: var(--jdgm-primary-color);
-    margin: 0 0 0.7rem 0;
+    margin: 0 0 0.4rem 0;
     font-weight: 600;
-    line-height: 1.2;
-    min-height: 2rem;
+    line-height: 1.15;
+    min-height: 1.5rem;
     display: flex;
     align-items: center;
   }
 
   @media (min-width: 600px) {
     .product-name {
-      font-size: 1.1rem;
-      margin: 0 0 1rem 0;
-      min-height: 2.5rem;
-      line-height: 1.25;
+      font-size: 0.95rem;
+      margin: 0 0 0.5rem 0;
+      min-height: 1.8rem;
+      line-height: 1.2;
     }
   }
 
   @media (min-width: 768px) {
     .product-name {
-      font-size: 1.2rem;
-      margin: 0 0 1.25rem 0;
-      min-height: 3rem;
-      line-height: 1.3;
+      font-size: 1.05rem;
+      margin: 0 0 0.6rem 0;
+      min-height: 2rem;
+      line-height: 1.25;
     }
     
     .mixta-products-grid .product-name {
-      font-size: 1.15rem;
-      margin: 0 0 1rem 0;
-      min-height: 2.8rem;
+      font-size: 1rem;
+      margin: 0 0 0.5rem 0;
+      min-height: 1.9rem;
     }
   }
 
@@ -3631,58 +3631,58 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .calorie-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     color: var(--jdgm-primary-color);
-    margin: 0 0 1rem 0;
+    margin: 0 0 0.4rem 0;
     font-weight: 700;
     letter-spacing: -0.01em;
     display: flex;
     align-items: center;
-    gap: 0.5rem;
+    gap: 0.4rem;
   }
 
   .calorie-title::before {
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
 
   @media (min-width: 600px) {
     .calorie-title {
-      font-size: 1.25rem;
-      margin: 0 0 1.25rem 0;
+      font-size: 1.05rem;
+      margin: 0 0 0.5rem 0;
     }
 
     .calorie-title::before {
-      font-size: 1.4rem;
+      font-size: 1.1rem;
     }
   }
 
   @media (min-width: 768px) {
     .calorie-title {
-      font-size: 1.4rem;
-      margin: 0 0 1.5rem 0;
+      font-size: 1.15rem;
+      margin: 0 0 0.6rem 0;
     }
 
     .calorie-title::before {
-      font-size: 1.6rem;
+      font-size: 1.2rem;
     }
   }
 
   .calorie-details {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.4rem;
   }
 
   @media (min-width: 600px) {
     .calorie-details {
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1.25rem;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.5rem;
     }
   }
 
   @media (min-width: 768px) {
     .calorie-details {
-      gap: 1.5rem;
+      gap: 0.6rem;
     }
   }
 
@@ -3832,27 +3832,27 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .nutrition-grid {
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.6rem;
+    gap: 0.35rem;
   }
 
   @media (min-width: 500px) {
     .nutrition-grid {
       grid-template-columns: repeat(2, 1fr);
-      gap: 0.75rem;
+      gap: 0.4rem;
     }
   }
 
   @media (min-width: 768px) {
     .nutrition-grid {
-      gap: 0.65rem;
+      gap: 0.45rem;
     }
   }
 
   .nutrition-item {
     display: flex;
     align-items: center;
-    gap: 0.65rem;
-    padding: 0.7rem;
+    gap: 0.4rem;
+    padding: 0.4rem;
     background: rgba(115, 159, 153, 0.05);
     border-radius: 5px;
     transition: all 0.2s ease;
