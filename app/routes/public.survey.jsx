@@ -181,26 +181,44 @@ export default function PublicSurveyPage() {
           html.offsetHeight
         );
         
-        // Solo enviar si la altura cambió significativamente (más de 50px)
-        if (Math.abs(height - lastSentHeight) > 50) {
+        // Enviar siempre la altura cuando cambia, sin filtro de 50px
+        if (height !== lastSentHeight) {
           lastSentHeight = height;
           window.parent.postMessage({ 
             type: "retorn-survey-height", 
-            height: height 
+            height: height + 100 // Añadir 100px de margen para asegurar que no haya scroll
           }, "*");
-          console.log('📤 Altura enviada:', height);
+          console.log('📤 Altura enviada:', height + 100);
         }
-      } catch (e) {}
+      } catch (e) {
+        console.error('Error enviando altura:', e);
+      }
     };
 
-    // Enviar altura inicial solo una vez
-    setTimeout(sendHeight, 300);
-
-    // NO usar MutationObserver para evitar loops infinitos
-    // Solo enviar altura cuando cambian los estados principales
+    // Enviar altura inicial y después de cada render
+    sendHeight();
     
-    return () => {};
-  }, [started, showRecommendation, showPathologyContact, currentStep]);
+    // Usar un timeout para enviar después de que se complete el render
+    const timeoutId = setTimeout(sendHeight, 100);
+    const timeoutId2 = setTimeout(sendHeight, 500);
+    const timeoutId3 = setTimeout(sendHeight, 1000);
+
+    // Escuchar solicitudes de altura desde el padre
+    const handleMessage = (e) => {
+      if (e.data && e.data.type === 'retorn-request-height') {
+        sendHeight();
+      }
+    };
+    
+    window.addEventListener('message', handleMessage);
+    
+    return () => {
+      clearTimeout(timeoutId);
+      clearTimeout(timeoutId2);
+      clearTimeout(timeoutId3);
+      window.removeEventListener('message', handleMessage);
+    };
+  }, [started, showRecommendation, showPathologyContact, currentStep, answers, isLoading]);
 
   const handleAnswer = (value) => {
     setAnswers((prev) => {
