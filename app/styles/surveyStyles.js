@@ -2263,11 +2263,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
     max-width: 100%;
     width: 100%;
     min-height: auto;
-    padding: 0.3rem;
+    padding: 0.5rem 1rem;
     overflow: visible;
     box-sizing: border-box;
     margin: 0 auto;
     animation: fadeSlideIn 0.4s ease-out;
+    zoom: 0.85;
+    -moz-transform: scale(0.85);
+    -moz-transform-origin: 0 0;
   }
 
   .recommendation-container::-webkit-scrollbar {
