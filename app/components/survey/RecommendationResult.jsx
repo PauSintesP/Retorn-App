@@ -147,78 +147,96 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
 
   return (
     <div className="recommendation-container">
-      <div className="recommendation-grid">
-        {factores && (
-          <div className="calorie-info">
-            <h3 className="calorie-title">
-              Cálculo Nutricional para {nombreMascota} {tipoAnimal === "Perro" ? "🐶" : "🐱"}
-            </h3>
-            {recomendacion.tipo === "mixta" && (
-              <p className="mixta-note" style={{ fontSize: '0.75rem', marginBottom: '0.5rem', color: '#666' }}>
-                <strong>Alimentación Mixta:</strong> Distribución óptima 75% Alimento Seco + 25% Alimento Húmedo. Esta combinación proporciona las {Math.round(kcalDiarias)} kcal diarias necesarias.
-              </p>
-            )}
-            <div className="calorie-details">
-              <div className="calorie-item">
-                <span className="calorie-label">⚡ Calorías diarias</span>
-                <span className="calorie-value">{Math.round(kcalDiarias)} kcal</span>
-              </div>
-              {factores.peso && (
-                <div className="calorie-item">
-                  <span className="calorie-label">⚖️ Peso actual</span>
-                  <span className="calorie-value">{factores.peso} kg</span>
-                </div>
-              )}
-              {factores.edadMeses !== undefined && (
-                <div className="calorie-item">
-                  <span className="calorie-label">🎂 Edad</span>
-                  <span className="calorie-value">
-                    {factores.edadMeses < 12
-                      ? `${factores.edadMeses} meses`
-                      : `${Math.floor(factores.edadMeses / 12)} años`}
-                  </span>
-                </div>
-              )}
+      <button
+        className="back-button"
+        onClick={onBack}
+        aria-label="Volver a la última pregunta"
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M19 12H5M12 19l-7-7 7-7" />
+        </svg>
+        <span>Volver</span>
+      </button>
+
+      {factores && (
+        <div className="calorie-info">
+          <h3 className="calorie-title">
+            Cálculo Nutricional para {nombreMascota} {tipoAnimal === "Perro" ? "🐶" : "🐱"}
+          </h3>
+          {recomendacion.tipo === "mixta" && (
+            <p className="mixta-note" style={{ fontSize: '0.9rem', marginBottom: '1rem', color: '#666' }}>
+              <strong>Alimentación Mixta:</strong> Distribución óptima 75% Alimento Seco + 25% Alimento Húmedo. Esta combinación proporciona las {Math.round(kcalDiarias)} kcal diarias necesarias.
+            </p>
+          )}
+          <div className="calorie-details">
+            <div className="calorie-item">
+              <span className="calorie-label">⚡ Calorías diarias</span>
+              <span className="calorie-value">{Math.round(kcalDiarias)} kcal</span>
             </div>
+            {factores.peso && (
+              <div className="calorie-item">
+                <span className="calorie-label">⚖️ Peso actual</span>
+                <span className="calorie-value">{factores.peso} kg</span>
+              </div>
+            )}
+            {factores.edadMeses !== undefined && (
+              <div className="calorie-item">
+                <span className="calorie-label">🎂 Edad</span>
+                <span className="calorie-value">
+                  {factores.edadMeses < 12
+                    ? `${factores.edadMeses} meses`
+                    : `${Math.floor(factores.edadMeses / 12)} años`}
+                </span>
+              </div>
+            )}
           </div>
+        </div>
+      )}
+
+      <div className="products-section">
+        {recomendacion.tipo === "seca" && recomendacion.productoSeco && (
+          <>
+            <h3 className="products-title">Tu Producto Recomendado</h3>
+            <ProductCard
+              producto={recomendacion.productoSeco}
+              tipo="Alimento Seco"
+              kcalDiarias={kcalDiarias}
+              tipoCroqueta={tipoCroqueta}
+              tipoAnimal={tipoAnimal}
+            />
+          </>
         )}
 
-        <div className="products-section">
-          {recomendacion.tipo === "seca" && recomendacion.productoSeco && (
-            <>
-              <h3 className="products-title">Tu Producto Recomendado</h3>
+        {recomendacion.tipo === "mixta" && (
+          <>
+            <div className="mixta-products-grid">
               <ProductCard
                 producto={recomendacion.productoSeco}
                 tipo="Alimento Seco"
                 kcalDiarias={kcalDiarias}
+                porcentaje={75}
                 tipoCroqueta={tipoCroqueta}
                 tipoAnimal={tipoAnimal}
               />
-            </>
-          )}
 
-          {recomendacion.tipo === "mixta" && (
-            <>
-              <div className="mixta-products-grid">
-                <ProductCard
-                  producto={recomendacion.productoSeco}
-                  tipo="Alimento Seco"
-                  kcalDiarias={kcalDiarias}
-                  porcentaje={75}
-                  tipoCroqueta={tipoCroqueta}
-                  tipoAnimal={tipoAnimal}
-                />
-
-                <ProductCard
-                  producto={recomendacion.productoHumedo}
-                  tipo="Alimento Húmedo"
-                  kcalDiarias={kcalDiarias}
-                  porcentaje={25}
-                />
-              </div>
-            </>
-          )}
-        </div>
+              <ProductCard
+                producto={recomendacion.productoHumedo}
+                tipo="Alimento Húmedo"
+                kcalDiarias={kcalDiarias}
+                porcentaje={25}
+              />
+            </div>
+          </>
+        )}
       </div>
 
       <div className="cart-action-section">
@@ -230,13 +248,13 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
               backgroundColor: '#f9f3e8',
               border: '1px solid #e8dcc8',
               borderRadius: '12px',
-              padding: '0.5rem',
+              padding: '1.2rem',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.4rem'
+              gap: '1rem'
             }}>
               <div style={{
-                fontSize: '2rem',
+                fontSize: '2.8rem',
                 flexShrink: 0,
                 lineHeight: 1,
                 display: 'flex',
@@ -247,21 +265,21 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                 flex: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '0.3rem',
+                gap: '0.5rem',
                 alignItems: 'center'
               }}>
                 <div style={{ width: '100%', textAlign: 'center' }}>
                   <h4 style={{
                     fontFamily: "'Oswald', sans-serif",
-                    fontSize: '0.85rem',
+                    fontSize: '1rem',
                     fontWeight: '600',
                     color: '#333',
-                    margin: '0 0 0.2rem 0',
+                    margin: '0 0 0.3rem 0',
                     lineHeight: '1.2'
                   }}>¡Aprovecha tu primer pedido!</h4>
                   <p style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '0.7rem',
+                    fontSize: '0.8rem',
                     color: '#666',
                     margin: '0',
                     lineHeight: '1.3'
@@ -338,13 +356,13 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
               backgroundColor: '#f9f3e8',
               border: '1px solid #e8dcc8',
               borderRadius: '12px',
-              padding: '0.5rem',
+              padding: '1.2rem',
               display: 'flex',
               alignItems: 'center',
-              gap: '0.4rem'
+              gap: '1rem'
             }}>
               <div style={{
-                fontSize: '2rem',
+                fontSize: '2.8rem',
                 flexShrink: 0,
                 lineHeight: 1,
                 display: 'flex',
@@ -354,10 +372,10 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
               <div style={{ flex: 1 }}>
                 <h4 style={{
                   fontFamily: "'Oswald', sans-serif",
-                  fontSize: '0.85rem',
+                  fontSize: '1rem',
                   fontWeight: '600',
                   color: '#333',
-                  margin: '0 0 0.3rem 0',
+                  margin: '0 0 0.5rem 0',
                   lineHeight: '1.2'
                 }}>¡Hazte suscriptor y disfruta de un 10% de descuento en todos tus pedidos!</h4>
                 <a
@@ -366,7 +384,7 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                   rel="noopener noreferrer"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '0.7rem',
+                    fontSize: '0.8rem',
                     color: '#739f99',
                     fontWeight: '500',
                     textDecoration: 'none',
@@ -389,7 +407,7 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
           style={{
             display: 'flex',
             flexDirection: 'row',
-            gap: '0.4rem',
+            gap: '0.75rem',
             width: '100%',
             maxWidth: '100%',
             margin: '0 auto'
@@ -400,11 +418,11 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
             className="restart-survey-button"
             style={{
               flex: '1',
-              padding: '0.5rem 0.5rem',
+              padding: '0.85rem 0.75rem',
               border: '2px solid rgba(0, 0, 0, 0.06)',
               borderRadius: '8px',
               fontFamily: "'Oswald', sans-serif",
-              fontSize: '0.75rem',
+              fontSize: '0.8rem',
               fontWeight: '600',
               cursor: 'pointer',
               transition: 'all 0.25s ease-out',
@@ -428,11 +446,11 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
             className="cart-button"
             style={{
               flex: '1',
-              padding: '0.5rem 0.5rem',
+              padding: '0.85rem 0.75rem',
               border: '2px solid transparent',
               borderRadius: '8px',
               fontFamily: "'Oswald', sans-serif",
-              fontSize: '0.75rem',
+              fontSize: '0.8rem',
               fontWeight: '600',
               cursor: 'pointer',
               transition: 'all 0.25s ease-out',
@@ -452,6 +470,35 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
           >
             Agregar los productos al carrito
           </button>
+        </div>
+      </div>
+
+      <div className="recommendation-footer">
+        <div className="footer-card">
+          <h4 className="footer-card-title">📊 Cálculo de cantidades</h4>
+          <p className="footer-note">
+            Las cantidades se calculan según las calorías que necesita {nombreMascota}{" "}
+            ({Math.round(kcalDiarias)} kcal/día) y la densidad energética de cada producto.
+            {recomendacion.tipo === "mixta" && (
+              <> En alimentación mixta, el 75% de las calorías provienen del alimento seco y el 25% del alimento húmedo.</>
+            )}
+          </p>
+        </div>
+
+        <div className="footer-card">
+          <h4 className="footer-card-title">🎯 Personalización</h4>
+          <p className="footer-note">
+            Esta recomendación ha sido calculada específicamente para {nombreMascota}{" "}
+            considerando su edad, peso, actividad física y condiciones particulares.
+          </p>
+        </div>
+
+        <div className="footer-card">
+          <h4 className="footer-card-title">⚠️ Ajustes</h4>
+          <p className="footer-note">
+            Las cantidades indicadas son aproximadas. Ajusta según la condición corporal
+            y consulta con tu veterinario ante cualquier duda.
+          </p>
         </div>
       </div>
     </div>
