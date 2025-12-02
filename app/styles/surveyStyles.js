@@ -2828,12 +2828,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .cart-action-section {
-    margin: 1.5rem 0 1rem 0;
+    margin: 0.3rem 0 0.2rem 0;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.85rem;
+    gap: 0.3rem;
     width: 100%;
     max-width: 100%;
     padding: 0;
@@ -2842,15 +2842,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .cart-action-section {
-      margin: 2rem 0 1.5rem 0;
-      gap: 1rem;
+      margin: 0.4rem 0 0.3rem 0;
+      gap: 0.35rem;
     }
   }
 
   @media (min-width: 768px) {
     .cart-action-section {
-      margin: 5rem 0 2.5rem 0;
-      gap: 1.5rem;
+      margin: 0.5rem 0 0.4rem 0;
+      gap: 0.4rem;
     }
   }
 
@@ -2860,8 +2860,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     max-width: 100%;
     display: grid;
     grid-template-columns: 1fr;
-    gap: 0.35rem;
-    margin-bottom: 0.5rem;
+    gap: 0.25rem;
+    margin-bottom: 0.3rem;
     padding: 0;
     box-sizing: border-box;
     overflow: visible;

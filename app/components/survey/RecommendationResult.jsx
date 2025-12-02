@@ -228,13 +228,13 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
               backgroundColor: '#f9f3e8',
               border: '1px solid #e8dcc8',
               borderRadius: '12px',
-              padding: '1.2rem',
+              padding: '0.5rem',
               display: 'flex',
               alignItems: 'center',
-              gap: '1rem'
+              gap: '0.4rem'
             }}>
               <div style={{
-                fontSize: '2.8rem',
+                fontSize: '2rem',
                 flexShrink: 0,
                 lineHeight: 1,
                 display: 'flex',
@@ -245,21 +245,21 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                 flex: 1,
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '0.5rem',
+                gap: '0.3rem',
                 alignItems: 'center'
               }}>
                 <div style={{ width: '100%', textAlign: 'center' }}>
                   <h4 style={{
                     fontFamily: "'Oswald', sans-serif",
-                    fontSize: '1rem',
+                    fontSize: '0.85rem',
                     fontWeight: '600',
                     color: '#333',
-                    margin: '0 0 0.3rem 0',
+                    margin: '0 0 0.2rem 0',
                     lineHeight: '1.2'
                   }}>¡Aprovecha tu primer pedido!</h4>
                   <p style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '0.8rem',
+                    fontSize: '0.7rem',
                     color: '#666',
                     margin: '0',
                     lineHeight: '1.3'
@@ -336,13 +336,13 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
               backgroundColor: '#f9f3e8',
               border: '1px solid #e8dcc8',
               borderRadius: '12px',
-              padding: '1.2rem',
+              padding: '0.5rem',
               display: 'flex',
               alignItems: 'center',
-              gap: '1rem'
+              gap: '0.4rem'
             }}>
               <div style={{
-                fontSize: '2.8rem',
+                fontSize: '2rem',
                 flexShrink: 0,
                 lineHeight: 1,
                 display: 'flex',
@@ -352,10 +352,10 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
               <div style={{ flex: 1 }}>
                 <h4 style={{
                   fontFamily: "'Oswald', sans-serif",
-                  fontSize: '1rem',
+                  fontSize: '0.85rem',
                   fontWeight: '600',
                   color: '#333',
-                  margin: '0 0 0.5rem 0',
+                  margin: '0 0 0.3rem 0',
                   lineHeight: '1.2'
                 }}>¡Hazte suscriptor y disfruta de un 10% de descuento en todos tus pedidos!</h4>
                 <a
@@ -364,7 +364,7 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                   rel="noopener noreferrer"
                   style={{
                     fontFamily: "'Inter', sans-serif",
-                    fontSize: '0.8rem',
+                    fontSize: '0.7rem',
                     color: '#739f99',
                     fontWeight: '500',
                     textDecoration: 'none',
@@ -387,7 +387,7 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
           style={{
             display: 'flex',
             flexDirection: 'row',
-            gap: '0.75rem',
+            gap: '0.4rem',
             width: '100%',
             maxWidth: '100%',
             margin: '0 auto'
@@ -398,11 +398,11 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
             className="restart-survey-button"
             style={{
               flex: '1',
-              padding: '0.85rem 0.75rem',
+              padding: '0.5rem 0.5rem',
               border: '2px solid rgba(0, 0, 0, 0.06)',
               borderRadius: '8px',
               fontFamily: "'Oswald', sans-serif",
-              fontSize: '0.8rem',
+              fontSize: '0.75rem',
               fontWeight: '600',
               cursor: 'pointer',
               transition: 'all 0.25s ease-out',
@@ -426,11 +426,11 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
             className="cart-button"
             style={{
               flex: '1',
-              padding: '0.85rem 0.75rem',
+              padding: '0.5rem 0.5rem',
               border: '2px solid transparent',
               borderRadius: '8px',
               fontFamily: "'Oswald', sans-serif",
-              fontSize: '0.8rem',
+              fontSize: '0.75rem',
               fontWeight: '600',
               cursor: 'pointer',
               transition: 'all 0.25s ease-out',
