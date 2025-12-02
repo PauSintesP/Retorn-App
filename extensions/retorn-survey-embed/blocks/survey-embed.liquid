@@ -19,14 +19,10 @@
 
   .retorn-survey-iframe-{{ block.id }} {
     width: 100%;
-    min-height: 600px;
-    height: auto;
+    height: 1200px;
     border: none;
     display: block;
-    border-radius: 0;
-    box-shadow: none;
     background: {{ block.settings.iframe_bg }};
-    overflow: hidden;
   }
 </style>
 
@@ -48,20 +44,9 @@
   (function() {
     const iframe = document.getElementById('retorn-survey-frame-{{ block.id }}');
     const surveyOrigin = new URL('{{ block.settings.survey_url }}').origin;
-    let lastHeight = 0;
 
-    // Ajustar altura del iframe dinámicamente para evitar doble scroll
     window.addEventListener('message', function(e) {
       if (!e.data || e.origin !== surveyOrigin) return;
-
-      if (e.data.type === 'retorn-survey-height' && e.data.height) {
-        // Solo actualizar si la altura cambió significativamente
-        if (Math.abs(e.data.height - lastHeight) > 10) {
-          lastHeight = e.data.height;
-          iframe.style.height = e.data.height + 'px';
-          iframe.style.minHeight = 'auto';
-        }
-      }
 
       if (e.data.type === 'retorn-survey-started') {
         iframe.scrollIntoView({ behavior: 'smooth', block: 'start' });
