@@ -2867,6 +2867,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
     overflow: visible;
   }
 
+  @media (min-width: 768px) {
+    .notifications-stack {
+      grid-template-columns: 1fr 1fr;
+      gap: 0.4rem;
+    }
+  }
+
   @media (min-width: 500px) {
     .notifications-stack {
       grid-template-columns: repeat(2, 1fr);
@@ -3582,11 +3589,25 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   /* Estilos adicionales para recomendación mejorada */
+  .recommendation-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+    margin-bottom: 0.4rem;
+  }
+
+  @media (min-width: 768px) {
+    .recommendation-grid {
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 0.5rem;
+    }
+  }
+
   .calorie-info {
     background: linear-gradient(135deg, #ffffff 0%, #f8fffe 100%);
     border-radius: 12px;
     padding: 0.75rem 0.75rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0;
     border: 2px solid rgba(115, 159, 153, 0.2);
     box-shadow: 
       0 8px 24px rgba(115, 159, 153, 0.08),
@@ -3634,14 +3655,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .calorie-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     color: var(--jdgm-primary-color);
-    margin: 0 0 0.4rem 0;
+    margin: 0 0 0.3rem 0;
     font-weight: 700;
     letter-spacing: -0.01em;
     display: flex;
     align-items: center;
-    gap: 0.4rem;
+    gap: 0.3rem;
   }
 
   .calorie-title::before {
@@ -3792,14 +3813,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .products-section {
-    margin: 1.5rem 0;
+    margin: 0;
   }
 
   .products-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 1.3rem;
+    font-size: 0.95rem;
     color: var(--jdgm-primary-color);
-    margin: 0 0 1.25rem 0;
+    margin: 0 0 0.5rem 0;
     font-weight: 600;
     text-align: center;
   }

@@ -147,76 +147,78 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
 
   return (
     <div className="recommendation-container">
-      {factores && (
-        <div className="calorie-info">
-          <h3 className="calorie-title">
-            Cálculo Nutricional para {nombreMascota} {tipoAnimal === "Perro" ? "🐶" : "🐱"}
-          </h3>
-          {recomendacion.tipo === "mixta" && (
-            <p className="mixta-note" style={{ fontSize: '0.9rem', marginBottom: '1rem', color: '#666' }}>
-              <strong>Alimentación Mixta:</strong> Distribución óptima 75% Alimento Seco + 25% Alimento Húmedo. Esta combinación proporciona las {Math.round(kcalDiarias)} kcal diarias necesarias.
-            </p>
-          )}
-          <div className="calorie-details">
-            <div className="calorie-item">
-              <span className="calorie-label">⚡ Calorías diarias</span>
-              <span className="calorie-value">{Math.round(kcalDiarias)} kcal</span>
+      <div className="recommendation-grid">
+        {factores && (
+          <div className="calorie-info">
+            <h3 className="calorie-title">
+              Cálculo Nutricional para {nombreMascota} {tipoAnimal === "Perro" ? "🐶" : "🐱"}
+            </h3>
+            {recomendacion.tipo === "mixta" && (
+              <p className="mixta-note" style={{ fontSize: '0.75rem', marginBottom: '0.5rem', color: '#666' }}>
+                <strong>Alimentación Mixta:</strong> Distribución óptima 75% Alimento Seco + 25% Alimento Húmedo. Esta combinación proporciona las {Math.round(kcalDiarias)} kcal diarias necesarias.
+              </p>
+            )}
+            <div className="calorie-details">
+              <div className="calorie-item">
+                <span className="calorie-label">⚡ Calorías diarias</span>
+                <span className="calorie-value">{Math.round(kcalDiarias)} kcal</span>
+              </div>
+              {factores.peso && (
+                <div className="calorie-item">
+                  <span className="calorie-label">⚖️ Peso actual</span>
+                  <span className="calorie-value">{factores.peso} kg</span>
+                </div>
+              )}
+              {factores.edadMeses !== undefined && (
+                <div className="calorie-item">
+                  <span className="calorie-label">🎂 Edad</span>
+                  <span className="calorie-value">
+                    {factores.edadMeses < 12
+                      ? `${factores.edadMeses} meses`
+                      : `${Math.floor(factores.edadMeses / 12)} años`}
+                  </span>
+                </div>
+              )}
             </div>
-            {factores.peso && (
-              <div className="calorie-item">
-                <span className="calorie-label">⚖️ Peso actual</span>
-                <span className="calorie-value">{factores.peso} kg</span>
-              </div>
-            )}
-            {factores.edadMeses !== undefined && (
-              <div className="calorie-item">
-                <span className="calorie-label">🎂 Edad</span>
-                <span className="calorie-value">
-                  {factores.edadMeses < 12
-                    ? `${factores.edadMeses} meses`
-                    : `${Math.floor(factores.edadMeses / 12)} años`}
-                </span>
-              </div>
-            )}
           </div>
-        </div>
-      )}
-
-      <div className="products-section">
-        {recomendacion.tipo === "seca" && recomendacion.productoSeco && (
-          <>
-            <h3 className="products-title">Tu Producto Recomendado</h3>
-            <ProductCard
-              producto={recomendacion.productoSeco}
-              tipo="Alimento Seco"
-              kcalDiarias={kcalDiarias}
-              tipoCroqueta={tipoCroqueta}
-              tipoAnimal={tipoAnimal}
-            />
-          </>
         )}
 
-        {recomendacion.tipo === "mixta" && (
-          <>
-            <div className="mixta-products-grid">
+        <div className="products-section">
+          {recomendacion.tipo === "seca" && recomendacion.productoSeco && (
+            <>
+              <h3 className="products-title">Tu Producto Recomendado</h3>
               <ProductCard
                 producto={recomendacion.productoSeco}
                 tipo="Alimento Seco"
                 kcalDiarias={kcalDiarias}
-                porcentaje={75}
                 tipoCroqueta={tipoCroqueta}
                 tipoAnimal={tipoAnimal}
               />
+            </>
+          )}
 
-              <ProductCard
-                producto={recomendacion.productoHumedo}
-                tipo="Alimento Húmedo"
-                kcalDiarias={kcalDiarias}
-                porcentaje={25}
-              />
-            </div>
-          </>
-        )}
+          {recomendacion.tipo === "mixta" && (
+            <>
+              <div className="mixta-products-grid">
+                <ProductCard
+                  producto={recomendacion.productoSeco}
+                  tipo="Alimento Seco"
+                  kcalDiarias={kcalDiarias}
+                  porcentaje={75}
+                  tipoCroqueta={tipoCroqueta}
+                  tipoAnimal={tipoAnimal}
+                />
+
+                <ProductCard
+                  producto={recomendacion.productoHumedo}
+                  tipo="Alimento Húmedo"
+                  kcalDiarias={kcalDiarias}
+                  porcentaje={25}
+                />
+              </div>
+            </>
+          )}
+        </div>
       </div>
 
       <div className="cart-action-section">
