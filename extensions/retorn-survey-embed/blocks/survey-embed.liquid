@@ -1,51 +1,37 @@
 {% comment %}
-  Bloque de cuestionario Retorn (versión pantalla completa)
+  Bloque de cuestionario Retorn para insertar en páginas
 {% endcomment %}
 
 <style>
-  /* Oculta header y footer del theme */
-  header, .shopify-section--footer, footer {
-    display: none !important;
-  }
-
-  html, body {
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-  }
-
-  .retorn-survey-fullscreen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: {{ block.settings.container_bg }};
-    z-index: 9999;
-  }
-
-  .retorn-survey-iframe {
+  .retorn-survey-container-{{ block.id }} {
     width: 100%;
-    height: 100%;
+    min-height: 600px;
+    background: {{ block.settings.container_bg }};
+    padding: {{ block.settings.padding_top }}px {{ block.settings.padding_horizontal }}px {{ block.settings.padding_bottom }}px;
+    margin: {{ block.settings.margin_top }}px auto {{ block.settings.margin_bottom }}px;
+    max-width: {{ block.settings.max_width }}px;
+  }
+
+  .retorn-survey-iframe-{{ block.id }} {
+    width: 100%;
+    min-height: 600px;
+    height: auto;
     border: none;
     display: block;
-    border-radius: 0 !important;
+    border-radius: {{ block.settings.border_radius }}px;
+    box-shadow: {{ block.settings.box_shadow }};
   }
 </style>
 
-<div class="retorn-survey-fullscreen" id="retorn-survey-{{ block.id }}">
+<div class="retorn-survey-container-{{ block.id }}" {{ block.shopify_attributes }}>
   <iframe 
     id="retorn-survey-frame-{{ block.id }}"
-    class="retorn-survey-iframe"
-    src="{{ block.settings.survey_url }}?primary={{ block.settings.primary_color | url_encode }}&accent={{ block.settings.accent_color | url_encode }}&bg={{ block.settings.background_color | url_encode }}&radius=0"
+    class="retorn-survey-iframe-{{ block.id }}"
+    src="{{ block.settings.survey_url }}?primary={{ block.settings.primary_color | url_encode }}&accent={{ block.settings.accent_color | url_encode }}&bg={{ block.settings.background_color | url_encode }}&radius={{ block.settings.border_radius }}"
     title="Cuestionario de Recomendación Retorn"
     loading="lazy"
     allow="clipboard-write"
-    sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
+    sandbox="allow-forms allow-scripts allow-same-origin allow-popups allow-popups-to-escape-sandbox"
   ></iframe>
 </div>
 
@@ -54,12 +40,12 @@
     const iframe = document.getElementById('retorn-survey-frame-{{ block.id }}');
     const surveyOrigin = new URL('{{ block.settings.survey_url }}').origin;
 
-    // Escucha mensajes del iframe
+    // Ajustar altura del iframe dinámicamente
     window.addEventListener('message', function(e) {
       if (!e.data || e.origin !== surveyOrigin) return;
 
       if (e.data.type === 'retorn-survey-height' && e.data.height) {
-        iframe.style.height = e.data.height + 'px';
+        iframe.style.height = Math.max(600, e.data.height) + 'px';
       }
 
       if (e.data.type === 'retorn-survey-started') {
@@ -84,29 +70,38 @@
       })
       .then(res => res.json())
       .then(data => {
-        console.log('Productos agregados al carrito:', data);
-        window.dispatchEvent(new CustomEvent('cart:updated', { detail: data }));
+        console.log('✅ Productos agregados al carrito:', data);
+        window.location.href = '/cart';
       })
-      .catch(err => console.error('Error al agregar productos:', err));
+      .catch(err => console.error('❌ Error al agregar productos:', err));
     }
   })();
 </script>
 
 {% schema %}
 {
-  "name": "Retorn Survey",
-  "target": "section",
+  "name": "Cuestionario Retorn",
+  "target": "body",
   "settings": [
+    {
+      "type": "header",
+      "content": "Configuración del cuestionario"
+    },
     {
       "type": "text",
       "id": "survey_url",
       "label": "URL del Cuestionario",
-      "default": "https://retorn-app.vercel.app/public/survey"
+      "default": "https://retorn-app.vercel.app/public/survey",
+      "info": "URL donde está alojado el cuestionario"
+    },
+    {
+      "type": "header",
+      "content": "Colores"
     },
     {
       "type": "color",
       "id": "container_bg",
-      "label": "Color de fondo",
+      "label": "Color de fondo del contenedor",
       "default": "#ffffff"
     },
     {
@@ -124,8 +119,106 @@
     {
       "type": "color",
       "id": "background_color",
-      "label": "Color de fondo interno",
+      "label": "Color de fondo del cuestionario",
       "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Diseño y espaciado"
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "min": 600,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "label": "Ancho máximo",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding superior",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding inferior",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "padding_horizontal",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Padding lateral",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Margen superior",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "label": "Margen inferior",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "label": "Redondeo de bordes",
+      "default": 8
+    },
+    {
+      "type": "select",
+      "id": "box_shadow",
+      "label": "Sombra",
+      "options": [
+        {
+          "value": "none",
+          "label": "Sin sombra"
+        },
+        {
+          "value": "0 2px 8px rgba(0,0,0,0.1)",
+          "label": "Sombra ligera"
+        },
+        {
+          "value": "0 4px 16px rgba(0,0,0,0.15)",
+          "label": "Sombra media"
+        },
+        {
+          "value": "0 8px 24px rgba(0,0,0,0.2)",
+          "label": "Sombra fuerte"
+        }
+      ],
+      "default": "0 2px 8px rgba(0,0,0,0.1)"
     }
   ]
 }
