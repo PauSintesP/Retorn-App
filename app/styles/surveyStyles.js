@@ -48,13 +48,19 @@ export const getSurveyStyles = (direction, theme = {}) => {
   html, body {
     margin: 0;
     padding: 0;
+    overflow: hidden;
     width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     font-size: var(--base-font-size);
   }
 
   body {
     background: ${bg} !important;
-    min-height: 100vh;
   }
 
   @keyframes fadeSlideIn {
@@ -121,13 +127,19 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .survey-container {
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height para móviles */
     display: flex;
     flex-direction: column;
     background: #ffffffff;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: var(--jdgm-primary-color);
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    overflow: hidden;
     box-sizing: border-box;
   }
 
@@ -183,7 +195,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
     margin-top: 4px;
     position: relative;
     z-index: 1;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     width: 100%;
+    height: calc(100% - 4px);
     box-sizing: border-box;
   }
 
@@ -196,6 +212,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .survey-content:has(.recommendation-container) {
     justify-content: flex-start;
     padding-top: 1rem;
+    overflow-y: visible;
+    overflow-x: hidden;
   }
 
   /* Tablet y Desktop: volver al centrado para todas las preguntas */
@@ -207,6 +225,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .survey-content:has(.recommendation-container) {
       justify-content: flex-start;
       padding-top: 0.75rem;
+      overflow-y: visible;
+      overflow-x: hidden;
     }
   }
 
@@ -222,12 +242,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
     max-width: 100%;
     width: 100%;
     min-width: 280px;
+    max-height: 100%;
     animation: ${direction === "forward" ? "fadeSlideIn" : "fadeSlideOut"} 0.4s ease-out;
     border: 1px solid rgba(115, 159, 153, 0.1);
     position: relative;
     margin: 0 auto;
     box-sizing: border-box;
-  }
+    overflow-x: hidden;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
     display: flex;
@@ -3865,6 +3886,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .pathology-wrapper {
@@ -3872,6 +3897,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   /* ============================================ */
@@ -3881,9 +3910,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .pathology-contact-container {
     max-width: 100%;
     width: 100%;
+    height: 100%;
     margin: 0 auto;
     padding: 0.75rem 0.5rem;
     box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     animation: fadeSlideIn 0.4s ease-out;
   }
 
