@@ -49,33 +49,27 @@
   (function() {
     const iframe = document.getElementById('retorn-survey-frame-{{ block.id }}');
     const surveyOrigin = new URL('{{ block.settings.survey_url }}').origin;
-
-    // Función para ajustar la altura del iframe
-    function adjustIframeHeight() {
-      try {
-        // Intenta acceder al contenido del iframe (si es mismo origen)
-        if (iframe.contentWindow && iframe.contentWindow.document) {
-          const iframeDoc = iframe.contentWindow.document;
-          const height = Math.max(
-            iframeDoc.body.scrollHeight,
-            iframeDoc.documentElement.scrollHeight,
-            iframeDoc.body.offsetHeight,
-            iframeDoc.documentElement.offsetHeight
-          );
-          iframe.style.height = height + 'px';
-        }
-      } catch (e) {
-        // Si no es mismo origen, espera mensajes postMessage
-        console.log('Esperando altura desde postMessage...');
-      }
-    }
+    let lastReceivedHeight = 0;
+    let isAdjusting = false;
 
     // Escucha mensajes del iframe
     window.addEventListener('message', function(e) {
       if (!e.data || e.origin !== surveyOrigin) return;
 
       if (e.data.type === 'retorn-survey-height' && e.data.height) {
+        // Evitar ajustes si ya estamos ajustando o si la altura no cambió significativamente
+        if (isAdjusting || Math.abs(e.data.height - lastReceivedHeight) < 20) {
+          return;
+        }
+
+        isAdjusting = true;
+        lastReceivedHeight = e.data.height;
         iframe.style.height = e.data.height + 'px';
+        
+        // Reset flag después de un momento
+        setTimeout(function() {
+          isAdjusting = false;
+        }, 500);
       }
 
       if (e.data.type === 'retorn-survey-started') {
@@ -86,16 +80,6 @@
         handleAddToCart(e.data.products);
       }
     }, false);
-
-    // Ajusta la altura cuando se carga el iframe
-    iframe.addEventListener('load', adjustIframeHeight);
-
-    // Solicita la altura al iframe cada vez que cambie
-    setInterval(function() {
-      if (iframe.contentWindow) {
-        iframe.contentWindow.postMessage({ type: 'retorn-request-height' }, surveyOrigin);
-      }
-    }, 500);
 
     function handleAddToCart(products) {
       const items = products.map(p => ({
