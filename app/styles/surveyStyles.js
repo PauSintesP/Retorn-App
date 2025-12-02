@@ -3877,10 +3877,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    height: auto;
+    overflow: visible;
   }
 
   .pathology-wrapper {
@@ -3888,10 +3886,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex-direction: column;
     align-items: center;
     width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    height: auto;
+    overflow: visible;
   }
 
   /* ============================================ */
@@ -3901,7 +3897,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .pathology-contact-container {
     max-width: 100%;
     width: 100%;
-    height: 100%;
+    height: auto;
     margin: 0 auto;
     padding: 0.75rem 0.5rem;
     box-sizing: border-box;
