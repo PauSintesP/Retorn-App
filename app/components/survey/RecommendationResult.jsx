@@ -147,26 +147,6 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
 
   return (
     <div className="recommendation-container">
-      <button
-        className="back-button"
-        onClick={onBack}
-        aria-label="Volver a la última pregunta"
-      >
-        <svg
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        >
-          <path d="M19 12H5M12 19l-7-7 7-7" />
-        </svg>
-        <span>Volver</span>
-      </button>
-
       {factores && (
         <div className="calorie-info">
           <h3 className="calorie-title">

@@ -2263,7 +2263,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     max-width: 100%;
     width: 100%;
     min-height: auto;
-    padding: 0.5rem 1rem;
+    padding: 0.2rem 0.5rem;
     overflow: visible;
     box-sizing: border-box;
     margin: 0 auto;
