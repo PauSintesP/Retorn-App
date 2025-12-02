@@ -125,6 +125,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     width: 100%;
     min-height: 100vh;
     min-height: 100dvh; /* Dynamic viewport height para móviles */
+    height: auto;
     display: flex;
     flex-direction: column;
     background: #ffffffff;
@@ -186,9 +187,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
     padding: 1.5rem 0.75rem 0.75rem 0.75rem;
     position: relative;
     z-index: 1;
-    overflow: visible;
+    overflow: visible !important;
     width: 100%;
-    min-height: calc(100vh - 4px);
+    min-height: auto;
+    height: auto;
     box-sizing: border-box;
   }
 
@@ -201,8 +203,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .survey-content:has(.recommendation-container) {
     justify-content: flex-start;
     padding: 0.5rem 0.5rem;
-    overflow: visible;
+    overflow: visible !important;
     min-height: auto;
+    height: auto;
   }
 
   /* Tablet y Desktop: volver al centrado para todas las preguntas */
@@ -214,8 +217,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .survey-content:has(.recommendation-container) {
       justify-content: flex-start;
       padding: 0.5rem 0.75rem;
-      overflow: visible;
+      overflow: visible !important;
       min-height: auto;
+      height: auto;
     }
   }
 
