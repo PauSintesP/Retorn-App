@@ -45,7 +45,7 @@
   (function() {
     const iframe = document.getElementById('retorn-survey-frame-{{ block.id }}');
     const surveyOrigin = new URL('{{ block.settings.survey_url }}').origin;
-    let lastHeight = 600;
+    let lastHeight = 1000;
 
     window.addEventListener('message', function(e) {
       if (!e.data || e.origin !== surveyOrigin) return;

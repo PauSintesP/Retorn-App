@@ -212,7 +212,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .survey-content:has(.recommendation-container) {
     justify-content: flex-start;
     padding-top: 1rem;
-    overflow-y: auto;
+    overflow-y: visible;
     overflow-x: hidden;
   }
 
@@ -225,7 +225,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .survey-content:has(.recommendation-container) {
       justify-content: flex-start;
       padding-top: 0.75rem;
-      overflow-y: auto;
+      overflow-y: visible;
       overflow-x: hidden;
     }
   }
@@ -2262,30 +2262,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .recommendation-container {
     max-width: 100%;
     width: 100%;
-    min-height: 100%;
+    min-height: auto;
     padding: 0.5rem;
     overflow: visible;
     box-sizing: border-box;
     margin: 0 auto;
     animation: fadeSlideIn 0.4s ease-out;
-  }
-
-  .recommendation-container::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  .recommendation-container::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 10px;
-  }
-
-  .recommendation-container::-webkit-scrollbar-thumb {
-    background: rgba(115, 159, 153, 0.4);
-    border-radius: 10px;
-  }
-
-  .recommendation-container::-webkit-scrollbar-thumb:hover {
-    background: rgba(115, 159, 153, 0.6);
   }
 
   @media (min-width: 600px) {
