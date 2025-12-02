@@ -212,7 +212,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .survey-content:has(.recommendation-container) {
     justify-content: flex-start;
     padding-top: 1rem;
-    overflow-y: auto;
+    overflow-y: visible;
     overflow-x: hidden;
   }
 
@@ -225,7 +225,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .survey-content:has(.recommendation-container) {
       justify-content: flex-start;
       padding-top: 0.75rem;
-      overflow-y: auto;
+      overflow-y: visible;
       overflow-x: hidden;
     }
   }
@@ -2262,30 +2262,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .recommendation-container {
     max-width: 100%;
     width: 100%;
-    min-height: 100%;
+    min-height: auto;
     padding: 0.5rem;
     overflow: visible;
     box-sizing: border-box;
     margin: 0 auto;
     animation: fadeSlideIn 0.4s ease-out;
-  }
-
-  .recommendation-container::-webkit-scrollbar {
-    width: 8px;
-  }
-
-  .recommendation-container::-webkit-scrollbar-track {
-    background: transparent;
-    border-radius: 10px;
-  }
-
-  .recommendation-container::-webkit-scrollbar-thumb {
-    background: rgba(115, 159, 153, 0.4);
-    border-radius: 10px;
-  }
-
-  .recommendation-container::-webkit-scrollbar-thumb:hover {
-    background: rgba(115, 159, 153, 0.6);
   }
 
   @media (min-width: 600px) {
@@ -2758,70 +2740,40 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .product-link {
     display: inline-block;
     margin-top: 1.5rem;
-    padding: 0.75rem 0.65rem;
-    text-decoration: none;
-    border-radius: 8px;
-    font-family: 'Oswald', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.4px;
-    transition: all 0.25s ease-out;
-    position: relative;
-    overflow: hidden;
-    text-align: center;
-    
-    /* Primary button style - igual que .nav-button.primary */
-    background: linear-gradient(135deg, #6ec1b3 0%, #739f99 50%, #5fb3a1 100%);
-    background-size: 200% 100%;
+    padding: 0.8rem 1.5rem;
+    background: var(--jdgm-paginate-color);
     color: white;
-    box-shadow: 
-      0 6px 20px rgba(115, 159, 153, 0.3),
-      0 2px 6px rgba(115, 159, 153, 0.15);
-    border: 2px solid transparent;
-  }
-
-  .product-link::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 0;
-    height: 0;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.3);
-    transform: translate(-50%, -50%);
-    transition: width 0.5s, height 0.5s;
-  }
-
-  .product-link:hover::before {
-    width: 300px;
-    height: 300px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.25s ease-out;
+    border: 2px solid var(--jdgm-paginate-color);
   }
 
   @media (min-width: 600px) {
     .product-link {
       margin-top: 2rem;
-      padding: 0.85rem 1.3rem;
-      font-size: 0.82rem;
-      letter-spacing: 0.8px;
+      padding: 0.9rem 1.75rem;
+      font-size: 0.85rem;
     }
   }
 
   @media (min-width: 768px) {
     .product-link {
       margin-top: 2.5rem;
-      padding: 0.95rem 1.8rem;
-      font-size: 0.88rem;
-      letter-spacing: 1.2px;
+      padding: 1rem 2rem;
+      font-size: 1rem;
     }
   }
 
   .product-link:hover {
-    background: linear-gradient(135deg, #5fb3a1 0%, #6a8f8a 50%, #4fa091 100%);
-    box-shadow: 
-      0 6px 20px rgba(115, 159, 153, 0.35),
-      0 2px 6px rgba(115, 159, 153, 0.2);
+    background: transparent;
+    color: var(--jdgm-paginate-color);
+    transform: translateX(5px);
   }
 
   .cart-action-section {
@@ -3029,7 +2981,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .discount-title {
     font-family: 'Oswald', sans-serif;
-    font-size: 1rem;
+    font-size: 0.65rem;
     font-weight: 600;
     color: inherit;
     margin: 0 0 0.2rem 0;
@@ -3042,7 +2994,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .discount-description {
     font-family: 'Inter', sans-serif;
-    font-size: 1rem;
+    font-size: 0.58rem;
     color: inherit;
     opacity: 0.9;
     margin: 0 0 0.15rem 0;
@@ -3123,82 +3075,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
   }
 
-  /* Diseño mejorado del cupón */
-  .coupon-display-container {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 0.8rem;
-    background-color: #fff; /* Fondo blanco limpio */
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 0.5rem 0.8rem;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-    max-width: 100%;
-    width: 100%;
-    box-sizing: border-box;
-  }
-
-  .coupon-code-wrapper {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: flex-start;
-  }
-
-  .coupon-label-small {
-    font-size: 0.65rem;
-    color: #999;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    margin-bottom: 0.1rem;
-    font-family: 'Inter', sans-serif;
-    text-transform: uppercase;
-  }
-
-  .coupon-value {
-    font-family: 'Oswald', sans-serif;
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #4a4a4a;
-    letter-spacing: 1px;
-    line-height: 1.1;
-  }
-
-  .coupon-action-btn {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.4rem;
-    background-color: #f7f7f7;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
-    padding: 0.5rem 0.9rem;
-    font-size: 0.8rem;
-    font-weight: 600;
-    color: #666;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: 'Inter', sans-serif;
-    min-width: 80px;
-  }
-
-  .coupon-action-btn:hover {
-    background-color: #ebebeb;
-    color: #333;
-    border-color: #d0d0d0;
-  }
-
-  .check-icon {
-    color: #2e7d32; /* Verde éxito */
-    font-weight: bold;
-    font-size: 1rem;
-  }
-
-  .copy-icon {
-    font-size: 0.9rem;
-  }
-
   /* Tablet pequeña */
   @media (min-width: 500px) {
     .discount-banner {
@@ -3212,12 +3088,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
 
     .discount-title {
-      font-size: 1.05rem;
+      font-size: 0.68rem;
       margin-bottom: 0.25rem;
     }
 
     .discount-description {
-      font-size: 1rem;
+      font-size: 0.6rem;
     }
 
     .subscription-link {
@@ -3227,23 +3103,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .apply-coupon-button {
       font-size: 0.65rem;
       padding: 0.45rem 0.85rem;
-    }
-
-    .coupon-display-container {
-      padding: 0.6rem 0.9rem;
-    }
-
-    .coupon-label-small {
-      font-size: 0.7rem;
-    }
-
-    .coupon-value {
-      font-size: 1.25rem;
-    }
-
-    .coupon-action-btn {
-      padding: 0.55rem 1rem;
-      font-size: 0.85rem;
     }
 
     .banner-close-button {
@@ -3281,13 +3140,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
 
     .discount-title {
-      font-size: 1.1rem;
+      font-size: 0.7rem;
       margin-bottom: 0.25rem;
       letter-spacing: 0.2px;
     }
 
     .discount-description {
-      font-size: 1rem;
+      font-size: 0.62rem;
       line-height: 1.3;
     }
 
@@ -3304,19 +3163,26 @@ export const getSurveyStyles = (direction, theme = {}) => {
       padding: 0.5rem 0.9rem;
     }
 
-    .coupon-display-container {
-      margin-top: 0;
-      flex: 1;
-      max-width: 280px;
-      margin-left: auto;
+    .banner-close-button {
+      top: 0.3rem;
+      right: 0.3rem;
+      width: 1.2rem;
+      height: 1.2rem;
+      min-width: 1.2rem;
+      min-height: 1.2rem;
+      font-size: 0.95rem;
     }
+  }
 
-    .coupon-value {
-      font-size: 1.3rem;
-    }
-
-    .coupon-action-btn {
-      padding: 0.6rem 1.1rem;
+  /* Desktop */
+  @media (min-width: 900px) {
+    .discount-banner {
+      width: 100%;
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 0.6rem 0.75rem;
+      padding-right: 2.2rem;
+      gap: 0.6rem;
     }
 
     .discount-icon {
@@ -3324,12 +3190,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
     }
 
     .discount-title {
-      font-size: 1.15rem;
+      font-size: 0.72rem;
       margin-bottom: 0.45rem;
     }
 
     .discount-description {
-      font-size: 1rem;
+      font-size: 0.8rem;
       line-height: 1.4;
     }
 
@@ -3346,20 +3212,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
       padding: 0.65rem 1.3rem;
     }
 
-    .coupon-display-container {
-      max-width: 320px;
-      padding: 0.7rem 1.2rem;
-    }
-
-    .coupon-value {
-      font-size: 1.4rem;
-    }
-
-    .coupon-action-btn {
-      font-size: 0.9rem;
-      padding: 0.65rem 1.2rem;
-    }
-
     .banner-close-button {
       top: 0.55rem;
       right: 0.55rem;
@@ -3369,6 +3221,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
       min-height: 1.7rem;
       font-size: 1.8rem;
     }
+  }
+      min-width: 2.5rem;
+      min-height: 2.5rem;
+      font-size: 1.8rem;
+    }
+
     .banner-close-button {
       top: 1rem;
       right: 1rem;
