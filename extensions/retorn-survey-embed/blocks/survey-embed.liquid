@@ -48,15 +48,19 @@
   (function() {
     const iframe = document.getElementById('retorn-survey-frame-{{ block.id }}');
     const surveyOrigin = new URL('{{ block.settings.survey_url }}').origin;
+    let lastHeight = 0;
 
     // Ajustar altura del iframe dinámicamente para evitar doble scroll
     window.addEventListener('message', function(e) {
       if (!e.data || e.origin !== surveyOrigin) return;
 
       if (e.data.type === 'retorn-survey-height' && e.data.height) {
-        // Ajustar altura exacta del contenido + pequeño margen
-        iframe.style.height = (e.data.height + 20) + 'px';
-        iframe.style.minHeight = 'auto';
+        // Solo actualizar si la altura cambió significativamente
+        if (Math.abs(e.data.height - lastHeight) > 10) {
+          lastHeight = e.data.height;
+          iframe.style.height = e.data.height + 'px';
+          iframe.style.minHeight = 'auto';
+        }
       }
 
       if (e.data.type === 'retorn-survey-started') {
