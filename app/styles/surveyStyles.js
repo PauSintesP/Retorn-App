@@ -48,10 +48,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
   html, body {
     margin: 0;
     padding: 0;
-    overflow: visible;
+    overflow: hidden;
     width: 100%;
-    height: auto;
-    min-height: 100%;
+    height: 100%;
     font-size: var(--base-font-size);
   }
 
@@ -123,15 +122,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .survey-container {
     width: 100%;
-    min-height: 100vh;
-    min-height: 100dvh; /* Dynamic viewport height para móviles */
+    height: 100vh;
+    height: 100dvh; /* Dynamic viewport height para móviles */
     display: flex;
     flex-direction: column;
     background: #ffffffff;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: var(--jdgm-primary-color);
     position: relative;
-    overflow: visible;
+    overflow: hidden;
     box-sizing: border-box;
   }
 
@@ -148,7 +147,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .progress-bar-container {
-    position: sticky;
+    position: absolute;
     top: 0;
     left: 0;
     right: 0;
@@ -184,11 +183,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
     align-items: center;
     justify-content: center;
     padding: 1.5rem 0.75rem 0.75rem 0.75rem;
+    margin-top: 4px;
     position: relative;
     z-index: 1;
-    overflow: visible;
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
     width: 100%;
-    min-height: calc(100vh - 4px);
+    height: calc(100% - 4px);
     box-sizing: border-box;
   }
 
@@ -201,8 +203,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .survey-content:has(.recommendation-container) {
     justify-content: flex-start;
     padding-top: 1rem;
-    overflow-y: visible;
+    overflow-y: scroll;
     overflow-x: hidden;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+
+  /* Ocultar scrollbar pero mantener funcionalidad */
+  .survey-content:has(.recommendation-container)::-webkit-scrollbar {
+    display: none;
   }
 
   /* Tablet y Desktop: volver al centrado para todas las preguntas */
@@ -214,8 +223,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .survey-content:has(.recommendation-container) {
       justify-content: flex-start;
       padding-top: 0.75rem;
-      overflow-y: visible;
+      overflow-y: scroll;
       overflow-x: hidden;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
     }
   }
 
