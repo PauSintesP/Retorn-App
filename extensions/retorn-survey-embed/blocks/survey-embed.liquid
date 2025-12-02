@@ -15,14 +15,17 @@
     max-width: 100%;
     margin: 0;
     padding: 0;
+    overflow: hidden; /* evita scroll interno */
   }
 
   .retorn-survey-iframe-{{ block.id }} {
     width: 100%;
-    min-height: 100vw;
+    min-height: 100vh;  /* altura inicial correcta */
+    height: auto;       /* evita conflictos con auto-height */
     border: none;
     display: block;
     background: {{ block.settings.iframe_bg }};
+    overflow: hidden;   /* evita scroll dentro del iframe */
     transition: height 0.3s ease;
   }
 </style>
@@ -52,7 +55,7 @@
 
       if (e.data.type === 'retorn-survey-height' && e.data.height) {
         const newHeight = Math.max(600, e.data.height);
-        // Solo actualizar si cambia más de 20px para evitar flicker
+
         if (Math.abs(newHeight - lastHeight) > 20) {
           lastHeight = newHeight;
           iframe.style.height = newHeight + 'px';
