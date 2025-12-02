@@ -2262,8 +2262,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .recommendation-container {
     max-width: 100%;
     width: 100%;
-    min-height: 100%;
-    padding: 0.5rem;
+    min-height: auto;
+    padding: 0.3rem;
     overflow: visible;
     box-sizing: border-box;
     margin: 0 auto;
@@ -2291,24 +2291,24 @@ export const getSurveyStyles = (direction, theme = {}) => {
   @media (min-width: 600px) {
     .recommendation-container {
       max-width: 90%;
-      padding: 1rem;
+      padding: 0.5rem;
     }
   }
 
   @media (min-width: 768px) {
     .recommendation-container {
       max-width: 900px;
-      padding: 1.5rem;
+      padding: 0.75rem;
     }
   }
 
   .recommendation-header {
     text-align: center;
-    margin-bottom: 1.25rem;
-    margin-top: 0.5rem;
-    padding: 1.75rem 1rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.25rem;
+    padding: 0.75rem 0.75rem;
     background: linear-gradient(135deg, rgba(115, 159, 153, 0.12) 0%, rgba(95, 179, 161, 0.08) 100%);
-    border-radius: 16px;
+    border-radius: 12px;
     border: 1px solid rgba(115, 159, 153, 0.2);
     box-shadow: 
       0 4px 16px rgba(115, 159, 153, 0.1),
@@ -2319,10 +2319,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .recommendation-header {
-      margin-bottom: 1.5rem;
-      margin-top: 0.75rem;
-      padding: 2rem 1.5rem;
-      border-radius: 20px;
+      margin-bottom: 0.75rem;
+      margin-top: 0.5rem;
+      padding: 1rem 1rem;
+      border-radius: 14px;
     }
 
     .recommendation-header::before {
@@ -2334,10 +2334,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .recommendation-header {
-      margin-bottom: 1.75rem;
-      margin-top: 1rem;
-      padding: 2rem 2rem;
-      border-radius: 20px;
+      margin-bottom: 1rem;
+      margin-top: 0.5rem;
+      padding: 1.25rem 1.5rem;
+      border-radius: 16px;
     }
 
     .recommendation-header::before {
@@ -2442,15 +2442,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .mixta-products-grid {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
-    margin: 0 0 2rem 0;
+    gap: 0.75rem;
+    margin: 0 0 1rem 0;
   }
 
   @media (min-width: 768px) {
     .mixta-products-grid {
       flex-direction: row;
-      gap: 1.5rem;
-      margin-bottom: 3rem;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
       align-items: stretch;
     }
   }
@@ -2464,8 +2464,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .product-card {
     background: white;
     border-radius: 8px;
-    padding: 0.75rem 0.6rem;
-    margin-bottom: 0.85rem;
+    padding: 0.5rem 0.5rem;
+    margin-bottom: 0.5rem;
     box-shadow: 
       0 8px 20px rgba(0, 0, 0, 0.08),
       0 4px 10px rgba(115, 159, 153, 0.1);
@@ -3581,9 +3581,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Estilos adicionales para recomendación mejorada */
   .calorie-info {
     background: linear-gradient(135deg, #ffffff 0%, #f8fffe 100%);
-    border-radius: 16px;
-    padding: 1.25rem 1rem;
-    margin-bottom: 1.25rem;
+    border-radius: 12px;
+    padding: 0.75rem 0.75rem;
+    margin-bottom: 0.5rem;
     border: 2px solid rgba(115, 159, 153, 0.2);
     box-shadow: 
       0 8px 24px rgba(115, 159, 153, 0.08),
@@ -3605,9 +3605,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 600px) {
     .calorie-info {
-      padding: 1.5rem 1.25rem;
-      margin-bottom: 2rem;
-      border-radius: 20px;
+      padding: 0.85rem 1rem;
+      margin-bottom: 0.75rem;
+      border-radius: 14px;
     }
 
     .calorie-info::before {
@@ -3618,9 +3618,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   @media (min-width: 768px) {
     .calorie-info {
-      padding: 1.5rem 1.5rem;
-      margin-bottom: 1.75rem;
-      border-radius: 20px;
+      padding: 1rem 1.25rem;
+      margin-bottom: 1rem;
+      border-radius: 16px;
     }
 
     .calorie-info::before {
