@@ -472,35 +472,6 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
           </button>
         </div>
       </div>
-
-      <div className="recommendation-footer">
-        <div className="footer-card">
-          <h4 className="footer-card-title">📊 Cálculo de cantidades</h4>
-          <p className="footer-note">
-            Las cantidades se calculan según las calorías que necesita {nombreMascota}{" "}
-            ({Math.round(kcalDiarias)} kcal/día) y la densidad energética de cada producto.
-            {recomendacion.tipo === "mixta" && (
-              <> En alimentación mixta, el 75% de las calorías provienen del alimento seco y el 25% del alimento húmedo.</>
-            )}
-          </p>
-        </div>
-
-        <div className="footer-card">
-          <h4 className="footer-card-title">🎯 Personalización</h4>
-          <p className="footer-note">
-            Esta recomendación ha sido calculada específicamente para {nombreMascota}{" "}
-            considerando su edad, peso, actividad física y condiciones particulares.
-          </p>
-        </div>
-
-        <div className="footer-card">
-          <h4 className="footer-card-title">⚠️ Ajustes</h4>
-          <p className="footer-note">
-            Las cantidades indicadas son aproximadas. Ajusta según la condición corporal
-            y consulta con tu veterinario ante cualquier duda.
-          </p>
-        </div>
-      </div>
     </div>
   );
 }

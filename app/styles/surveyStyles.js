@@ -2511,7 +2511,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .product-image-container {
     width: 100%;
     height: 100px;
-    margin: 0 0 0.4rem 0;
+    margin: 0 0 0.2rem 0;
     overflow: hidden;
     background: #fafafa;
     display: flex;
@@ -2526,14 +2526,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
   @media (min-width: 600px) {
     .product-image-container {
       height: 120px;
-      margin: 0 0 0.5rem 0;
+      margin: 0 0 0.25rem 0;
     }
   }
 
   @media (min-width: 768px) {
     .product-image-container {
       height: 150px;
-      margin: 0 0 0.6rem 0;
+      margin: 0 0 0.3rem 0;
     }
     
     .mixta-products-grid .product-image-container {
