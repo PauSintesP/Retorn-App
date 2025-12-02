@@ -168,7 +168,6 @@ export default function PublicSurveyPage() {
 
   useEffect(() => {
     let lastSentHeight = 0;
-    let debounceTimer = null;
 
     const sendHeight = () => {
       try {
@@ -182,8 +181,8 @@ export default function PublicSurveyPage() {
           html.offsetHeight
         );
         
-        // Solo enviar si la altura cambió significativamente (más de 10px)
-        if (Math.abs(height - lastSentHeight) > 10) {
+        // Solo enviar si la altura cambió significativamente (más de 50px)
+        if (Math.abs(height - lastSentHeight) > 50) {
           lastSentHeight = height;
           window.parent.postMessage({ 
             type: "retorn-survey-height", 
@@ -194,29 +193,13 @@ export default function PublicSurveyPage() {
       } catch (e) {}
     };
 
-    const debouncedSendHeight = () => {
-      clearTimeout(debounceTimer);
-      debounceTimer = setTimeout(sendHeight, 150);
-    };
+    // Enviar altura inicial solo una vez
+    setTimeout(sendHeight, 300);
 
-    // Enviar altura inicial
-    setTimeout(sendHeight, 100);
-
-    // Enviar altura cuando cambie el contenido
-    const observer = new MutationObserver(debouncedSendHeight);
-    observer.observe(document.body, {
-      childList: true,
-      subtree: true,
-      attributes: false // NO observar cambios de atributos para evitar loops
-    });
-
-    window.addEventListener('resize', debouncedSendHeight);
-
-    return () => {
-      clearTimeout(debounceTimer);
-      observer.disconnect();
-      window.removeEventListener('resize', debouncedSendHeight);
-    };
+    // NO usar MutationObserver para evitar loops infinitos
+    // Solo enviar altura cuando cambian los estados principales
+    
+    return () => {};
   }, [started, showRecommendation, showPathologyContact, currentStep]);
 
   const handleAnswer = (value) => {
