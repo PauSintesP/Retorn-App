@@ -237,9 +237,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     position: relative;
     margin: 0 auto;
     box-sizing: border-box;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow: visible;
     display: flex;
     flex-direction: column;
   }
@@ -919,8 +917,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .date-selector-scroll {
     max-height: 140px;
-    overflow-y: auto;
-    overflow-x: hidden;
+    overflow: visible;
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
@@ -929,7 +926,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     border-radius: 10px;
     scrollbar-width: thin;
     scrollbar-color: rgba(115, 159, 153, 0.3) transparent;
-    -webkit-overflow-scrolling: touch;
   }
 
   .date-selector-scroll::-webkit-scrollbar {
@@ -3909,9 +3905,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     margin: 0 auto;
     padding: 0.75rem 0.5rem;
     box-sizing: border-box;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow: visible;
     animation: fadeSlideIn 0.4s ease-out;
   }
 
