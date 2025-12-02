@@ -48,14 +48,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
   html, body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow: visible;
     width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    height: auto;
+    min-height: 100%;
     font-size: var(--base-font-size);
   }
 
@@ -127,19 +123,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .survey-container {
     width: 100%;
-    height: 100vh;
-    height: 100dvh; /* Dynamic viewport height para móviles */
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height para móviles */
     display: flex;
     flex-direction: column;
     background: #ffffffff;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: var(--jdgm-primary-color);
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    overflow: hidden;
+    position: relative;
+    overflow: visible;
     box-sizing: border-box;
   }
 
@@ -156,7 +148,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .progress-bar-container {
-    position: absolute;
+    position: sticky;
     top: 0;
     left: 0;
     right: 0;
@@ -192,14 +184,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
     align-items: center;
     justify-content: center;
     padding: 1.5rem 0.75rem 0.75rem 0.75rem;
-    margin-top: 4px;
     position: relative;
     z-index: 1;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow: visible;
     width: 100%;
-    height: calc(100% - 4px);
+    min-height: calc(100vh - 4px);
     box-sizing: border-box;
   }
 
