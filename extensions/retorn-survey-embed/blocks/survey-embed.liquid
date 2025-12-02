@@ -52,8 +52,8 @@
       if (!e.data || e.origin !== surveyOrigin) return;
 
       if (e.data.type === 'retorn-survey-height' && e.data.height) {
-        const newHeight = Math.max(600, e.data.height + 50);
-        // Actualizar siempre la altura para asegurar que se ajusta correctamente
+        const newHeight = Math.max(600, Math.ceil(e.data.height));
+        // Solo actualizar si la altura realmente cambió
         if (newHeight !== lastHeight) {
           lastHeight = newHeight;
           iframe.style.height = newHeight + 'px';

@@ -48,9 +48,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
   html, body {
     margin: 0;
     padding: 0;
-    overflow: hidden;
+    overflow: visible;
     width: 100%;
-    height: 100%;
+    height: auto;
+    min-height: 100%;
     font-size: var(--base-font-size);
   }
 
@@ -122,15 +123,15 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .survey-container {
     width: 100%;
-    height: 100vh;
-    height: 100dvh; /* Dynamic viewport height para móviles */
+    min-height: 100vh;
+    min-height: 100dvh; /* Dynamic viewport height para móviles */
     display: flex;
     flex-direction: column;
     background: #ffffffff;
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     color: var(--jdgm-primary-color);
     position: relative;
-    overflow: hidden;
+    overflow: visible;
     box-sizing: border-box;
   }
 
@@ -147,7 +148,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .progress-bar-container {
-    position: absolute;
+    position: sticky;
     top: 0;
     left: 0;
     right: 0;
@@ -183,14 +184,11 @@ export const getSurveyStyles = (direction, theme = {}) => {
     align-items: center;
     justify-content: center;
     padding: 1.5rem 0.75rem 0.75rem 0.75rem;
-    margin-top: 4px;
     position: relative;
     z-index: 1;
-    overflow-x: hidden;
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow: visible;
     width: 100%;
-    height: calc(100% - 4px);
+    min-height: calc(100vh - 4px);
     box-sizing: border-box;
   }
 
@@ -199,19 +197,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
     justify-content: flex-start;
   }
 
-  /* Alineación para la pantalla de recomendación - siempre desde arriba */
+  /* Alineación para la pantalla de recomendación - sin scroll */
   .survey-content:has(.recommendation-container) {
     justify-content: flex-start;
-    padding-top: 1rem;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
-  }
-
-  /* Ocultar scrollbar pero mantener funcionalidad */
-  .survey-content:has(.recommendation-container)::-webkit-scrollbar {
-    display: none;
+    padding: 0.5rem 0.5rem;
+    overflow: visible;
+    min-height: auto;
   }
 
   /* Tablet y Desktop: volver al centrado para todas las preguntas */
@@ -222,11 +213,9 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
     .survey-content:has(.recommendation-container) {
       justify-content: flex-start;
-      padding-top: 0.75rem;
-      overflow-y: scroll;
-      overflow-x: hidden;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
+      padding: 0.5rem 0.75rem;
+      overflow: visible;
+      min-height: auto;
     }
   }
 
@@ -2197,15 +2186,16 @@ export const getSurveyStyles = (direction, theme = {}) => {
     border: none;
     color: var(--jdgm-paginate-color);
     font-family: 'Inter', sans-serif;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     font-weight: 500;
     cursor: pointer;
-    padding: 0.5rem 0.75rem;
-    margin-bottom: 0.5rem;
+    padding: 0.4rem 0.6rem;
+    margin-bottom: 0.25rem;
     border-radius: 8px;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    flex-shrink: 0;
   }
 
   .back-button::before {
@@ -2263,11 +2253,13 @@ export const getSurveyStyles = (direction, theme = {}) => {
     max-width: 100%;
     width: 100%;
     min-height: auto;
-    padding: 0.5rem;
+    padding: 0;
     overflow: visible;
     box-sizing: border-box;
     margin: 0 auto;
     animation: fadeSlideIn 0.4s ease-out;
+    display: flex;
+    flex-direction: column;
   }
 
   @media (min-width: 600px) {
@@ -2446,8 +2438,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .product-card {
     background: white;
     border-radius: 8px;
-    padding: 0.75rem 0.6rem;
-    margin-bottom: 0.85rem;
+    padding: 0.5rem 0.4rem;
+    margin-bottom: 0.5rem;
     box-shadow: 
       0 8px 20px rgba(0, 0, 0, 0.08),
       0 4px 10px rgba(115, 159, 153, 0.1);
@@ -2492,8 +2484,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .product-image-container {
     width: 100%;
-    height: 160px;
-    margin: 0 0 0.85rem 0;
+    height: 120px;
+    margin: 0 0 0.5rem 0;
     overflow: hidden;
     background: #fafafa;
     display: flex;
@@ -2777,16 +2769,17 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .cart-action-section {
-    margin: 1.5rem 0 1rem 0;
+    margin: 0.75rem 0 0.5rem 0;
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.85rem;
+    gap: 0.5rem;
     width: 100%;
     max-width: 100%;
     padding: 0;
     box-sizing: border-box;
+    flex-shrink: 0;
   }
 
   @media (min-width: 600px) {
@@ -3404,9 +3397,10 @@ export const getSurveyStyles = (direction, theme = {}) => {
   .recommendation-footer {
 
     text-align: center;
-    margin-top: 2rem;
-    padding-top: 1.5rem;
+    margin-top: 0.75rem;
+    padding-top: 0.75rem;
     border-top: 2px solid rgba(115, 159, 153, 0.1);
+    flex-shrink: 0;
   }
 
   @media (min-width: 600px) {
@@ -3439,15 +3433,16 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Estilos adicionales para recomendación mejorada */
   .calorie-info {
     background: linear-gradient(135deg, #ffffff 0%, #f8fffe 100%);
-    border-radius: 16px;
-    padding: 1.25rem 1rem;
-    margin-bottom: 1.25rem;
+    border-radius: 12px;
+    padding: 0.75rem 0.6rem;
+    margin-bottom: 0.75rem;
     border: 2px solid rgba(115, 159, 153, 0.2);
     box-shadow: 
       0 8px 24px rgba(115, 159, 153, 0.08),
       0 2px 8px rgba(115, 159, 153, 0.04);
     position: relative;
     overflow: hidden;
+    flex-shrink: 0;
   }
 
   .calorie-info::before {

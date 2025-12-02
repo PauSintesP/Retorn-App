@@ -167,6 +167,9 @@ export default function PublicSurveyPage() {
   }, [visibleQuestions.length, currentStep]);
 
   useEffect(() => {
+    let lastSentHeight = 0;
+    let debounceTimer = null;
+
     const sendHeight = () => {
       try {
         const body = document.body;
@@ -178,29 +181,41 @@ export default function PublicSurveyPage() {
           html.scrollHeight,
           html.offsetHeight
         );
-        window.parent.postMessage({ 
-          type: "retorn-survey-height", 
-          height: height 
-        }, "*");
+        
+        // Solo enviar si la altura cambió significativamente (más de 10px)
+        if (Math.abs(height - lastSentHeight) > 10) {
+          lastSentHeight = height;
+          window.parent.postMessage({ 
+            type: "retorn-survey-height", 
+            height: height 
+          }, "*");
+          console.log('📤 Altura enviada:', height);
+        }
       } catch (e) {}
+    };
+
+    const debouncedSendHeight = () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(sendHeight, 150);
     };
 
     // Enviar altura inicial
     setTimeout(sendHeight, 100);
 
     // Enviar altura cuando cambie el contenido
-    const observer = new MutationObserver(sendHeight);
+    const observer = new MutationObserver(debouncedSendHeight);
     observer.observe(document.body, {
       childList: true,
       subtree: true,
-      attributes: true
+      attributes: false // NO observar cambios de atributos para evitar loops
     });
 
-    window.addEventListener('resize', sendHeight);
+    window.addEventListener('resize', debouncedSendHeight);
 
     return () => {
+      clearTimeout(debounceTimer);
       observer.disconnect();
-      window.removeEventListener('resize', sendHeight);
+      window.removeEventListener('resize', debouncedSendHeight);
     };
   }, [started, showRecommendation, showPathologyContact, currentStep]);
 
