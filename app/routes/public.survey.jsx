@@ -167,8 +167,6 @@ export default function PublicSurveyPage() {
   }, [visibleQuestions.length, currentStep]);
 
   useEffect(() => {
-    let lastSentHeight = 0;
-
     const sendHeight = () => {
       try {
         const body = document.body;
@@ -181,29 +179,28 @@ export default function PublicSurveyPage() {
           html.offsetHeight
         );
         
-        // Solo enviar si la altura cambió significativamente (más de 20px)
-        if (Math.abs(height - lastSentHeight) > 20) {
-          lastSentHeight = height;
-          window.parent.postMessage({ 
-            type: "retorn-survey-height", 
-            height: height + 50
-          }, "*");
-          console.log('📤 Altura enviada:', height + 50);
-        }
+        // Agregar margen solo si estamos en la pantalla de recomendación
+        const extraMargin = showRecommendation ? 100 : 50;
+        const finalHeight = height + extraMargin;
+        
+        window.parent.postMessage({ 
+          type: "retorn-survey-height", 
+          height: finalHeight
+        }, "*");
+        console.log('📤 Altura enviada:', finalHeight, showRecommendation ? '(con recomendación)' : '');
       } catch (e) {
         console.error('Error enviando altura:', e);
       }
     };
 
-    // Enviar altura solo después del render
-    const timeoutId = setTimeout(sendHeight, 300);
-
-    // NO escuchar solicitudes del padre para evitar loops
+    // Esperar un poco más en la pantalla de recomendación para que todo se renderice
+    const delay = showRecommendation ? 500 : 300;
+    const timeoutId = setTimeout(sendHeight, delay);
     
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [started, showRecommendation, showPathologyContact, currentStep, isLoading]);
+  }, [started, showRecommendation, showPathologyContact, currentStep]);
 
   const handleAnswer = (value) => {
     setAnswers((prev) => {
