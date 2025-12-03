@@ -186,6 +186,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     z-index: 1;
     width: 100%;
     box-sizing: border-box;
+    justify-content: flex-start;
   }
 
   /* Alineación especial para la pregunta de patologías en móvil */
