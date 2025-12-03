@@ -178,7 +178,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 1.5rem 0.75rem 2rem 0.75rem;
+    padding: 0.75rem 0.75rem 2rem 0.75rem;
     margin-top: 4px;
     position: relative;
     z-index: 1;
