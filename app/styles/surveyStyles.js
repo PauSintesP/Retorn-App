@@ -211,8 +211,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Alineación para la pantalla de recomendación - siempre desde arriba */
   .survey-content:has(.recommendation-container) {
     justify-content: flex-start;
-    padding-top: 1rem;
-    overflow-y: visible;
+    padding-top: 1.5rem;
+    overflow-y: auto;
     overflow-x: hidden;
   }
 
@@ -224,8 +224,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
     .survey-content:has(.recommendation-container) {
       justify-content: flex-start;
-      padding-top: 0.75rem;
-      overflow-y: visible;
+      padding-top: 1.25rem;
+      overflow-y: auto;
       overflow-x: hidden;
     }
   }
@@ -2264,7 +2264,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     width: 100%;
     min-height: auto;
     padding: 0.5rem;
-    overflow: visible;
+    overflow: auto;
     box-sizing: border-box;
     margin: 0 auto;
     animation: fadeSlideIn 0.4s ease-out;
