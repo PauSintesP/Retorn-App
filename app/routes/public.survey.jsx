@@ -174,18 +174,8 @@ export default function PublicSurveyPage() {
 
     const sendHeight = () => {
       try {
-        const body = document.body;
-        const html = document.documentElement;
-        const height = Math.max(
-          body.scrollHeight,
-          body.offsetHeight,
-          html.clientHeight,
-          html.scrollHeight,
-          html.offsetHeight
-        );
-        
-        // Limitar la altura máxima a 1500px para la pantalla final
-        const finalHeight = Math.min(height + 100, 1500);
+        // Establecer altura fija de 1500px para la pantalla de recomendación
+        const finalHeight = 1500;
         
         window.parent.postMessage({ 
           type: "retorn-survey-height", 
