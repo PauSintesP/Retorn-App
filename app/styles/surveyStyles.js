@@ -178,7 +178,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 1.5rem 0.75rem 2rem 0.75rem;
+    padding: 0.5rem 0.75rem 2rem 0.75rem;
     margin-top: 4px;
     position: relative;
     z-index: 1;
@@ -232,28 +232,28 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Tablet */
   @media (min-width: 600px) {
     .survey-content {
-      padding: 1.5rem 1rem 2rem 1rem;
+      padding: 0.75rem 1rem 2rem 1rem;
     }
 
     .question-card {
       padding: 1.35rem 1.15rem;
       border-radius: 1rem;
-      max-width: 90%;
-      min-width: 450px;
+      max-width: 85%;
+      min-width: 400px;
     }
   }
 
   /* Desktop */
   @media (min-width: 768px) {
     .survey-content {
-      padding: 1.5rem 1rem 2rem 1rem;
+      padding: 1rem 1rem 2rem 1rem;
     }
 
     .question-card {
       padding: 2rem 1.5rem;
       border-radius: 1.4rem;
-      max-width: 900px;
-      min-width: 550px;
+      max-width: 700px;
+      min-width: 500px;
       box-shadow: 
         0 30px 80px rgba(0, 0, 0, 0.08),
         0 10px 30px rgba(115, 159, 153, 0.1),
