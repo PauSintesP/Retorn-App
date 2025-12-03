@@ -175,7 +175,7 @@ export default function PublicSurveyPage() {
     const sendHeight = () => {
       try {
         // Establecer altura fija de 1500px para la pantalla de recomendación
-        const finalHeight = 2200;
+        const finalHeight = 2250;
         
         window.parent.postMessage({ 
           type: "retorn-survey-height", 
