@@ -167,6 +167,11 @@ export default function PublicSurveyPage() {
   }, [visibleQuestions.length, currentStep]);
 
   useEffect(() => {
+    // Solo enviar altura cuando se muestra la recomendación final o el formulario de contacto
+    if (!showRecommendation && !showPathologyContact) {
+      return;
+    }
+
     const sendHeight = () => {
       try {
         const body = document.body;
@@ -179,28 +184,25 @@ export default function PublicSurveyPage() {
           html.offsetHeight
         );
         
-        // Agregar margen solo si estamos en la pantalla de recomendación
-        const extraMargin = showRecommendation ? 100 : 50;
-        const finalHeight = height + extraMargin;
+        const finalHeight = height + 100;
         
         window.parent.postMessage({ 
           type: "retorn-survey-height", 
           height: finalHeight
         }, "*");
-        console.log('📤 Altura enviada:', finalHeight, showRecommendation ? '(con recomendación)' : '');
+        console.log('📤 Altura final enviada:', finalHeight);
       } catch (e) {
         console.error('Error enviando altura:', e);
       }
     };
 
-    // Esperar un poco más en la pantalla de recomendación para que todo se renderice
-    const delay = showRecommendation ? 500 : 300;
-    const timeoutId = setTimeout(sendHeight, delay);
+    // Esperar a que todo se renderice
+    const timeoutId = setTimeout(sendHeight, 500);
     
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [started, showRecommendation, showPathologyContact, currentStep]);
+  }, [showRecommendation, showPathologyContact]);
 
   const handleAnswer = (value) => {
     setAnswers((prev) => {
