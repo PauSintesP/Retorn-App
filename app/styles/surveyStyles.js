@@ -128,6 +128,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     color: var(--jdgm-primary-color);
     position: relative;
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
   }
 
   .survey-container::before {
@@ -529,54 +531,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .options-container:has(.option-button:nth-child(2):last-child) .option-icon,
     .options-container:has(.option-button:nth-child(3):last-child) .option-icon {
       font-size: 1.9rem;
-    }
-  }
-
-  /* Estilos compactos para pregunta de alimentación */
-  .compact-food-choice.options-container {
-    max-width: 420px;
-    margin: 0 auto;
-  }
-
-  .compact-food-choice .option-button {
-    padding: 0.65rem 0.85rem !important;
-    font-size: 0.85rem !important;
-    min-height: 50px !important;
-  }
-
-  .compact-food-choice .option-icon {
-    font-size: 1.2rem !important;
-  }
-
-  @media (min-width: 600px) {
-    .compact-food-choice.options-container {
-      max-width: 480px;
-    }
-
-    .compact-food-choice .option-button {
-      padding: 0.75rem 1rem !important;
-      font-size: 0.9rem !important;
-      min-height: 56px !important;
-    }
-
-    .compact-food-choice .option-icon {
-      font-size: 1.35rem !important;
-    }
-  }
-
-  @media (min-width: 768px) {
-    .compact-food-choice.options-container {
-      max-width: 520px;
-    }
-
-    .compact-food-choice .option-button {
-      padding: 0.85rem 1.15rem !important;
-      font-size: 0.95rem !important;
-      min-height: 60px !important;
-    }
-
-    .compact-food-choice .option-icon {
-      font-size: 1.45rem !important;
     }
   }
 
