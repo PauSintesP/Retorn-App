@@ -497,6 +497,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     padding: 0.75rem 0.9rem;
     font-size: 0.85rem;
     min-height: 54px;
+    max-width: 400px;
+    margin: 0 auto;
   }
 
   .options-container:has(.option-button:nth-child(2):last-child) .option-icon,
@@ -510,6 +512,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
       padding: 0.95rem 1.3rem;
       font-size: 0.95rem;
       min-height: 64px;
+      max-width: 450px;
     }
 
     .options-container:has(.option-button:nth-child(2):last-child) .option-icon,
@@ -524,6 +527,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
       padding: 1.15rem 1.6rem;
       font-size: 1rem;
       min-height: auto;
+      max-width: 350px;
     }
 
     .options-container:has(.option-button:nth-child(2):last-child) .option-icon,
