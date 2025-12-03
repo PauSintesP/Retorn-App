@@ -102,10 +102,12 @@ export default function QuestionCard({
         <h2 className="question-text">{questionText}</h2>
         {question.info && (
           <p style={{
-            marginTop: "12px",
+            marginTop: "8px",
             color: "#666",
-            fontSize: "0.9rem",
+            fontSize: "0.75rem",
             fontStyle: "italic",
+            lineHeight: "1.3",
+            maxWidth: "100%",
           }}>
             {question.info}
           </p>
