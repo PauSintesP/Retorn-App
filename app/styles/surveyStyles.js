@@ -46,14 +46,20 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   html, body {
-    margin: 0;
-    padding: 0;
+    margin: 0 !important;
+    padding: 0 !important;
     width: 100%;
     font-size: var(--base-font-size);
+    overflow-x: hidden;
   }
 
   body {
     background: ${bg} !important;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
   }
 
   @keyframes fadeSlideIn {
