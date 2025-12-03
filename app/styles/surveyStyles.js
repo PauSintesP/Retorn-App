@@ -46,20 +46,14 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   html, body {
-    margin: 0 !important;
-    padding: 0 !important;
+    margin: 0;
+    padding: 0;
     width: 100%;
     font-size: var(--base-font-size);
-    overflow-x: hidden;
   }
 
   body {
     background: ${bg} !important;
-  }
-
-  * {
-    margin: 0;
-    padding: 0;
   }
 
   @keyframes fadeSlideIn {
@@ -186,8 +180,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0 0.75rem 0 0.75rem;
-    margin: 0;
+    padding: 1.5rem 0.75rem 2rem 0.75rem;
+    margin-top: 4px;
     position: relative;
     z-index: 1;
     width: 100%;
@@ -202,7 +196,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Alineación para la pantalla de recomendación - siempre desde arriba */
   .survey-content:has(.recommendation-container) {
     justify-content: flex-start;
-    padding-top: 0;
+    padding-top: 1.5rem;
   }
 
   /* Tablet y Desktop: volver al centrado para todas las preguntas */
@@ -213,7 +207,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
     .survey-content:has(.recommendation-container) {
       justify-content: flex-start;
-      padding-top: 0;
+      padding-top: 1.25rem;
     }
   }
 
@@ -240,7 +234,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Tablet */
   @media (min-width: 600px) {
     .survey-content {
-      padding: 0 1rem 0 1rem;
+      padding: 1.5rem 1rem 2rem 1rem;
     }
 
     .question-card {
@@ -254,7 +248,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Desktop */
   @media (min-width: 768px) {
     .survey-content {
-      padding: 0 1rem 0 1rem;
+      padding: 1.5rem 1rem 2rem 1rem;
     }
 
     .question-card {
