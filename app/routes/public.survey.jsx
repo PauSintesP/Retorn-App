@@ -284,7 +284,8 @@ export default function PublicSurveyPage() {
   };
 
   const handleRestart = () => {
-    window.location.reload();
+    // Recargar la página padre (Shopify) en lugar del iframe
+    window.parent.postMessage({ type: 'retorn-survey-reload' }, '*');
   };
 
   return (
