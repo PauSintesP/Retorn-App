@@ -180,8 +180,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 1.5rem 0.75rem 2rem 0.75rem;
-    margin-top: 4px;
+    padding: 0.5rem 0.75rem 2rem 0.75rem;
+    margin-top: 0;
     position: relative;
     z-index: 1;
     width: 100%;
@@ -196,7 +196,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Alineación para la pantalla de recomendación - siempre desde arriba */
   .survey-content:has(.recommendation-container) {
     justify-content: flex-start;
-    padding-top: 1.5rem;
+    padding-top: 0.5rem;
   }
 
   /* Tablet y Desktop: volver al centrado para todas las preguntas */
@@ -207,7 +207,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
     .survey-content:has(.recommendation-container) {
       justify-content: flex-start;
-      padding-top: 1.25rem;
+      padding-top: 0.75rem;
     }
   }
 
@@ -234,7 +234,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Tablet */
   @media (min-width: 600px) {
     .survey-content {
-      padding: 1.5rem 1rem 2rem 1rem;
+      padding: 0.75rem 1rem 2rem 1rem;
     }
 
     .question-card {
@@ -248,7 +248,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Desktop */
   @media (min-width: 768px) {
     .survey-content {
-      padding: 1.5rem 1rem 2rem 1rem;
+      padding: 1rem 1rem 2rem 1rem;
     }
 
     .question-card {
