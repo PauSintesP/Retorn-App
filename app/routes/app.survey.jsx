@@ -290,12 +290,7 @@ export default function SurveyPage() {
    * Reinicia el formulario para hacer otra encuesta
    */
   const handleRestart = () => {
-    setCurrentStep(0);
-    setAnswers({});
-    setShowRecommendation(false);
-    setShowPathologyContact(false);
-    setRecommendation(null);
-    setStarted(false);
+    window.location.reload();
   };
 
   return (

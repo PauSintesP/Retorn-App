@@ -284,12 +284,7 @@ export default function PublicSurveyPage() {
   };
 
   const handleRestart = () => {
-    setCurrentStep(0);
-    setAnswers({});
-    setShowRecommendation(false);
-    setShowPathologyContact(false);
-    setRecommendation(null);
-    setStarted(false);
+    window.location.reload();
   };
 
   return (
