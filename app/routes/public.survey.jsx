@@ -44,7 +44,13 @@ export default function PublicSurveyPage() {
   const [recommendation, setRecommendation] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
-
+  useEffect(() => {
+    if (started && currentStep === 0) {
+      window.parent.postMessage({
+        type: 'retorn-survey-started'
+      }, '*');
+    }
+  }, [started, currentStep]);
 
   const visibleQuestions = getVisibleQuestions(answers);
   const currentQuestion = visibleQuestions[currentStep];

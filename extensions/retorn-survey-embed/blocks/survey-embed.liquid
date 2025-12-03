@@ -72,6 +72,10 @@
         }, 500);
       }
 
+      if (e.data.type === 'retorn-survey-started') {
+        iframe.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
       if (e.data.type === 'retorn-add-to-cart' && e.data.products) {
         handleAddToCart(e.data.products);
       }

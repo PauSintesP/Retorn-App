@@ -50,8 +50,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     padding: 0;
     width: 100%;
     font-size: var(--base-font-size);
-    overflow-x: hidden;
-    max-width: 100%;
   }
 
   body {
@@ -122,7 +120,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
 
   .survey-container {
     width: 100%;
-    max-width: 100%;
     min-height: 100vh;
     display: flex;
     flex-direction: column;
@@ -131,7 +128,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     color: var(--jdgm-primary-color);
     position: relative;
     box-sizing: border-box;
-    overflow-x: hidden;
   }
 
   .survey-container::before {
@@ -182,14 +178,12 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0.75rem 0.75rem 2rem 0.75rem;
+    padding: 1.5rem 0.75rem 2rem 0.75rem;
     margin-top: 4px;
     position: relative;
     z-index: 1;
     width: 100%;
-    max-width: 100%;
     box-sizing: border-box;
-    overflow-x: hidden;
   }
 
   /* Alineación especial para la pregunta de patologías en móvil */
