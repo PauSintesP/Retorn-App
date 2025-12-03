@@ -93,6 +93,9 @@ export default function QuestionCard({
   const isPathologyQuestion = question.id === "7_gato" || question.id === "9_perro";
   const questionCardClass = isPathologyQuestion ? "question-card pathology-question" : "question-card";
 
+  // Verificar si es la pregunta de alimentación para aplicar estilo compacto
+  const isAlimentacionQuestion = question.id === "8_gato" || question.id === "10_perro";
+
   return (
     <div className={questionCardClass}>
       <div className="question-header">
@@ -104,13 +107,17 @@ export default function QuestionCard({
           <p style={{
             marginTop: "8px",
             color: "#666",
-            fontSize: "0.7rem",
+            fontSize: isAlimentacionQuestion ? "0.65rem" : "0.7rem",
             fontStyle: "italic",
-            lineHeight: "1.4",
-            maxWidth: "85%",
+            lineHeight: isAlimentacionQuestion ? "1.3" : "1.4",
+            maxWidth: isAlimentacionQuestion ? "90%" : "85%",
             margin: "8px auto 0",
+            whiteSpace: isAlimentacionQuestion ? "pre-line" : "normal",
           }}>
-            {question.info}
+            {isAlimentacionQuestion 
+              ? "Las recetas mixtas están formuladas para obtener\nlas kcal necesarias distribuidas en 75% seco 25% húmedo"
+              : question.info
+            }
           </p>
         )}
       </div>

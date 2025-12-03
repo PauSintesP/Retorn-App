@@ -178,7 +178,7 @@ export const getSurveyStyles = (direction, theme = {}) => {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 0.5rem 0.75rem 2rem 0.75rem;
+    padding: 1.5rem 0.75rem 2rem 0.75rem;
     margin-top: 4px;
     position: relative;
     z-index: 1;
@@ -232,28 +232,28 @@ export const getSurveyStyles = (direction, theme = {}) => {
   /* Tablet */
   @media (min-width: 600px) {
     .survey-content {
-      padding: 0.75rem 1rem 2rem 1rem;
+      padding: 1.5rem 1rem 2rem 1rem;
     }
 
     .question-card {
       padding: 1.35rem 1.15rem;
       border-radius: 1rem;
-      max-width: 75%;
-      min-width: 380px;
+      max-width: 90%;
+      min-width: 450px;
     }
   }
 
   /* Desktop */
   @media (min-width: 768px) {
     .survey-content {
-      padding: 1rem 1rem 2rem 1rem;
+      padding: 1.5rem 1rem 2rem 1rem;
     }
 
     .question-card {
       padding: 2rem 1.5rem;
       border-radius: 1.4rem;
-      max-width: 550px;
-      min-width: 450px;
+      max-width: 900px;
+      min-width: 550px;
       box-shadow: 
         0 30px 80px rgba(0, 0, 0, 0.08),
         0 10px 30px rgba(115, 159, 153, 0.1),
@@ -267,19 +267,19 @@ export const getSurveyStyles = (direction, theme = {}) => {
   }
 
   .question-header {
-    margin-bottom: 0.65rem;
+    margin-bottom: 0.75rem;
     text-align: center;
   }
 
   @media (min-width: 600px) {
     .question-header {
-      margin-bottom: 1rem;
+      margin-bottom: 1.15rem;
     }
   }
 
   @media (min-width: 768px) {
     .question-header {
-      margin-bottom: 1.35rem;
+      margin-bottom: 1.5rem;
     }
   }
 
@@ -529,6 +529,54 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .options-container:has(.option-button:nth-child(2):last-child) .option-icon,
     .options-container:has(.option-button:nth-child(3):last-child) .option-icon {
       font-size: 1.9rem;
+    }
+  }
+
+  /* Estilos compactos para pregunta de alimentación */
+  .compact-food-choice.options-container {
+    max-width: 420px;
+    margin: 0 auto;
+  }
+
+  .compact-food-choice .option-button {
+    padding: 0.65rem 0.85rem !important;
+    font-size: 0.85rem !important;
+    min-height: 50px !important;
+  }
+
+  .compact-food-choice .option-icon {
+    font-size: 1.2rem !important;
+  }
+
+  @media (min-width: 600px) {
+    .compact-food-choice.options-container {
+      max-width: 480px;
+    }
+
+    .compact-food-choice .option-button {
+      padding: 0.75rem 1rem !important;
+      font-size: 0.9rem !important;
+      min-height: 56px !important;
+    }
+
+    .compact-food-choice .option-icon {
+      font-size: 1.35rem !important;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .compact-food-choice.options-container {
+      max-width: 520px;
+    }
+
+    .compact-food-choice .option-button {
+      padding: 0.85rem 1.15rem !important;
+      font-size: 0.95rem !important;
+      min-height: 60px !important;
+    }
+
+    .compact-food-choice .option-icon {
+      font-size: 1.45rem !important;
     }
   }
 
