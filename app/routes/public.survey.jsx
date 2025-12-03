@@ -184,7 +184,8 @@ export default function PublicSurveyPage() {
           html.offsetHeight
         );
         
-        const finalHeight = height + 100;
+        // Limitar la altura máxima a 1500px para la pantalla final
+        const finalHeight = Math.min(height + 100, 1500);
         
         window.parent.postMessage({ 
           type: "retorn-survey-height", 
