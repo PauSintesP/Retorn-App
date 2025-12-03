@@ -238,8 +238,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .question-card {
       padding: 1.35rem 1.15rem;
       border-radius: 1rem;
-      max-width: 85%;
-      min-width: 400px;
+      max-width: 75%;
+      min-width: 380px;
     }
   }
 
@@ -252,8 +252,8 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .question-card {
       padding: 2rem 1.5rem;
       border-radius: 1.4rem;
-      max-width: 700px;
-      min-width: 500px;
+      max-width: 550px;
+      min-width: 450px;
       box-shadow: 
         0 30px 80px rgba(0, 0, 0, 0.08),
         0 10px 30px rgba(115, 159, 153, 0.1),
