@@ -504,11 +504,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     font-size: 1.4rem;
   }
 
-  /* Reducir ancho de la tarjeta cuando hay solo 2 opciones */
-  .question-card:has(.options-container .option-button:nth-child(2):last-child) {
-    max-width: 90%;
-  }
-
   @media (min-width: 600px) {
     .options-container:has(.option-button:nth-child(2):last-child) .option-button,
     .options-container:has(.option-button:nth-child(3):last-child) .option-button {
@@ -520,10 +515,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .options-container:has(.option-button:nth-child(2):last-child) .option-icon,
     .options-container:has(.option-button:nth-child(3):last-child) .option-icon {
       font-size: 1.7rem;
-    }
-
-    .question-card:has(.options-container .option-button:nth-child(2):last-child) {
-      max-width: 500px;
     }
   }
 
@@ -538,10 +529,6 @@ export const getSurveyStyles = (direction, theme = {}) => {
     .options-container:has(.option-button:nth-child(2):last-child) .option-icon,
     .options-container:has(.option-button:nth-child(3):last-child) .option-icon {
       font-size: 1.9rem;
-    }
-
-    .question-card:has(.options-container .option-button:nth-child(2):last-child) {
-      max-width: 550px;
     }
   }
 
