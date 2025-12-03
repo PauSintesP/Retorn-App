@@ -104,10 +104,11 @@ export default function QuestionCard({
           <p style={{
             marginTop: "8px",
             color: "#666",
-            fontSize: "0.75rem",
+            fontSize: "0.7rem",
             fontStyle: "italic",
-            lineHeight: "1.3",
-            maxWidth: "100%",
+            lineHeight: "1.4",
+            maxWidth: "85%",
+            margin: "8px auto 0",
           }}>
             {question.info}
           </p>
