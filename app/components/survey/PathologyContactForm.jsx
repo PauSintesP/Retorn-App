@@ -97,6 +97,8 @@ export default function PathologyContactForm({ answers, onBack }) {
         formDataToSend[questionLabel] = formattedValue || "Sin respuesta";
       });
 
+      console.log("📧 Enviando formulario a FormSubmit...", formDataToSend);
+
       // Enviar directamente a FormSubmit usando su AJAX endpoint
       const response = await fetch("https://formsubmit.co/ajax/gal.la@retorn.com", {
         method: "POST",
@@ -107,18 +109,28 @@ export default function PathologyContactForm({ answers, onBack }) {
         body: JSON.stringify(formDataToSend),
       });
 
-      const result = await response.json();
+      console.log("📬 Respuesta del servidor:", response.status);
 
-      if (response.ok && result.success) {
+      if (!response.ok) {
+        throw new Error(`Error HTTP: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("✅ Resultado:", result);
+
+      // FormSubmit devuelve { success: "true" } como string
+      if (result.success === "true" || result.success === true) {
+        console.log("🎉 Formulario enviado exitosamente");
         setIsSubmitted(true);
       } else {
         throw new Error(result.message || "Error en el envío");
       }
     } catch (error) {
-      console.error("Error al enviar formulario:", error);
+      console.error("❌ Error al enviar formulario:", error);
       alert(
-        "Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo."
+        "Hubo un error al enviar el formulario. Por favor, inténtalo de nuevo o contacta directamente a gal.la@retorn.com"
       );
+    } finally {
       setIsSubmitting(false);
     }
   };
