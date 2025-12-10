@@ -241,7 +241,7 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
                 alignItems: 'center',
                 justifyContent: 'center'
               }}>🎉</div>
-              <div style={{ 
+              <div style={{
                 flex: 1,
                 display: 'flex',
                 flexDirection: 'column',
