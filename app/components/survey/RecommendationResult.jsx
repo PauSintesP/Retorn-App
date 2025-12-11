@@ -208,26 +208,30 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
         return;
       }
 
-      console.log('  🚀 Agregando productos con Cart API...');
+      console.log('  🚀 Usando proxy backend para evitar CORS...');
       console.log('  🏷️ Property en cada producto: _source=app_encuesta');
 
-      // Usar Shopify Cart API
-      const response = await fetch(`https://${shopDomain}/cart/add.js`, {
+      // Usar nuestro proxy backend para evitar CORS
+      const response = await fetch('/api/add-to-cart', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ items })
+        body: JSON.stringify({ 
+          items,
+          shopDomain 
+        })
       });
 
       if (!response.ok) {
-        throw new Error(`Error HTTP: ${response.status}`);
+        const error = await response.json();
+        throw new Error(error.error || 'Error al agregar productos');
       }
 
       const result = await response.json();
       console.log('✅ Productos agregados al carrito:', result);
 
-      // Redirigir al carrito
+      // Redirigir al carrito de Shopify
       const cartUrl = `https://${shopDomain}/cart`;
       const isInIframe = window.self !== window.top;
       
