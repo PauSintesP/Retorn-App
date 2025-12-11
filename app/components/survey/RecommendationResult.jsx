@@ -98,10 +98,67 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
 
 
 
-  // Función para agregar productos al carrito de Shopify
+  /**
+   * Función para redirigir al checkout de Shopify con line item properties
+   * 
+   * @description
+   * Genera un Cart Permalink de Shopify e inyecta la propiedad `_source: app_encuesta`
+   * para que Shopify Flow pueda detectar y procesar el pedido automáticamente.
+   * Maneja correctamente el frame busting cuando la app está en un iframe.
+   * 
+   * @param {string} variantId - ID de la variante del producto de Shopify
+   * @param {number} quantity - Cantidad del producto
+   * @param {string} shopDomain - Dominio de la tienda Shopify (ej: "retorn.com")
+   */
+  const redirectToCheckout = (variantId, quantity, shopDomain) => {
+    try {
+      // 1. Construir el Cart Permalink base
+      const cartPermalink = `https://${shopDomain}/cart/${variantId}:${quantity}`;
+      
+      // 2. Inyectar Line Item Property (CRÍTICO para Shopify Flow)
+      // El guion bajo "_source" hace que la propiedad sea oculta en el carrito
+      const propertyKey = encodeURIComponent('properties[_source]');
+      const propertyValue = encodeURIComponent('app_encuesta');
+      const checkoutUrl = `${cartPermalink}?${propertyKey}=${propertyValue}`;
+      
+      console.log('🛒 Redirigiendo al checkout de Shopify...');
+      console.log('  📦 Variant ID:', variantId);
+      console.log('  🔢 Cantidad:', quantity);
+      console.log('  🏪 Dominio:', shopDomain);
+      console.log('  🔗 URL completa:', checkoutUrl);
+      console.log('  🏷️ Property inyectada: _source=app_encuesta');
+      
+      // 3. Frame Busting: Detectar si estamos en un iframe y redirigir en la ventana principal
+      const isInIframe = window.self !== window.top;
+      
+      if (isInIframe) {
+        console.log('  🖼️ Detectado iframe - Forzando redirección en ventana principal');
+        try {
+          // Intentar acceder al top frame (puede fallar por políticas de seguridad)
+          window.top.location.href = checkoutUrl;
+        } catch (securityError) {
+          console.warn('  ⚠️ No se pudo acceder a window.top (bloqueo de seguridad)');
+          console.log('  🔄 Fallback: Abriendo en nueva pestaña');
+          window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
+        }
+      } else {
+        // No estamos en iframe, redirección normal
+        window.location.href = checkoutUrl;
+      }
+      
+    } catch (error) {
+      console.error('❌ Error en redirectToCheckout:', error);
+      // Fallback de emergencia: abrir en nueva pestaña
+      const fallbackUrl = `https://${shopDomain}/cart/${variantId}:${quantity}`;
+      window.open(fallbackUrl, '_blank', 'noopener,noreferrer');
+    }
+  };
+
+  // Función para agregar productos al carrito de Shopify (múltiples productos)
   const agregarAlCarrito = () => {
     try {
       const items = [];
+      const shopDomain = 'retorn.com';
 
       console.log('🛒 Construyendo carrito de compras...');
 
@@ -131,15 +188,29 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
         return;
       }
 
-      // Construir la URL del carrito de Shopify sin cupón
-      const cartUrl = `https://retorn.com/cart/${items.join(',')}`;
+      // Construir la URL del carrito con line item property
+      const cartPermalink = `https://${shopDomain}/cart/${items.join(',')}`;
+      const propertyKey = encodeURIComponent('properties[_source]');
+      const propertyValue = encodeURIComponent('app_encuesta');
+      const checkoutUrl = `${cartPermalink}?${propertyKey}=${propertyValue}`;
 
-      console.log(`  🔗 URL del carrito: ${cartUrl}`);
-      console.log('  🚀 Abriendo carrito en nueva pestaña...');
-      console.log('  ℹ️ Recuerda aplicar el cupón RET15 en el checkout');
+      console.log(`  🔗 URL del carrito: ${checkoutUrl}`);
+      console.log('  🏷️ Property: _source=app_encuesta (para Shopify Flow)');
+      console.log('  🚀 Redirigiendo al checkout...');
 
-      // Abrir el carrito en nueva pestaña
-      window.open(cartUrl, '_blank', 'noopener,noreferrer');
+      // Frame busting: detectar iframe y redirigir apropiadamente
+      const isInIframe = window.self !== window.top;
+      
+      if (isInIframe) {
+        try {
+          window.top.location.href = checkoutUrl;
+        } catch (e) {
+          window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
+        }
+      } else {
+        window.location.href = checkoutUrl;
+      }
+
     } catch (error) {
       console.error('❌ Error al agregar productos al carrito:', error);
     }
