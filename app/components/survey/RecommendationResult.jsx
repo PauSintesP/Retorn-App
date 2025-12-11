@@ -99,11 +99,13 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
 
 
   /**
-   * Función para redirigir al checkout de Shopify con line item properties
+   * Función para redirigir al checkout de Shopify con line item properties y note attributes
    * 
    * @description
-   * Genera un Cart Permalink de Shopify e inyecta la propiedad `_source: app_encuesta`
-   * para que Shopify Flow pueda detectar y procesar el pedido automáticamente.
+   * Genera un Cart Permalink de Shopify e inyecta:
+   * 1. Line Item Property: `properties[_source]=app_encuesta` (oculta en el carrito)
+   * 2. Note Attribute: `note[source]=app_encuesta` (más fácil de detectar en Shopify Flow)
+   * 
    * Maneja correctamente el frame busting cuando la app está en un iframe.
    * 
    * @param {string} variantId - ID de la variante del producto de Shopify
@@ -115,18 +117,21 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
       // 1. Construir el Cart Permalink base
       const cartPermalink = `https://${shopDomain}/cart/${variantId}:${quantity}`;
       
-      // 2. Inyectar Line Item Property (CRÍTICO para Shopify Flow)
-      // El guion bajo "_source" hace que la propiedad sea oculta en el carrito
-      const propertyKey = encodeURIComponent('properties[_source]');
-      const propertyValue = encodeURIComponent('app_encuesta');
-      const checkoutUrl = `${cartPermalink}?${propertyKey}=${propertyValue}`;
+      // 2. Construir los parámetros para identificar el origen en Shopify Flow
+      const params = new URLSearchParams();
+      
+      // Custom Attribute para Shopify Flow (coincide con tu configuración)
+      params.append('attributes[_source]', 'app_encuesta');
+      
+      const checkoutUrl = `${cartPermalink}?${params.toString()}`;
       
       console.log('🛒 Redirigiendo al checkout de Shopify...');
       console.log('  📦 Variant ID:', variantId);
       console.log('  🔢 Cantidad:', quantity);
       console.log('  🏪 Dominio:', shopDomain);
       console.log('  🔗 URL completa:', checkoutUrl);
-      console.log('  🏷️ Property inyectada: _source=app_encuesta');
+      console.log('  🏷️ Custom Attribute: _source=app_encuesta');
+      console.log('  ℹ️  Flow condition: customAttributes._source = app_encuesta');
       
       // 3. Frame Busting: Detectar si estamos en un iframe y redirigir en la ventana principal
       const isInIframe = window.self !== window.top;
@@ -188,14 +193,18 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
         return;
       }
 
-      // Construir la URL del carrito con line item property
+      // Construir la URL del carrito con custom attribute
       const cartPermalink = `https://${shopDomain}/cart/${items.join(',')}`;
-      const propertyKey = encodeURIComponent('properties[_source]');
-      const propertyValue = encodeURIComponent('app_encuesta');
-      const checkoutUrl = `${cartPermalink}?${propertyKey}=${propertyValue}`;
+      
+      const params = new URLSearchParams();
+      // Custom Attribute para Shopify Flow
+      params.append('attributes[_source]', 'app_encuesta');
+      
+      const checkoutUrl = `${cartPermalink}?${params.toString()}`;
 
       console.log(`  🔗 URL del carrito: ${checkoutUrl}`);
-      console.log('  🏷️ Property: _source=app_encuesta (para Shopify Flow)');
+      console.log('  🏷️ Custom Attribute: _source=app_encuesta');
+      console.log('  ℹ️  Flow detectará: customAttributes._source = app_encuesta');
       console.log('  🚀 Redirigiendo al checkout...');
 
       // Frame busting: detectar iframe y redirigir apropiadamente
