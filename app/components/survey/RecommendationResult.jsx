@@ -120,8 +120,8 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
       // 2. Construir los parámetros para identificar el origen en Shopify Flow
       const params = new URLSearchParams();
       
-      // Custom Attribute para Shopify Flow (coincide con tu configuración)
-      params.append('attributes[_source]', 'app_encuesta');
+      // Line Item Property para Shopify Flow (guardado DENTRO del producto)
+      params.append('properties[_source]', 'app_encuesta');
       
       const checkoutUrl = `${cartPermalink}?${params.toString()}`;
       
@@ -130,8 +130,8 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
       console.log('  🔢 Cantidad:', quantity);
       console.log('  🏪 Dominio:', shopDomain);
       console.log('  🔗 URL completa:', checkoutUrl);
-      console.log('  🏷️ Custom Attribute: _source=app_encuesta');
-      console.log('  ℹ️  Flow condition: customAttributes._source = app_encuesta');
+      console.log('  🏷️ Line Item Property: _source=app_encuesta');
+      console.log('  ℹ️  Flow detectará en: customAttributes_item.key = _source');
       
       // 3. Frame Busting: Detectar si estamos en un iframe y redirigir en la ventana principal
       const isInIframe = window.self !== window.top;
@@ -193,18 +193,18 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
         return;
       }
 
-      // Construir la URL del carrito con custom attribute
+      // Construir la URL del carrito con line item property
       const cartPermalink = `https://${shopDomain}/cart/${items.join(',')}`;
       
       const params = new URLSearchParams();
-      // Custom Attribute para Shopify Flow
-      params.append('attributes[_source]', 'app_encuesta');
+      // Line Item Property para Shopify Flow (guardado DENTRO de cada producto)
+      params.append('properties[_source]', 'app_encuesta');
       
       const checkoutUrl = `${cartPermalink}?${params.toString()}`;
 
       console.log(`  🔗 URL del carrito: ${checkoutUrl}`);
-      console.log('  🏷️ Custom Attribute: _source=app_encuesta');
-      console.log('  ℹ️  Flow detectará: customAttributes._source = app_encuesta');
+      console.log('  🏷️ Line Item Property: _source=app_encuesta');
+      console.log('  ℹ️  Flow detectará en: customAttributes_item (dentro de cada producto)');
       console.log('  🚀 Redirigiendo al checkout...');
 
       // Frame busting: detectar iframe y redirigir apropiadamente
