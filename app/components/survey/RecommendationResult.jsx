@@ -99,129 +99,151 @@ export default function RecommendationResult({ recommendation, onBack = () => { 
 
 
   /**
-   * Función para redirigir al checkout de Shopify con line item properties y note attributes
-   * 
-   * @description
-   * Genera un Cart Permalink de Shopify e inyecta:
-   * 1. Line Item Property: `properties[_source]=app_encuesta` (oculta en el carrito)
-   * 2. Note Attribute: `note[source]=app_encuesta` (más fácil de detectar en Shopify Flow)
-   * 
-   * Maneja correctamente el frame busting cuando la app está en un iframe.
-   * 
-   * @param {string} variantId - ID de la variante del producto de Shopify
-   * @param {number} quantity - Cantidad del producto
-   * @param {string} shopDomain - Dominio de la tienda Shopify (ej: "retorn.com")
+   * Función para agregar productos al carrito usando Shopify Cart API
+   * Inyecta line item properties para que Shopify Flow pueda detectarlas
    */
-  const redirectToCheckout = (variantId, quantity, shopDomain) => {
+  const agregarProductoConProperties = async (variantId, quantity, shopDomain) => {
     try {
-      // 1. Construir el Cart Permalink base
-      const cartPermalink = `https://${shopDomain}/cart/${variantId}:${quantity}`;
-      
-      // 2. Construir los parámetros para identificar el origen en Shopify Flow
-      const params = new URLSearchParams();
-      
-      // Line Item Property para Shopify Flow (guardado DENTRO del producto)
-      params.append('properties[_source]', 'app_encuesta');
-      
-      const checkoutUrl = `${cartPermalink}?${params.toString()}`;
-      
-      console.log('🛒 Redirigiendo al checkout de Shopify...');
+      console.log('🛒 Agregando producto al carrito con Cart API...');
       console.log('  📦 Variant ID:', variantId);
       console.log('  🔢 Cantidad:', quantity);
-      console.log('  🏪 Dominio:', shopDomain);
-      console.log('  🔗 URL completa:', checkoutUrl);
-      console.log('  🏷️ Line Item Property: _source=app_encuesta');
-      console.log('  ℹ️  Flow detectará en: customAttributes_item.key = _source');
+
+      // Usar Shopify Cart API para agregar con properties
+      const response = await fetch(`https://${shopDomain}/cart/add.js`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          items: [{
+            id: variantId,
+            quantity: quantity,
+            properties: {
+              '_source': 'app_encuesta'
+            }
+          }]
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`Error HTTP: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('✅ Producto agregado:', result);
+      console.log('🏷️ Property inyectada: _source=app_encuesta');
+
+      // Redirigir al carrito después de agregar
+      const cartUrl = `https://${shopDomain}/cart`;
       
-      // 3. Frame Busting: Detectar si estamos en un iframe y redirigir en la ventana principal
       const isInIframe = window.self !== window.top;
-      
       if (isInIframe) {
-        console.log('  🖼️ Detectado iframe - Forzando redirección en ventana principal');
         try {
-          // Intentar acceder al top frame (puede fallar por políticas de seguridad)
-          window.top.location.href = checkoutUrl;
-        } catch (securityError) {
-          console.warn('  ⚠️ No se pudo acceder a window.top (bloqueo de seguridad)');
-          console.log('  🔄 Fallback: Abriendo en nueva pestaña');
-          window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
+          window.top.location.href = cartUrl;
+        } catch (e) {
+          window.open(cartUrl, '_blank', 'noopener,noreferrer');
         }
       } else {
-        // No estamos en iframe, redirección normal
-        window.location.href = checkoutUrl;
+        window.location.href = cartUrl;
       }
-      
+
     } catch (error) {
-      console.error('❌ Error en redirectToCheckout:', error);
-      // Fallback de emergencia: abrir en nueva pestaña
+      console.error('❌ Error agregando al carrito:', error);
+      // Fallback: usar permalink sin properties
       const fallbackUrl = `https://${shopDomain}/cart/${variantId}:${quantity}`;
-      window.open(fallbackUrl, '_blank', 'noopener,noreferrer');
+      const isInIframe = window.self !== window.top;
+      if (isInIframe) {
+        try {
+          window.top.location.href = fallbackUrl;
+        } catch (e) {
+          window.open(fallbackUrl, '_blank', 'noopener,noreferrer');
+        }
+      } else {
+        window.location.href = fallbackUrl;
+      }
     }
   };
 
   // Función para agregar productos al carrito de Shopify (múltiples productos)
-  const agregarAlCarrito = () => {
+  const agregarAlCarrito = async () => {
     try {
-      const items = [];
       const shopDomain = 'retorn.com';
+      const items = [];
 
       console.log('🛒 Construyendo carrito de compras...');
 
-      // Añadir producto seco si existe
+      // Preparar items con properties
       if (recomendacion.productoSeco?.varianteRecomendada?.variantId) {
         const cantidad = calcularCantidadProducto(recomendacion.productoSeco);
         const variantId = recomendacion.productoSeco.varianteRecomendada.variantId;
-        items.push(`${variantId}:${cantidad}`);
+        items.push({
+          id: variantId,
+          quantity: cantidad,
+          properties: {
+            '_source': 'app_encuesta'
+          }
+        });
         console.log(`  ✅ Producto seco: ${recomendacion.productoSeco.nombre}`);
         console.log(`     - Variant ID: ${variantId}`);
         console.log(`     - Cantidad: ${cantidad} unidad(es)`);
       }
 
-      // Añadir producto húmedo si existe (alimentación mixta)
       if (recomendacion.productoHumedo?.varianteRecomendada?.variantId) {
         const cantidad = calcularCantidadProducto(recomendacion.productoHumedo);
         const variantId = recomendacion.productoHumedo.varianteRecomendada.variantId;
-        items.push(`${variantId}:${cantidad}`);
+        items.push({
+          id: variantId,
+          quantity: cantidad,
+          properties: {
+            '_source': 'app_encuesta'
+          }
+        });
         console.log(`  ✅ Producto húmedo: ${recomendacion.productoHumedo.nombre}`);
         console.log(`     - Variant ID: ${variantId}`);
         console.log(`     - Cantidad: ${cantidad} unidad(es)`);
       }
 
-      // Validar que haya productos
       if (items.length === 0) {
         console.error('❌ No hay productos para agregar al carrito');
         return;
       }
 
-      // Construir la URL del carrito con line item property
-      const cartPermalink = `https://${shopDomain}/cart/${items.join(',')}`;
-      
-      const params = new URLSearchParams();
-      // Line Item Property para Shopify Flow (guardado DENTRO de cada producto)
-      params.append('properties[_source]', 'app_encuesta');
-      
-      const checkoutUrl = `${cartPermalink}?${params.toString()}`;
+      console.log('  🚀 Agregando productos con Cart API...');
+      console.log('  🏷️ Property en cada producto: _source=app_encuesta');
 
-      console.log(`  🔗 URL del carrito: ${checkoutUrl}`);
-      console.log('  🏷️ Line Item Property: _source=app_encuesta');
-      console.log('  ℹ️  Flow detectará en: customAttributes_item (dentro de cada producto)');
-      console.log('  🚀 Redirigiendo al checkout...');
+      // Usar Shopify Cart API
+      const response = await fetch(`https://${shopDomain}/cart/add.js`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ items })
+      });
 
-      // Frame busting: detectar iframe y redirigir apropiadamente
+      if (!response.ok) {
+        throw new Error(`Error HTTP: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log('✅ Productos agregados al carrito:', result);
+
+      // Redirigir al carrito
+      const cartUrl = `https://${shopDomain}/cart`;
       const isInIframe = window.self !== window.top;
       
       if (isInIframe) {
         try {
-          window.top.location.href = checkoutUrl;
+          window.top.location.href = cartUrl;
         } catch (e) {
-          window.open(checkoutUrl, '_blank', 'noopener,noreferrer');
+          window.open(cartUrl, '_blank', 'noopener,noreferrer');
         }
       } else {
-        window.location.href = checkoutUrl;
+        window.location.href = cartUrl;
       }
 
     } catch (error) {
       console.error('❌ Error al agregar productos al carrito:', error);
+      alert('Hubo un error al agregar los productos. Por favor, intenta de nuevo.');
     }
   };
 
